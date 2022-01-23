@@ -11,7 +11,7 @@ public class Manage_ItemDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "ItemMapper";
+	private String Mapper = "Manage_ItemMapper";
 
 	public List<Manage_ItemDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");

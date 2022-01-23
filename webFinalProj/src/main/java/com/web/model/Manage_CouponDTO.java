@@ -1,35 +1,45 @@
 package com.web.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Manage_CouponDTO {
-	private int Number;
-	private String name;
-	private String StartDate;
-	private String EndDate;
+	private int CouponID;
+	private String Name;
+	private Date StartDate;
+	private Date EndDate;
 	private int Discount;
 	private int Amount;
+	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
 	
-	public int getNumber() {
-		return Number;
+	public int getCouponID() {
+		return CouponID;
 	}
-	public void setNumber(int number) {
-		Number = number;
+	public void setCouponID(int couponID) {
+		CouponID = couponID;
 	}
 	public String getName() {
-		return name;
+		return Name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.Name = name;
 	}
-	public String getStartDate() {
+	public Date getStartDate() {
 		return StartDate;
 	}
-	public void setStartDate(String startDate) {
+	public String getStartDateStr() {
+		return form.format(StartDate);
+	}
+	public void setStartDate(Date startDate) {
 		StartDate = startDate;
 	}
-	public String getEndDate() {
+	public Date getEndDate() {
 		return EndDate;
 	}
-	public void setEndDate(String endDate) {
+	public String getEndDateStr() {
+		return form.format(EndDate);
+	}
+	public void setEndDate(Date endDate) {
 		EndDate = endDate;
 	}
 	public int getDiscount() {
@@ -46,7 +56,7 @@ public class Manage_CouponDTO {
 	}
 	@Override
 	public String toString() {
-		return "Manage_CouponDTO [Number=" + Number + ", name=" + name + ", StartDate=" + StartDate + ", EndDate="
+		return "Manage_CouponDTO [CouponID=" + CouponID + ", Name=" + Name + ", StartDate=" + StartDate + ", EndDate="
 				+ EndDate + ", Discount=" + Discount + ", Amount=" + Amount + "]";
 	}
 }

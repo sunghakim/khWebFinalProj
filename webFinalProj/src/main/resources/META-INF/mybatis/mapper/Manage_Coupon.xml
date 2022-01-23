@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_CouponMapper">
+	<resultMap id="Manage_CouponDTOMap" type="Manage_CouponDTO">
+		<result property="CouponID" column="COUPON_ID"/>
+		<result property="Name" column="NAME"/>
+		<result property="StartDate" column="START_DATE"/>
+		<result property="EndDate" column="END_DATE"/>
+		<result property="Discount" column="DISCOUNT"/>
+		<result property="Amount" column="AMOUNT"/>
+	</resultMap>
+	
+	<select id="selectList" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
+		SELECT * FROM COUPON;
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
+		SELECT * FROM COUPON WHERE COUPON_ID = #{CouponID}
+	</select>
+		
+	<insert id="insert" parameterType="Manage_CouponDTO">
+		INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL, #{Name}, #{StartDate}, #{EndDate}, #{Discount}, #{Amount})
+	</insert>
+	
+	<update id="update" parameterType="Manage_CouponDTO">
+		UPDATE COUPON SET NAME = #{Name}, START_DATE = #{StartDate}, END_DATE = #{EndDate}, DISCOUNT = #{Discount}, AMOUNT = #{Amount} WHERE COUPON_ID = #{CouponID}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM COUPON WHERE COUPON_ID = #{CouponID}
+	</delete>
+</mapper>

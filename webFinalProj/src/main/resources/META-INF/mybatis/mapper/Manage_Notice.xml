@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_NoticeMapper">
+	<resultMap id="Manage_NoticeDTOMap" type="Manage_NoticeDTO">
+		<result property="PostID" column="POST_ID"/>
+		<result property="WriterID" column="WRITER_ID"/>
+		<result property="BoardID" column="BOARD_ID"/>
+		<result property="title" column="TITLE"/>
+		<result property="Content" column="CONTENT"/>
+		<result property="PostViews" column="POST_VIEWS"/>
+		<result property="GoodNumber" column="GOOD_NUMBER"/>
+		<result property="PostingDate" column="POSTING_DATE"/>
+	</resultMap>
+	
+	<select id="selectList" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
+		SELECT * FROM POST WHERE BOARD_ID = 0
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
+		SELECT * FROM POST WHERE POST_ID = #{PostID} AND BOARD_ID = 0
+	</select>
+		
+	<insert id="insert" parameterType="Manage_NoticeDTO">
+		INSERT INTO POST VALUES(POST_SEQ.NEXTVAL, #{WriterID}, 0, #{Title}, #{Content}, 0, 0, SYSDATE)
+	</insert>
+	
+	<update id="update" parameterType="Manage_NoticeDTO"><!--구현 필요-->
+		UPDATE POST SET NAME = #{Name}, NAV_SHOW = #{NavShow} WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM POST WHERE POST_ID = #{PostID}
+	</delete>
+</mapper>

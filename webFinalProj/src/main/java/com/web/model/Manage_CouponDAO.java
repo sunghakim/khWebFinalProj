@@ -11,7 +11,7 @@ public class Manage_CouponDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "ReportMapper";
+	private String Mapper = "Manage_CouponMapper";
 
 	public List<Manage_CouponDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");

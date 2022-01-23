@@ -11,7 +11,7 @@ public class Manage_NoticeDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "ItemMapper";
+	private String Mapper = "Manage_NoticeMapper";
 
 	public List<Manage_NoticeDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");

@@ -31,7 +31,7 @@ public class View {
 		if (session.getAttribute("Logined_Account") != null) {
 			//로그인된 경우
 			AccountDTO = (Manage_AccountDTO)session.getAttribute("Logined_Account");
-			if(AccountDTO.getUser_Type() == 0) {
+			if(AccountDTO.getUserType() == 0) {
 				//로그인된 계정의 권한이 관리자인 경우
 				mv.setViewName(NextPage);//접근할 페이지 설정
 				return 0;

@@ -1,26 +1,29 @@
 package com.web.model;
 
 public class Manage_ItemDTO {
-	private String ID;
-	private String Category;
+	//Item
+	private int ItemID;
+	private int CategoryID;
 	private String Name;
 	private String Content;
 	private int Price;
+	//Item_Option
+	private int ItemOptionID;
 	private String ItemSize;
 	private String Color;
 	private int Amount;
 	
-	public String getID() {
-		return ID;
+	public int getItemID() {
+		return ItemID;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setItemID(int itemID) {
+		ItemID = itemID;
 	}
-	public String getCategory() {
-		return Category;
+	public int getCategoryID() {
+		return CategoryID;
 	}
-	public void setCategory(String category) {
-		Category = category;
+	public void setCategoryID(int categoryID) {
+		CategoryID = categoryID;
 	}
 	public String getName() {
 		return Name;
@@ -39,6 +42,12 @@ public class Manage_ItemDTO {
 	}
 	public void setPrice(int price) {
 		Price = price;
+	}
+	public int getItemOptionID() {
+		return ItemOptionID;
+	}
+	public void setItemOptionID(int itemOptionID) {
+		ItemOptionID = itemOptionID;
 	}
 	public String getItemSize() {
 		return ItemSize;
@@ -60,7 +69,7 @@ public class Manage_ItemDTO {
 	}
 	@Override
 	public String toString() {
-		return "Manage_ItemDTO [ID=" + ID + ", Category=" + Category + ", Name=" + Name + ", Content=" + Content
+		return "Manage_ItemDTO [ItemID=" + ItemID + ", CategoryID=" + CategoryID + ", Name=" + Name + ", Content=" + Content
 				+ ", Price=" + Price + ", ItemSize=" + ItemSize + ", Color=" + Color + ", Amount=" + Amount + "]";
 	}
 }

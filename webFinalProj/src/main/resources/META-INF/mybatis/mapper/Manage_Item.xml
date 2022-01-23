@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_ItemMapper">
+	<resultMap id="Manage_ItemDTOMap" type="Manage_ItemDTO">
+		<!--Item-->
+		<result property="ItemID" column="ITEM_ID"/>
+		<result property="CategoryID" column="ITEM_CATEGORY_ID"/>
+		<result property="Name" column="Name"/>
+		<result property="Content" column="CONTENT"/>
+		<result property="Price" column="PRICE"/>
+		<!--Item_Option-->
+		<result property="ItemOptionID" column="ITEM_OPTION_ID"/>
+		<result property="ItemSize" column="ITEM_SIZE"/>
+		<result property="Color" column="COLOR"/>
+		<result property="Amount" column="AMOUNT"/>
+	</resultMap>
+	<select id="selectList" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
+		SELECT * FROM ITEM;
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
+		SELECT * FROM ITEM WHERE ITEM_ID = #{ItemID}
+	</select>
+		
+	<insert id="insert" parameterType="Manage_ItemDTO"><!--구현 필요-->
+		INSERT INTO ITEM VALUES(.NEXTVAL, #{Name}, #{NavShow})
+	</insert>
+	
+	<update id="update" parameterType="Manage_ItemDTO"><!--구현 필요-->
+		UPDATE ITEM SET NAME = #{Name}, NAV_SHOW = #{NavShow} WHERE ITEM_ID = #{ItemID}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM ITEM WHERE ITEM_ID = #{ItemID}
+	</delete>
+</mapper>

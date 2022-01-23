@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_QuestionMapper">
+	<resultMap id="Manage_QuestionDTOMap" type="Manage_QuestionDTO">
+		<result property="QuestionID" column="QUESTION_ID"/>
+		<result property="ItemID" column="ITEM_ID"/>
+		<result property="WriterID" column="WRITER_ID"/>
+		<result property="QuestionTitle" column="QUESTION_TITLE"/>
+		<result property="QuestionContent" column="QUESTION_CONTENT"/>
+		<result property="QuestionDate" column="QUESTION_DATE"/>
+		<result property="Result" column="RESULT"/>
+		<result property="AnswerTitle" column="ANSWER_TITLE"/>
+		<result property="AnswerContent" column="ANSWER_CONTENT"/>
+		<result property="AnswerDate" column="ANSWER_DATE"/>
+	</resultMap>
+	
+	<select id="selectList" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
+		SELECT * FROM QUESTION
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
+		SELECT * FROM QUESTION WHERE QUESTION_ID = #{QuestionID}
+	</select>
+	
+	<update id="update" parameterType="Manage_QuestionDTO">
+		  UPDATE QUESTION 
+		  SET RESULT = #{Result}
+		, ANSWER_TITLE = #{AnswerTitle}
+		, ANSWER_CONTENT = #{AnswerContent}
+		, ANSWER_DATE = SYSDATE
+		  WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	</update>
+</mapper>

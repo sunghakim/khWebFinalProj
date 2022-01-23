@@ -11,7 +11,7 @@ public class Manage_QuestionDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "QuestionMapper";
+	private String Mapper = "Manage_QuestionMapper";
 
 	public List<Manage_QuestionDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");
@@ -20,16 +20,8 @@ public class Manage_QuestionDAO {
 	public Manage_QuestionDTO selectOne(int ID) {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
 	}
-	
-	public int insert(Manage_QuestionDTO DTO) {
-		return this.session.delete(Mapper + ".insert", DTO);
-	}
 
 	public int update(Manage_QuestionDTO DTO) {
 		return this.session.update(Mapper + ".update", DTO);
-	}
-	
-	public int delete(int ID) {
-		return this.session.delete(Mapper + ".delete", ID);
 	}
 }

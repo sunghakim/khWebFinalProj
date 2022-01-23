@@ -11,7 +11,7 @@ public class Manage_PurchaseDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "PurchaseMapper";
+	private String Mapper = "Manage_PurchaseMapper";
 
 	public List<Manage_PurchaseDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");

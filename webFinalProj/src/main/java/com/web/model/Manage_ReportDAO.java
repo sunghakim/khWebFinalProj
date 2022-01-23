@@ -11,7 +11,7 @@ public class Manage_ReportDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "ReportMapper";
+	private String Mapper = "Manage_ReportMapper";
 
 	public List<Manage_ReportDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");

@@ -4,17 +4,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Manage_ReportDTO {
-	//REPORT테이블
+	//Report
 	private int ReportID;
 	private String ReportReasonID;
 	private String ReporterID;
-	private String ReporteedAccountID;
+	private String ReportedAccountID;
 	private int ReportedPostID;
 	private Date ReportedDate;
 	private String Content;
 	private int Result;
 	private Date ClosedDate;
-	//PUNISH테이블
+	//Report_Reason
+	private String ReportReason;
+	//Punish
 	private Date StartDate;
 	private Date EndDate;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
@@ -36,11 +38,11 @@ public class Manage_ReportDTO {
 	public void setReporterID(String reporterID) {
 		ReporterID = reporterID;
 	}
-	public String getReporteedAccountID() {
-		return ReporteedAccountID;
+	public String getReportedAccountID() {
+		return ReportedAccountID;
 	}
-	public void setReporteedAccountID(String reporteedAccountID) {
-		ReporteedAccountID = reporteedAccountID;
+	public void setReportedAccountID(String reportedAccountID) {
+		ReportedAccountID = reportedAccountID;
 	}
 	public int getReportedPostID() {
 		return ReportedPostID;
@@ -90,6 +92,12 @@ public class Manage_ReportDTO {
 	public Date getEndDate() {
 		return EndDate;
 	}
+	public String getReportReason() {
+		return ReportReason;
+	}
+	public void setReportReason(String reportReason) {
+		ReportReason = reportReason;
+	}
 	public String getEndDateStr() {
 		return form.format(EndDate);
 	}
@@ -99,7 +107,7 @@ public class Manage_ReportDTO {
 	@Override
 	public String toString() {
 		return "Manage_ReportDTO [ReportID=" + ReportID + ", ReportReasonID=" + ReportReasonID + ", ReporterID="
-				+ ReporterID + ", ReporteedAccountID=" + ReporteedAccountID + ", ReportedPostID=" + ReportedPostID
+				+ ReporterID + ", ReportedAccountID=" + ReportedAccountID + ", ReportedPostID=" + ReportedPostID
 				+ ", ReportedDate=" + ReportedDate + ", Content=" + Content + ", Result=" + Result + ", ClosedDate="
 				+ ClosedDate + ", StartDate=" + StartDate + ", EndDate=" + EndDate + "]";
 	}

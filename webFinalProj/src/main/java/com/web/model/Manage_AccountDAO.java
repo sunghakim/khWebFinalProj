@@ -11,7 +11,7 @@ public class Manage_AccountDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "AccountMapper";
+	private String Mapper = "Manage_AccountMapper";
 
 	public List<Manage_AccountDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");
@@ -21,6 +21,6 @@ public class Manage_AccountDAO {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
 	}
 	public int delete(String ID) {
-		return this.session.delete(Mapper + ".deleteAccount",ID);
+		return this.session.delete(Mapper + ".delete",ID);
 	}
 }

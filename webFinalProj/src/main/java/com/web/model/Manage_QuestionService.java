@@ -19,15 +19,7 @@ public class Manage_QuestionService {
 		return dao.selectOne(ID);
 	}
 	
-	public boolean insert(Manage_QuestionDTO DTO) {
-		return dao.insert(DTO) == 1 ? true:false;
-	}
-	
 	public boolean update(Manage_QuestionDTO DTO) {
 		return dao.update(DTO) == 1 ? true:false;
-	}
-	
-	public boolean delete(int ID) {
-		return dao.delete(ID) == 1 ? true:false;
 	}
 }

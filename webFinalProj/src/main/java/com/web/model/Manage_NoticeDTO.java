@@ -7,8 +7,8 @@ public class Manage_NoticeDTO {
 //POST DTO와 동일함, 통합필요, 임시DTO
 	private int PostID;
 	private int WriterID;
-	private String BoardID = "공지사항";
-	private String title;
+	private int BoardID = 0;
+	private String Title;
 	private String Content;
 	private int PostViews;
 	private int GoodNumber;
@@ -26,17 +26,17 @@ public class Manage_NoticeDTO {
 	public void setWriterID(int writerID) {
 		WriterID = writerID;
 	}
-	public String getBoardID() {
+	public int getBoardID() {
 		return BoardID;
 	}
-	public void setBoardID(String boardID) {
+	public void setBoardID(int boardID) {
 		BoardID = boardID;
 	}
 	public String getTitle() {
-		return title;
+		return Title;
 	}
 	public void setTitle(String title) {
-		this.title = title;
+		this.Title = title;
 	}
 	public String getContent() {
 		return Content;
@@ -67,8 +67,8 @@ public class Manage_NoticeDTO {
 	}
 	@Override
 	public String toString() {
-		return "Manage_NoticeDTO [PostID=" + PostID + ", WriterID=" + WriterID + ", BoardID=" + BoardID + ", title="
-				+ title + ", Content=" + Content + ", PostViews=" + PostViews + ", GoodNumber=" + GoodNumber
+		return "Manage_NoticeDTO [PostID=" + PostID + ", WriterID=" + WriterID + ", BoardID=" + BoardID + ", Title="
+				+ Title + ", Content=" + Content + ", PostViews=" + PostViews + ", GoodNumber=" + GoodNumber
 				+ ", PostingDate=" + PostingDate + "]";
 	}
 }

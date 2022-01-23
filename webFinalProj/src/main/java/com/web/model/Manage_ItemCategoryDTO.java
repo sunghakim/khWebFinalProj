@@ -1,14 +1,14 @@
 package com.web.model;
 
 public class Manage_ItemCategoryDTO {
-	private int ID;
+	private int ItemCategoryID;
 	private String Name;
-	private boolean NavShow = false;
-	public int getID() {
-		return ID;
+	private char NavShow;
+	public int getItemCategoryID() {
+		return ItemCategoryID;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setItemCategoryID(int itemCategoryID) {
+		ItemCategoryID = itemCategoryID;
 	}
 	public String getName() {
 		return Name;
@@ -16,12 +16,14 @@ public class Manage_ItemCategoryDTO {
 	public void setName(String name) {
 		Name = name;
 	}
-	public boolean isNavShow() {
+	public char isNavShow() {
 		return NavShow;
 	}
-	public void setNavShow(boolean navShow) {
+	public void setNavShow(char navShow) {
 		NavShow = navShow;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "Manage_ItemCategoryDTO [ItemCategoryID=" + ItemCategoryID + ", Name=" + Name + ", NavShow=" + NavShow + "]";
+	}
 }
