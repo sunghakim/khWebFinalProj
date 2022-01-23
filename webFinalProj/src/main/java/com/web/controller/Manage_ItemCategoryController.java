@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_ItemCategoryService;
 import com.web.model.Manage_ItemDTO;
-import com.web.model.View;
+import com.web.view.View;
 
 @Controller
 public class Manage_ItemCategoryController {

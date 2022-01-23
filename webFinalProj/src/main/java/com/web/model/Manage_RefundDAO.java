@@ -13,19 +13,19 @@ public class Manage_RefundDAO {
 	SqlSession session;
 	private String Mapper = "RefundMapper";
 
-	public List<Manage_RefundDTO> selectList() {
+	public List<Manage_PurchaseDTO> selectList() {
 		return this.session.selectList(Mapper + ".selectList");
 	}
 
-	public Manage_RefundDTO selectOne(int ID) {
+	public Manage_PurchaseDTO selectOne(int ID) {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
 	}
 	
-	public int insert(Manage_RefundDTO DTO) {
+	public int insert(Manage_PurchaseDTO DTO) {
 		return this.session.delete(Mapper + ".insert", DTO);
 	}
 
-	public int update(Manage_RefundDTO DTO) {
+	public int update(Manage_PurchaseDTO DTO) {
 		return this.session.update(Mapper + ".update", DTO);
 	}
 	

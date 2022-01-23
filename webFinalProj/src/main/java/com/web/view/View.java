@@ -1,10 +1,28 @@
-package com.web.model;
+package com.web.view;
 
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
+
+import com.web.model.Manage_AccountDTO;
+import com.web.model.Manage_AccountService;
+import com.web.model.Manage_CouponDTO;
+import com.web.model.Manage_CouponService;
+import com.web.model.Manage_ItemCategoryDTO;
+import com.web.model.Manage_ItemCategoryService;
+import com.web.model.Manage_ItemDTO;
+import com.web.model.Manage_ItemService;
+import com.web.model.Manage_NoticeDTO;
+import com.web.model.Manage_NoticeService;
+import com.web.model.Manage_PurchaseDTO;
+import com.web.model.Manage_PurchaseService;
+import com.web.model.Manage_QuestionDTO;
+import com.web.model.Manage_QuestionService;
+import com.web.model.Manage_RefundService;
+import com.web.model.Manage_ReportDTO;
+import com.web.model.Manage_ReportService;
 
 public class View {
 	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
@@ -173,10 +191,10 @@ public class View {
 	//목록(-1)/단일(else)정보가 필요한 경우
 	public void getRefundInfo(ModelAndView mv, Manage_RefundService Service, int Type) {
 		if (Type == -1) {
-			List<Manage_RefundDTO> List = Service.selectList();
+			List<Manage_PurchaseDTO> List = Service.selectList();
 			mv.addObject("List", List);
 		} else {
-			Manage_RefundDTO DTO = Service.selectOne(Type);
+			Manage_PurchaseDTO DTO = Service.selectOne(Type);
 			mv.addObject("DTO", DTO);
 		}
 	}
@@ -240,13 +258,7 @@ public class View {
 //-------------------------------------------------------------
 
 	//통계 페이지 뷰
-	public void getStatistics(ModelAndView mv, Manage_PurchaseService Service, int Type) {
-		if (Type == -1) {
-			List<Manage_QuestionDTO> List = Service.selectList();
-			mv.addObject("List", List);
-		} else {
-			Manage_QuestionDTO DTO = Service.selectOne(Type);
-			mv.addObject("DTO", DTO);
-		}
+	public void getStatistics(ModelAndView mv, Manage_PurchaseService Service) {
+		
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_RefundDTO;
 import com.web.model.Manage_RefundService;
-import com.web.model.View;
+import com.web.view.View;
 
 @Controller
 public class Manage_RefundController {

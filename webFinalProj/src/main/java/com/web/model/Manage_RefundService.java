@@ -11,19 +11,19 @@ public class Manage_RefundService {
 	@Autowired
 	Manage_RefundDAO dao;
 	
-	public List<Manage_RefundDTO> selectList() {
+	public List<Manage_PurchaseDTO> selectList() {
 		return dao.selectList();
 	}
 
-	public Manage_RefundDTO selectOne(int ID) {
+	public Manage_PurchaseDTO selectOne(int ID) {
 		return dao.selectOne(ID);
 	}
 	
-	public boolean insert(Manage_RefundDTO DTO) {
+	public boolean insert(Manage_PurchaseDTO DTO) {
 		return dao.insert(DTO) == 1 ? true:false;
 	}
 	
-	public boolean update(Manage_RefundDTO DTO) {
+	public boolean update(Manage_PurchaseDTO DTO) {
 		return dao.update(DTO) == 1 ? true:false;
 	}
 	

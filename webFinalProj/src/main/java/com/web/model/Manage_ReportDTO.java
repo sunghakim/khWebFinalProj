@@ -4,31 +4,30 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Manage_ReportDTO {
-	private int ID;
-	private int ReportReasonID;
+	//REPORT테이블
+	private int ReportID;
+	private String ReportReasonID;
 	private String ReporterID;
+	private String ReporteedAccountID;
 	private int ReportedPostID;
-	private Date ReportDate;
+	private Date ReportedDate;
 	private String Content;
 	private int Result;
 	private Date ClosedDate;
-	
-	//PUNISH테이블에 있는 내용입니다(조인문으로 불러오기)
+	//PUNISH테이블
 	private Date StartDate;
 	private Date EndDate;
-	
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
-	
-	public int getID() {
-		return ID;
+	public int getReportID() {
+		return ReportID;
 	}
-	public void setID(int iD) {
-		ID = iD;
+	public void setReportID(int reportID) {
+		ReportID = reportID;
 	}
-	public int getReportReasonID() {
+	public String getReportReasonID() {
 		return ReportReasonID;
 	}
-	public void setReportReasonID(int reportReasonID) {
+	public void setReportReasonID(String reportReasonID) {
 		ReportReasonID = reportReasonID;
 	}
 	public String getReporterID() {
@@ -37,20 +36,26 @@ public class Manage_ReportDTO {
 	public void setReporterID(String reporterID) {
 		ReporterID = reporterID;
 	}
+	public String getReporteedAccountID() {
+		return ReporteedAccountID;
+	}
+	public void setReporteedAccountID(String reporteedAccountID) {
+		ReporteedAccountID = reporteedAccountID;
+	}
 	public int getReportedPostID() {
 		return ReportedPostID;
 	}
 	public void setReportedPostID(int reportedPostID) {
 		ReportedPostID = reportedPostID;
 	}
-	public Date getReportedPostDate() {
-		return ReportedPostDate;
+	public Date getReportedDate() {
+		return ReportedDate;
 	}
-	public String getReportedPostDateStr() {
-		return form.format(ReportedPostDate);
+	public String getReportDateStr() {
+		return form.format(ReportedDate);
 	}
-	public void setReportedPostDate(Date reportedPostDate) {
-		ReportedPostDate = reportedPostDate;
+	public void setReportedDate(Date reportedDate) {
+		ReportedDate = reportedDate;
 	}
 	public String getContent() {
 		return Content;
@@ -73,10 +78,29 @@ public class Manage_ReportDTO {
 	public void setClosedDate(Date closedDate) {
 		ClosedDate = closedDate;
 	}
+	public Date getStartDate() {
+		return StartDate;
+	}
+	public String getStartDateStr() {
+		return form.format(StartDate);
+	}
+	public void setStartDate(Date startDate) {
+		StartDate = startDate;
+	}
+	public Date getEndDate() {
+		return EndDate;
+	}
+	public String getEndDateStr() {
+		return form.format(EndDate);
+	}
+	public void setEndDate(Date endDate) {
+		EndDate = endDate;
+	}
 	@Override
 	public String toString() {
-		return "Manage_ReportDTO [ID=" + ID + ", ReportReasonID=" + ReportReasonID + ", ReporterID=" + ReporterID
-				+ ", ReportedPostID=" + ReportedPostID + ", ReportedPostDate=" + ReportedPostDate + ", Content="
-				+ Content + ", Result=" + Result + ", ClosedDate=" + ClosedDate + "]";
+		return "Manage_ReportDTO [ReportID=" + ReportID + ", ReportReasonID=" + ReportReasonID + ", ReporterID="
+				+ ReporterID + ", ReporteedAccountID=" + ReporteedAccountID + ", ReportedPostID=" + ReportedPostID
+				+ ", ReportedDate=" + ReportedDate + ", Content=" + Content + ", Result=" + Result + ", ClosedDate="
+				+ ClosedDate + ", StartDate=" + StartDate + ", EndDate=" + EndDate + "]";
 	}
 }

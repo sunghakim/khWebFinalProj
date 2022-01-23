@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_QuestionDTO;
 import com.web.model.Manage_QuestionService;
-import com.web.model.View;
+import com.web.view.View;
 
 @Controller
 public class Manage_QuestionController {
