@@ -37,7 +37,12 @@ public class Manage_AccountController {
 	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
 	public ModelAndView deleteAccount(HttpSession session, ModelAndView mv, String ID) {
 		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.delete(ID);
+			boolean result = false;
+			try {
+				result = Service.delete(ID);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			view.setAccountResult(mv, Service, result);
 		}
 		return mv;

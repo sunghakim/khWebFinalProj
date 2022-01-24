@@ -48,7 +48,7 @@ public class Manage_ReportController {
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
 	public ModelAndView updateReport(HttpSession session, ModelAndView mv, Manage_ReportDTO DTO, int Action) {
 		if (view.isManager(mv, session, URL) == 0) {
-			if (PunishService.insert) {}//PunishDB에 내용추가
+			if (Service.insert(DTO)) {}//PunishDB에 내용추가
 			DTO.setResult(Action);
 			DTO.setClosedDate(new Date());
 			boolean result = Service.update(DTO);

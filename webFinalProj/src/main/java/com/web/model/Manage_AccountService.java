@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class Manage_AccountService {
@@ -18,8 +19,13 @@ public class Manage_AccountService {
 	public Manage_AccountDTO selectOne(String ID) {
 		return dao.selectOne(ID);
 	}
-
-	public boolean delete(String ID) {
-		return dao.delete(ID) == 1 ? true:false;
+	
+	@Transactional(rollbackFor=Exception.class)
+	public boolean delete(String ID) throws Exception{
+		if (dao.delete(ID) == 1) {
+			return true;
+		} else {
+			throw new Exception("계정 탈퇴 처리중 문제발생");
+		}
 	}
 }
