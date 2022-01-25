@@ -40,7 +40,7 @@ public class Manage_ItemCategoryController {
 	}
 	
 	//상품 카테고리DB에 추가 요청
-	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
+	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, Manage_ItemDTO DTO) {
 		if (view.isManager(mv, session, URL) == 0) {
 			boolean result = Service.insert(DTO);

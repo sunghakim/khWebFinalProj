@@ -1,6 +1,0 @@
-#오라클 계정정보가 들어있는 파일
-user = FP_USER
-password = Database1234
-driver = oracle.jdbc.driver.OracleDriver
-cloud-url = jdbc:oracle:thin:@tdb_medium?TNS_ADMIN=c:/Users/Coder/.eclipse/Wallet_TDB
-local-url = jdbc:oracle:thin:@localhost:5/XEPDB1

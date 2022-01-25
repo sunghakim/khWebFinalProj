@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.model.Manage_RefundDTO;
 import com.web.model.Manage_RefundService;
 import com.web.view.View;
 
@@ -44,7 +43,7 @@ public class Manage_RefundController {
 		
 	//환불DB에 수정 요청
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
-	public ModelAndView updateItem(HttpSession session, ModelAndView mv, Manage_RefundDTO DTO) {
+	public ModelAndView updateItem(HttpSession session, ModelAndView mv) {
 		if (view.isManager(mv, session, URL) == 0) {
 			boolean result = Service.update(DTO);
 			view.setRefundResult(mv, Service, result);

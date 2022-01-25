@@ -12,15 +12,21 @@ public class Manage_AccountDAO {
 	@Autowired
 	SqlSession session;
 	private String Mapper = "Manage_AccountMapper";
-
-	public List<Manage_AccountDTO> selectList() {
-		return this.session.selectList(Mapper + ".selectList");
+	
+	
+	public int selectTotalPageCount() {
+		return this.session.selectOne(Mapper + ".selectTotalPageCount");
 	}
 
-	public Manage_AccountDTO selectOne(String ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
+	public Manage_AccountDTO selectOne(int accountID) {
+		return this.session.selectOne(Mapper + ".selectOne", accountID);
 	}
-	public int delete(String ID) {
-		return this.session.delete(Mapper + ".delete",ID);
+	
+	public List<Manage_AccountDTO> selectList(int Page) {
+		return this.session.selectList(Mapper + ".selectList", Page);
+	}
+	
+	public int delete(String accountID) {
+		return this.session.delete(Mapper + ".delete", accountID);
 	}
 }

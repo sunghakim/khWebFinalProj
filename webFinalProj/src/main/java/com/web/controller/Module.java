@@ -1,0 +1,46 @@
+package com.web.controller;
+
+import javax.servlet.http.HttpSession;
+
+import org.springframework.web.servlet.ModelAndView;
+
+import com.web.model.Manage_AccountDTO;
+import com.web.model.Manage_AccountService;
+
+public class Module {
+	//컨트롤러에서 중복되는 로직을 모듈화한다.
+	
+	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
+	public int isManager(ModelAndView mv, HttpSession session, String Page) {
+		Manage_AccountDTO AccountDTO;
+		if (session.getAttribute("Account") != null) {
+			//로그인된 경우
+			AccountDTO = (Manage_AccountDTO)session.getAttribute("Account");
+			if(AccountDTO.getUserType() == 0) {
+				//로그인된 계정의 권한이 관리자인 경우
+				mv.setViewName(Page);//접근할 페이지 설정
+				return 0;
+			} else {
+				//권한 부족, 접근 거부
+				mv.addObject("res", "AccessDenied");
+				mv.setViewName("redirect:/");
+				return 1;
+			}
+		} else {
+			//로그인 되지 않은 경우
+			mv.setViewName("redirect:/Account/Login");
+			return 2;
+		}
+	}
+	
+	//DB작업 결과가 필요한 경우
+	public void setResult(ModelAndView mv, boolean ServiceMethodResult) {
+		if (ServiceMethodResult) {
+			mv.addObject("res", "success");
+		} else {
+			mv.addObject("res", "false");
+		}
+	}
+	
+	
+}

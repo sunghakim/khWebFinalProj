@@ -9,66 +9,105 @@ public class Manage_AccountDTO {
 	private int UserType;
 	private String Name;
 	private String Phone;
+	private String Email;
 	private String Address;
 	private String NickName;
-	private int LoginType;
 	private Date JoinDate;
-	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
+	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd HH");
+	
 	public String getAccountID() {
 		return AccountID;
 	}
-	public void setAccount_ID(String accountID) {
+
+	public void setAccountID(String accountID) {
 		AccountID = accountID;
 	}
+
 	public String getPassword() {
 		return Password;
 	}
+
 	public void setPassword(String password) {
 		Password = password;
 	}
+
 	public int getUserType() {
 		return UserType;
 	}
+	
+	public String getUserTypeStr() {
+		switch(UserType) {
+		case(0):
+			return "관리자";
+		case(1):
+			return "회원";
+		case(2):
+			return "비회원";
+		default:
+			return "";
+		}
+	}
+
 	public void setUserType(int userType) {
 		UserType = userType;
 	}
+
 	public String getName() {
 		return Name;
 	}
+
 	public void setName(String name) {
 		Name = name;
 	}
+
 	public String getPhone() {
 		return Phone;
 	}
+
 	public void setPhone(String phone) {
 		Phone = phone;
 	}
+
+	public String getEmail() {
+		return Email;
+	}
+
+	public void setEmail(String email) {
+		Email = email;
+	}
+
 	public String getAddress() {
 		return Address;
 	}
+
 	public void setAddress(String address) {
 		Address = address;
 	}
+
 	public String getNickName() {
 		return NickName;
 	}
+
 	public void setNickName(String nickName) {
 		NickName = nickName;
 	}
-	public int getLoginType() {
-		return LoginType;
-	}
-	public void setLoginType(int loginType) {
-		LoginType = loginType;
-	}
+
 	public Date getJoinDate() {
 		return JoinDate;
 	}
+
 	public String getJoinDateStr() {
 		return form.format(JoinDate);
 	}
+
 	public void setJoinDate(Date joinDate) {
 		JoinDate = joinDate;
+	}
+
+	@Override
+	public String toString() {
+		return "Manage_AccountDTO [AccountID=" + AccountID + ", Password=" + Password + ", UserType=" + UserType
+				+ ", Name=" + Name + ", Phone=" + Phone + ", Email=" + Email + ", Address=" + Address + ", NickName="
+				+ NickName + ", JoinDate=" + JoinDate + "]";
 	}
 }

@@ -11,14 +11,24 @@ public class Manage_AccountService {
 	
 	@Autowired
 	Manage_AccountDAO dao;
+	
+	public int selectTotalPageCount() {
+		int result = dao.selectTotalPageCount();
+		if (result < 11) {
+			return 1;
+		} else {
+			return (result/10)+1;
+		}
+	}
 
-	public List<Manage_AccountDTO> selectList() {
-		return dao.selectList();
+	public Manage_AccountDTO selectOne(int accountID) {
+		return dao.selectOne(accountID);
 	}
 	
-	public Manage_AccountDTO selectOne(String ID) {
-		return dao.selectOne(ID);
+	public List<Manage_AccountDTO> selectList(int Page) {
+		return dao.selectList(Page);
 	}
+	
 	
 	@Transactional(rollbackFor=Exception.class)
 	public boolean delete(String ID) throws Exception{

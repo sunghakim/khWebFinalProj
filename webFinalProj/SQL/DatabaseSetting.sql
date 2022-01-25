@@ -60,6 +60,21 @@ CREATE TABLE ACCOUNT(
 	, NICKNAME VARCHAR2(50)
 	, JOINDATE DATE DEFAULT (SYSDATE)
 );
+SELECT * FROM ACCOUNT;
+INSERT INTO ACCOUNT VALUES('tester', '1234', 0, '관리자', '01055553333', 'manager@shop.com' ,'문석구 정복동 232-4', '관리자닉네임', SYSDATE);
+INSERT INTO ACCOUNT VALUES('tester22', '1234', 0, '관리자', '01055553333', 'manager@shop.com' ,'문석구 정복동 232-4', '관리자닉네임', SYSDATE);
+INSERT INTO ACCOUNT VALUES('tester23', '1234', 0, '관리자', '01055553333', 'manager@shop.com' ,'문석구 정복동 232-4', '관리자닉네임', SYSDATE);
+INSERT INTO ACCOUNT VALUES('tester24', '1234', 0, '관리자', '01055553333', 'manager@shop.com' ,'문석구 정복동 232-4', '관리자닉네임', SYSDATE);
+
+SELECT * FROM ACCOUNT ORDER BY JOINDATE ASC;
+SELECT RNUM, B.*
+FROM (
+	SELECT ROWNUM AS RNUM, A.*
+	FROM ACCOUNT A
+	ORDER BY JOINDATE ASC
+) B
+WHERE RNUM >= 1
+AND RNUM <= 1;
 ---------------------------------------------
 CREATE TABLE ITEM_CATEGORY(
 	  ITEM_CATEGORY_ID NUMBER PRIMARY KEY

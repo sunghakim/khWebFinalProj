@@ -34,7 +34,7 @@ public class Manage_PurchaseController {
 	}
 	
 	//구매정보 관리 페이지 접속
-	@RequestMapping(value = URL, method = RequestMethod.GET)
+	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectPurchase(HttpSession session, ModelAndView mv, int ID) {
 		if (view.isManager(mv, session, URL) == 0) {
 			view.getPurchaseInfo(mv, Service, ID);

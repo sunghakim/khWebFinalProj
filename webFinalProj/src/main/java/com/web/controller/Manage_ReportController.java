@@ -36,7 +36,7 @@ public class Manage_ReportController {
 	}
 	
 	//신고내역 상세 조회 (◆이미지 가져와서 보여주는 방법 구현할것)
-	@RequestMapping(value = URL, method = RequestMethod.GET)
+	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectReport(HttpSession session, ModelAndView mv, int ID) {
 		if (view.isManager(mv, session, URL + "Detail") == 0) {
 			view.getReportInfo(mv, Service, ID);

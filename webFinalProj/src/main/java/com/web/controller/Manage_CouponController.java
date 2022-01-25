@@ -34,7 +34,7 @@ public class Manage_CouponController {
 	}
 	
 	//쿠폰 관리 페이지 접속
-	@RequestMapping(value = URL, method = RequestMethod.GET)
+	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectCouponList(HttpSession session, ModelAndView mv, int ID) {
 		if (view.isManager(mv, session, URL) == 0) {
 			view.getCouponInfo(mv, Service, ID);

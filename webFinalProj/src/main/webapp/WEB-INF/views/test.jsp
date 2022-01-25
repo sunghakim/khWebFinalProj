@@ -7,8 +7,8 @@
 </head>
 <body>
 	<main class="container">
-		<c:if test="${sessionScope.AccountVO eq null}">
-			<form>
+		<c:if test="${sessionScope.Account eq null}">
+			<form method="post" action="/Login">
 				<div>
 					<input type="text" name="ID" placeholder="아이디" required>
 				</div>
@@ -18,12 +18,12 @@
 				<button type="submit">로그인</button>
 			</form>
 		</c:if>
-		<c:if test="${sessionScope.AccountVO ne null}">
+		<c:if test="${sessionScope.Account ne null}">
     	<span>
-			<button type="submit" onclick="location.href='/Board'">로그아웃</button>
+			<button type="submit" onclick="location.href='/Logout'">로그아웃</button>
 		</span>
 		<span>
-			<button type="submit" onclick="location.href='/Board'">관리자 페이지</button>
+			<button type="submit" onclick="location.href='/Manager/Account'">관리자 페이지</button>
 		</span>
 		</c:if>
 	</main>

@@ -34,7 +34,7 @@ public class Manage_QuestionController {
 	}
 	
 	//문의 관리 상세 페이지 접속
-	@RequestMapping(value = URL, method = RequestMethod.GET)
+	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectQuestion(HttpSession session, ModelAndView mv, int ID) {
 		if (view.isManager(mv, session, URL) == 0) {
 			view.getQuestionInfo(mv, Service, ID);

@@ -25,50 +25,23 @@ import com.web.model.Manage_ReportDTO;
 import com.web.model.Manage_ReportService;
 
 public class View {
-	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
-	public int isManager(ModelAndView mv, HttpSession session, String NextPage) {
-		Manage_AccountDTO AccountDTO;
-		if (session.getAttribute("Logined_Account") != null) {
-			//로그인된 경우
-			AccountDTO = (Manage_AccountDTO)session.getAttribute("Logined_Account");
-			if(AccountDTO.getUserType() == 0) {
-				//로그인된 계정의 권한이 관리자인 경우
-				mv.setViewName(NextPage);//접근할 페이지 설정
-				return 0;
-			} else {
-				//권한 부족, 접근 거부
-				mv.addObject("res", "AccessDenied");
-				mv.setViewName("redirect:/");
-				return 1;
-			}
-		} else {
-			//로그인 되지 않은 경우
-			mv.addObject("NextPage", NextPage);//로그인 후 해당페이지로 안내
-			mv.setViewName("redirect:/Account/Login?NextURL=" + NextPage);
-			return 2;
-		}
-	}
-	
 //-------------------------------------------------------------
 	
-	//목록(-1)/단일(else)정보가 필요한 경우
-	public void getAccountInfo(ModelAndView mv, Manage_AccountService Service, int Type) {
-		if (Type == -1) {
-			List<Manage_AccountDTO> DTO = Service.selectList();
-			mv.addObject("DTO", DTO);
-		} else {
-			//필요한 경우 작성
-		}
+	//목록 정보가 필요한 경우
+	public void setList(ModelAndView mv, Manage_AccountService Service, int Page) {
+		int TotalPageCount = Service.selectTotalPageCount();
+		mv.addObject("TotalPageCount", TotalPageCount);
+		List<Manage_AccountDTO> List = Service.selectList(Page);
+		mv.addObject("List", List);
 	}
 	
-	//DB작업(추가/수정/삭제) 결과가 필요한 경우
-	public void setAccountResult(ModelAndView mv, Manage_AccountService Service, boolean ServiceMethodResult) {
+	//DB작업 결과가 필요한 경우
+	public void setResult(ModelAndView mv, Manage_AccountService Service, boolean ServiceMethodResult) {
 		if (ServiceMethodResult) {
 			mv.addObject("res", "success");
 		} else {
 			mv.addObject("res", "false");
 		}
-		getAccountInfo(mv, Service, -1);
 	}
 	
 //-------------------------------------------------------------

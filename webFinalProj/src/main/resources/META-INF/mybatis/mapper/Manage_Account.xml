@@ -6,25 +6,36 @@
 	<resultMap id="Manage_AccountDTOMap" type="Manage_AccountDTO">
 		<result property="AccountID" column="ACCOUNT_ID"/>
 		<result property="Password" column="PASSWORD"/>
-		<result property="LoginType" column="USER_TYPE"/>
+		<result property="UserType" column="USER_TYPE"/>
 		<result property="Name" column="NAME"/>
 		<result property="Phone" column="PHONE"/>
 		<result property="Email" column="EMAIL"/>
-		<result property="Address" column="ADRESS"/>
+		<result property="Address" column="ADDRESS"/>
 		<result property="NickName" column="NICKNAME"/>
 		<result property="JoinDate" column="JOINDATE"/>
 	</resultMap>
 	
-	<select id="selectList" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
-		SELECT * FROM ACCOUNT;
+	<select id="selectTotalPageCount" resultType="int">
+		SELECT COUNT(ACCOUNT_ID) FROM ACCOUNT
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
-		SELECT * FROM ACCOUNT WHERE ID = #{ID}
+		SELECT * FROM ACCOUNT WHERE ACCOUNT_ID = #{ID}
+	</select>
+	
+	<select id="selectList" parameterType="int" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
+		SELECT RNUM, B.*
+		FROM (
+			SELECT ROWNUM AS RNUM, A.*
+			FROM ACCOUNT A
+			ORDER BY JOINDATE ASC
+		) B
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
+		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 		
 	<delete id="delete" parameterType="String">
-		DELETE FROM ACCOUNTS WHERE ID = #{ID}
+		DELETE FROM ACCOUNT WHERE ACCOUNT_ID = #{ID}
 	</delete>
 
 </mapper>
