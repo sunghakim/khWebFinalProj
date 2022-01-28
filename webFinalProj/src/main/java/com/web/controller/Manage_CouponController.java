@@ -1,5 +1,8 @@
 package com.web.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,34 +13,33 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_CouponDTO;
 import com.web.model.Manage_CouponService;
-import com.web.view.View;
 
 @Controller
-public class Manage_CouponController {
+public class Manage_CouponController extends Manage_C_Module {
 	
 	@Autowired
 	Manage_CouponService Service;
-	
-	//뷰 구성 모듈(관리자 권한체크, DB조회 결과로 페이지 구성)
-	View view = new View();
 	
 	//페이지 링크
 	private final String URL = "/Manager/Coupon";
 	
 	//쿠폰 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
-	public ModelAndView selectCouponList(HttpSession session, ModelAndView mv) {
-		if (view.isManager(mv, session, URL) == 0) {
-			view.getCouponInfo(mv, Service, -1);
+	public ModelAndView selectCouponList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
+		if (isManager(mv, session, URL) == 0) {
+			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
+			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
+			List<Manage_CouponDTO> List = Service.selectList(setPage(mv, request));
+			mv.addObject("List", List);
 		}
 		return mv;
 	}
 	
-	//쿠폰 관리 페이지 접속
+	//쿠폰 상세관리 페이지 접속
 	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
-	public ModelAndView selectCouponList(HttpSession session, ModelAndView mv, int ID) {
-		if (view.isManager(mv, session, URL) == 0) {
-			view.getCouponInfo(mv, Service, ID);
+	public ModelAndView selectCouponOne(HttpSession session, ModelAndView mv, int ID) {
+		if (isManager(mv, session, URL + "Detail") == 0) {
+			mv.addObject("Coupon", Service.selectOne(ID));
 		}
 		return mv;
 	}
@@ -45,26 +47,16 @@ public class Manage_CouponController {
 	//쿠폰 추가 페이지 접근
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
 	public ModelAndView insertCoupon(HttpSession session, ModelAndView mv) {
-		view.isManager(mv, session, URL + "/Insert");
+		isManager(mv, session, URL + "Insert");
 		return mv;
 	}
 	
 	//쿠폰DB에 추가 요청
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
-	public ModelAndView insertCoupon(HttpSession session, ModelAndView mv, Manage_CouponDTO DTO) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.insert(DTO);
-			view.setCouponResult(mv, Service, result);
-		}
-		return mv;
-	}
-	
-	//쿠폰DB 삭제 요청
-	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteCoupon(HttpSession session, ModelAndView mv, String ID) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.delete(ID);
-			view.setCouponResult(mv, Service, result);
+	public ModelAndView insertCoupon(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_CouponDTO DTO) throws Exception {
+		if (isManager(mv, session, URL) == 0) {
+			setResult(mv, Service.insert(DTO));
+			selectCouponList(session, mv, request);
 		}
 		return mv;
 	}

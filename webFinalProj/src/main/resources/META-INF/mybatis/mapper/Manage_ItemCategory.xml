@@ -9,8 +9,12 @@
 		<result property="NavShow" column="NAV_SHOW"/>
 	</resultMap>
 	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(ITEM_CATEGORY_ID) FROM ITEM_CATEGORY
+	</select>
+	
 	<select id="selectList" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
-		SELECT * FROM ITEM_CATEGORY;
+		SELECT * FROM ITEM_CATEGORY
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">

@@ -6,7 +6,6 @@ import java.util.Date;
 public class Manage_ReportDTO {
 	//Report
 	private int ReportID;
-	private String ReportReasonID;
 	private String ReporterID;
 	private String ReportedAccountID;
 	private int ReportedPostID;
@@ -15,7 +14,8 @@ public class Manage_ReportDTO {
 	private int Result;
 	private Date ClosedDate;
 	//Report_Reason
-	private String ReportReason;
+	private int ReportReasonID;
+	private String ReportReasonContent;
 	//Punish
 	private Date StartDate;
 	private Date EndDate;
@@ -25,12 +25,6 @@ public class Manage_ReportDTO {
 	}
 	public void setReportID(int reportID) {
 		ReportID = reportID;
-	}
-	public String getReportReasonID() {
-		return ReportReasonID;
-	}
-	public void setReportReasonID(String reportReasonID) {
-		ReportReasonID = reportReasonID;
 	}
 	public String getReporterID() {
 		return ReporterID;
@@ -53,7 +47,7 @@ public class Manage_ReportDTO {
 	public Date getReportedDate() {
 		return ReportedDate;
 	}
-	public String getReportDateStr() {
+	public String getReportedDateStr() {
 		return form.format(ReportedDate);
 	}
 	public void setReportedDate(Date reportedDate) {
@@ -80,6 +74,18 @@ public class Manage_ReportDTO {
 	public void setClosedDate(Date closedDate) {
 		ClosedDate = closedDate;
 	}
+	public int getReportReasonID() {
+		return ReportReasonID;
+	}
+	public void setReportReasonID(int reportReasonID) {
+		ReportReasonID = reportReasonID;
+	}
+	public String getReportReasonContent() {
+		return ReportReasonContent;
+	}
+	public void setReportReasonContent(String reportReasonContent) {
+		ReportReasonContent = reportReasonContent;
+	}
 	public Date getStartDate() {
 		return StartDate;
 	}
@@ -92,12 +98,6 @@ public class Manage_ReportDTO {
 	public Date getEndDate() {
 		return EndDate;
 	}
-	public String getReportReason() {
-		return ReportReason;
-	}
-	public void setReportReason(String reportReason) {
-		ReportReason = reportReason;
-	}
 	public String getEndDateStr() {
 		return form.format(EndDate);
 	}
@@ -106,9 +106,10 @@ public class Manage_ReportDTO {
 	}
 	@Override
 	public String toString() {
-		return "Manage_ReportDTO [ReportID=" + ReportID + ", ReportReasonID=" + ReportReasonID + ", ReporterID="
-				+ ReporterID + ", ReportedAccountID=" + ReportedAccountID + ", ReportedPostID=" + ReportedPostID
-				+ ", ReportedDate=" + ReportedDate + ", Content=" + Content + ", Result=" + Result + ", ClosedDate="
-				+ ClosedDate + ", StartDate=" + StartDate + ", EndDate=" + EndDate + "]";
+		return "Manage_ReportDTO [ReportID=" + ReportID + ", ReporterID=" + ReporterID + ", ReportedAccountID="
+			+ ReportedAccountID + ", ReportedPostID=" + ReportedPostID + ", ReportedDate=" + ReportedDate
+			+ ", Content=" + Content + ", Result=" + Result + ", ClosedDate=" + ClosedDate + ", ReportReasonID="
+			+ ReportReasonID + ", ReportReasonContent=" + ReportReasonContent + ", StartDate=" + StartDate + ", EndDate=" + 
+			EndDate + "]";
 	}
 }

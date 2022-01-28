@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_SoldHistoryMapper">
+	<resultMap id="Manage_SoldHistoryDTOMap" type="Manage_SoldHistoryDTO"><!-- 재설계 필요-->
+		<result property="AccountID" column="ACCOUNT_ID"/>
+	</resultMap>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(SOLD_DETAIL_ID) 
+		FROM (
+			SELECT ROWNUM AS RNUM, X.SOLD_HISTORY_ID, X.ACCOUNT_ID, X.ADDRESS, X.RECEIVER_NAME, X.RECEIVER_PHONE, X.ORDER_DATE, X.STATUS
+				  , Y.ITEM_ID, Y.SOLD_DETAIL_ID, Y.AMOUNT, Z.ITEM_SIZE, Z.COLOR, Y.IS_REFUND, Y.REFUND_STATUS
+			FROM SOLD_HISTORY X
+			LEFT OUTER JOIN SOLD_DETAIL Y ON Y.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+			LEFT OUTER JOIN ITEM_OPTION Z ON Z.ITEM_OPTION_ID = X.ITEM_OPTION_ID
+			)
+	</select>
+	
+	<select id="selectList" resultType="Manage_SoldHistoryDTO" resultMap="Manage_SoldHistoryDTOMap">
+		SELECT *
+		FROM (
+			SELECT ROWNUM AS RNUM, SOLD_HISTORY_ID, ACCOUNT_ID, ADDRESS, RECEIVER_NAME, RECEIVER_PHONE, ORDER_DATE, STATUS
+				, ITEM_ID, SOLD_DETAIL_ID, AMOUNT, IS_REFUND, REFUND_STATUS
+				FROM (
+					SELECT X.SOLD_HISTORY_ID, X.ACCOUNT_ID, X.ADDRESS, X.RECEIVER_NAME, X.RECEIVER_PHONE, X.ORDER_DATE, X.STATUS
+						, Y.ITEM_ID, Y.SOLD_DETAIL_ID, Y.AMOUNT, Y.IS_REFUND, Y.REFUND_STATUS
+					FROM SOLD_HISTORY X
+					LEFT OUTER JOIN SOLD_DETAIL Y ON Y.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+					ORDER BY ORDER_DATE ASC;
+				)
+			)
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) AND RNUM <![CDATA[<=]]> (#{Page}*10)
+	</select>
+</mapper>

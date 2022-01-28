@@ -23,7 +23,8 @@
 			<button type="submit" onclick="location.href='/Logout'">로그아웃</button>
 		</span>
 		<span>
-			<button type="submit" onclick="location.href='/Manager/Account'">관리자 페이지</button>
+			<button type="submit" onclick="location.href='/Manager/Account'">멤버 관리 페이지</button>
+			<button type="submit" onclick="location.href='/Manager/Item'">상품 관리 페이지</button>
 		</span>
 		</c:if>
 	</main>

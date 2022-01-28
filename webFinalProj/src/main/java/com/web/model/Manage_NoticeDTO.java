@@ -14,6 +14,7 @@ public class Manage_NoticeDTO {
 	private int GoodNumber;
 	private Date PostingDate;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
+	
 	public int getPostID() {
 		return PostID;
 	}

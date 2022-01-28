@@ -1,6 +1,8 @@
 package com.web.controller;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -12,38 +14,32 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_AccountDTO;
-import com.web.model.Manage_AccountService;
+import com.web.model.Manage_SoldHistoryDTO;
+import com.web.model.Manage_SoldHistoryService;
+
 
 @Controller
-public class Manage_AccountController extends Manage_C_Module {
+public class Manage_SoldHistoryController extends Manage_C_Module {
+	//유효성체크 미구현, AOP/인터셉터/필터 미반영
 	
 	@Autowired
-	Manage_AccountService Service;
+	Manage_SoldHistoryService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Account";
-		
-	//회원 관리 페이지 접근
+	private final String URL = "/Manager/SoldHistory";
+	
+	//종류에 따른 통계 반환
 	@RequestMapping(value = URL, method = RequestMethod.GET)
-	public ModelAndView selectAccountList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView getSoldHistoryList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
 			int TotalPageCount = Service.selectTotalPageCount();
 			mv.addObject("TotalPageCount", TotalPageCount);
 			
 			int Page = setPage(mv, request);
-			List<Manage_AccountDTO> List = Service.selectList(Page);
+			List<Manage_SoldHistoryDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
 		}
 		return mv;
 	}
-
-	//회원DB에 삭제 요청
-	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteAccount(HttpSession session, ModelAndView mv, HttpServletRequest request, String ID) throws Exception {
-		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.delete(ID));
-			selectAccountList(session, mv, request);
-		}
-		return mv;
-	}
 }
+

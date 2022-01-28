@@ -15,6 +15,7 @@ public class Manage_QuestionDTO {
 	private String AnswerContent;
 	private Date AnswerDate;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
+	
 	public String getQuestionID() {
 		return QuestionID;
 	}

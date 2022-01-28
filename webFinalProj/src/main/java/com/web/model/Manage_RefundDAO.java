@@ -11,25 +11,21 @@ public class Manage_RefundDAO {
 	
 	@Autowired
 	SqlSession session;
-	private String Mapper = "RefundMapper";
+	private String Mapper = "Manage_RefundMapper";
 
-	public List<Manage_PurchaseDTO> selectList() {
-		return this.session.selectList(Mapper + ".selectList");
+	public int selectTotalCount() {
+		return this.session.selectOne(Mapper + ".selectTotalCount");
+	}
+	
+	public List<Manage_SoldHistoryDTO> selectList(int Page) {
+		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
-	public Manage_PurchaseDTO selectOne(int ID) {
+	public Manage_SoldHistoryDTO selectOne(int ID) {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
 	}
-	
-	public int insert(Manage_PurchaseDTO DTO) {
-		return this.session.delete(Mapper + ".insert", DTO);
-	}
 
-	public int update(Manage_PurchaseDTO DTO) {
+	public int update(Manage_SoldHistoryDTO DTO) {
 		return this.session.update(Mapper + ".update", DTO);
-	}
-	
-	public int delete(int ID) {
-		return this.session.delete(Mapper + ".delete", ID);
 	}
 }

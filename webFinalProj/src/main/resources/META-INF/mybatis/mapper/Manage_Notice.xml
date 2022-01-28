@@ -14,20 +14,32 @@
 		<result property="PostingDate" column="POSTING_DATE"/>
 	</resultMap>
 	
-	<select id="selectList" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
-		SELECT * FROM POST WHERE BOARD_ID = 0
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(POST_ID) FROM POST WHERE BOARD_ID = 0
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
 		SELECT * FROM POST WHERE POST_ID = #{PostID} AND BOARD_ID = 0
+	</select>
+	
+	<select id="selectList" parameterType="int" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
+		SELECT B.*
+		FROM (
+			SELECT ROWNUM AS RNUM, A.*
+			FROM POST A
+			WHERE BOARD_ID = 0
+			ORDER BY POSTING_DATE ASC
+		) B
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
+		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 		
 	<insert id="insert" parameterType="Manage_NoticeDTO">
 		INSERT INTO POST VALUES(POST_SEQ.NEXTVAL, #{WriterID}, 0, #{Title}, #{Content}, 0, 0, SYSDATE)
 	</insert>
 	
-	<update id="update" parameterType="Manage_NoticeDTO"><!--구현 필요-->
-		UPDATE POST SET NAME = #{Name}, NAV_SHOW = #{NavShow} WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	<update id="update" parameterType="Manage_NoticeDTO">
+		UPDATE POST SET TITLE = #{Title}, CONTENT = #{Content} WHERE POST_ID = #{PostID}
 	</update>
 	
 	<delete id="delete" parameterType="String">

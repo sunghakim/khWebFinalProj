@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_RefundMapper">
+	<resultMap id="Manage_RefundMap" type="Manage_SoldHistoryDTO">
+		<!--Report-->
+		<result property="SoldHistoryID" column="SOLD_HISTORY_ID"/>
+		<result property="AccountID" column="ACCOUNT_ID"/>
+		<result property="Address" column="ADDRESS"/>
+		<result property="RecieverName" column="RECEIVER_NAME"/>
+		<result property="RecieverPhone" column="RECEIVER_PHONE"/>
+		<result property="OrderDate" column="ORDER_DATE"/>
+		<result property="Status" column="STATUS"/>
+		<!--SOLD_DETAIL 관련-->
+		<result property="SoldDetailID" column="SOLD_DETAIL_ID"/>
+		<result property="ItemID" column="SOLD_HISTORY_ID"/>
+		<result property="Amount" column="AMOUNT"/>
+		<!--ItemOption 관련-->
+		<result property="ItemOptionID" column="ITEM_OPTION_ID"/>
+		<result property="ItemSize" column="END_DATE"/>
+		<result property="Color" column="END_DATE"/>
+		<!--Refund 관련-->
+		<result property="isRefund" column="IS_REFUND"/>
+		<result property="RefundAskDate" column="REFUND_ASK_DATE"/>
+		<result property="RefundReason" column="REFUND_REASON"/>
+		<result property="RefundStatus" column="REFUND_STATUS"/>
+		<result property="RefundEndDate" column="REFUND_END_DATE"/>
+	</resultMap>
+	
+	<!-- 마이바티스 구현 필요, SoldHistory테이블과 itemOption테이블을 조인한 결과를 가져와야한다-->
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(SOLD_HISTORY_ID) FROM SOLD_HISTORY
+	</select>
+	
+	<select id="selectList" parameterType="int" resultType="Manage_SoldHistoryDTO" resultMap="Manage_RefundMap">
+		SELECT *
+		FROM (
+			SELECT ROWNUM AS RNUM, REPORT_ID, REPORTER_ID, REPORTED_ACCOUNT_ID, REPORTED_POST_ID, REPORTED_DATE, 
+					CONTENT, RESULT, CLOSED_DATE, REPORT_REASON_ID, REPORT_REASON_CONTENT
+			FROM (
+				SELECT X.REPORT_ID, X.REPORTER_ID, X.REPORTED_ACCOUNT_ID, X.REPORTED_POST_ID, X.REPORTED_DATE, 
+						X.CONTENT, X.RESULT, X.CLOSED_DATE, X.REPORT_REASON_ID, Y.CONTENT AS REPORT_REASON_CONTENT
+				FROM REPORT X LEFT OUTER JOIN REPORT_REASON Y ON Y.REPORT_REASON_ID = X.REPORT_REASON_ID;
+				ORDER BY REPORTED_DATE ASC
+				)
+			)
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
+		AND RNUM <![CDATA[<=]]> (#{Page}*10)
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_SoldHistoryDTO" resultMap="Manage_RefundMap">
+		SELECT X.REPORT_ID, X.REPORTER_ID, X.REPORTED_ACCOUNT_ID, X.REPORTED_POST_ID, X.REPORTED_DATE, 
+				X.CONTENT, X.RESULT, X.CLOSED_DATE, X.REPORT_REASON_ID, Y.CONTENT AS REPORT_REASON_CONTENT
+		FROM REPORT X LEFT OUTER JOIN REPORT_REASON Y ON Y.REPORT_REASON_ID = X.REPORT_REASON_ID;
+	</select>
+	
+	<update id="update" parameterType="Manage_SoldHistoryDTO">
+		BEGIN
+			UPDATE REPORT SET RESULT = #{Result}, CLOSED_DATE = SYSDATE WHERE REPORT_ID = #{ReportID};
+			INSERT PUNISH INTO VALUE(#{ReportID}, #{ReportedAccountID}, #{StartDate}, #{EndDate};
+		END;
+	</update>
+</mapper>

@@ -1,5 +1,8 @@
 package com.web.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,44 +12,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_RefundService;
-import com.web.view.View;
+import com.web.model.Manage_SoldHistoryDTO;
 
 @Controller
-public class Manage_RefundController {
+public class Manage_RefundController extends Manage_C_Module {
 	
 	@Autowired
 	Manage_RefundService Service;
-
-	//뷰 구성 모듈(관리자 권한체크, DB조회 결과로 페이지 구성)
-	View view = new View();
 	
 	//페이지 링크
 	private final String URL = "/Manager/Refund";
 	
 	//환불 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
-	public ModelAndView selectItem(HttpSession session, ModelAndView mv) {
-		if (view.isManager(mv, session, URL) == 0) {
-			view.getRefundInfo(mv, Service, -1);
+	public ModelAndView selectRefundList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
+		if (isManager(mv, session, URL) == 0) {
+			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
+			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
+			List<Manage_SoldHistoryDTO> List = Service.selectList(setPage(mv, request));
+			mv.addObject("List", List);
 		}
 		return mv;
 	}
 	
-	//환불 수정 페이지 접근
-	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
-	public ModelAndView updateItem(HttpSession session, ModelAndView mv, int ID) {
-		if (view.isManager(mv, session, URL + "/Update") == 0) {
-			view.getRefundInfo(mv, Service, ID);
+	//환불 상세 조회
+	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
+	public ModelAndView selectRefund(HttpSession session, ModelAndView mv, HttpServletRequest request, int ID) {
+		if (isManager(mv, session, URL + "Detail") == 0) {
+			mv.addObject("Item", Service.selectOne(ID));
 		}
 		return mv;
 	}
 		
-	//환불DB에 수정 요청
+	//환불DB에 환불승인/환불거절 요청
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
-	public ModelAndView updateItem(HttpSession session, ModelAndView mv) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.update(DTO);
-			view.setRefundResult(mv, Service, result);
+	public ModelAndView updateRefund(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_SoldHistoryDTO dto) throws Exception {
+		if (isManager(mv, session, URL) == 0) {
+			setResult(mv, Service.update(dto));
+			selectRefundList(session, mv, request);
 		}
 		return mv;
 	}

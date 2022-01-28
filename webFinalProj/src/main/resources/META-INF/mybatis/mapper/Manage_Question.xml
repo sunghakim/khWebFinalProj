@@ -16,20 +16,28 @@
 		<result property="AnswerDate" column="ANSWER_DATE"/>
 	</resultMap>
 	
-	<select id="selectList" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
-		SELECT * FROM QUESTION
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(QUESTION_ID) FROM QUESTION
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
+	<select id="selectOne" parameterType="int" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
 		SELECT * FROM QUESTION WHERE QUESTION_ID = #{QuestionID}
+	</select>
+	
+	<select id="selectList" parameterType="int" resultType="Manage_QuestionDTO" resultMap="Manage_QuestionDTOMap">
+		SELECT B.*
+		FROM (
+			SELECT ROWNUM AS RNUM, A.*
+			FROM QUESTION A
+			ORDER BY QUESTION_DATE ASC
+		) B
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
+		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 	
 	<update id="update" parameterType="Manage_QuestionDTO">
 		  UPDATE QUESTION 
-		  SET RESULT = #{Result}
-		, ANSWER_TITLE = #{AnswerTitle}
-		, ANSWER_CONTENT = #{AnswerContent}
-		, ANSWER_DATE = SYSDATE
-		  WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+		  SET RESULT = #{Result}, ANSWER_TITLE = #{AnswerTitle}, ANSWER_CONTENT = #{AnswerContent}, ANSWER_DATE = SYSDATE
+		  WHERE QUESTION_ID = #{QuestionID}
 	</update>
 </mapper>

@@ -1,13 +1,13 @@
 package com.web.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_AccountDTO;
-import com.web.model.Manage_AccountService;
 
-public class Module {
+public class Manage_C_Module {
 	//컨트롤러에서 중복되는 로직을 모듈화한다.
 	
 	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
@@ -33,7 +33,7 @@ public class Module {
 		}
 	}
 	
-	//DB작업 결과가 필요한 경우
+	//DB작업 결과에 따라 Parameter추가
 	public void setResult(ModelAndView mv, boolean ServiceMethodResult) {
 		if (ServiceMethodResult) {
 			mv.addObject("res", "success");
@@ -42,5 +42,16 @@ public class Module {
 		}
 	}
 	
-	
+	//파라미터로 넘어온 페이지를 숫자로 변환 후 반환
+	public int setPage(ModelAndView mv, HttpServletRequest request) {
+		int Page;
+		if (request.getParameter("Page") == null) {
+			Page = 1;
+		} else {
+			String temp = request.getParameter("Page");
+			Page = Integer.parseInt(temp);
+		}
+		mv.addObject("Page", Page);
+		return Page;
+	}
 }

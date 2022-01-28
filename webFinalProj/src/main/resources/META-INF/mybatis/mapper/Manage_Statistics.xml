@@ -2,24 +2,27 @@
 <!DOCTYPE mapper
 	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Manage_StasticsMapper"><!--구현필요-->
-	<resultMap id="Manage_AccountDTOMap" type="Manage_AccountDTO">
-		<result property="AccountID" column="ACCOUNT_ID"/>
-		<result property="Password" column="PASSWORD"/>
-		<result property="LoginType" column="USER_TYPE"/>
-		<result property="Name" column="NAME"/>
-		<result property="Phone" column="PHONE"/>
-		<result property="Email" column="EMAIL"/>
-		<result property="Address" column="ADRESS"/>
-		<result property="NickName" column="NICKNAME"/>
-		<result property="JoinDate" column="JOINDATE"/>
-	</resultMap>
-	
-	<select id="selectList" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap"><!--구현필요-->
-		SELECT * FROM ACCOUNT;
+<mapper namespace="Manage_StatisticsMapper">
+	<select id="selectDailySales" parameterType="Date" resultType="Map">
+		SELECT NAME, COUNT(AMOUNT)
+		FROM (
+			SELECT X.ITEM_ID, Y.NAME, X.AMOUNT, Z.ORDER_DATE
+			FROM SOLD_DETAIL X
+			LEFT JOIN ITEM Y ON Y.ITEM_ID = X.ITEM_ID
+			LEFT JOIN SOLD_HISTORY Z ON Z.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+			WHERE TO_CHAR(Z.ORDER_DATE, YYYYMMDD) <![CDATA[>=]]> #{Date}
+			)
+		GROUP BY NAME;
 	</select>
-	
-	<select id="selectOne" parameterType="String" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap"><!--구현필요-->
-		SELECT * FROM ACCOUNT WHERE ID = #{ID}
+	<select id="selectMonthlySales" parameterType="Date" resultType="Manage_StatisticsDTO">
+		SELECT NAME, COUNT(AMOUNT)
+		FROM (
+			SELECT X.ITEM_ID, Y.NAME, X.AMOUNT, Z.ORDER_DATE
+			FROM SOLD_DETAIL X
+			LEFT JOIN ITEM Y ON Y.ITEM_ID = X.ITEM_ID
+			LEFT JOIN SOLD_HISTORY Z ON Z.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+			WHERE TO_CHAR(Z.ORDER_DATE, YYYYMMDD) <![CDATA[>=]]> #{Date}
+			)
+		GROUP BY NAME;
 	</select>
 </mapper>

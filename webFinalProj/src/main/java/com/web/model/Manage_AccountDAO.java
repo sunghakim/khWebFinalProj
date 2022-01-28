@@ -13,13 +13,8 @@ public class Manage_AccountDAO {
 	SqlSession session;
 	private String Mapper = "Manage_AccountMapper";
 	
-	
-	public int selectTotalPageCount() {
-		return this.session.selectOne(Mapper + ".selectTotalPageCount");
-	}
-
-	public Manage_AccountDTO selectOne(int accountID) {
-		return this.session.selectOne(Mapper + ".selectOne", accountID);
+	public int selectTotalCount() {
+		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
 	
 	public List<Manage_AccountDTO> selectList(int Page) {

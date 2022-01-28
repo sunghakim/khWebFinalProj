@@ -11,22 +11,30 @@
 		<result property="Discount" column="DISCOUNT"/>
 		<result property="Amount" column="AMOUNT"/>
 	</resultMap>
-	
-	<select id="selectList" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
-		SELECT * FROM COUPON;
+		
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(COUPON_ID) FROM COUPON
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
 		SELECT * FROM COUPON WHERE COUPON_ID = #{CouponID}
 	</select>
+	
+	<select id="selectList" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
+		SELECT * FROM COUPON
+		SELECT B.*
+		FROM (
+			SELECT ROWNUM AS RNUM, A.*
+			FROM COUPON A
+			ORDER BY START_DATE ASC
+		) B
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
+		AND RNUM <![CDATA[<=]]> (#{Page}*10)
+	</select>
 		
 	<insert id="insert" parameterType="Manage_CouponDTO">
 		INSERT INTO COUPON VALUES(COUPON_SEQ.NEXTVAL, #{Name}, #{StartDate}, #{EndDate}, #{Discount}, #{Amount})
 	</insert>
-	
-	<update id="update" parameterType="Manage_CouponDTO">
-		UPDATE COUPON SET NAME = #{Name}, START_DATE = #{StartDate}, END_DATE = #{EndDate}, DISCOUNT = #{Discount}, AMOUNT = #{Amount} WHERE COUPON_ID = #{CouponID}
-	</update>
 	
 	<delete id="delete" parameterType="String">
 		DELETE FROM COUPON WHERE COUPON_ID = #{CouponID}

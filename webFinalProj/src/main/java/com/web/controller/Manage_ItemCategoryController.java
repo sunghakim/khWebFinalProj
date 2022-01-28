@@ -1,5 +1,8 @@
 package com.web.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,43 +11,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.model.Manage_ItemCategoryDTO;
 import com.web.model.Manage_ItemCategoryService;
-import com.web.model.Manage_ItemDTO;
-import com.web.view.View;
 
 @Controller
-public class Manage_ItemCategoryController {
+public class Manage_ItemCategoryController extends Manage_C_Module {
 	
 	@Autowired
 	Manage_ItemCategoryService Service;
 	
-	//뷰 구성 모듈(관리자 권한체크, DB조회 결과로 페이지 구성)
-	View view = new View();
 	//관리페이지 링크
 	private final String URL = "/Manager/Item/Category";
 	
 	//상품 카테고리 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
-	public ModelAndView selectItemCategoryList(HttpSession session, ModelAndView mv) {
-		if (view.isManager(mv, session, URL) == 0) {
-			view.getItemCategoryInfo(mv, Service, -1);
+	public ModelAndView selectItemCategoryList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
+		if (isManager(mv, session, URL) == 0) {
+			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
+			List<Manage_ItemCategoryDTO> List = Service.selectList(setPage(mv, request));
+			mv.addObject("List", List);
 		}
 		return mv;
 	}
 	
-	//상품 카테고리 추가
+	//상품 카테고리 추가 페이지 접속
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
 	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv) {
-		view.isManager(mv, session, URL + "/Insert");
+		isManager(mv, session, URL + "Insert");
 		return mv;
 	}
 	
 	//상품 카테고리DB에 추가 요청
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
-	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, Manage_ItemDTO DTO) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.insert(DTO);
-			view.setItemCategoryResult(mv, Service, result);
+	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
+		if (isManager(mv, session, URL) == 0) {
+			setResult(mv, Service.insert(DTO));
+			selectItemCategoryList(session, mv, request);
 		}
 		return mv;
 	}
@@ -52,28 +54,28 @@ public class Manage_ItemCategoryController {
 	//상품 카테고리 수정 페이지 접근
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateItemCategory(HttpSession session, ModelAndView mv, int ID) {
-		if (view.isManager(mv, session, URL + "/Update") == 0) {
-			view.getItemCategoryInfo(mv, Service, ID);
+		if (isManager(mv, session, URL + "Insert") == 0) {
+			mv.addObject("ItemCategory", Service.selectOne(ID));
 		}
 		return mv;
 	}
 		
 	//상품 카테고리DB에 수정 요청
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
-	public ModelAndView updateItemCategory(HttpSession session, ModelAndView mv, Manage_ItemDTO DTO) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.update(DTO);
-			view.setItemCategoryResult(mv, Service, result);
+	public ModelAndView updateItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
+		if (isManager(mv, session, URL) == 0) {
+			setResult(mv, Service.update(DTO));
+			selectItemCategoryList(session, mv, request);
 		}
 		return mv;
 	}
 
 	//상품 카테고리DB 삭제
 	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteItemCategory(HttpSession session, ModelAndView mv, int ID) {
-		if (view.isManager(mv, session, URL) == 0) {
-			boolean result = Service.delete(ID);
-			view.setItemCategoryResult(mv, Service, result);
+	public ModelAndView deleteItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, int ID) throws Exception {
+		if (isManager(mv, session, URL) == 0) {
+			setResult(mv, Service.delete(ID));
+			selectItemCategoryList(session, mv, request);
 		}
 		return mv;
 	}

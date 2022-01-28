@@ -6,7 +6,6 @@
 	<resultMap id="Manage_ItemDTOMap" type="Manage_ItemDTO">
 		<!--Item-->
 		<result property="ItemID" column="ITEM_ID"/>
-		<result property="CategoryID" column="ITEM_CATEGORY_ID"/>
 		<result property="Name" column="Name"/>
 		<result property="Content" column="CONTENT"/>
 		<result property="Price" column="PRICE"/>
@@ -15,21 +14,61 @@
 		<result property="ItemSize" column="ITEM_SIZE"/>
 		<result property="Color" column="COLOR"/>
 		<result property="Amount" column="AMOUNT"/>
+		<!--Item_Category-->
+		<result property="CategoryID" column="ITEM_CATEGORY_ID"/>
+		<result property="CategoryName" column="ITEM_CATEGORY_NAME"/>
+		<result property="NavShow" column="NAV_SHOW"/>
 	</resultMap>
-	<select id="selectList" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
-		SELECT * FROM ITEM;
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(ITEM_ID) FROM (
+			SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.ITEM_OPTION_ID, Y.ITEM_SIZE, Y.COLOR, Y.AMOUNT
+			FROM ITEM X
+			LEFT OUTER JOIN ITEM_OPTION Y ON Y.ITEM_ID = X.ITEM_ID
+			)
 	</select>
 	
 	<select id="selectOne" parameterType="String" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
-		SELECT * FROM ITEM WHERE ITEM_ID = #{ItemID}
+		SELECT * 
+		FROM (
+			SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.ITEM_OPTION_ID, Y.ITEM_SIZE, 
+				Y.COLOR, Y.AMOUNT, Z.ITEM_CATEGORY_ID, Z.ITEM_CATEGORY_NAME, Z.NAV_SHOW 
+			FROM ITEM X
+			LEFT OUTER JOIN ITEM_OPTION Y ON Y.ITEM_ID = X.ITEM_ID
+			LEFT OUTER JOIN ITEM_CATEGORY Z ON X.ITEM_CATEGORY_ID = Z.ITEM_CATEGORY_ID
+			)
+		WHERE ITEM_ID = #{ItemID} AND ITEM_OPTION_ID = #{ItemOptionID}
+	</select>
+	
+	<select id="selectList" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
+		SELECT * 
+		FROM (
+			SELECT ROWNUM AS RNUM, ITEM_ID, NAME, CONTENT, PRICE, ITEM_OPTION_ID, ITEM_SIZE, 
+				COLOR, AMOUNT, ITEM_CATEGORY_ID, ITEM_CATEGORY_NAME, NAV_SHOW
+			FROM (
+				SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.ITEM_OPTION_ID, Y.ITEM_SIZE, 
+					Y.COLOR, Y.AMOUNT, Z.ITEM_CATEGORY_ID, Z.ITEM_CATEGORY_NAME, Z.NAV_SHOW
+				FROM ITEM X 
+				LEFT OUTER JOIN ITEM_OPTION Y ON Y.ITEM_ID = X.ITEM_ID
+				LEFT OUTER JOIN ITEM_CATEGORY Z ON X.ITEM_CATEGORY_ID = Z.ITEM_CATEGORY_ID
+				ORDER BY X.ITEM_ID ASC
+				)
+			)
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 		
-	<insert id="insert" parameterType="Manage_ItemDTO"><!--구현 필요-->
-		INSERT INTO ITEM VALUES(.NEXTVAL, #{Name}, #{NavShow})
+	<insert id="insert" parameterType="Manage_ItemDTO">
+		BEGIN
+			INSERT INTO ITEM VALUES (ITEM_SEQ.NEXTVAL, #{CategoryID}, #{Name}, #{Content}, #{Price});
+			INSERT INTO ITEM_OPTION VALUES(ITEM_OPTION_SEQ.NEXTVAL, #{ItemID}, #{ItemSize}, #{Color}, #{Amount});
+		END;
 	</insert>
 	
-	<update id="update" parameterType="Manage_ItemDTO"><!--구현 필요-->
-		UPDATE ITEM SET NAME = #{Name}, NAV_SHOW = #{NavShow} WHERE ITEM_ID = #{ItemID}
+	<update id="update" parameterType="Manage_ItemDTO">
+		BEGIN
+			UPDATE ITEM SET ITEM_CATEGORY_ID = {CategoryID}, NAME = #{Name}, CONTENT = #{Content}, PRICE = #{Price} WHERE ITEM_ID = #{ItemID};
+			UPDATE ITEM_OPTION SET AMOUNT = #{Amount} WHERE ITEM_OPTION_ID = #{ItemOptionID};
+		END;
 	</update>
 	
 	<delete id="delete" parameterType="String">

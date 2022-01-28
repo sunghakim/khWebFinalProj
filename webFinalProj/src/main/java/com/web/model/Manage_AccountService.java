@@ -7,22 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class Manage_AccountService {
+public class Manage_AccountService extends Manage_S_Module {
 	
 	@Autowired
 	Manage_AccountDAO dao;
 	
 	public int selectTotalPageCount() {
-		int result = dao.selectTotalPageCount();
-		if (result < 11) {
-			return 1;
-		} else {
-			return (result/10)+1;
-		}
-	}
-
-	public Manage_AccountDTO selectOne(int accountID) {
-		return dao.selectOne(accountID);
+		return PostCountToPageCount(dao.selectTotalCount());
 	}
 	
 	public List<Manage_AccountDTO> selectList(int Page) {

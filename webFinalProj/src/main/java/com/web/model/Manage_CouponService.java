@@ -7,28 +7,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class Manage_CouponService {
+public class Manage_CouponService extends Manage_S_Module {
 	
 	@Autowired
 	Manage_CouponDAO dao;
-	
-	public List<Manage_CouponDTO> selectList() {
-		return dao.selectList();
-	}
 
-	public Manage_CouponDTO selectOne(String ID) {
+	public int selectTotalPageCount() {
+		return PostCountToPageCount(dao.selectTotalCount());
+	}
+	
+	public Manage_CouponDTO selectOne(int ID) {
 		return dao.selectOne(ID);
 	}
 	
-	public boolean insert(Manage_CouponDTO DTO) {
-		return dao.insert(DTO) == 1 ? true:false;
+	public List<Manage_CouponDTO> selectList(int Page) {
+		return dao.selectList(Page);
 	}
 	
-	public boolean update(Manage_CouponDTO DTO) {
-		return dao.update(DTO) == 1 ? true:false;
-	}
-	
-	public boolean delete(String ID) {
-		return dao.delete(ID) == 1 ? true:false;
+	@Transactional(rollbackFor=Exception.class)
+	public boolean insert(Manage_CouponDTO DTO) throws Exception{
+		if (dao.insert(DTO) == 1) {
+			return true;
+		} else {
+			throw new Exception("쿠폰 추가 처리중 문제발생");
+		}
 	}
 }

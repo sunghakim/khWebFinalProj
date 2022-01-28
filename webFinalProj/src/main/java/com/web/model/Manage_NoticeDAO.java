@@ -12,13 +12,17 @@ public class Manage_NoticeDAO {
 	@Autowired
 	SqlSession session;
 	private String Mapper = "Manage_NoticeMapper";
-
-	public List<Manage_NoticeDTO> selectList() {
-		return this.session.selectList(Mapper + ".selectList");
+	
+	public int selectTotalCount() {
+		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
 
 	public Manage_NoticeDTO selectOne(int ID) {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
+	}
+	
+	public List<Manage_NoticeDTO> selectList(int Page) {
+		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 	
 	public int insert(Manage_NoticeDTO DTO) {

@@ -15,16 +15,12 @@
 		<result property="JoinDate" column="JOINDATE"/>
 	</resultMap>
 	
-	<select id="selectTotalPageCount" resultType="int">
+	<select id="selectTotalCount" resultType="int">
 		SELECT COUNT(ACCOUNT_ID) FROM ACCOUNT
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
-		SELECT * FROM ACCOUNT WHERE ACCOUNT_ID = #{ID}
-	</select>
-	
 	<select id="selectList" parameterType="int" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
-		SELECT RNUM, B.*
+		SELECT B.*
 		FROM (
 			SELECT ROWNUM AS RNUM, A.*
 			FROM ACCOUNT A

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.web.model.Manage_AccountDTO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:url var="url" value="/Manager/Account"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,11 +18,11 @@
 			<th>Address</th>
 			<th>NickName</th>
 			<th>JoinDate</th>
+			<th>DeleteAccount</th>
 		</tr>
-		<c:url var="delete_url" value="/Manager/Account/Delete"/>
 		<c:forEach var="List" items="${List}">
 			<tr>
-				<th scope="row"><c:out value="${List.getAccountID()}"/></th>
+				<td>${List.getAccountID()}"</td>
 				<td>${List.getUserTypeStr()}</td>
 				<td>${List.getName()}</td>
 				<td>${List.getPhone()}</td>
@@ -29,7 +30,7 @@
 				<td>${List.getAddress()}</td>
 				<td>${List.getNickName()}</td>
 				<td>${List.getJoinDateStr()}</td>
-				<td><button type="button" onclick="location.href='${delete_url}?ID=${List.getAccountID()}&&Page=${Page}'">탈퇴처리</button></td>
+				<td><button type="button" onclick="location.href='${url}/Delete?ID=${List.getAccountID()}&&Page=${Page}'">탈퇴처리</button></td>
 			</tr>
 		</c:forEach>
 	</table>

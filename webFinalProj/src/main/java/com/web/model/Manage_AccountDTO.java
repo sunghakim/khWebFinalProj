@@ -10,6 +10,7 @@ public class Manage_AccountDTO {
 	private String Name;
 	private String Phone;
 	private String Email;
+	private String EmailNumber;
 	private String Address;
 	private String NickName;
 	private Date JoinDate;
@@ -76,6 +77,14 @@ public class Manage_AccountDTO {
 		Email = email;
 	}
 
+	public String getEmailNumber() {
+		return EmailNumber;
+	}
+
+	public void setEmailNumber(String emailNumber) {
+		Email = emailNumber;
+	}
+
 	public String getAddress() {
 		return Address;
 	}
@@ -107,7 +116,7 @@ public class Manage_AccountDTO {
 	@Override
 	public String toString() {
 		return "Manage_AccountDTO [AccountID=" + AccountID + ", Password=" + Password + ", UserType=" + UserType
-				+ ", Name=" + Name + ", Phone=" + Phone + ", Email=" + Email + ", Address=" + Address + ", NickName="
-				+ NickName + ", JoinDate=" + JoinDate + "]";
+			+ ", Name=" + Name + ", Phone=" + Phone + ", Email=" + Email + ", EmailNumber=" + EmailNumber
+			+ ", Address=" + Address + ", NickName=" + NickName + ", JoinDate=" + JoinDate + "]";
 	}
 }

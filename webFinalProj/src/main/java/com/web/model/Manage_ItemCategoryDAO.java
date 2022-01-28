@@ -13,19 +13,23 @@ public class Manage_ItemCategoryDAO {
 	SqlSession session;
 	private String Mapper = "Manage_ItemCategoryMapper";
 
-	public List<Manage_ItemCategoryDTO> selectList() {
-		return this.session.selectList(Mapper + ".selectList");
+	public int selectTotalCount() {
+		return this.session.selectOne(Mapper + ".selectTotalCount");
+	}
+	
+	public List<Manage_ItemCategoryDTO> selectList(int Page) {
+		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
 	public Manage_ItemCategoryDTO selectOne(int ID) {
 		return this.session.selectOne(Mapper + ".selectOne", ID);
 	}
 	
-	public int insert(Manage_ItemDTO DTO) {
+	public int insert(Manage_ItemCategoryDTO DTO) {
 		return this.session.insert(Mapper + ".insert", DTO);
 	}
 
-	public int update(Manage_ItemDTO DTO) {
+	public int update(Manage_ItemCategoryDTO DTO) {
 		return this.session.update(Mapper + ".update", DTO);
 	}
 	
