@@ -21,8 +21,30 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.web.mall" />
+	<context:component-scan base-package="com.web.mall.*" />
 	
+	<!-- 외부 구성 파일 로드 -->
+	<context:property-placeholder location="file:///D:/eclipse/KHFinalProject/oracle_connection.prop"/>
+	
+	<!-- 데이터베이스 연결을 위한 구성정보를 가지는 DataSource 객체 생성 -->
+	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<beans:property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></beans:property>
+		<beans:property name="url" value="${url}"></beans:property>
+		<beans:property name="username" value="${user}"></beans:property>
+		<beans:property name="password" value="${password}"></beans:property>
+	</beans:bean>
+	
+	<!-- 마이바티스와 연결하여 마이바티스로 데이터베이스 연결세션 공장 생성 -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="configLocation" value="classpath:/mybatis/mybatis-config.xml"></beans:property>
+		<beans:property name="mapperLocations" value="classpath:/mybatis/mapper/*.xml"></beans:property>
+	</beans:bean>
+	
+	<!-- 마이바티스 데이터베이스 세션 공장으로부터 연결 세션 생성 -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<beans:constructor-arg ref="sqlSessionFactory"></beans:constructor-arg>
+	</beans:bean>
 	
 	
 </beans:beans>
