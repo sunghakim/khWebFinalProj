@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <typeAliases>
+    <typeAlias type="com.web.mall.account.model.AccountVO" alias="account" />
+    <typeAlias type="com.web.mall.myinfo.model.ShoppingListVO" alias="shoppingList" />
+    <typeAlias type="com.web.mall.myinfo.model.ItemVO" alias="item" />
+    <typeAlias type="com.web.mall.myinfo.model.ItemOptionVO" alias="itemOption" />
+    <typeAlias type="com.web.mall.myinfo.model.ZzimListVO" alias="zzim" />
+    <typeAlias type="com.web.mall.myinfo.model.GiveCouponVO" alias="giveCoupon" />
+    <typeAlias type="com.web.mall.myinfo.model.CouponVO" alias="coupon" />
+    <typeAlias type="com.web.mall.myinfo.model.QuestionVO" alias="question" />
+    <typeAlias type="com.web.mall.myinfo.model.ReportVO" alias="report" />
+    <typeAlias type="com.web.mall.myinfo.model.ReportReasonVO" alias="reportReason" />
+    <typeAlias type="com.web.mall.myinfo.model.SoldHistoryVO" alias="soldHistory" />
+    <typeAlias type="com.web.mall.myinfo.model.SoldDetailVO" alias="soldDetail" />
+  </typeAliases>
+</configuration>

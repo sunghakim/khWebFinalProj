@@ -21,7 +21,7 @@
 		<beans:property name="order" value="1"/>
 	</beans:bean>
 	
-	<context:component-scan base-package="com.web.controller, com.web.model, com.web.view, com.web.mall"/>
+	<context:component-scan base-package="com.web.mall.*"/>
 	
 	<!-- 마이바티스 -->
 	<context:property-placeholder location="file:///C:/Users/Coder/Final_connection.prop"/>
