@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_StatisticsMapper">
+	<select id="selectDailySales" parameterType="Date" resultType="Map">
+		SELECT NAME, COUNT(AMOUNT)
+		FROM (
+			SELECT X.ITEM_ID, Y.NAME, X.AMOUNT, Z.ORDER_DATE
+			FROM SOLD_DETAIL X
+			LEFT JOIN ITEM Y ON Y.ITEM_ID = X.ITEM_ID
+			LEFT JOIN SOLD_HISTORY Z ON Z.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+			WHERE TO_CHAR(Z.ORDER_DATE, YYYYMMDD) <![CDATA[>=]]> #{Date}
+			)
+		GROUP BY NAME;
+	</select>
+	<select id="selectMonthlySales" parameterType="Date" resultType="Manage_StatisticsDTO">
+		SELECT NAME, COUNT(AMOUNT)
+		FROM (
+			SELECT X.ITEM_ID, Y.NAME, X.AMOUNT, Z.ORDER_DATE
+			FROM SOLD_DETAIL X
+			LEFT JOIN ITEM Y ON Y.ITEM_ID = X.ITEM_ID
+			LEFT JOIN SOLD_HISTORY Z ON Z.SOLD_HISTORY_ID = X.SOLD_HISTORY_ID
+			WHERE TO_CHAR(Z.ORDER_DATE, YYYYMMDD) <![CDATA[>=]]> #{Date}
+			)
+		GROUP BY NAME;
+	</select>
+</mapper>

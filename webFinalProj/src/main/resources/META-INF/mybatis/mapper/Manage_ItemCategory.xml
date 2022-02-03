@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_ItemCategoryMapper">
+	<resultMap id="Manage_ItemCategoryDTOMap" type="Manage_ItemCategoryDTO">
+		<result property="ItemCategoryID" column="ITEM_CATEGORY_ID"/>
+		<result property="Name" column="NAME"/>
+		<result property="NavShow" column="NAV_SHOW"/>
+	</resultMap>
+	
+	<select id="selectTotalCount" resultType="int">
+		SELECT COUNT(ITEM_CATEGORY_ID) FROM ITEM_CATEGORY
+	</select>
+	
+	<select id="selectList" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
+		SELECT * FROM ITEM_CATEGORY
+	</select>
+	
+	<select id="selectOne" parameterType="String" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
+		SELECT * FROM ITEM_CATEGORY WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	</select>
+		
+	<insert id="insert" parameterType="Manage_ItemCategoryDTO">
+		INSERT INTO ITEM_CATEGORY VALUES(ITEM_CATEGORY_SEQ.NEXTVAL, #{Name}, #{NavShow})
+	</insert>
+	
+	<update id="update" parameterType="Manage_ItemCategoryDTO">
+		UPDATE ITEM_CATEGORY SET NAME = #{Name}, NAV_SHOW = #{NavShow} WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM ITEM_CATEGORY WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+	</delete>
+</mapper>
