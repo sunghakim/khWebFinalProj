@@ -1,8 +1,13 @@
 package com.web.mall.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.Manage_AccountDTO;
@@ -53,5 +58,34 @@ public class Manage_C_Module {
 		}
 		mv.addObject("Page", Page);
 		return Page;
+	}
+	
+	//DB업로드용 이미지 정보(DTO)로 가공
+	public ImageDTO BuildImageDTO(MultipartHttpServletRequest request, MultipartFile file, String UploadPath) throws Exception {
+		int ID = (Integer)request.getAttribute("ID");
+		String Type = (String)request.getAttribute("Type");
+		String SavedPath = UploadPath + "/" + Type;
+		String FileName = file.getOriginalFilename();
+		
+		//DB저장용 정보 설정
+		ImageDTO dto = new ImageDTO();
+		dto.setReferencesID(ID);
+		dto.setIDType(Type);
+		dto.setFileName(FileName);
+		dto.setFileURL(SavedPath);
+		dto.setFile(file);
+		return dto;
+	}
+	
+	//이미지 저장
+	public void saveImage(ImageDTO dto) throws Exception {
+		//경로가 존재하지 않으면 생성
+		if (!new File(dto.getFileURL()).exists()) {
+            new File(dto.getFileURL()).mkdirs();
+		}
+		//파일저장
+		File dest = new File(dto.getFileURL() + "/" + dto.getImageID());
+		dto.getFile().transferTo(dest);
+		
 	}
 }

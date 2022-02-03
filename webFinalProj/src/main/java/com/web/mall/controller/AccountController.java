@@ -12,7 +12,6 @@ import com.web.mall.model.AccountService;
 import com.web.mall.model.AccountVO;
 
 @Controller
-@RequestMapping(value="/")
 public class AccountController {
 	@Autowired
 	private AccountService service;

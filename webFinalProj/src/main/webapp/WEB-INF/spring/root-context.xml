@@ -1,7 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		https://www.springframework.org/schema/beans/spring-beans.xsd">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<!-- 파일 업로드/다운로드 -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	    <!-- 디폴트로 HttpServletRequest.setCharacterEncoding()에서 인코딩 타입 사용, 아무 값도 없을 경우 ISO-8859-1을 사용-->
+	    <property name="defaultEncoding" value="utf-8"/>
+	    
+	    <!-- 업로드 가능한 최대 용량 설정-->
+	    <property name="maxUploadSize" value="104857600"/> 
+	    
+	    <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할 수 있는 최대 바이트 크기
+		<property name="maxInMemorySize" value="104857600"/>
+		-->
+		<!-- 임시 디렉토리 설정
+		<property name="uploadTempDir" value=""/>
+		-->
+	</bean>
+	
+	<!-- 파일 업로드/다운로드 경로 선언 -->
+	<bean id="uploadPath" class="java.lang.String">
+		<constructor-arg value="/src/main/webapp/upload-img"/>
+	</bean>
+	
 </beans>
