@@ -16,5 +16,13 @@
     <typeAlias type="com.web.mall.myinfo.model.ReportReasonVO" alias="reportReason" />
     <typeAlias type="com.web.mall.myinfo.model.SoldHistoryVO" alias="soldHistory" />
     <typeAlias type="com.web.mall.myinfo.model.SoldDetailVO" alias="soldDetail" />
+    <typeAlias type="com.web.model.Manage_AccountDTO" alias="Manage_AccountDTO"/>
+	<typeAlias type="com.web.model.Manage_CouponDTO" alias="Manage_CouponDTO"/>
+	<typeAlias type="com.web.model.Manage_ItemCategoryDTO" alias="Manage_ItemCategoryDTO"/>
+	<typeAlias type="com.web.model.Manage_ItemDTO" alias="Manage_ItemDTO"/>
+	<typeAlias type="com.web.model.Manage_NoticeDTO" alias="Manage_NoticeDTO"/>
+	<typeAlias type="com.web.model.Manage_QuestionDTO" alias="Manage_QuestionDTO"/>
+	<typeAlias type="com.web.model.Manage_ReportDTO" alias="Manage_ReportDTO"/>
+	<typeAlias type="com.web.model.Manage_SoldHistoryDTO" alias="Manage_SoldHistoryDTO"/>
   </typeAliases>
 </configuration>
