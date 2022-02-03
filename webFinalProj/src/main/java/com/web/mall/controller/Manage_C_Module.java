@@ -1,16 +1,15 @@
 package com.web.mall.controller;
 
 import java.io.File;
-import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.Manage_AccountDTO;
+import com.web.mall.model.Manage_ImageDTO;
 
 public class Manage_C_Module {
 	//컨트롤러에서 중복되는 로직을 모듈화한다.
@@ -61,31 +60,34 @@ public class Manage_C_Module {
 	}
 	
 	//DB업로드용 이미지 정보(DTO)로 가공
-	public ImageDTO BuildImageDTO(MultipartHttpServletRequest request, MultipartFile file, String UploadPath) throws Exception {
-		int ID = (Integer)request.getAttribute("ID");
-		String Type = (String)request.getAttribute("Type");
-		String SavedPath = UploadPath + "/" + Type;
+	public Manage_ImageDTO BuildImageDTO(HttpServletRequest request, MultipartFile file, String UploadPath) throws Exception {
+		int ReferencesID = Integer.parseInt(request.getParameter("ReferencesID"));
+		String IDType = request.getParameter("IDType");
+		String SavedPath = UploadPath + "/" + IDType;
 		String FileName = file.getOriginalFilename();
 		
 		//DB저장용 정보 설정
-		ImageDTO dto = new ImageDTO();
-		dto.setReferencesID(ID);
-		dto.setIDType(Type);
+		Manage_ImageDTO dto = new Manage_ImageDTO();
+		dto.setReferencesID(ReferencesID);
+		dto.setIDType(IDType);
 		dto.setFileName(FileName);
 		dto.setFileURL(SavedPath);
 		dto.setFile(file);
+		System.out.println("DTO가공: " + dto.toString());
 		return dto;
 	}
 	
 	//이미지 저장
-	public void saveImage(ImageDTO dto) throws Exception {
+	public void saveImage(Manage_ImageDTO dto) throws Exception {
 		//경로가 존재하지 않으면 생성
 		if (!new File(dto.getFileURL()).exists()) {
             new File(dto.getFileURL()).mkdirs();
 		}
+		//dto.getImageID()
 		//파일저장
-		File dest = new File(dto.getFileURL() + "/" + dto.getImageID());
+		File dest = new File(dto.getFileURL() + "/" + dto.getFileName());
 		dto.getFile().transferTo(dest);
+		System.out.println("파일 저장: " + dto.getFileURL() + "/" + dto.getFileName());
 		
 	}
 }

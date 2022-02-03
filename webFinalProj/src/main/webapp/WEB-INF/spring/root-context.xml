@@ -24,7 +24,8 @@
 	
 	<!-- 파일 업로드/다운로드 경로 선언 -->
 	<bean id="uploadPath" class="java.lang.String">
-		<constructor-arg value="/src/main/webapp/upload-img"/>
+		<!-- 상대경로로 잡을 경우 임시 폴더에 데이터가 저장되는 오류 발생 -->
+		<constructor-arg value="C:/Users/Coder/git/khWebFinalProj/webFinalProj/src/main/webapp/upload-img"/>
 	</bean>
 	
 </beans>
