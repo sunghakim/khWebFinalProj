@@ -10,6 +10,7 @@ public class AccountVO {
 	private String phone;
 	private String email;
 	private String address;
+	private String address_no;
 	private String nickname;
 	private Date joindate;
 	public String getAccount_id() {
@@ -54,6 +55,12 @@ public class AccountVO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getAddress_no() {
+		return address_no;
+	}
+	public void setAddress_no(String address_no) {
+		this.address_no = address_no;
+	}
 	public String getNickname() {
 		return nickname;
 	}
@@ -69,8 +76,8 @@ public class AccountVO {
 	@Override
 	public String toString() {
 		return "AccountVO [account_id=" + account_id + ", password=" + password + ", user_type=" + user_type + ", name="
-				+ name + ", phone=" + phone + ", email=" + email + ", address=" + address + ", nickname=" + nickname
-				+ ", joindate=" + joindate + "]";
+				+ name + ", phone=" + phone + ", email=" + email + ", address=" + address + ", address_no=" + address_no
+				+ ", nickname=" + nickname + ", joindate=" + joindate + "]";
 	}
 	
 	

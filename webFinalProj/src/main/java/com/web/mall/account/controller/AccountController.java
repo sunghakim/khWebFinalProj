@@ -61,7 +61,7 @@ public class AccountController {
 		return "sunghatest/join";
 	}
 	@RequestMapping(value="/join", method=RequestMethod.POST)
-	public String join(AccountVO accountVo, Boolean reJoin, Model model) {
+	public String join(AccountVO accountVo, String zipNo, Boolean reJoin, Model model) {
 		//관리자는 관리자 로그인 후 회원관리카테고리에서 관리자 회원가입 누를수 있는 버튼 추가. 일반회원은 일반 회원가입과 동일. 위치에 따라 userType 이 다르게 들어오도록 처리.
 		model.addAttribute("accountVO", accountVo);
 		AccountVO sameData = service.checkSameAccount(accountVo);
@@ -92,6 +92,7 @@ public class AccountController {
 					return "redirect:/join";
 				}
 				else {
+					accountVo.setAddress_no(zipNo);
 					if(service.join(accountVo)) {
 						return "redirect:/login";
 					}
