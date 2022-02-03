@@ -1,8 +1,6 @@
 package com.web.controller;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.model.Manage_AccountDTO;
 import com.web.model.Manage_SoldHistoryDTO;
 import com.web.model.Manage_SoldHistoryService;
 

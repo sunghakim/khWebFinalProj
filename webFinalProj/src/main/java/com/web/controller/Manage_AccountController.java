@@ -37,7 +37,7 @@ public class Manage_AccountController extends Manage_C_Module {
 		return mv;
 	}
 
-	//회원DB에 삭제 요청
+	//회원DB에 해당 회원 탈퇴 요청
 	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
 	public ModelAndView deleteAccount(HttpSession session, ModelAndView mv, HttpServletRequest request, String ID) throws Exception {
 		if (isManager(mv, session, URL) == 0) {

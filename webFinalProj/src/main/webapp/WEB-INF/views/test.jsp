@@ -27,6 +27,20 @@
 			<button type="submit" onclick="location.href='/Manager/Item'">상품 관리 페이지</button>
 		</span>
 		</c:if>
+		<div>
+			<form method="post" action="fileload">
+				<input type="text" name="text"></input>
+				<input type="file" name="file"></input>
+				<button type="submit" name="type" value="upload">파일 업로드</button>
+			</form>
+		</div>
+		<c:if test="${file != null}">
+			<div>
+				<h3>파일이 업로드 되었습니다.</h3>
+				<span>${file.originalFilename}</span>
+				<span>${file.contentType}</span>
+			</div>
+		</c:if>
 	</main>
 </body>
 </html>

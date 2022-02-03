@@ -1,14 +1,23 @@
 package com.web.controller;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.model.Manage_ItemDTO;
@@ -70,7 +79,7 @@ public class Manage_ItemController extends Manage_C_Module {
 		}
 		return mv;
 	}
-		
+	
 	//상품DB에 수정 요청
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
 	public ModelAndView updateItem(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemDTO DTO) throws Exception {
