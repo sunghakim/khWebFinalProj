@@ -60,20 +60,14 @@ public class Manage_C_Module {
 	}
 	
 	//DB업로드용 이미지 정보(DTO)로 가공
-	public Manage_ImageDTO BuildImageDTO(HttpServletRequest request, MultipartFile file, String UploadPath) throws Exception {
-		int ReferencesID = Integer.parseInt(request.getParameter("ReferencesID"));
-		String IDType = request.getParameter("IDType");
-		String SavedPath = UploadPath + "/" + IDType;
-		String FileName = file.getOriginalFilename();
-		
+	public Manage_ImageDTO BuildImageDTO(HttpServletRequest request, MultipartFile file) throws Exception {
 		//DB저장용 정보 설정
 		Manage_ImageDTO dto = new Manage_ImageDTO();
-		dto.setReferencesID(ReferencesID);
-		dto.setIDType(IDType);
-		dto.setFileName(FileName);
-		dto.setFileURL(SavedPath);
+		dto.setReferencesID(Integer.parseInt(request.getParameter("ReferencesID")));
+		dto.setIDType(request.getParameter("IDType"));
+		dto.setFileName(file.getOriginalFilename());
+		dto.setFileURL("/upload-img" + "/" + dto.getIDType());
 		dto.setFile(file);
-		System.out.println("DTO가공: " + dto.toString());
 		return dto;
 	}
 	
@@ -83,11 +77,8 @@ public class Manage_C_Module {
 		if (!new File(dto.getFileURL()).exists()) {
             new File(dto.getFileURL()).mkdirs();
 		}
-		//dto.getImageID()
 		//파일저장
-		File dest = new File(dto.getFileURL() + "/" + dto.getFileName());
+		File dest = new File(dto.getFullPath());//ImageID(PK)로 저장해야 충돌이 발생하지 않음, dto.getImageID()
 		dto.getFile().transferTo(dest);
-		System.out.println("파일 저장: " + dto.getFileURL() + "/" + dto.getFileName());
-		
 	}
 }
