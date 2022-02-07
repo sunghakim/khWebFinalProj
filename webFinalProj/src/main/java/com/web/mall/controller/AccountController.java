@@ -47,15 +47,22 @@ public class AccountController {
 		// 세션 또는 별도의 저장 공간에서 상태 토큰을 가져옴
 		String storedState = (String)session.getAttribute("state");
 
-
-		if( !state.equals( storedState ) ) {
+		System.out.println("CALLBACK 까지 왔음");
+		if( !state1.equals( storedState ) ) {
 		    model.addAttribute("error_msg", "401 error"); //401 unauthorized
 		} else {
 			model.addAttribute("error_msg", "200 success"); //200 success
+			
 		}
 
 		return "sunghatest/callbackagain";
 	}
+	@RequestMapping(value="/googlelogin", method=RequestMethod.GET)
+	public String googlelogin() {
+		return "sunghatest/googlelogin";
+	}
+	
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
 		return "sunghatest/join";
