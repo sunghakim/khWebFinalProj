@@ -13,16 +13,32 @@
 	<form action="Upload.do" method="post" enctype="multipart/form-data">
 		<input type="hidden" name="ReferencesID" value="0">
 		<input type="hidden" name="IDType" value="ITEM">
-	    <input type="file" name="uploadFile" multiple="multiple">
+	    <input type="file" name="uploadFile">
 	    <button type="submit">업로드</button>
 	</form>
 	
-	<h6>파일 다운로드</h6>
 	<c:if test="${dto != null}">
-		<!-- 다운로드 응답이 지연되는 원인 찾기 -->
+		<h6>파일 다운로드</h6>
 		<a href="${dto.getFullPath()}" download>
 			<img src="${dto.getFullPath()}">
 		</a>
+	</c:if>
+	
+	<h6>다중파일 업로드</h6>
+	<form action="multiUpload.do" method="post" enctype="multipart/form-data">
+		<input type="hidden" name="ReferencesID" value="0">
+		<input type="hidden" name="IDType" value="ITEM">
+	    <input type="file" name="uploadFiles" multiple="multiple">
+	    <button type="submit">업로드</button>
+	</form>
+	
+	<c:if test="${List != null}">
+		<h6>다중파일 다운로드</h6>
+		<c:forEach var="dto" items="${List}">
+		<a href="${dto.getFullPath()}" download>
+			<img src="${dto.getFullPath()}">
+		</a>
+		</c:forEach>
 	</c:if>
 </body>
 </html>

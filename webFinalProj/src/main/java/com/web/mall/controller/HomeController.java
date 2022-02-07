@@ -1,7 +1,11 @@
 package com.web.mall.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +18,12 @@ import com.web.mall.model.Manage_ImageDTO;
 @Controller
 public class HomeController extends Manage_C_Module {
 	
+//	@Autowired
+//	ImageService ImageService;
+	
+	@Resource(name="uploadPath")
+    String uploadPath;
+	
 	//메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String Home() {
@@ -23,7 +33,7 @@ public class HomeController extends Manage_C_Module {
 	//파일 업로드
 	@RequestMapping(value = "/Upload.do", method = RequestMethod.POST, consumes = "multipart/form-data")
 	public ModelAndView upload(ModelAndView mv, HttpServletRequest request, @RequestParam("uploadFile") MultipartFile file) throws Exception {
-		Manage_ImageDTO dto = BuildImageDTO(request, file);
+		Manage_ImageDTO dto = BuildImageDTO(request, file, uploadPath);
 		saveImage(dto);
 		
 		//DB에 이미지 파일 정보 저장 후 ImageID(PK)정보를 가져옴
@@ -36,6 +46,19 @@ public class HomeController extends Manage_C_Module {
 		
 		//View 설정
 		mv.addObject("dto", dto);
+		mv.setViewName("Home");
+		return mv;
+	}
+	
+	//다중 파일 업로드
+	@RequestMapping(value = "/multiUpload.do", method = RequestMethod.POST, consumes = "multipart/form-data")
+	public ModelAndView multiUpload(ModelAndView mv, HttpServletRequest request, @RequestParam("uploadFiles") MultipartFile[] file) throws Exception {
+		System.out.println("RealPath: " + request.getSession().getServletContext().getRealPath("/"));
+		List<Manage_ImageDTO> List = BuildImageDTOList(request, file, uploadPath);
+		saveImages(List);
+		
+		//View 설정
+		mv.addObject("List", List);
 		mv.setViewName("Home");
 		return mv;
 	}

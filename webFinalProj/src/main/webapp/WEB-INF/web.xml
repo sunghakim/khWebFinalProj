@@ -47,13 +47,15 @@
 		<filter-name>EncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-
-	<!-- 파일 업로드/다운로드(10MB)
-	<multipart-config>
-        <max-file-size>104857600</max-file-size>
-        <max-request-size>104857600</max-request-size>
-        <file-size-threshold>0</file-size-threshold>
-    </multipart-config>
-   -->
+	
+	<servlet>
+		<servlet-name>fileupload</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<multipart-config>
+	        <max-file-size>104857600</max-file-size>
+	        <max-request-size>104857600</max-request-size>
+	        <file-size-threshold>0</file-size-threshold>
+	    </multipart-config>
+	</servlet>
 </web-app>
 

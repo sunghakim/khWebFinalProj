@@ -1,6 +1,8 @@
 package com.web.mall.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -60,25 +62,65 @@ public class Manage_C_Module {
 	}
 	
 	//DB업로드용 이미지 정보(DTO)로 가공
-	public Manage_ImageDTO BuildImageDTO(HttpServletRequest request, MultipartFile file) throws Exception {
+	public Manage_ImageDTO BuildImageDTO(HttpServletRequest request, MultipartFile file, String uploadPath) throws Exception {
 		//DB저장용 정보 설정
 		Manage_ImageDTO dto = new Manage_ImageDTO();
 		dto.setReferencesID(Integer.parseInt(request.getParameter("ReferencesID")));
 		dto.setIDType(request.getParameter("IDType"));
 		dto.setFileName(file.getOriginalFilename());
-		dto.setFileURL("/upload-img" + "/" + dto.getIDType());
+		dto.setFileURL(uploadPath + "/" + dto.getIDType());
+		dto.setRealPath(request.getSession().getServletContext().getRealPath(uploadPath + "/"));
 		dto.setFile(file);
+		System.out.println("업로드 dto생성: " + dto.toString());
 		return dto;
 	}
-	
 	//이미지 저장
 	public void saveImage(Manage_ImageDTO dto) throws Exception {
 		//경로가 존재하지 않으면 생성
-		if (!new File(dto.getFileURL()).exists()) {
-            new File(dto.getFileURL()).mkdirs();
+		if (!new File(dto.getRealPath() + dto.getIDType()).exists()) {
+            new File(dto.getRealPath() + dto.getIDType()).mkdirs();
+            System.out.println("경로 생성: " + dto.getRealPath());
 		}
+		
 		//파일저장
-		File dest = new File(dto.getFullPath());//ImageID(PK)로 저장해야 충돌이 발생하지 않음, dto.getImageID()
+		//ImageID(PK)로 저장해야 충돌이 발생하지 않음, dto.getImageID()
+		//현재는 임시로 파일명으로 저장
+		File dest = new File(dto.getRealPath() + dto.getIDType() + "/" + dto.getFileName());
 		dto.getFile().transferTo(dest);
+		System.out.println("파일 저장: " + dest.getAbsoluteFile());
+	}
+	
+	//DB업로드용 이미지 정보(DTO)로 가공
+	public List<Manage_ImageDTO> BuildImageDTOList(HttpServletRequest request, MultipartFile[] files, String uploadPath) throws Exception {
+		//DB저장용 정보 설정
+		List<Manage_ImageDTO> List = new ArrayList<Manage_ImageDTO>();
+		for (MultipartFile file : files) {
+			Manage_ImageDTO dto = new Manage_ImageDTO();
+			dto.setReferencesID(Integer.parseInt(request.getParameter("ReferencesID")));
+			dto.setIDType(request.getParameter("IDType"));
+			dto.setFileName(file.getOriginalFilename());
+			dto.setFileURL(uploadPath + "/" + dto.getIDType());
+			dto.setRealPath(request.getSession().getServletContext().getRealPath(uploadPath + "/"));
+			dto.setFile(file);
+			List.add(dto);
+			System.out.println("다중 업로드 dto생성: " + dto.toString());
+		}
+		return List;
+	}
+	
+	//이미지 저장
+	public void saveImages(List<Manage_ImageDTO> List) throws Exception {
+		for (Manage_ImageDTO dto : List) {
+			if (!new File(dto.getRealPath() + dto.getIDType()).exists()) {
+	            new File(dto.getRealPath() + dto.getIDType()).mkdirs();
+	            System.out.println("다중 경로 생성: " + dto.getRealPath());
+			}
+			//파일저장
+			//ImageID(PK)로 저장해야 충돌이 발생하지 않음, dto.getImageID()
+			//현재는 임시로 파일명으로 저장
+			File dest = new File(dto.getRealPath() + dto.getIDType() + "/" + dto.getFileName());
+			dto.getFile().transferTo(dest);
+			System.out.println("다중 파일 저장: " + dest.getAbsoluteFile());
+		}
 	}
 }
