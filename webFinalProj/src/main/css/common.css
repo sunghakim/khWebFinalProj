@@ -1,0 +1,255 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+li, button, .article-before, .after {
+    cursor: pointer;
+}
+
+.modal-back {
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(5px);
+    position: fixed;
+    z-index: 999;
+}
+
+.modal-front {
+    width: 30%; height: 80%;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0 8px 32px 0 rgba(116, 116, 116, .6);
+    border: 8px solid rgb(255, 255, 255);
+    margin: 70px auto;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.modal-front>.title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.modal-front>form {
+    margin-top: 5vh;
+    margin-left: 6vw;
+    font-size: 16px;
+    line-height: 50px;
+}
+
+.modal-front input {
+    width: calc(35% + 7vw); height: 30px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    text-align: center;
+    font-size: 14px;
+}
+
+#join-modal {
+    display: none;
+}
+
+.join-modal .join-text {
+    font-size: 12px;
+}
+
+.join-modal .join-form {
+    color: green;
+    margin-top: -20px;
+}
+
+.join-modal .join-alert {
+    color: red;
+    margin-top: -20px;
+}
+
+#join-id-form, #join-id-null, #join-id-overlap, #join-id-wrong, #join-nic-overlap {
+    display: none;
+}
+
+#join-pwd-form, #join-pwd-null, #join-pwd-wrong, #join-pwd-check-form, #join-pwd-check-yes, #join-pwd-check-no {
+    display: none;
+}
+
+.join-modal .join-div-wrap {
+    position: relative;
+}
+
+.join-modal .overlap-check {
+    width: calc(100% / 6) + 10px; height: 30px;
+    background-color: #999;
+    color: white;
+    font-size: 14px;
+    border: 0;
+    border-radius: 15px;
+    outline: none;
+    padding: 0 10px;
+    text-align: center;
+    margin-left: 3px;
+}
+
+.join-modal .yes {
+    margin-top: 3vh;
+    margin-left: -1vw;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.join-modal .join-btns {
+    margin-left: 2.5vw;
+}
+
+.join-modal .join-btns>button {
+    width: 100px; height: 50px;
+    border-radius: 30px;
+    background-color: white;
+    border: 0;
+    font-weight: bold;
+}
+
+#login-modal {
+    display: none;
+}
+
+.login-front {
+    height: 35%;
+    margin: 140px auto;
+}
+
+.login-modal .login-text {
+    font-size: 12px;
+}
+
+.login-modal .login-form {
+    color: green;
+    margin-top: -20px;
+}
+
+.login-modal .login-alert {
+    color: red;
+    margin-top: -20px;
+}
+
+#login-id-form, #login-id-null, #login-id-wrong {
+    display: none;
+}
+
+#login-pwd-form, #login-pwd-null, #login-pwd-wrong {
+    display: none;
+}
+
+.login-modal .login-btns {
+    margin-top: 2vh;
+    margin-left: calc(3.5vw - 20px);
+}
+
+.login-modal .login-btns>button {
+    width: 80px; height: 40px;
+    border-radius: 30px;
+    background-color: white;
+    border: 0;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.header-wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 1vw 2vw;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 36px;
+}
+
+header .header-ul {
+    display: flex;
+    font-size: 16px;
+}
+
+header #admin-ul {
+    display: none;
+}
+
+header .header-ul .fas {
+    font-size: 26px;
+}
+
+.content {
+    display: flex;
+}
+
+.content>nav {
+    width: 12vw;
+    margin-top: 1vw;
+}
+
+.content>nav>.nav-wrap>.user-nav li {
+    margin: 5vh 0;
+    line-height: calc((83.5vh / 7) - 5vh);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.content>nav>.nav-wrap>.admin-nav {
+    display: none;
+    margin: 5vh 0;
+    line-height: calc((83.5vh / 5) - 5vh);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.content>nav>.nav-wrap .admin-nav-sub {
+    display: none;
+    text-indent: .6vw;
+    margin-top: -6vh;
+    line-height: 3vw;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.content>nav ul>li {
+    display: flex;
+}
+
+.content>section {
+    width: 88vw;
+    overflow: hidden;
+}
+
+.content>section>.article-container {
+    background-color: rgb(245, 246, 241);
+    padding-top: 66px;
+    padding-left: 55px;
+    height: 83.5vh;
+    overflow: hidden;
+    border-radius: 30px 0 0 0;
+}
+
+.content>section>.article-container>.article-wrap {
+    background-color: white;
+    width: calc(100% - 55px + 55px); height: 100%;
+    display: flex;
+}
+
+/* js 기능 구현 class */
+.click-color {
+    background-color: rgb(245, 246, 241);
+    color: rgb(240, 97, 80);
+}
+.click-time {
+    translate: all 3s;
+}
+.click-bg {
+    background-color: rgb(245, 246, 241);
+}
+.click-font {
+    color: rgb(240, 97, 80);
+}

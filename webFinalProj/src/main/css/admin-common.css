@@ -1,0 +1,19 @@
+.user-nav {
+    display: none !important;
+}
+
+.admin-nav {
+    display: block !important;
+}
+
+#user-ul {
+    display: none !important;
+}
+
+#admin-ul {
+    display: block !important;
+}
+
+.article-wrap {
+    display: block !important;
+}

@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/user.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh Final main</title>
+    <title>kh final user management</title>
 </head>
-
 <body>
     <div class="join-modal modal-back" id="join-modal">
         <div class="join-modal modal-front">
@@ -166,8 +164,8 @@
                             <p>신고 관리</p>
                         </li>
                         <li id="admin-nav-3">
-                            <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                            <p>사이트 관리</p>
+                                <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
+                                <p>사이트 관리</p>
                         </li>
                     </ul>
                     <ul class="admin-nav-sub">
@@ -212,78 +210,27 @@
             <section>
                 <div class="article-container">
                     <div class="article-wrap">
-                        <article class="article-before" id="before-1">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-2">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-3">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-4">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-after" id="after-1">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-2">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-3">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-4">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
+                        <ul class="title">
+                            <li>아이디</li>
+                            <li>이름</li>
+                            <li>닉네임</li>
+                            <li>기능</li>
+                        </ul>
+                        <div class="line"></div>
+                        <ul class="user-list">
+                            <li>test</li>
+                            <li>test</li>
+                            <li>test</li>
+                            <li>
+                                <button>삭제</button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-
     <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/user.js"></script>
 </body>
-
 </html>

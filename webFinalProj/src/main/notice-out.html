@@ -7,9 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/admin-common.css">
+    <link rel="stylesheet" href="css/notice-out.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh Final main</title>
+    <title>kh final notice-out management</title>
 </head>
 
 <body>
@@ -211,79 +212,35 @@
             </nav>
             <section>
                 <div class="article-container">
+                    <div class="btns">
+                        <button type="submit" class="btn regist">공지사항 등록</button>
+                    </div>
                     <div class="article-wrap">
-                        <article class="article-before" id="before-1">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-2">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-3">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-4">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-after" id="after-1">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-2">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-3">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-4">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
-                            </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
+                        <ul class="title">
+                            <li>게시글 제목</li>
+                            <li>작성일자</li>
+                            <li>상세보기</li>
+                            <li>기능</li>
+                        </ul>
+                        <div class="line"></div>
+                        <ul class="notice-list">
+                            <li>test</li>
+                            <li>test</li>
+                            <li>
+                                <button class="detail">상세 보기</button>
+                            </li>
+                            <li>
+                                <button class="modify">수정</button>
+                                <button class="delete">삭제</button>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-
     <script src="js/common.js"></script>
-    <script src="js/index.js"></script>
+    <script src="js/notice-out.js"></script>
 </body>
 
 </html>
