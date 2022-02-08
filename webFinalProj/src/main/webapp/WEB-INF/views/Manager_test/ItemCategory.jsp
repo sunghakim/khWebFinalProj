@@ -25,13 +25,14 @@
 			</span>
 		</div>
 		<form action="${pageType}/Insert" method="post">
-			<input type="text" name="NewItemCategory" placeholder="입력..." required>
+			<input type="text" name="ItemCategoryName" placeholder="입력..." required>
+			<button type="submit">카테고리 추가</button>
 		</form>
 		<table border="1" style="border_collapse: collapse;">
 			<thead>
 				<tr>
 					<th>카테고리 이름</th>
-					<th>카테고리 이름</th>
+					<th>표시여부</th>
 					<th colspan='3'>기능</th>
 				</tr>
 			</thead>
@@ -40,10 +41,10 @@
 					<tr>
 						<td>${List.getItemCategoryName()}</td>
 						<td>${List.getNavShowStr()}</td>
-						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}">표시여부</a></td>
-						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}">수정</a></td>
+						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}&&Function=UpdateNavShow">표시전환</a></td>
+						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}&&Function=UpdateItemCategoryName">이름수정</a></td>
 						<td><a href="${pageType}/Delete?ID=${List.getItemCategoryID()}">삭제</a></td>
-						<!-- 삭제전 정말 삭제할지 경고문 띄우기 -->
+						<!-- 기능 사용전 정말 해당 기능을 사용할지 경고문 띄우기 기능 사용 결과는 'res'파라미터로 전달됨 -->
 					</tr>
 				</c:forEach>
 			</tbody>

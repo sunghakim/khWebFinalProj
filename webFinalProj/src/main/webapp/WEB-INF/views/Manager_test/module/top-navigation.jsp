@@ -13,7 +13,7 @@
 		<a href="${URL}/Item">상품관리</a>
 	</span>
 	<span>
-		<a href="${URL}/Item/Category">카테고리관리</a>
+		<a href="${URL}/ItemCategory">카테고리관리</a>
 	</span>
 	<span>
 		<a href="${URL}/Statistics">통계확인</a>

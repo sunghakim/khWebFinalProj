@@ -52,7 +52,7 @@
 						<td>${List.getNickName()}</td>
 						<td>${List.getJoinDateStr()}</td>
 						<td><a href="${pageType}/Delete?ID=${List.getAccountID()}">탈퇴처리</a></td>
-						<!-- 삭제전 정말 삭제할지 경고문 띄우기 -->
+						<!-- 기능 사용전 정말 해당 기능을 사용할지 경고문 띄우기 기능 사용 결과는 'res'파라미터로 전달됨 -->
 					</tr>
 				</c:forEach>
 			</tbody>

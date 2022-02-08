@@ -21,7 +21,7 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	Manage_ItemCategoryService Service;
 	
 	//관리페이지 링크
-	private final String URL = "/Manager/Item/Category";
+	private final String URL = "/Manager_test/ItemCategory";
 	
 	//상품 카테고리 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
@@ -44,6 +44,7 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
+			System.out.println(DTO.toString());
 			setResult(mv, Service.insert(DTO));
 			selectItemCategoryList(session, mv, request);
 		}
