@@ -23,7 +23,6 @@ import com.web.mall.model.AccountVO;
 import com.web.mall.model.GoogleAccountVO;
 
 @Controller
-@RequestMapping(value="/")
 public class AccountController {
 	@Autowired
 	private AccountService service;

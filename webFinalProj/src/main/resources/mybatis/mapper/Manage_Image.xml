@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Manage_ImageMapper">
+	<resultMap id="Manage_ImageDTOMap" type="Manage_ImageDTO">
+		<result property="ImageID" column="IMAGE_ID"/>
+		<result property="ReferencesID" column="REFERENCES_ID"/>
+		<result property="IDType" column="ID_TYPE"/>
+		<result property="FileName" column="FILE_NAME"/>
+		<result property="FileURL" column="FILE_URL"/>
+	</resultMap>
+	
+	<select id="selectList" resultType="Manage_ItemDTO" resultMap="Manage_ImageDTOMap">
+		SELECT * FROM IMAGE
+	</select>
+		
+	<insert id="insert" useGeneratedKeys="true" keyColumn="IMAGE_ID" keyProperty="ImageID" parameterType="Manage_ImageDTO">
+		INSERT INTO IMAGE VALUES(IMAGE_SEQ.NEXTVAL, #{ReferencesID}, #{IDType}, #{FileName}, #{FileURL})
+	</insert>
+	
+	<delete id="delete" parameterType="String">
+		DELETE FROM IMAGE WHERE ITEM_ID = #{ItemID}
+	</delete>
+</mapper>
