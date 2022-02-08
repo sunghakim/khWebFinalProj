@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+	<resultMap id = "BoardResult" type = "BoardVO"> 
+		<!-- 
+			글정보를 저장할 resultMap을 설정
+			데이터베이스 항목명(컬럼) 불러온 항목을 저장할 클래스 내의 변수명(프로퍼티) 
+		-->
+		<result column="PostId"  property="POST_ID" />
+		<result column="WriterId"  property="WRITER_ID" />
+		<result column="BoardId"  property="BOARD_ID" />
+		<result column="BoardName"  property="Name" />
+		<result column="Title"  property="TITLE" />
+		<result column="Content"  property="CONTENT" />
+		<result column="PostViews"  property="POST_VIEWS" />
+		<result column="GoodNumber"  property="GOOD_NUMBER" />
+		<result column="PostingDate"  property="POSTING_DATE" />
+	</resultMap>
+	
+	<select id ="selectBoardList" parameterType="BoardVO" resultMap="BoardResult">
+		SELECT * FROM (
+		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
+		  	WHERE BOARD_ID = #{board_id}
+		  	ORDER BY POST_ID DESC ) TB
+	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
+	</select>
+
+	<select id ="selectGoodBoardList" parameterType="BoardVO" resultMap="BoardResult">
+		SELECT * FROM (
+		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
+		  	WHERE BOARD_ID = #{board_id}
+		  	ORDER BY GOOD_NUMBER DESC ) TB
+	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
+	</select>
+	
+	<insert id="insertPost" parameterType="POSTVO">
+    	INSERT INTO POST VALUES(POST_SEQ.NEXTVAL, #{writer_id}, #{title}, #{content}, NULL, NULL, SYSDATE)
+  	</insert>
+  	
+</mapper>
+
+
