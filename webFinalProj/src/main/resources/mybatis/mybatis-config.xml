@@ -24,5 +24,6 @@
 	<typeAlias type="com.web.mall.model.Manage_QuestionDTO" alias="Manage_QuestionDTO"/>
 	<typeAlias type="com.web.mall.model.Manage_ReportDTO" alias="Manage_ReportDTO"/>
 	<typeAlias type="com.web.mall.model.Manage_SoldHistoryDTO" alias="Manage_SoldHistoryDTO"/>
+	<typeAlias type="com.web.mall.model.Manage_ImageDTO" alias="Manage_ImageDTO"/>
   </typeAliases>
 </configuration>

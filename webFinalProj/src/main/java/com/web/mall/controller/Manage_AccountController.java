@@ -21,7 +21,7 @@ public class Manage_AccountController extends Manage_C_Module {
 	Manage_AccountService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Account";
+	private final String URL = "/Manager_test/Account";
 		
 	//회원 관리 페이지 접근
 	@RequestMapping(value = URL, method = RequestMethod.GET)
@@ -33,6 +33,9 @@ public class Manage_AccountController extends Manage_C_Module {
 			int Page = setPage(mv, request);
 			List<Manage_AccountDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
+			
+			mv.addObject("Page", Page);
+			mv.addObject("pageType", URL);
 		}
 		return mv;
 	}

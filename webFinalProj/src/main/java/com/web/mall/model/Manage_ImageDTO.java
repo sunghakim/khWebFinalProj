@@ -1,9 +1,11 @@
 package com.web.mall.model;
 
+import java.math.BigDecimal;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class Manage_ImageDTO {
-	private int ImageID;
+	private BigDecimal ImageID;
 	private int ReferencesID;
 	private String IDType;
 	private String FileName;
@@ -11,10 +13,10 @@ public class Manage_ImageDTO {
 	private String RealPath;//실질적으로 파일이 저장되는 경로
 	private MultipartFile File;
 	
-	public int getImageID() {
+	public BigDecimal getImageID() {
 		return ImageID;
 	}
-	public void setImageID(int imageID) {
+	public void setImageID(BigDecimal imageID) {
 		ImageID = imageID;
 	}
 	public int getReferencesID() {
@@ -35,14 +37,23 @@ public class Manage_ImageDTO {
 	public void setFileName(String fileName) {
 		FileName = fileName;
 	}
+	public String getFileNameExtension() {
+		return FileName.substring(FileName.lastIndexOf(".") + 1);
+	}
 	public String getFileURL() {
 		return FileURL;
 	}
 	public void setFileURL(String fileURL) {
 		FileURL = fileURL;
 	}
-	public String getFullPath() {
-		return FileURL + "/" + FileName;
+	public String getDownloadPath() {
+		return FileURL + "/" + ImageID + "." + getFileNameExtension();
+	}
+	public String getRealSavedPath() {
+		return RealPath + IDType;
+	}
+	public String getRealSavedFile() {
+		return getRealSavedPath() + "/" + ImageID + "." + getFileNameExtension();
 	}
 	public String getRealPath() {
 		return RealPath;
@@ -58,7 +69,9 @@ public class Manage_ImageDTO {
 	}
 	@Override
 	public String toString() {
-		return "ImageDTO [ImageID=" + ImageID + ", ReferencesID=" + ReferencesID + ", IDType=" + IDType + ", FileName="
-				+ FileName + ", FileURL=" + FileURL + ", File=" + File + "]";
+		return "Manage_ImageDTO [ImageID=" + ImageID + ", ReferencesID=" + ReferencesID + ", IDType=" + IDType
+			+ ", FileName=" + FileName + ", FileURL=" + FileURL	+ ", RealPath=" + RealPath + 
+			", File=" + File + "]";
 	}
+	
 }
