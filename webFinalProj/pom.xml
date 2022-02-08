@@ -212,6 +212,14 @@
     <version>19.7.0.0</version>
 </dependency>
 		<!-- 끝 -->
+<!-- 구글 api -->
+<!-- https://mvnrepository.com/artifact/com.google.api-client/google-api-client -->
+<dependency>
+    <groupId>com.google.api-client</groupId>
+    <artifactId>google-api-client</artifactId>
+    <version>1.33.1</version>
+</dependency>
+
 
 	</dependencies>
     <build>

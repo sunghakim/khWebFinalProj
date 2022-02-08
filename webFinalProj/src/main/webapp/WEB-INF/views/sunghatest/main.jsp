@@ -14,10 +14,13 @@
 		<li><a href="/join">회원가입</a></li>
 		<li><a href="/naverlogin">네이버 로그인</a></li>
 		<li><a href="/googlelogin">구글 로그인</a></li>
+		<li><a href="/googlelogin2">구글 로그인2</a></li>
 		<li><a href="/login">로그인</a></li>
 		<li><a href="/logout">로그아웃</a></li>
 		<li><a href="/drop">회원탈퇴</a></li>
 		<li><a href="/findMyinfo">내정보 확인</a></li>
+		//네이버 - 네이버 로그인 한 후 callback 이 안됨. https 에서 http 로 변경하는 작업 필요.
+		//구글 - 로그인 작업 후 net::err_connection_refused 발생해서 id_token이 send 가 안됨.
 	</ul>
 </body>
 </html>
