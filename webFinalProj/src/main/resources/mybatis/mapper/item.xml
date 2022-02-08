@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ItemMapper">
+	<!--상품 정보 리절트 맵 정의 -->	
+	<resultMap id="ItemResult" type="ItemVO">
+		<result property="ItemId" column="ITEM_ID" />
+		<result property="ItemCategoryId" column="ITEM_CATEGORY_ID" />
+		<result property="Name" column="NAME" />
+		<result property="Content" column="CONTENT" />
+		<result property="Price" column="PRICE" />
+	</resultMap>	
+	
+	<resultMap id="ItemOptionResult" type="ItemOptionVO">
+		<result property="ItemOptionId" column="ITEM_OPTION_ID" />
+		<result property="ItemId" column="ITEM_ID" />
+		<result property="ItemSize" column="ITEM_SIZE" />
+		<result property="Color" column="COLOR" />
+		<result property="Amount" column="Amount" />
+	</resultMap>	
+
+	<!-- 상품 이미지 정보 저장 resultMap -->
+	<resultMap id="ImageResult" type="ImageFileVO">
+	   <result property="Imageid" column="IAMGE_ID" />
+	   <result property="ReferencesId" column="REFERENCES_ID" />
+	   <result property="IdType" column="ID_TYPE" />
+	   <result property="FileName" column="FILE_NAME" />
+	   <result property="FileUrl" column="FILE_URL" />
+	</resultMap>
+	
+	<resultMap id = "ReviewResult" type = "ReviewVO">
+		
+	</resultMap>
+	
+   
+	<select id="selectItemList" parameterType="ItemVO" resultMap="ItemResult">
+      <!-- <처럼 괄호인가 비교연산자인가 고민될때 문자열로 표시 ![CDATE ] 최신순으로 아이템 정렬 
+      근데 이미지 여러개있는거중에 어떻게 하나만 가져옴? -->
+        <![CDATA[
+          SELECT * FROM(
+			SELECT ROWNUM RNUM, TB.* FROM(
+			  SELECT * FROM ITEM IT JOIN IMAGE IM ON (IT.ITEM_ID = IM.REFERENCES_ID)
+			  WHERE IM.ID_TYPE = 'ITEM' AND IT.ITEM_CATEGORY_ID = #{item_category_id}
+			   ORDER BY ITEM_ID DESC ) TB
+			)WHERE RNUM BETWEEN ((#{page_num} - 1) * 24 + 1) AND (#{page_num} * 24) 
+	    ]]>
+	</select>
+	
+	<select id="selectItemDetailList" parameterType="ItemVO" resultMap="ItemResult">
+		<![CDATA[
+		  SELECT TB.* FROM (
+		  	SELECT IT.*, IM.*, ZZ.*, RE.*, OP.* 
+		  	FROM ITEM IT JOIN IMAGE IM ON (IT.ITEM_ID = IM.REFERENCES_ID)
+		  	JOIN ZZIM_LIST ZZ ON (IT.ITEM_ID = ZZ.ITEM_ID)
+		  	JOIN REVIEW RE ON (IT.ITEM_ID = RE.ITEM_ID)
+		  	JOIN ITEM_OPTION OP ON (IT.ITEM_ID = OP.ITEM_ID)
+		  	WHERE IM.ID_TYPE = 'ITEM' AND ITEM_ID = #{item_id} )TB 
+		 ]]>
+	</select>
+	
+	<select id="selectReviewList" parameterType="ReviewVO" resultMap="ReviewResult">
+		<![CDATA[
+		SELECT 
+		
+		]]>
+	
+	</select>
+	
+	<insert id="insertReview" parameterType="ItemVO">
+    	INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{post_id}, #{writer_id}, #{title}, #{content}, NULL, NULL, SYSDATE)
+  	</insert>
+	
+	
+	
+
+</mapper>
