@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyinfoMapper">
+  <select id="selectShoppingList" parameterType="shoppingList" resultType="shoppingList">
+    SELECT * FROM SHOPPING_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <select id="selectShoppingListItem" parameterType="shoppingList" resultType="shoppingList">
+    SELECT * FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+  </select>
+  <insert id="insertShoppingList" parameterType="shoppingList">
+    INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
+  </insert>
+  <update id="updateShoppingList" parameterType="shoppingList">
+    UPDATE SHOPPING_LIST
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="amount != 0">
+    		, AMOUNT = #{amount} 
+    	</if>
+    	<if test="item_option_id != 0">
+    		, ITEM_OPTION_ID = #{item_option_id} 
+    	</if>
+    </trim>
+    WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+  </update>
+  <delete id="deleteShoppingList" parameterType="shoppingList">
+    DELETE FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+  </delete>
+  
+  <select id="selectItem" parameterType="item" resultType="item">
+    SELECT * FROM ITEM WHERE ITEM_ID = #{item_id}
+  </select>
+  <select id="selectItemOption" parameterType="itemOption" resultType="itemOption">
+    SELECT * FROM ITEM_OPTION WHERE ITEM_OPTION_ID = #{item_option_id}
+  </select>
+  
+  <select id="selectZzimList" parameterType="zzim" resultType="zzim">
+    SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <delete id="deleteZzimItem" parameterType="zzim">
+    DELETE FROM ZZIM_LIST WHERE ZZIM_LIST_ID = #{zzim_list_id}
+  </delete>
+  
+  <select id="selectGiveCouponList" parameterType="giveCoupon" resultType="giveCoupon">
+    SELECT * FROM GIVE_COUPON WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <select id="selectCouponInfo" parameterType="coupon" resultType="coupon">
+    SELECT * FROM COUPON WHERE COUPON_ID = #{coupon_id}
+  </select>
+  
+  <select id="selectQuestions" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE WRITER_ID = #{writer_id} ORDER BY 1
+  </select>
+  <select id="selectOneQuestion" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}
+  </select>
+  <insert id="insertQuestion" parameterType="question">
+    INSERT INTO QUESTION VALUES(QUESTION_SEQ.NEXTVAL, #{item_id}, #{writer_id}, #{question_title}, #{question_content}, SYSDATE, 0, NULL, NULL, NULL)
+  </insert>
+  <update id="updateQuestion" parameterType="question">
+    UPDATE QUESTION
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="question_content != null">
+    		, QUESTION_CONTENT = #{question_content} 
+    	</if>
+    </trim>
+    WHERE QUESTION_ID = #{question_id}
+  </update>
+  <delete id="deleteQuestion" parameterType="question">
+    DELETE FROM QUESTION WHERE QUESTION_ID = #{question_id}
+  </delete>
+  
+  <select id="selectReports" parameterType="report" resultType="report">
+    SELECT * FROM REPORT WHERE REPORTER_ID = #{reporter_id} ORDER BY 1
+  </select>
+  
+  <select id="selectReportReason" resultType="reportReason">
+    SELECT * FROM REPORT_REASON ORDER BY 1
+  </select>
+  
+  <select id="selectAllSoldHistory" parameterType="soldHistory" resultType="soldHistory">
+    SELECT * FROM SOLD_HISTORY WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <select id="selectOneSoldHistory" parameterType="soldHistory" resultType="soldHistory">
+    SELECT * FROM SOLD_HISTORY WHERE SOLD_HISTORY_ID = #{sold_history_id}
+  </select>
+  <select id="selectAllSoldDetail" parameterType="soldDetail" resultType="soldDetail">
+    SELECT * FROM SOLD_DETAIL WHERE SOLD_HISTORY_ID = #{sold_history_id} ORDER BY 1
+  </select>
+  <select id="selectOneSoldDetail" parameterType="soldDetail" resultType="soldDetail">
+  	SELECT * FROM SOLD_DETAIL WHEER SOLD_DETAIL_ID = #{sold_detail_id}
+  </select>
+  <update id="updateRefund" parameterType="soldDetail">
+    UPDATE SOLD_DETAIL
+    <trim prefix="SET" prefixOverrides=",">
+    	<choose>
+	    	<when test="is_refund == 0">
+	    		, IS_REFUND = 1 
+	    	</when>
+	    	<otherwise>
+	    		, IS_REFUND = 0 
+	    	</otherwise>
+    	</choose>
+    </trim>
+    WHERE SOLD_DETAIL_ID = #{sold_detail_id}
+  </update>
+  
+</mapper>
