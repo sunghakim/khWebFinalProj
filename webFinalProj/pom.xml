@@ -237,6 +237,12 @@
     <artifactId>google-api-client</artifactId>
     <version>1.33.1</version>
 </dependency>
+<!-- https://mvnrepository.com/artifact/io.fusionauth/fusionauth-jwt -->
+<dependency>
+    <groupId>io.fusionauth</groupId>
+    <artifactId>fusionauth-jwt</artifactId>
+    <version>5.0.0</version>
+</dependency>
 
 
 	</dependencies>

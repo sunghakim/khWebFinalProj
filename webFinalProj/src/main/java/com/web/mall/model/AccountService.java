@@ -28,6 +28,18 @@ public class AccountService {
 			return false;
 		}
 	}
+	public boolean googleJoin(GoogleAccountVO vo) {
+		int res = dao.insertGoogleUserAccount(vo);
+		System.out.println("join 시도 실행됨!");
+		System.out.println(vo);
+		
+		if(res == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
 	public boolean dropAccount(AccountVO vo) {
 		System.out.println("deleteMember 실행됨!");
@@ -55,5 +67,9 @@ public class AccountService {
 		else {
 			return true;
 		}
+	}
+	public GoogleAccountVO checkSameAccountGoogle(GoogleAccountVO vo) {
+		System.out.println("같은 이름과 이메일이 있는지 확인 실행됨!");
+		return dao.selectSameAccountGoogle(vo);
 	}
 }

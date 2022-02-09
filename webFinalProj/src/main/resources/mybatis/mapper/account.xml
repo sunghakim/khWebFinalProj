@@ -9,11 +9,17 @@
   <select id="selectSameAccount" parameterType="account" resultType="account">
     SELECT * FROM ACCOUNT WHERE PHONE = #{phone} AND NAME = #{name}
   </select>
+  <select id="selectSameAccountGoogle" parameterType="accountGoogle" resultType="accountGoogle">
+    SELECT * FROM GOOGLE_ACCOUNT WHERE EMAIL = #{email} AND NAME = #{name}
+  </select>
   <select id="selectListAccount" resultType="ArrayList">
     SELECT * FROM ACCOUNT
   </select>
   <insert id="insertWebUserAccount" parameterType="account">
     INSERT INTO ACCOUNT VALUES(#{account_id}, #{password}, #{user_type}, #{name}, #{phone}, #{email}, #{address}, #{nickname}, SYSDATE)
+  </insert>
+  <insert id="insertGoogleUserAccount" parameterType="accountGoogle">
+    INSERT INTO GOOGLE_ACCOUNT VALUES(#{sub}, #{email}, #{name}, #{platform}, SYSDATE)
   </insert>
   <update id="updateAccountInfo" parameterType="account">
     UPDATE ACCOUNT

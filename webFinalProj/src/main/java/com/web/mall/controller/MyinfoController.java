@@ -52,7 +52,7 @@ public class MyinfoController {
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("itemOptionList", itemOptionList);
 		
-		return "sunghatest/cart";
+		return "sunghatest/cart"; //user/mypage/basket
 	}
 	@RequestMapping(value="/deleteCartItem", method=RequestMethod.GET) //장바구니 물건 삭제
 	public String deleteCartItem(ShoppingListVO shop, Model model) {
@@ -93,7 +93,7 @@ public class MyinfoController {
 		}
 		model.addAttribute("itemList", itemList);
 		
-		return "sunghatest/zzim";
+		return "sunghatest/zzim"; //user/mypage/like
 	}
 	@RequestMapping(value="/deleteZzimItem", method=RequestMethod.GET)
 	public String deleteZzimItem(ZzimListVO zzim, Model model) {
@@ -126,7 +126,7 @@ public class MyinfoController {
 		}
 		model.addAttribute("couponInfo", couponInfo);
 		
-		return "sunghatest/coupon";
+		return "sunghatest/coupon"; //user/mypage/coupon
 	}
 	@RequestMapping(value="/checkReport", method=RequestMethod.GET)
 	public String seeReportedList(ReportVO report, HttpSession session, Model model) {
@@ -139,7 +139,7 @@ public class MyinfoController {
 		List<ReportReasonVO> reportReason = service.getReportReason();
 		model.addAttribute("reportReason", reportReason);
 		
-		return "sunghatest/reportlist";
+		return "sunghatest/reportlist"; //user/mypage/report
 	}
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
 	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
@@ -149,11 +149,11 @@ public class MyinfoController {
 		List<QuestionVO> questionList = service.getQuestions(question);
 		model.addAttribute("questionList", questionList);
 		
-		return "sunghatest/questionlist";
+		return "sunghatest/questionlist"; //user/mypage/question
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.GET)
 	public String addQuestionform() {
-		return "sunghatest/addquestion";
+		return "sunghatest/addquestion"; //user/mypage/questionWrite
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
 	public String addQuestion(QuestionVO questionVo, Model model) {
@@ -164,7 +164,7 @@ public class MyinfoController {
 		else {
 			System.out.println("문의 등록 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "sunghatest/addquestion";
+			return "sunghatest/addquestion"; //user/mypage/questionWrite
 		}
 	}
 	//
@@ -173,7 +173,7 @@ public class MyinfoController {
 		QuestionVO question = service.getOneQuestion(questionVo);
 		model.addAttribute("question", question);
 		
-		return "문의 상세페이지";
+		return "문의 상세페이지"; //user/mypage/questionPost
 	}
 	//
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.GET)
@@ -182,7 +182,7 @@ public class MyinfoController {
 		QuestionVO question = service.getOneQuestion(questionVo);
 		model.addAttribute("questionVo", question);
 		
-		return "sunghatest/addquestion";
+		return "sunghatest/addquestion"; //user/mypage/questionWrite
 	}
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.POST)
 	public String updateQuestion(QuestionVO questionVo, Model model) {
@@ -194,19 +194,19 @@ public class MyinfoController {
 		else {
 			System.out.println("문의 수정 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "sunghatest/addquestion";
+			return "sunghatest/addquestion"; //user/mypage/questionWrite
 		}
 	}
 	@RequestMapping(value="/deleteQuestion", method=RequestMethod.GET)
 	public String deleteQuestion(QuestionVO questionVo, Model model) {
 		//id 받아와야함
 		if(service.deleteQuestion(questionVo)) {
-			return "redirect:/checkQuestionList";
+			return "redirect:/checkQuestionList"; 
 		}
 		else {
 			System.out.println("문의 삭제 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "redirect:/checkQuestionList";
+			return "redirect:/checkQuestionList"; 
 		}
 	}
 	@RequestMapping(value="/checkPayedList", method=RequestMethod.GET)
@@ -229,7 +229,7 @@ public class MyinfoController {
 		model.addAttribute("detailList", soldDetail);
 		model.addAttribute("detailNumber", numberOfDetail);
 		
-		return "sunghatest/payedlist";
+		return "sunghatest/payedlist"; //user/mypage/history
 	}
 	@RequestMapping(value="/checkPayed", method=RequestMethod.GET)
 	public String seePayedDay(SoldDetailVO detailVo, Model model) {

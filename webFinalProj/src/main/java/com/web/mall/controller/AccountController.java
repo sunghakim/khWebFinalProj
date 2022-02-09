@@ -1,5 +1,6 @@
 package com.web.mall.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import java.io.IOException;
@@ -27,7 +28,7 @@ public class AccountController {
 	@Autowired
 	private AccountService service;
 	
-	@RequestMapping(value="/main", method=RequestMethod.GET)
+	@RequestMapping(value="/main", method=RequestMethod.GET) //메인페이지 담당이 알아서 해줄테니 삭제해도 됨.
 	public String main() {
 		return "sunghatest/main";
 	}
@@ -66,57 +67,65 @@ public class AccountController {
 
 		return "sunghatest/callbackagain";
 	}
-	@RequestMapping(value="/googlelogin", method=RequestMethod.GET)
-	public String googlelogin() {
-		return "sunghatest/googlelogin";
-	}
 	@RequestMapping(value="/googlelogin2", method=RequestMethod.GET)
-	public String googlelogin2() {
+	public String googlelogin2GET() {
 		return "sunghatest/googlelogin2";
 	}
 	@RequestMapping(value="/google/auth", method=RequestMethod.POST)
-	public String googleLogin(String idtoken, Model model) throws GeneralSecurityException, IOException {
+	public String googleLoginAuth(String credential, Model model, HttpSession session) throws GeneralSecurityException, IOException {
 		HttpTransport transport = Utils.getDefaultTransport();
 		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
 		
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
 				.setAudience(Collections.singletonList("494231445138-2h489p3ollojmgeb6531mas1508c9eb0.apps.googleusercontent.com")).build();
-		
-		GoogleIdToken idToken = verifier.verify(idtoken);
+		System.out.println("google auth");
+
+		GoogleIdToken idToken = verifier.verify(credential);
 		if (idToken != null) {
-			Payload payload = idToken.getPayload();
+		  Payload payload = idToken.getPayload();
+		  
+		  GoogleAccountVO vo = new GoogleAccountVO();
+		  vo.setSub(payload.getSubject()); //id
+		  vo.setEmail(payload.getEmail());
+		  vo.setName((String) payload.get("name"));
+		  vo.setPlatform("google");
+		  
+		  GoogleAccountVO sameData = service.checkSameAccountGoogle(vo);
+		  if(sameData != null) {
+			  session.setAttribute("logined", true);
+			  session.setAttribute("account", sameData);
+			  System.out.println(vo);
+			  System.out.println("google login");
+		  }
+		  else {
+			  if(service.googleJoin(vo)) {
+				  model.addAttribute("login_result","success");
+				  model.addAttribute("id", vo.getSub());
+			  }
+			  else {
+				  System.out.println("join 실패");
+				  model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
+				  return "redirect:/googlelogin2";
+			  }
+		  }
+		} else {
+		  System.out.println("Invalid ID token.");
+		  model.addAttribute("login_result","fail");
+		}
 			
-			AccountVO accountVo = new AccountVO();
-			accountVo.setName("given_name"+"family_name");
-			accountVo.setEmail("email"); //구글은 핸드폰 정보가 없음.
-			
-			//if (service.checkSameAccount(accountVo) != null) { //회원가입이 안 되어 있는 경우
-				GoogleAccountVO vo = new GoogleAccountVO();
-				vo.setSub((String) payload.get("sub"));
-				vo.setEmail((String) payload.getEmail());
-				vo.setGiven_name((String) payload.get("given_name"));
-				vo.setFamily_name((String) payload.get("family_name"));
-				vo.setPlatform("google");
-				vo.setAccess_token(idtoken);
-				System.out.println(vo);
-			//}//end if
-				
-			model.addAttribute("id", (String) payload.get("email"));
-			model.addAttribute("login_result", "success");
-				
-		} else { //유효하지 않은 토큰
-			model.addAttribute("login_result", "fail");;
-		}//end else
-			
-		return "sunghatest/googlelogin2_result";
+		return "sunghatest/googlelogin2";
 	    
 	}//googleLogin
+	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
+	public String kakaologinGET() {
+		return "sunghatest/kakaologin";
+	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.GET)
+	@RequestMapping(value="/join", method=RequestMethod.GET) //모달창 띄움. get 없어도 됨
 	public String join() {
 		return "sunghatest/join";
 	}
-	@RequestMapping(value="/join", method=RequestMethod.POST)
+	@RequestMapping(value="/join", method=RequestMethod.POST) //모달창 띄움. 메인으로 이동.
 	public String join(AccountVO accountVo, String zipNo, Boolean reJoin, Model model) {
 		//관리자는 관리자 로그인 후 회원관리카테고리에서 관리자 회원가입 누를수 있는 버튼 추가. 일반회원은 일반 회원가입과 동일. 위치에 따라 userType 이 다르게 들어오도록 처리.
 		model.addAttribute("accountVO", accountVo);
@@ -136,7 +145,7 @@ public class AccountController {
 				else {
 					model.addAttribute("isError", true);
 					model.addAttribute("error_msg", "관리자로 등록되어있습니다. 회원으로 등록하시겠습니까?");
-				} //회원으로 등록하시겠습니까? -> y,n 확인 받고 처리
+				} //회원으로 등록하시겠습니까? -> attribute 상태에 따라서 y,n 확인 받는거 보이고 숨기게 하고 결과 처리
 				return "sunghatest/join";
 			}
 			else {
@@ -150,7 +159,7 @@ public class AccountController {
 				else {
 					accountVo.setAddress_no(zipNo);
 					if(service.join(accountVo)) {
-						return "redirect:/login";
+						return "redirect:/login"; //회원가입 완료 시 로그인 페이지로 이동
 					}
 					else {
 						System.out.println("join 실패");
@@ -161,9 +170,9 @@ public class AccountController {
 			}
 		}
 		else {
-			accountVo.setUser_type(1);
+			accountVo.setUser_type(1); //일반 회원으로 변경해서 가입
 			if(service.join(accountVo)) {
-				return "redirect:/login";
+				return "redirect:/login"; //회원가입 완료 시 로그인 페이지로 이동
 			}
 			else {
 				System.out.println("join 실패");
@@ -173,8 +182,8 @@ public class AccountController {
 		}
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET)
-	public String login() {
+	@RequestMapping(value="/login", method=RequestMethod.GET) //모달창 띄움. get 없어도 됨
+	public String login(HttpServletRequest request) {		
 		return "sunghatest/login";
 	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
@@ -221,6 +230,8 @@ public class AccountController {
 	}
 	@RequestMapping(value="/drop", method=RequestMethod.GET)
 	public String dropAccount(HttpSession session, Model model) {
+		//외부로그인인지 내부로그인인지 확인 필요. 
+		//google 로그인 일 경우 id 토큰 취소 적용. (https://developers.google.com/identity/gsi/web/guides/revoke)
 		AccountVO vo = (AccountVO)session.getAttribute("account");
 		if(service.dropAccount(vo)) {
 			return "redirect:/main";
@@ -233,22 +244,22 @@ public class AccountController {
 	}
 	@RequestMapping(value="/findMyinfo", method=RequestMethod.GET)
 	public String myinfoPage() {
-		return "sunghatest/myinfo";
+		return "sunghatest/myinfo"; //user/mypage/mypage
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.GET)
 	public String seeMyinfo() {
-		return "sunghatest/myinfodetail";
+		return "sunghatest/myinfodetail"; //user/mypage/info
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.POST)
 	public String updateMyinfo(AccountVO accountVo, HttpSession session) {
 		if(service.updateMyinfo(accountVo)) {
 			AccountVO data = service.login(accountVo);
 			session.setAttribute("account", data);
-			return "sunghatest/myinfodetail";
+			return "sunghatest/myinfodetail"; //user/mypage/info
 		}
 		else {
 			session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
-			return "sunghatest/myinfodetail";
+			return "sunghatest/myinfodetail"; //user/mypage/info
 		}
 	}
 }

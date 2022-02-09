@@ -24,6 +24,9 @@ public class AccountDAO {
 	public int insertWebUserAccount(AccountVO vo) {
 		return this.sess.insert("AccountMapper.insertWebUserAccount", vo);
 	}
+	public int insertGoogleUserAccount(GoogleAccountVO vo) {
+		return this.sess.insert("AccountMapper.insertGoogleUserAccount", vo);
+	}
 	
 	public int deleteAccount(AccountVO vo) {
 		return this.sess.delete("AccountMapper.deleteAccount", vo);
@@ -31,6 +34,9 @@ public class AccountDAO {
 	
 	public AccountVO selectSameAccount(AccountVO vo) {
 		return this.sess.selectOne("AccountMapper.selectSameAccount", vo);
+	}
+	public GoogleAccountVO selectSameAccountGoogle(GoogleAccountVO vo) {
+		return this.sess.selectOne("AccountMapper.selectSameAccountGoogle", vo);
 	}
 	
 	public int updateAccountInfo(AccountVO vo) {
