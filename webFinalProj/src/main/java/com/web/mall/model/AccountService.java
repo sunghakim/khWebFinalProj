@@ -15,6 +15,13 @@ public class AccountService {
 		AccountVO data = dao.selectLoginAccount(vo);
 		return data;
 	}
+	public SocialAccountVO login(SocialAccountVO vo) {
+		System.out.println("login 시도 실행됨!");
+		System.out.println(vo);
+		
+		SocialAccountVO data = dao.selectLoginAccount(vo);
+		return data;
+	}
 	
 	public boolean join(AccountVO vo) {
 		int res = dao.insertWebUserAccount(vo);
@@ -28,8 +35,8 @@ public class AccountService {
 			return false;
 		}
 	}
-	public boolean googleJoin(GoogleAccountVO vo) {
-		int res = dao.insertGoogleUserAccount(vo);
+	public boolean socialJoin(SocialAccountVO vo) {
+		int res = dao.insertSocialUserAccount(vo);
 		System.out.println("join 시도 실행됨!");
 		System.out.println(vo);
 		
@@ -55,6 +62,10 @@ public class AccountService {
 		System.out.println("같은 이름과 전화번호가 있는지 확인 실행됨!");
 		return dao.selectSameAccount(vo);
 	}
+	public SocialAccountVO checkSameAccount(SocialAccountVO vo) {
+		System.out.println("같은 이름과 전화번호가 있는지 확인 실행됨!");
+		return dao.selectSameAccount(vo);
+	}
 	
 	public AccountVO getMyinfo(AccountVO vo) {		
 		return dao.selectLoginAccount(vo);
@@ -67,9 +78,5 @@ public class AccountService {
 		else {
 			return true;
 		}
-	}
-	public GoogleAccountVO checkSameAccountGoogle(GoogleAccountVO vo) {
-		System.out.println("같은 이름과 이메일이 있는지 확인 실행됨!");
-		return dao.selectSameAccountGoogle(vo);
 	}
 }

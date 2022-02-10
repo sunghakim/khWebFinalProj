@@ -2,34 +2,28 @@ package com.web.mall.model;
 
 import java.sql.Date;
 
-public class AccountVO {
-	private String account_id;
-	private String password;
-	private int user_type; //0:관리자, 1:회원, 2:비회원
+public class SocialAccountVO {
+	private String social_account_id; 
+	private String rand_id; //The unique ID of the user's Google Account
 	private String name;
 	private String phone;
 	private String email;
 	private String address;
 	private String address_no;
 	private String nickname;
+	private int login_type;
 	private Date joindate;
-	public String getAccount_id() {
-		return account_id;
+	public String getSocial_account_id() {
+		return social_account_id;
 	}
-	public void setAccount_id(String account_id) {
-		this.account_id = account_id;
+	public void setSocial_account_id(String social_account_id) {
+		this.social_account_id = social_account_id;
 	}
-	public String getPassword() {
-		return password;
+	public String getRand_id() {
+		return rand_id;
 	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public int getUser_type() {
-		return user_type;
-	}
-	public void setUser_type(int user_type) {
-		this.user_type = user_type;
+	public void setRand_id(String rand_id) {
+		this.rand_id = rand_id;
 	}
 	public String getName() {
 		return name;
@@ -67,6 +61,12 @@ public class AccountVO {
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
+	public int getLogin_type() {
+		return login_type;
+	}
+	public void setLogin_type(int login_type) {
+		this.login_type = login_type;
+	}
 	public Date getJoindate() {
 		return joindate;
 	}
@@ -75,12 +75,8 @@ public class AccountVO {
 	}
 	@Override
 	public String toString() {
-		return "AccountVO [account_id=" + account_id + ", password=" + password + ", user_type=" + user_type + ", name="
-				+ name + ", phone=" + phone + ", email=" + email + ", address=" + address + ", address_no=" + address_no
-				+ ", nickname=" + nickname + ", joindate=" + joindate + "]";
+		return "SocialAccountVO [social_account_id=" + social_account_id + ", rand_id=" + rand_id + ", name=" + name
+				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", address_no=" + address_no
+				+ ", nickname=" + nickname + ", login_type=" + login_type + ", joindate=" + joindate + "]";
 	}
-	public String getSocial_account_id() {
-		return "false";
-	}
-	
 }

@@ -14,6 +14,9 @@ public class AccountDAO {
 	public AccountVO selectLoginAccount(AccountVO vo) {
 		return this.sess.selectOne("AccountMapper.selectLoginAccount", vo);
 	}
+	public SocialAccountVO selectLoginAccount(SocialAccountVO vo) {
+		return this.sess.selectOne("AccountMapper.selectLoginSocialAccount", vo);
+	}
 	
 	public List<AccountVO> selectAccounts() {
 		List<AccountVO> data = this.sess.selectList("AccountMapper.selectListAccount");
@@ -24,8 +27,9 @@ public class AccountDAO {
 	public int insertWebUserAccount(AccountVO vo) {
 		return this.sess.insert("AccountMapper.insertWebUserAccount", vo);
 	}
-	public int insertGoogleUserAccount(GoogleAccountVO vo) {
-		return this.sess.insert("AccountMapper.insertGoogleUserAccount", vo);
+	public int insertSocialUserAccount(SocialAccountVO vo) {
+		System.out.println(vo);
+		return this.sess.insert("AccountMapper.insertSocialUserAccount", vo);
 	}
 	
 	public int deleteAccount(AccountVO vo) {
@@ -35,8 +39,8 @@ public class AccountDAO {
 	public AccountVO selectSameAccount(AccountVO vo) {
 		return this.sess.selectOne("AccountMapper.selectSameAccount", vo);
 	}
-	public GoogleAccountVO selectSameAccountGoogle(GoogleAccountVO vo) {
-		return this.sess.selectOne("AccountMapper.selectSameAccountGoogle", vo);
+	public SocialAccountVO selectSameAccount(SocialAccountVO vo) {
+		return this.sess.selectOne("AccountMapper.selectSameSocialAccount", vo);
 	}
 	
 	public int updateAccountInfo(AccountVO vo) {

@@ -6,12 +6,15 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
@@ -21,7 +24,7 @@ import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.web.mall.model.AccountService;
 import com.web.mall.model.AccountVO;
-import com.web.mall.model.GoogleAccountVO;
+import com.web.mall.model.SocialAccountVO;
 
 @Controller
 public class AccountController {
@@ -72,7 +75,7 @@ public class AccountController {
 		return "sunghatest/googlelogin2";
 	}
 	@RequestMapping(value="/google/auth", method=RequestMethod.POST)
-	public String googleLoginAuth(String credential, Model model, HttpSession session) throws GeneralSecurityException, IOException {
+	public String googleLoginAuth(SocialAccountVO vo, String credential, Model model, HttpSession session) throws GeneralSecurityException, IOException {
 		HttpTransport transport = Utils.getDefaultTransport();
 		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
 		
@@ -84,31 +87,16 @@ public class AccountController {
 		if (idToken != null) {
 		  Payload payload = idToken.getPayload();
 		  
-		  GoogleAccountVO vo = new GoogleAccountVO();
-		  vo.setSub(payload.getSubject()); //id
+		  vo.setRand_id(payload.getSubject()); //id
 		  vo.setEmail(payload.getEmail());
 		  vo.setName((String) payload.get("name"));
-		  vo.setPlatform("google");
+		  vo.setNickname(vo.getName());
+		  vo.setLogin_type(2);
+		  System.out.println(vo);
 		  
-		  GoogleAccountVO sameData = service.checkSameAccountGoogle(vo);
-		  if(sameData != null) {
-			  session.setAttribute("logined", true);
-			  session.setAttribute("account", sameData);
-			  System.out.println(vo);
-			  System.out.println("google login");
-		  }
-		  else {
-			  if(service.googleJoin(vo)) {
-				  model.addAttribute("login_result","success");
-				  model.addAttribute("id", vo.getSub());
-			  }
-			  else {
-				  System.out.println("join 실패");
-				  model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-				  return "redirect:/googlelogin2";
-			  }
-		  }
-		} else {
+		  return loginSocialAccount(session, model, vo);
+		} 
+		else {
 		  System.out.println("Invalid ID token.");
 		  model.addAttribute("login_result","fail");
 		}
@@ -119,6 +107,68 @@ public class AccountController {
 	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
 	public String kakaologinGET() {
 		return "sunghatest/kakaologin";
+	}
+	@ResponseBody
+	@RequestMapping(value="/kakaologin/doing", method=RequestMethod.POST)
+	public Map<String, String> dokakaologin(SocialAccountVO vo, String id, String email, String nickname, HttpSession session, Model model) {
+		vo.setRand_id(id); //id
+		vo.setEmail(email);
+		vo.setName(nickname);
+		vo.setNickname(vo.getName());
+		vo.setLogin_type(3);
+		System.out.println(vo);
+		
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("res", loginSocialAccount(session, model, vo));
+		System.out.println(result);
+		return result;
+	}
+	public String loginSocialAccount(HttpSession session, Model model, SocialAccountVO vo) {
+		SocialAccountVO sameData = service.checkSameAccount(vo);
+		if(sameData != null) { //같은 사람이 있으면
+			System.out.println("이미 계정에 같은 정보의 사람이 있음");
+			if(sameData.getLogin_type() == vo.getLogin_type()) {
+				System.out.println(sameData);
+				session.setAttribute("logined", true);
+				session.setAttribute("account", sameData);
+				return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
+			}
+			else{
+				if(sameData.getLogin_type() == 1) {
+				model.addAttribute("error_msg", "네이버 회원으로 등록되어있습니다.");
+				}
+				else if(sameData.getLogin_type() == 2) {
+				model.addAttribute("error_msg", "구글 회원으로 등록되어있습니다.");
+				}
+				else {
+				model.addAttribute("error_msg", "카카오 회원으로 등록되어있습니다.");
+				}
+			}
+			model.addAttribute("isError", true);
+			return "redirect:/login";
+		}
+		else {
+			System.out.println("같은 정보의 사람이 없음. ");
+			if(service.socialJoin(vo)) {
+				SocialAccountVO data = service.login(vo);
+				System.out.println("login data = " + data);
+				if(data != null) {
+					session.setAttribute("logined", true);
+					session.setAttribute("account", data);
+					return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
+				}
+				else {
+					System.out.println("login 실패");
+					model.addAttribute("error_msg", "로그인 오류. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
+					return "redirect:/login";
+				}
+			}
+			else {
+				System.out.println("join 실패");
+				model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
+				return "redirect:/login";
+			}
+		}
 	}
 	
 	@RequestMapping(value="/join", method=RequestMethod.GET) //모달창 띄움. get 없어도 됨
@@ -216,7 +266,8 @@ public class AccountController {
 		}
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session, String type) {
+		//로그아웃 시 구글, 카카오, 일반 모두 작동되도록할 것
 		session.removeAttribute("logined");
 		
 		if(session.getAttribute("logined") == null) {
@@ -232,6 +283,7 @@ public class AccountController {
 	public String dropAccount(HttpSession session, Model model) {
 		//외부로그인인지 내부로그인인지 확인 필요. 
 		//google 로그인 일 경우 id 토큰 취소 적용. (https://developers.google.com/identity/gsi/web/guides/revoke)
+		//카카오도 drop 있음
 		AccountVO vo = (AccountVO)session.getAttribute("account");
 		if(service.dropAccount(vo)) {
 			return "redirect:/main";

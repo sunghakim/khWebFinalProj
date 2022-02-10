@@ -6,20 +6,26 @@
   <select id="selectLoginAccount" parameterType="account" resultType="account">
     SELECT * FROM ACCOUNT WHERE ACCOUNT_ID = #{account_id}
   </select>
-  <select id="selectSameAccount" parameterType="account" resultType="account">
-    SELECT * FROM ACCOUNT WHERE PHONE = #{phone} AND NAME = #{name}
+  <select id="selectLoginSocialAccount" parameterType="socialAccount" resultType="socialAccount">
+    SELECT * FROM SOCIAL_ACCOUNT WHERE RAND_ID = #{rand_id} AND EMAIL = #{email}
   </select>
-  <select id="selectSameAccountGoogle" parameterType="accountGoogle" resultType="accountGoogle">
-    SELECT * FROM GOOGLE_ACCOUNT WHERE EMAIL = #{email} AND NAME = #{name}
+  <select id="selectSameAccount" parameterType="account" resultType="account">
+    SELECT * FROM ACCOUNT WHERE EMAIL = #{email} AND NAME = #{name}
+  </select>
+  <select id="selectSameSocialAccount" parameterType="socialAccount" resultType="socialAccount">
+    SELECT * FROM SOCIAL_ACCOUNT WHERE EMAIL = #{email} AND NAME = #{name}
   </select>
   <select id="selectListAccount" resultType="ArrayList">
-    SELECT * FROM ACCOUNT
+    SELECT * FROM ACCOUNT ORDER BY JOINDATE
+  </select>
+  <select id="selectListSocialAccount" resultType="ArrayList">
+    SELECT * FROM SOCIAL_ACCOUNT ORDER BY JOINDATE
   </select>
   <insert id="insertWebUserAccount" parameterType="account">
-    INSERT INTO ACCOUNT VALUES(#{account_id}, #{password}, #{user_type}, #{name}, #{phone}, #{email}, #{address}, #{nickname}, SYSDATE)
+    INSERT INTO ACCOUNT VALUES(#{account_id}, #{password}, #{user_type}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, SYSDATE)
   </insert>
-  <insert id="insertGoogleUserAccount" parameterType="accountGoogle">
-    INSERT INTO GOOGLE_ACCOUNT VALUES(#{sub}, #{email}, #{name}, #{platform}, SYSDATE)
+  <insert id="insertSocialUserAccount" parameterType="socialAccount">
+    INSERT INTO SOCIAL_ACCOUNT VALUES('USER' || SOCIAL_ACCOUNT_SEQ.NEXTVAL, #{rand_id}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, #{login_type}, SYSDATE)
   </insert>
   <update id="updateAccountInfo" parameterType="account">
     UPDATE ACCOUNT
@@ -35,6 +41,9 @@
     	</if>
     	<if test="address != null">
     		, ADDRESS = #{address}
+    	</if>
+    	<if test="address_no != null">
+    		, ADDRESS_NO = #{address_no}
     	</if>
     	<if test="nickname != null">
     		, NICKNAME = #{nickname}
