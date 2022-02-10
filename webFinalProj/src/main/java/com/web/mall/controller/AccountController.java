@@ -131,6 +131,7 @@ public class AccountController {
 				System.out.println(sameData);
 				session.setAttribute("logined", true);
 				session.setAttribute("account", sameData);
+				session.setAttribute("usertype", "social");
 				return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
 			}
 			else{
@@ -155,6 +156,7 @@ public class AccountController {
 				if(data != null) {
 					session.setAttribute("logined", true);
 					session.setAttribute("account", data);
+					session.setAttribute("usertype", "social");
 					return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
 				}
 				else {
@@ -248,6 +250,7 @@ public class AccountController {
 				model.addAttribute("accountVO", accountVo);
 				session.setAttribute("logined", true);
 				session.setAttribute("account", data);
+				session.setAttribute("usertype", "web");
 				
 				return "sunghatest/main"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.
 			}
@@ -303,7 +306,9 @@ public class AccountController {
 		return "sunghatest/myinfodetail"; //user/mypage/info
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.POST)
-	public String updateMyinfo(AccountVO accountVo, HttpSession session) {
+	public String updateMyinfo(AccountVO accountVo, SocialAccountVO socialVo, HttpSession session) {
+		//accountVO랑 socialVO랑 같이 있을 때 겹치는 값은 둘다 적용되어 저장되는지 오류 발생하는지 확인 필요.
+		//오류 발생하면 JSP에서 어떤 값인지 확인 후 TYPE 값을 전달하여 따로 동작하게 해야할것.
 		if(service.updateMyinfo(accountVo)) {
 			AccountVO data = service.login(accountVo);
 			session.setAttribute("account", data);

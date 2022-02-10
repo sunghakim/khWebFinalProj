@@ -21,6 +21,7 @@ import com.web.mall.model.QuestionVO;
 import com.web.mall.model.ReportReasonVO;
 import com.web.mall.model.ReportVO;
 import com.web.mall.model.ShoppingListVO;
+import com.web.mall.model.SocialAccountVO;
 import com.web.mall.model.SoldDetailVO;
 import com.web.mall.model.SoldHistoryVO;
 import com.web.mall.model.ZzimListVO;
@@ -32,8 +33,14 @@ public class MyinfoController {
 	
 	@RequestMapping(value="/checkCarts", method=RequestMethod.GET) //장바구니
 	public String seeCarts(ShoppingListVO shop, ItemVO item, ItemOptionVO itemOp, HttpSession session, Model model) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		shop.setAccount_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			shop.setAccount_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			shop.setAccount_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<ShoppingListVO> shoppingList = service.getCarts(shop);
 		model.addAttribute("shoppingList", shoppingList);
@@ -78,8 +85,14 @@ public class MyinfoController {
 	}
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)
 	public String seeZzimList(ZzimListVO zzim, ItemVO item, HttpSession session, Model model) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		zzim.setAccount_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			zzim.setAccount_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			zzim.setAccount_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<ZzimListVO> zzimList = service.getZzims(zzim);
 		model.addAttribute("zzimList", zzimList);
@@ -111,8 +124,14 @@ public class MyinfoController {
 	}
 	@RequestMapping(value="/checkCoupon", method=RequestMethod.GET)
 	public String seeCouponList(GiveCouponVO givenCoupon, CouponVO coupon, HttpSession session, Model model) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		givenCoupon.setAccount_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			givenCoupon.setAccount_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			givenCoupon.setAccount_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<GiveCouponVO> couponList = service.getGivenCoupons(givenCoupon);
 		model.addAttribute("couponList", couponList);
@@ -130,8 +149,14 @@ public class MyinfoController {
 	}
 	@RequestMapping(value="/checkReport", method=RequestMethod.GET)
 	public String seeReportedList(ReportVO report, HttpSession session, Model model) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		report.setReporter_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			report.setReporter_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			report.setReporter_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<ReportVO> reportList = service.getReportedUsers(report);
 		model.addAttribute("reportList", reportList);
@@ -143,8 +168,14 @@ public class MyinfoController {
 	}
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
 	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		question.setWriter_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			question.setWriter_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			question.setWriter_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<QuestionVO> questionList = service.getQuestions(question);
 		model.addAttribute("questionList", questionList);
@@ -211,8 +242,14 @@ public class MyinfoController {
 	}
 	@RequestMapping(value="/checkPayedList", method=RequestMethod.GET)
 	public String seePayedDayList(SoldHistoryVO soldHistoryVo, SoldDetailVO detailVo, Model model, HttpSession session) {
-		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-		soldHistoryVo.setAccount_id(nowAcc.getAccount_id());
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			soldHistoryVo.setAccount_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			soldHistoryVo.setAccount_id(nowAcc.getSocial_account_id());
+		}
 		
 		List<SoldHistoryVO> soldList = service.getPayedDays(soldHistoryVo);
 		model.addAttribute("soldList", soldList);

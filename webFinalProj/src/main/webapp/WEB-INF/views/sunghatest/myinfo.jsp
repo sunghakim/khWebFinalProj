@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,14 @@
 <title>my info</title>
 </head>
 <body>
-	${account.account_id} 님 로그인 되었습니다.
+	<c:choose>
+		<c:when test="${sessionScope.account.getSocial_account_id() eq 'false'}">
+		${account.account_id} 님 로그인 되었습니다. 
+		</c:when>
+		<c:otherwise>
+		${account.social_account_id} 님 로그인 되었습니다. 
+		</c:otherwise>
+	</c:choose>
 	<hr>
 	<ul>
 		<li><a href="/checkMyinfo">내정보 확인</a></li>
