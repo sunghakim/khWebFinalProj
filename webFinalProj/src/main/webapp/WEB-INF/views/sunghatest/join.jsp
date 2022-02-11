@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type">
-<script language="javascript">
-//document.domain = "192.168.0.12";
+<script>
+document.domain = "localhost";
 	function goPopup(){
+		window.name = "jusoPopup";
 		// 호출된 페이지(jusoPopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
 	    var pop = window.open("/jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes");   
 	}
@@ -27,7 +27,7 @@
 			id : <input type="text" name="account_id" value="${accountVo.account_id}">
 		</div>
 		<div>
-			password : <input type="password" name="password" value="${accountVo.password}">
+			password : <input type="password" id="PW" name="password" value="${accountVo.password}">
 		</div>
 		<div>
 			user_type(0:관리자, 1:회원) : <input type="number" name="user_type" value="${accountVo.user_type}">

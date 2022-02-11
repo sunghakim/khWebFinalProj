@@ -9,8 +9,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="../static/css/common.css">
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="resources/static/css/common.css">
+    <link rel="stylesheet" href="resources/static/css/index.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>kh Final main</title>
     <!-- 메인 페이지 -->
@@ -20,10 +20,10 @@
     <div class="join-modal modal-back" id="join-modal">
         <div class="join-modal modal-front">
             <p class="title">J O I N</p>
-            <form method="" action="">
+            <form method="post" action="/join">
                 <div class="join-id">
                     <div class="join-div-wrap">
-                        <input id="join-id" type="text" maxlegth="20" placeholder="아이디를 입력하세요">
+                        <input id="account_id" type="text" maxlegth="20" placeholder="아이디를 입력하세요">
                         <button class="overlap-check">중복 확인</button>
                     </div>
                     <div class="join-text">
@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div class="join-password">
-                    <input id="join-pwd" type="password" maxlegth="20" placeholder="비밀번호를 입력하세요">
+                    <input id="password" type="password" maxlegth="20" placeholder="비밀번호를 입력하세요">
                     <div class="join-text">
                         <div class="join-form" id="join-pwd-form">비밀번호는 20자 이하로 작성해주세요.</div>
                         <div class="join-alert" id="join-pwd-wrong">잘못된 비밀번호 방식입니다. 다시 작성해주세요.</div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="join-name">
-                    <input type="text" placeholder="이름을 입력하세요">
+                    <input id="name" type="text" placeholder="이름을 입력하세요">
                 </div>
                 <div class="join-nickname">
                     <div class="join-div-wrap">
@@ -286,8 +286,8 @@
         </div>
     </div>
 
-    <script src="/static/js/common.js"></script>
-    <script src="/static/js/index.js"></script>
+    <script src="resources/static/js/common.js"></script>
+    <script src="recources/static/js/index.js"></script>
 </body>
 
 </html>

@@ -19,10 +19,26 @@
 	    ]]>
 	</select>
 	
-	
-	
-	
-	
+	<!-- 김성하 작업 -->
+	<select id="selectItemDetail" parameterType="item" resultType="item">
+    SELECT * FROM ITEM WHERE ITEM_ID = #{item_id}
+  	</select>
+	<select id="selectItemOptionList" parameterType="itemOption" resultType="itemOption">
+    SELECT * FROM ITEM_OPTION WHERE ITEM_ID = #{item_id} AND AMOUNT NOT IN ('0')
+  	</select>
+	<insert id="insertShoppingList" parameterType="shoppingList">
+    INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
+  	</insert>
+  	
+	<select id="selectQuestionList" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id}
+  	</select>
+	<select id="selectQuestion" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}
+  	</select>
+  	<insert id="insertQuestion" parameterType="question">
+    INSERT INTO QUESTION VALUES(QUESTION_ID_SEQ.NEXTVAL, #{item_id}, #{writer_id}, #{question_title}, #{question_content}, SYSDATE, '0', NULL, NULL, NULL)
+  </insert>
 	
 
 </mapper>

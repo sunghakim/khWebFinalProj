@@ -30,5 +30,6 @@
 		<typeAlias type="com.web.mall.model.Manage_ReportDTO" alias="Manage_ReportDTO"/>
 		<typeAlias type="com.web.mall.model.Manage_SoldHistoryDTO" alias="Manage_SoldHistoryDTO"/>
 		<typeAlias type="com.web.mall.model.Manage_ImageDTO" alias="Manage_ImageDTO"/>
+		<typeAlias type="com.web.mall.model.ReviewVO" alias="review" />
 	</typeAliases>
 </configuration>

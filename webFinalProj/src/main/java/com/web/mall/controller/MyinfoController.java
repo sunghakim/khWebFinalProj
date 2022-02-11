@@ -83,6 +83,14 @@ public class MyinfoController {
 		}
 		return "redirect:/checkCarts";
 	}
+	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
+	
+	
+	
+	
+	
+	
+	
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)
 	public String seeZzimList(ZzimListVO zzim, ItemDTO item, HttpSession session, Model model) {
 		if(session.getAttribute("usertype").equals("web")) {

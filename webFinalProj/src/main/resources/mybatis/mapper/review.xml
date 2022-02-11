@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+  <select id="selectReviewList" parameterType="review" resultType="review">
+    SELECT * FROM REVIEW WHERE ITEM_ID = #{item_id} ORDER BY POST_DATE
+  </select>
+  <select id="selectReview" parameterType="review" resultType="review">
+    SELECT * FROM REVIEW WHERE REVIEW_ID = #{review_id}
+  </select>
+  <select id="selectIsAlreadyBuy" parameterType="Map" resultType="int">
+  	SELECT COUNT(*) FROM (SELECT * FROM (SELECT * FROM SOLD_HISTORY WHERE ACCOUNT_ID = #{account_id}) H JOIN SOLD_DETAIL D ON D.SOLD_HISTORY_ID = H.SOLD_HISTORY_ID WHERE ITEM_ID = #{item_id})
+  </select>
+  
+  <insert id="insertReview" parameterType="review">
+    INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{item_id}, #{writer_id}, SYSDATE, #{content}, #{score})
+  </insert>
+  
+  <update id="updateReview" parameterType="review">
+    UPDATE REVIEW
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="content != null">
+    		, CONTENT = #{content} 
+    	</if>
+    	<if test="score != null">
+    		, SCORE = #{score} 
+    	</if>
+    </trim>
+    WHERE REVIEW_ID = #{review_id}
+  </update>
+  <delete id="deleteReview" parameterType="review">
+    DELETE FROM REVIEW WHERE REVIEW_ID = #{review_id}
+  </delete>
+</mapper>

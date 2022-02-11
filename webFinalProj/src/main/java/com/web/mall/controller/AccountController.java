@@ -33,7 +33,7 @@ public class AccountController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String main() {
-		return "index"; //user/mypage/basket
+		return "sunghatest/main"; //user/mypage/basket
 	}
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.GET)
 	public String jusoPopupGET() {
@@ -242,7 +242,7 @@ public class AccountController {
 	public String login(AccountVO accountVo, HttpSession session, Model model) {
 		System.out.println(accountVo.getUser_type());
 		if(accountVo.getUser_type() == 2) {
-			accountVo.setAccount_id(accountVo.getPhone());
+			accountVo.setAccount_id(accountVo.getEmail());
 		}
 		AccountVO data = service.login(accountVo);
 		if(data != null) {

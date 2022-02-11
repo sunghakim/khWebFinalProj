@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.web.mall.model.ShoppingListVO" %>
-<%@page import="com.web.mall.model.ItemVO" %>
-<%@page import="com.web.mall.model.ItemOptionVO" %>
+<%@page import="com.web.mall.model.ItemDTO" %>
+<%@page import="com.web.mall.model.ItemOptionDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
@@ -14,8 +14,8 @@
 ${error_msg}
 	<% 
 	List<ShoppingListVO> shoplist = (List<ShoppingListVO>)request.getAttribute("shoppingList");
-	List<ItemVO> itemlist = (List<ItemVO>)request.getAttribute("itemList");
-	List<ItemOptionVO> itemOplist = (List<ItemOptionVO>)request.getAttribute("itemOptionList");
+	List<ItemDTO> itemlist = (List<ItemDTO>)request.getAttribute("itemList");
+	List<ItemOptionDTO> itemOplist = (List<ItemOptionDTO>)request.getAttribute("itemOptionList");
 	for(int i = 0; i < shoplist.size(); i++) { %>
 		<div>
 			shopping_list_id : <%= shoplist.get(i).getShopping_list_id() %>
