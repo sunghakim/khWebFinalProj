@@ -1,0 +1,117 @@
+@charset "UTF-8";
+.basket {
+    display: flex;
+    justify-content: center;
+}
+
+.basket > div {
+    width: 60vw;
+    height: 80vh;
+}
+
+.basketHeader {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#backPage {
+    font-size: 2.5em;
+    color: rgb(231, 76, 60);
+}
+  
+.div-back {
+    display: flex;
+    flex-direction: column;
+    height: 60vh;
+    padding-top: 10px;
+    padding-bottom: 5px;
+    background-color: rgb(242, 243, 238);
+    overflow: auto;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0px 10px 5px 10px;
+}
+
+.product > div {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content:space-between;
+    margin-left: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.product > div > div{
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    padding: 8px;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 4px;
+    background-color: white;
+}
+.data > h5 {
+    font-weight: bolder;
+}
+
+.count {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    margin-left: 10px;
+}
+
+.count > h4 {
+    margin: 0;
+}
+
+.count > button {
+    border: none;
+    border-radius: 4px;
+    margin: 0 10px;
+}
+
+#delete {
+    width: 26px;
+    border-radius: 50%;
+    background-color: rgb(230, 230, 230);
+}
+
+#xmark {
+    color: white;
+}
+
+.basketFooter {
+    display: flex;
+    flex-direction: row;
+    justify-content:right;
+}
+
+.basketFooter > div {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content:space-between;
+}
+
+.basketFooter > button {
+    width: 100px;
+    margin-left: 20px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(231, 76, 60);
+    flex-shrink: 0;
+}
+
+.basketFooter > button:hover {
+    background-color: rgb(190, 64, 50);
+}
