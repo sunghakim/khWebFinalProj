@@ -121,7 +121,6 @@ $('.exit').click(() => {
 
 // header-ul
 $('#admin-change').click(() => {
-    $(location).attr('href', 'user.html');
     $('#user-ul').hide();
     $('#admin-ul').show();
     $('.user-nav').hide();
@@ -129,12 +128,60 @@ $('#admin-change').click(() => {
 })
 
 $('#member-change').click(() => {
-    $(location).attr('href', 'index.html');
     $('#admin-ul').hide();
     $('#user-ul').show();
     $('.admin-nav').hide();
     $('.admin-nav-sub').hide();
     $('.user-nav').show();
+})
+
+// 이동
+$('#admin-change').click(() => {
+    $(location).attr('href', 'user.html');
+})
+
+$('#member-change').click(() => {
+    $(location).attr('href', 'index.html');
+})
+
+$('#admin-nav-1').click(() => {
+    $(location).attr('href', 'user.html');
+})
+
+$('#admin-nav-2').click(() => {
+    $(location).attr('href', 'report.html');
+})
+
+$('#admin-nav-3').click(() => {
+    $(location).attr('href', 'product-list.html');
+})
+
+$('#sub-1').click(() => {
+    $(location).attr('href', 'product-list.html');
+})
+
+$('#sub-2').click(() => {
+    $(location).attr('href', 'category.html');
+})
+
+$('#sub-3').click(() => {
+    $(location).attr('href', 'statistics.html');
+})
+
+$('#sub-4').click(() => {
+    $(location).attr('href', 'coupon-list.html');
+})
+
+$('#sub-5').click(() => {
+    $(location).attr('href', 'contact-list.html');
+})
+
+$('#sub-6').click(() => {
+    $(location).attr('href', 'repond.html');
+})
+
+$('#sub-7').click(() => {
+    $(location).attr('href', 'notice-list.html');
 })
 
 // 카테고리 이벤트
@@ -151,34 +198,6 @@ for (let i = 1; i <= $('.admin-nav li').length; i++) {
         $('#admin-nav-' + i).addClass('click-color');
     })
 }
-
-for (let i = 1; i <= ($('.admin-nav li').length - 1); i++) {
-    $('#admin-nav-' + i).click(() => {
-        $('.admin-nav-sub').slideUp();
-    })
-}
-
-$('#admin-nav-3').click(() => {
-    $('.admin-nav-sub').slideToggle();
-    $('.admin-nav-sub').addClass('click-bg');
-    $('#sub-1').addClass('click-font');
-})
-
-var leftmouse = 0;
-
-$('#admin-nav-3').click(() => {
-    leftmouse++;
-
-    if (leftmouse % 2 != 0) {
-        $('#admin-nav-3 .fas').removeClass('fa-chevron-circle-right');
-        $('#admin-nav-3 .fas').addClass('fa-chevron-circle-down');
-    } else {
-        $('#admin-nav-3 .fas').removeClass('fa-chevron-circle-down');
-        $('#admin-nav-3 .fas').addClass('fa-chevron-circle-right');
-        $('.admin-nav-sub li').removeClass('click-font');
-        $('#sub-1').addClass('click-font');
-    }
-})
 
 for (let i = 1; i <= $('.admin-nav-sub li').length; i++) {
     $('#sub-' + i).click(() => {

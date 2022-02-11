@@ -73,4 +73,6 @@ span {
 
 textarea {
     width: 57%;
+    outline: none;
+    resize: none;
 }

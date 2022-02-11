@@ -36,23 +36,22 @@
     margin: 1.5vh auto;
 }
 
-.notice-list {
+.list {
     width: 100%;
     display: flex;
 }
 
-.notice-list li {
+.list li {
     position: relative;
     width: calc(100% / 4); height: 100%;
     text-align: center;
 }
 
-.notice-list button {
-    width: 50px;
-    background-color: black;
-    color: white;
-    border: 0;
-    border-radius: 8px;
+.list input {
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #000;
+    height: 25px;
     padding: 3px;
 }
 

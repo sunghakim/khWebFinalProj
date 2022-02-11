@@ -6,11 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="css/common.css">
-    <link rel="stylesheet" href="css/admin-common.css">
-    <link rel="stylesheet" href="css/contact-list.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/admin-common.css">
+    <link rel="stylesheet" href="/static/css/contact-list.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final notice-out management</title>
+    <title>kh final contact-list management</title>
+    <!-- 문의 목록 페이지 -->
 </head>
 
 <body>
@@ -223,7 +224,7 @@
                             <li>답변 유무</li>
                         </ul>
                         <div class="line"></div>
-                        <ul class="contact-list">
+                        <ul class="list">
                             <li>사이트 문의</li>
                             <li>test</li>
                             <li>test</li>
@@ -233,7 +234,10 @@
                                 <button class="detail">상세 보기</button>
                             </li>
                             <li>
-                                답변중
+                                <select id="answer">
+                                    <option value="">답변중</option>
+                                    <option value="">답변완료</option>
+                                </select>
                             </li>
                         </ul>
                     </div>
@@ -241,8 +245,8 @@
             </section>
         </div>
     </div>
-    <script src="js/common.js"></script>
-    <script src="js/contact-list.js"></script>
+    <script src="/static/js/common.js"></script>
+    <script src="/static/js/contact-list.js"></script>
 </body>
 
 </html>

@@ -7,10 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/static/css/common.css">
-    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/admin-common.css">
+    <link rel="stylesheet" href="/static/css/contact-detail.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh Final main</title>
-    <!-- 메인 페이지 -->
+    <title>kh final contact-detail management</title>
+    <!-- 문의 상세 페이지  -->
 </head>
 
 <body>
@@ -213,78 +214,54 @@
             <section>
                 <div class="article-container">
                     <div class="article-wrap">
-                        <article class="article-before" id="before-1">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-2">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-3">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-before" id="before-4">
-                            <p>Segment<br>Title</p>
-                            <div class="img"></div>
-                        </article>
-                        <article class="article-after" id="after-1">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
+                        <div class="btns">
+                            <button class="btn back">문의 목록</button>
+                            <button type="submit" class="btn regist">답변 등록</button>
+                            <button class="btn cancel">답변 취소</button>
+                        </div>
+                        <article class="up">
+                            <div>
+                                <p class="big-title">문의</p>
                             </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
+                            <div class="line"></div>
+                            <ul class="title">
+                                <li>문의 종류</li>
+                                <li>상품명</li>
+                                <li>문의한 글 제목</li>
+                                <li>문의자 ID</li>
+                                <li>문의 일시</li>
+                            </ul>
+                            <div class="line"></div>
+                            <ul class="list">
+                                <li>사이트 문의</li>
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                                <li>test</li>
+                            </ul>
                         </article>
-                        <article class="article-after" id="after-2">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
+                        <article class="down">
+                            <div>
+                                <p class="big-title">1:1 문의</p>
                             </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-3">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
+                            <div class="line"></div>
+                            <div class="detail-box user">
+                                <p class="box-title">질문내용</p>
+                                <div class="cols"></div>
                             </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                        </article>
-                        <article class="article-after" id="after-4">
-                            <p>Segment Title</p>
-                            <div class="gallery-wrap">
-                                <div class="gallery-group">
-                                    <div class="gall-img i1"></div>
-                                    <div class="gall-img i2"></div>
-                                    <div class="gall-img i3"></div>
-                                </div>
+                            <div class="detail-box admin">
+                                <p class="box-title">답변내용</p>
+                                <div class="cols"></div>
+                                <textarea class="answer"></textarea>
                             </div>
-                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
-                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
                         </article>
                     </div>
                 </div>
             </section>
         </div>
     </div>
-
     <script src="/static/js/common.js"></script>
-    <script src="/static/js/index.js"></script>
+    <script src="/static/js/contact-detail.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,22 @@
+.article-container {
+    position: relative;
+}
+
+.btns {
+    position: absolute;
+    margin-top: -50px;
+    right: 20px;
+}
+
+.btn {
+    width: 120px; height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 1px solid #999;
+}
+
 .title {
     width: 100%;
     display: flex;
@@ -5,16 +24,14 @@
 
 .title li {
     position: relative;
-    width: calc(100% / 4);
-    height: 100%;
+    width: calc(100% / 4); height: 100%;
     text-align: center;
     margin-top: 3vh;
     font-weight: bold;
 }
 
 .line {
-    width: 95%;
-    height: 2px;
+    width: 95%; height: 2px;
     background-color: black;
     margin: 1.5vh auto;
 }
@@ -26,8 +43,7 @@
 
 .list li {
     position: relative;
-    width: calc(100% / 4);
-    height: 100%;
+    width: calc(100% / 4); height: 100%;
     text-align: center;
 }
 
@@ -42,17 +58,4 @@
 
 .detail {
     width: 80px !important;
-}
-
-select {
-    width: 80px;
-    text-align: center;
-    padding: 3px;
-    border: 1px solid #999;
-    font-family: inherit;
-    border-radius: 0px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
 }
