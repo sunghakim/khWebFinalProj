@@ -12,7 +12,7 @@
 	</resultMap>
 	
 	<select id="selectList" parameterType="int" resultType="Manage_ImageDTO" resultMap="Manage_ImageDTOMap">
-		SELECT * FROM IMAGE WHERE REFERENCES_ID = {ReferencesID}
+		SELECT * FROM IMAGE WHERE REFERENCES_ID = #{ReferencesID}
 	</select>
 		
 	<insert id="insert" useGeneratedKeys="true" keyColumn="IMAGE_ID" keyProperty="ImageID" parameterType="Manage_ImageDTO">
@@ -20,6 +20,6 @@
 	</insert>
 	
 	<delete id="delete" parameterType="String">
-		DELETE FROM IMAGE WHERE ITEM_ID = #{ItemID}
+		DELETE FROM IMAGE WHERE IMAGE_ID = #{ImageID}
 	</delete>
 </mapper>

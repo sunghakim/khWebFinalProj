@@ -26,7 +26,7 @@ public class Manage_StatisticsDAO {
 		}
 		return 0;
 	}
-	
+
 	public List<Manage_SoldHistoryDTO> getStatistics(int Type) {
 		switch(Type) {
 		case(1)://30일 안의 판매갯수순위 체크

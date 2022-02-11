@@ -22,7 +22,7 @@
 		<div>전체 상품 판매갯수 통계 (임시)</div>
 		<ul class="hGraph">
 			<c:forEach var="List" items="${Statistics}">
-				<li><span class="hGraph gTerm">${List.getItemName()}</span><span class="gBar" style="width:${List.getAmount()/TotalCount*100}%"><span>${List.getAmount()}</span></span></li>
+				<li><span class="hGraph gTerm">${List.getName()}</span><span class="gBar" style="width:${List.getAmount()/TotalCount*100}%"><span>${List.getAmount()}</span></span></li>
 			</c:forEach>
 		</ul>
 	</main>

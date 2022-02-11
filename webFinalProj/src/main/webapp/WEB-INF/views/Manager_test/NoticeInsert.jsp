@@ -32,7 +32,7 @@
 			<c:if test="${status eq 'update'}">
 				<input type="hidden" name="ReferencesID" value="${Notice.getPostID()}">
 			</c:if>
-			<input type="hidden" name="IDType" value="Notice">
+			<input type="hidden" name="IDType" value="NOTICE">
 		    <input type="file" accept=".bmp, .gif, .jpg, .jpeg, .png" name="uploadImages" multiple="multiple">
 		    
 			<c:if test="${ImageList != null}">

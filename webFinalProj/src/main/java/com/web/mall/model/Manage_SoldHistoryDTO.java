@@ -18,7 +18,7 @@ public class Manage_SoldHistoryDTO {
 	private int SoldDetailID;
 	private int Amount;
 	//ITEM 관련
-	private String ItemName;
+	private String Name;
 	private int Price;
 	//ITEM_OPTION 관련
 	private String ItemSize;
@@ -101,11 +101,11 @@ public class Manage_SoldHistoryDTO {
 	public void setAmount(int amount) {
 		Amount = amount;
 	}
-	public String getItemName() {
-		return ItemName;
+	public String getName() {
+		return Name;
 	}
-	public void setItemName(String itemName) {
-		ItemName = itemName;
+	public void setName(String name) {
+		Name = name;
 	}
 	public int getPrice() {
 		return Price;
@@ -201,7 +201,7 @@ public class Manage_SoldHistoryDTO {
 		return "Manage_SoldHistoryDTO [SoldHistoryID=" + SoldHistoryID + ", AccountID=" + AccountID + ", Address="
 			+ Address + ", RecieverName=" + RecieverName + ", RecieverPhone=" + RecieverPhone + ", OrderDate="
 			+ OrderDate + ", Status=" + Status + ", SoldDetailID=" + SoldDetailID + ", Amount=" + Amount
-			+ ", ItemName=" + ItemName + ", Price=" + Price + ", ItemSize=" + ItemSize + ", Color=" + Color
+			+ ", Name=" + Name + ", Price=" + Price + ", ItemSize=" + ItemSize + ", Color=" + Color
 			+ ", isRefund=" + isRefund + ", RefundAskDate=" + RefundAskDate + ", RefundReason=" + RefundReason
 			+ ", RefundStatus="	+ RefundStatus + ", RefundEndDate=" + RefundEndDate + "]";
 	}

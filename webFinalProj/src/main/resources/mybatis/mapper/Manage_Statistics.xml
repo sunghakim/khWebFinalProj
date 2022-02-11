@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Manage_StatisticsMapper">
 	<resultMap id="Manage_StatisticsMap" type="Manage_SoldHistoryDTO">
-		<result property="ItemName" column="ITEM_NAME"/>
+		<result property="Name" column="NAME"/>
 		<result property="Amount" column="AMOUNT"/>
 	</resultMap>
 	
@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="selectDailySoldCount" resultType="Manage_SoldHistoryDTO">
-		SELECT NAME AS ITEM_NAME, SUM(AMOUNT) AS AMOUNT
+		SELECT NAME, SUM(AMOUNT) AS AMOUNT
 		FROM (
 			SELECT Z.NAME, Y.AMOUNT
 			FROM SOLD_HISTORY X

@@ -31,7 +31,7 @@ public class Manage_NoticeService extends Manage_S_Module {
 	}
 	
 	public List<Manage_ImageDTO> selectImageList(int PostID) {
-		return ImageService.selectList(PostID, "Notice");
+		return ImageService.selectList(PostID, "NOTICE");
 	}
 	
 	@Transactional(rollbackFor=Exception.class)

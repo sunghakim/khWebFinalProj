@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.Manage_AccountDTO;
-import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_NoticeDTO;
 import com.web.mall.model.Manage_NoticeService;
 
@@ -76,6 +75,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 			Manage_AccountDTO temp = (Manage_AccountDTO)session.getAttribute("account");
 			DTO.setWriterID(temp.getAccountID());
 			setResult(mv, Service.insert(DTO, request, file, uploadPath));
+			selectNoticeList(session, mv, request);
 		}
 		return mv;
 	}
