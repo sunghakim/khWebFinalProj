@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardMapper">
+	
+	<select id ="selectBoardList" resultType="com.web.mall.model.BoardDTO">
+		SELECT * FROM (
+		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
+		  	WHERE BOARD_ID = #{board_id}
+		  	ORDER BY POST_ID DESC ) TB
+	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
+	</select>
+
+	<select id ="selectGoodBoardList" resultMap="com.web.mall.model.BoardDTO">
+		SELECT * FROM (
+		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
+		  	WHERE BOARD_ID = #{board_id}
+		  	ORDER BY GOOD_NUMBER DESC ) TB
+	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
+	</select>
+</mapper>
+
+

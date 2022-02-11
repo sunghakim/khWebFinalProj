@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="ItemDetail">
+
+	<!-- 아이템 구매하기 정보 가져오기 -->
+	<select id="selectBuyItem"  resultMap="com.web.mall.model.ItemDetailDTO">
+		<![CDATA[
+		  SELECT TB.* FROM (
+		  	SELECT IT.*, OP.*, IM.* 
+		  	FROM ITEM IT JOIN IMAGE IM ON (IT.ITEM_ID = IM.REFERENCES_ID)
+		  	JOIN ITEM_OPTION OP ON (IT.ITEM_ID = OP.ITEM_ID)
+		  	WHERE IM.ID_TYPE = 'ITEM' AND ITEM_ID = #{item_id} )TB 
+		 ]]>
+	</select>
+	
+	<select id="selectDetailItem"  resultMap="com.web.mall.model.ItemDetailDTO">
+		<![CDATA[
+			SELECT 
+		]]>
+	</select>
+	
+	<select id="selectReviewList"  resultMap="ReviewResult">
+		<![CDATA[
+		SELECT 
+		
+		]]>
+	
+	</select>
+	
+	<insert id="insertReview" parameterType="item">
+    	INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{post_id}, #{writer_id}, #{title}, #{content}, NULL, NULL, SYSDATE)
+  	</insert>
+
+</mapper>

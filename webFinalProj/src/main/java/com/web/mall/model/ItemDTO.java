@@ -1,6 +1,6 @@
 package com.web.mall.model;
 
-public class ItemVO {
+public class ItemDTO {
 	private int item_id;
 	private int item_category_id;
 	private String name;
@@ -38,7 +38,7 @@ public class ItemVO {
 	}
 	@Override
 	public String toString() {
-		return "ItemVO [item_id=" + item_id + ", item_category_id=" + item_category_id + ", name=" + name + ", content="
+		return "ItemDTO [item_id=" + item_id + ", item_category_id=" + item_category_id + ", name=" + name + ", content="
 				+ content + ", price=" + price + "]";
 	}
 	

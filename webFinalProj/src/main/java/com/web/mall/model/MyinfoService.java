@@ -16,11 +16,11 @@ public class MyinfoService {
 		
 		return dao.selectShoppingList(vo);
 	}
-	public ItemVO getItem(ItemVO vo) {
+	public ItemDTO getItem(ItemDTO vo) {
 		return dao.selectItem(vo);
 	}
 	
-	public ItemOptionVO getItemOption(ItemOptionVO vo) {
+	public ItemOptionDTO getItemOption(ItemOptionDTO vo) {
 		return dao.selectItemOption(vo);
 	}
 	public boolean deleteCartItem(ShoppingListVO vo) {
