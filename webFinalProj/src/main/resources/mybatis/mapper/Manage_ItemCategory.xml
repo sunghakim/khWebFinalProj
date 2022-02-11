@@ -18,10 +18,13 @@
 		FROM (
 			SELECT ROWNUM AS RNUM, A.*
 			FROM ITEM_CATEGORY A
-			ORDER BY JOINDATE ASC
 		) B
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
 		AND RNUM <![CDATA[<=]]> (#{Page}*10)
+	</select>
+	
+	<select id="selectAll" parameterType="int" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
+		SELECT * FROM ITEM_CATEGORY
 	</select>
 		
 	<insert id="insert" parameterType="Manage_ItemCategoryDTO">
@@ -29,7 +32,18 @@
 	</insert>
 	
 	<update id="update" parameterType="Manage_ItemCategoryDTO">
-		UPDATE ITEM_CATEGORY SET NAME = #{ItemCategoryName}, NAV_SHOW = #{NavShow} WHERE ITEM_CATEGORY_ID = #{ItemCategoryID}
+		UPDATE ITEM_CATEGORY 
+		<set>
+			<if test="ItemCategoryName != null">
+				NAME = #{ItemCategoryName}
+			</if>
+			<if test="NavShow != null">
+				NAV_SHOW = #{NavShow}
+			</if>
+		</set>
+		<where>
+			ITEM_CATEGORY_ID = #{ItemCategoryID}
+		</where>
 	</update>
 	
 	<delete id="delete" parameterType="int">

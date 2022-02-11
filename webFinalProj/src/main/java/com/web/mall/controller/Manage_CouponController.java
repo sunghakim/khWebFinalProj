@@ -21,25 +21,18 @@ public class Manage_CouponController extends Manage_C_Module {
 	Manage_CouponService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Coupon";
+	private final String URL = "/Manager_test/Coupon";
 	
 	//쿠폰 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectCouponList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
-			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
-			List<Manage_CouponDTO> List = Service.selectList(setPage(mv, request));
+			int TotalPageCount = Service.selectTotalPageCount();
+			mv.addObject("TotalPageCount", TotalPageCount);
+			
+			int Page = setPage(mv, request);
+			List<Manage_CouponDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
-		}
-		return mv;
-	}
-	
-	//쿠폰 상세관리 페이지 접속
-	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
-	public ModelAndView selectCouponOne(HttpSession session, ModelAndView mv, int ID) {
-		if (isManager(mv, session, URL + "Detail") == 0) {
-			mv.addObject("Coupon", Service.selectOne(ID));
 		}
 		return mv;
 	}

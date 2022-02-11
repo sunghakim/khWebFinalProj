@@ -20,6 +20,10 @@ public class Manage_ItemCategoryService extends Manage_S_Module {
 		return dao.selectList(Page);
 	}
 	
+	public List<Manage_ItemCategoryDTO> selectAll() {
+		return dao.selectAll();
+	}
+	
 	@Transactional(rollbackFor=Exception.class)
 	public boolean insert(Manage_ItemCategoryDTO DTO) throws Exception{
 		if (dao.insert(DTO) == 1) {

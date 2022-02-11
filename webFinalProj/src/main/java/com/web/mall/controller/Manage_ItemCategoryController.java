@@ -33,9 +33,6 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 			int Page = setPage(mv, request);
 			List<Manage_ItemCategoryDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
-
-			mv.addObject("Page", Page);
-			mv.addObject("pageType", URL);
 		}
 		return mv;
 	}
@@ -44,7 +41,7 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			System.out.println(DTO.toString());
+			DTO.setNavShow('F');
 			setResult(mv, Service.insert(DTO));
 			selectItemCategoryList(session, mv, request);
 		}
@@ -52,7 +49,7 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	}
 		
 	//상품 카테고리DB에 수정 요청
-	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
+	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
 			setResult(mv, Service.update(DTO));
@@ -63,9 +60,9 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 
 	//상품 카테고리DB 삭제
 	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, int ID) throws Exception {
+	public ModelAndView deleteItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, int ItemCategoryID) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.delete(ID));
+			setResult(mv, Service.delete(ItemCategoryID));
 			selectItemCategoryList(session, mv, request);
 		}
 		return mv;

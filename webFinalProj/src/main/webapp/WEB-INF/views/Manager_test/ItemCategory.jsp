@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>${PageName}회원 관리</title>
+	<title>카테고리 관리</title>
 </head>
 <body>
 	<header>
@@ -41,10 +41,14 @@
 					<tr>
 						<td>${List.getItemCategoryName()}</td>
 						<td>${List.getNavShowStr()}</td>
-						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}&&Function=UpdateNavShow">표시전환</a></td>
-						<td><a href="${pageType}/Update?ID=${List.getItemCategoryID()}&&Function=UpdateItemCategoryName">이름수정</a></td>
-						<td><a href="${pageType}/Delete?ID=${List.getItemCategoryID()}">삭제</a></td>
-						<!-- 기능 사용전 정말 해당 기능을 사용할지 경고문 띄우기 기능 사용 결과는 'res'파라미터로 전달됨 -->
+						<c:if test="${List.getNavShow() eq 'F'.charAt(0)}">
+							<td><a href="${pageType}/Update?ItemCategoryID=${List.getItemCategoryID()}&&NavShow=T">보이기</a></td>
+						</c:if>
+						<c:if test="${List.getNavShow() eq 'T'.charAt(0)}">
+							<td><a href="${pageType}/Update?ItemCategoryID=${List.getItemCategoryID()}&&NavShow=F">숨기기</a></td>
+						</c:if>
+						<!--<td><a href="${pageType}/Update?ItemCategoryID=${List.getItemCategoryID()}&&ItemCategoryName=입력한 이름">이름수정</a></td>-->
+						<td><a href="${pageType}/Delete?ItemCategoryID=${List.getItemCategoryID()}">삭제</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

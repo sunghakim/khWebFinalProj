@@ -16,10 +16,6 @@ public class Manage_CouponService extends Manage_S_Module {
 		return PostCountToPageCount(dao.selectTotalCount());
 	}
 	
-	public Manage_CouponDTO selectOne(int ID) {
-		return dao.selectOne(ID);
-	}
-	
 	public List<Manage_CouponDTO> selectList(int Page) {
 		return dao.selectList(Page);
 	}

@@ -21,6 +21,10 @@ public class Manage_ItemCategoryDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 	
+	public List<Manage_ItemCategoryDTO> selectAll() {
+		return this.session.selectList("Manage_ItemCategoryMapper.selectAll");
+	}
+	
 	public int insert(Manage_ItemCategoryDTO DTO) {
 		return this.session.insert(Mapper + ".insert", DTO);
 	}

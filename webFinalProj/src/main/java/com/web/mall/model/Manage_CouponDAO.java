@@ -17,10 +17,6 @@ public class Manage_CouponDAO {
 		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
 
-	public Manage_CouponDTO selectOne(int ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
-	}
-
 	public List<Manage_CouponDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}

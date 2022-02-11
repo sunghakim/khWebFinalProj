@@ -17,8 +17,8 @@ public class Manage_NoticeDAO {
 		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
 
-	public Manage_NoticeDTO selectOne(int ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
+	public Manage_NoticeDTO selectOne(int PostID) {
+		return this.session.selectOne(Mapper + ".selectOne", PostID);
 	}
 	
 	public List<Manage_NoticeDTO> selectList(int Page) {
@@ -33,7 +33,7 @@ public class Manage_NoticeDAO {
 		return this.session.update(Mapper + ".update", DTO);
 	}
 	
-	public int delete(int ID) {
-		return this.session.delete(Mapper + ".delete", ID);
+	public int delete(int PostID) {
+		return this.session.delete(Mapper + ".delete", PostID);
 	}
 }

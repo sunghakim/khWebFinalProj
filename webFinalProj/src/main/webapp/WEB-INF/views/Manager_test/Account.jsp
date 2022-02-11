@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>${PageName}회원 관리</title>
+	<title>회원 관리</title>
 </head>
 <body>
 	<header>

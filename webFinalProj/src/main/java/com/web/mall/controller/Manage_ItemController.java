@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.Manage_ItemCategoryDTO;
+import com.web.mall.model.Manage_ItemCategoryService;
 import com.web.mall.model.Manage_ItemDTO;
 import com.web.mall.model.Manage_ItemService;
 
@@ -19,23 +21,28 @@ public class Manage_ItemController extends Manage_C_Module {
 
 	@Autowired
 	Manage_ItemService Service;
-
+	
+	@Autowired
+	Manage_ItemCategoryService ItemCategoryService;
+	
 	//페이지 링크
-	private final String URL = "/Manager/Item";
+	private final String URL = "/Manager_test/Item";
 	
 	//상품 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectItemList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
-			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
-			List<Manage_ItemDTO> List = Service.selectList(setPage(mv, request));
+			int TotalPageCount = Service.selectTotalPageCount();
+			mv.addObject("TotalPageCount", TotalPageCount);
+			
+			int Page = setPage(mv, request);
+			List<Manage_ItemDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
 		}
 		return mv;
 	}
 	
-	//상품 상세 조회 (◆이미지 가져와서 보여주는 방법 구현할것)
+	//상품 상세 조회
 	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectItem(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemDTO DTO) {
 		if (isManager(mv, session, URL + "Detail") == 0) {
@@ -48,13 +55,17 @@ public class Manage_ItemController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
 	public ModelAndView insertItem(HttpSession session, ModelAndView mv) {
 		isManager(mv, session, URL + "Insert");
+		
+		List<Manage_ItemCategoryDTO> List = ItemCategoryService.selectAll();
+		mv.addObject("ItemCategoryList", List);
+
+		mv.addObject("status", "insert");
 		return mv;
 	}
 	
 	//상품DB에 추가 요청
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertItem(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemDTO DTO) throws Exception {
-		//반드시 Item테이블과, Item_Option테이블, Item_Category테이블의 정보다 모두 dto에 들어가야한다
 		if (isManager(mv, session, URL) == 0) {
 			setResult(mv, Service.insert(DTO));
 			selectItemList(session, mv, request);
@@ -68,6 +79,11 @@ public class Manage_ItemController extends Manage_C_Module {
 		if (isManager(mv, session, URL + "Insert") == 0) {
 			mv.addObject("Item", Service.selectOne(DTO));
 		}
+		
+		List<Manage_ItemCategoryDTO> List = ItemCategoryService.selectAll();
+		mv.addObject("ItemCategoryList", List);
+
+		mv.addObject("status", "update");
 		return mv;
 	}
 	

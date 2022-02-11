@@ -1,8 +1,6 @@
 package com.web.mall.controller;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -12,24 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.Manage_SoldHistoryDTO;
 import com.web.mall.model.Manage_StatisticsService;
 
 
 @Controller
 public class Manage_StatisticsController extends Manage_C_Module {
-	//유효성체크 미구현, AOP/인터셉터/필터 미반영
 	
 	@Autowired
 	Manage_StatisticsService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Statistics";
+	private final String URL = "/Manager_test/Statistics";
 	
 	//종류에 따른 통계 반환
 	@RequestMapping(value = URL, method = RequestMethod.GET)
-	public ModelAndView getStatisticsList(HttpSession session, ModelAndView mv, int Type) {
+	public ModelAndView getStatisticsList(HttpSession session, ModelAndView mv) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			List<Map<String, Integer>> Statistics = Service.getStatistics(Type, new Date());
+			int TotalCount = Service.selectTotalCount(1);
+			mv.addObject("TotalCount", TotalCount);
+			
+			List<Manage_SoldHistoryDTO> Statistics = Service.getStatistics(1);
+			for (Manage_SoldHistoryDTO temp : Statistics) {
+				System.out.println("통계: ItemName=" + temp.getItemName()
+					+ ", Amount=" + temp.getAmount());
+			}
 			mv.addObject("Statistics", Statistics);
 		}
 		return mv;

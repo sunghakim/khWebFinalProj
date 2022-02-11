@@ -4,6 +4,9 @@
 
 <div>
 	<span>
+		<a href="/">관리자홈</a>
+	</span>
+	<span>
 		<a href="${URL}/Account">회원관리</a>
 	</span>
 	<span>

@@ -4,9 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Manage_NoticeDTO {
-//POST DTO와 동일함, 통합필요, 임시DTO
+//POST DTO와 동일함, 통합필요
 	private int PostID;
-	private int WriterID;
+	private String WriterID;
 	private int BoardID = 0;
 	private String Title;
 	private String Content;
@@ -21,10 +21,10 @@ public class Manage_NoticeDTO {
 	public void setPostID(int postID) {
 		PostID = postID;
 	}
-	public int getWriterID() {
+	public String getWriterID() {
 		return WriterID;
 	}
-	public void setWriterID(int writerID) {
+	public void setWriterID(String writerID) {
 		WriterID = writerID;
 	}
 	public int getBoardID() {

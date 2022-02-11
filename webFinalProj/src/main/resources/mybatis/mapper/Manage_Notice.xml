@@ -18,7 +18,7 @@
 		SELECT COUNT(POST_ID) FROM POST WHERE BOARD_ID = 0
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
+	<select id="selectOne" parameterType="int" resultType="Manage_NoticeDTO" resultMap="Manage_NoticeDTOMap">
 		SELECT * FROM POST WHERE POST_ID = #{PostID} AND BOARD_ID = 0
 	</select>
 	
@@ -34,7 +34,7 @@
 		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 		
-	<insert id="insert" parameterType="Manage_NoticeDTO">
+	<insert id="insert" useGeneratedKeys="true" keyColumn="POST_ID" keyProperty="PostID" parameterType="Manage_NoticeDTO">
 		INSERT INTO POST VALUES(POST_SEQ.NEXTVAL, #{WriterID}, 0, #{Title}, #{Content}, 0, 0, SYSDATE)
 	</insert>
 	
@@ -42,7 +42,7 @@
 		UPDATE POST SET TITLE = #{Title}, CONTENT = #{Content} WHERE POST_ID = #{PostID}
 	</update>
 	
-	<delete id="delete" parameterType="String">
+	<delete id="delete" parameterType="int">
 		DELETE FROM POST WHERE POST_ID = #{PostID}
 	</delete>
 </mapper>

@@ -22,15 +22,17 @@ public class Manage_QuestionController extends Manage_C_Module {
 	Manage_QuestionService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Question";
+	private final String URL = "/Manager_test/Question";
 	
 	//문의 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectQuestionList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
-			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
-			List<Manage_QuestionDTO> List = Service.selectList(setPage(mv, request));
+			int TotalPageCount = Service.selectTotalPageCount();
+			mv.addObject("TotalPageCount", TotalPageCount);
+
+			int Page = setPage(mv, request);
+			List<Manage_QuestionDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
 		}
 		return mv;
@@ -38,9 +40,9 @@ public class Manage_QuestionController extends Manage_C_Module {
 	
 	//문의 상세 페이지 접속
 	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
-	public ModelAndView selectQuestion(HttpSession session, ModelAndView mv, int ID) {
+	public ModelAndView selectQuestion(HttpSession session, ModelAndView mv, int QuestionID) {
 		if (isManager(mv, session, URL + "Detail") == 0) {
-			mv.addObject("Question", Service.selectOne(ID));
+			mv.addObject("Question", Service.selectOne(QuestionID));
 		}
 		return mv;
 	}
@@ -49,6 +51,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
 	public ModelAndView updateQuestion(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_QuestionDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
+			DTO.setResult(1);
 			setResult(mv, Service.update(DTO));
 			selectQuestionList(session, mv, request);
 		}

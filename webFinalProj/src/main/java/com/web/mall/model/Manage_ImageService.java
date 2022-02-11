@@ -12,8 +12,11 @@ public class Manage_ImageService extends Manage_S_Module {
 	@Autowired
 	Manage_ImageDAO dao;
 	
-	public List<Manage_ImageDTO> selectList(int ID) {
-		return dao.selectList(ID);
+	public List<Manage_ImageDTO> selectList(int ReferencesID, String IDType) {
+		Manage_ImageDTO dto = new Manage_ImageDTO();
+		dto.setReferencesID(ReferencesID);
+		dto.setIDType(IDType);
+		return dao.selectList(dto);
 	}
 
 	public void insertList(List<Manage_ImageDTO> List) throws Exception{

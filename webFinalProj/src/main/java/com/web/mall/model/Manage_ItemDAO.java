@@ -18,7 +18,6 @@ public class Manage_ItemDAO {
 	}
 
 	public Manage_ItemDTO selectOne(Manage_ItemDTO DTO) {
-		//ItemID, ItemOptionID 필요
 		return this.session.selectOne(Mapper + ".selectOne", DTO);
 	}
 	
@@ -26,12 +25,24 @@ public class Manage_ItemDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 	
-	public int insert(Manage_ItemDTO DTO) {
-		return this.session.delete(Mapper + ".insert", DTO);
+	public Manage_ItemDTO searchItemID(Manage_ItemDTO DTO) {
+		return this.session.selectOne(Mapper + ".searchItemID", DTO);
+	}
+	
+	public int insertItem(Manage_ItemDTO DTO) {
+		return this.session.delete(Mapper + ".insertItem", DTO);
+	}
+	
+	public int insertItemOption(Manage_ItemDTO DTO) {
+		return this.session.delete(Mapper + ".insertItemOption", DTO);
 	}
 
-	public int update(Manage_ItemDTO DTO) {
-		return this.session.update(Mapper + ".update", DTO);
+	public int updateItem(Manage_ItemDTO DTO) {
+		return this.session.update(Mapper + ".updateItem", DTO);
+	}
+	
+	public int updateItemOption(Manage_ItemDTO DTO) {
+		return this.session.delete(Mapper + ".updateItemOption", DTO);
 	}
 	
 	public int delete(Manage_ItemDTO DTO) {
