@@ -19,10 +19,6 @@ public class Manage_ItemCategoryService extends Manage_S_Module {
 	public List<Manage_ItemCategoryDTO> selectList(int Page) {
 		return dao.selectList(Page);
 	}
-
-	public Manage_ItemCategoryDTO selectOne(int ID) {
-		return dao.selectOne(ID);
-	}
 	
 	@Transactional(rollbackFor=Exception.class)
 	public boolean insert(Manage_ItemCategoryDTO DTO) throws Exception{

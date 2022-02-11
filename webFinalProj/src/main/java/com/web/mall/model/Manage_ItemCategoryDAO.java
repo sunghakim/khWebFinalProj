@@ -20,10 +20,6 @@ public class Manage_ItemCategoryDAO {
 	public List<Manage_ItemCategoryDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
-
-	public Manage_ItemCategoryDTO selectOne(int ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
-	}
 	
 	public int insert(Manage_ItemCategoryDTO DTO) {
 		return this.session.insert(Mapper + ".insert", DTO);

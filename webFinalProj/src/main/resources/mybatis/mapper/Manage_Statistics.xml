@@ -14,7 +14,7 @@
 			)
 		GROUP BY NAME;
 	</select>
-	<select id="selectMonthlySales" parameterType="Date" resultType="Manage_StatisticsDTO">
+	<select id="selectMonthlySales" parameterType="Date" resultType="Map">
 		SELECT NAME, COUNT(AMOUNT)
 		FROM (
 			SELECT X.ITEM_ID, Y.NAME, X.AMOUNT, Z.ORDER_DATE

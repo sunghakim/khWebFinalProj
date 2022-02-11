@@ -21,23 +21,22 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	Manage_ItemCategoryService Service;
 	
 	//관리페이지 링크
-	private final String URL = "/Manager/Item/Category";
+	private final String URL = "/Manager_test/ItemCategory";
 	
 	//상품 카테고리 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectItemCategoryList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
-			List<Manage_ItemCategoryDTO> List = Service.selectList(setPage(mv, request));
+			int TotalPageCount = Service.selectTotalPageCount();
+			mv.addObject("TotalPageCount", TotalPageCount);
+			
+			int Page = setPage(mv, request);
+			List<Manage_ItemCategoryDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
+
+			mv.addObject("Page", Page);
+			mv.addObject("pageType", URL);
 		}
-		return mv;
-	}
-	
-	//상품 카테고리 추가 페이지 접속
-	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
-	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv) {
-		isManager(mv, session, URL + "Insert");
 		return mv;
 	}
 	
@@ -45,17 +44,9 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertItemCategory(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemCategoryDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
+			System.out.println(DTO.toString());
 			setResult(mv, Service.insert(DTO));
 			selectItemCategoryList(session, mv, request);
-		}
-		return mv;
-	}
-	
-	//상품 카테고리 수정 페이지 접근
-	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
-	public ModelAndView updateItemCategory(HttpSession session, ModelAndView mv, int ID) {
-		if (isManager(mv, session, URL + "Insert") == 0) {
-			mv.addObject("ItemCategory", Service.selectOne(ID));
 		}
 		return mv;
 	}

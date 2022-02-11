@@ -1,240 +1,118 @@
-* {
-    margin: 0;
-    padding: 0;
+.article-before {
+    width: calc(100% / 4);
+    padding: 2vw;
 }
 
-ul {
-    list-style: none;
-}
-
-button {
-    cursor: pointer;
-}
-
-.join-modal {
-    display: none;
-}
-
-.modal-back {
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, .5);
-    backdrop-filter: blur(5px);
-    position: fixed;
-    z-index: 999;
-}
-
-.modal-front {
-    width: 30%; height: 80%;
-    background: rgba(255, 255, 255, .8);
-    box-shadow: 0 8px 32px 0 rgba(116, 116, 116, .6);
-    border: 8px solid rgb(255, 255, 255);
-    margin: 70px auto;
-    padding: 20px;
-    border-radius: 20px;
-}
-
-.modal-front>.title {
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-}
-
-.modal-front>form {
-    margin-top: 5vh;
-    margin-left: 7vw;
-    font-size: 16px;
-    line-height: 50px;
-}
-
-.modal-front input {
-    width: calc(35% + 7vw); height: 30px;
-    font-size: 16px;
-    border: 0;
-    border-radius: 15px;
-    outline: none;
-    padding-left: 15px;
-    text-align: center;
-    font-size: 14px;
-    align-items: center;
-}
-
-.join-modal .join-text {
-    margin-left: .5vw;
-    margin-top: -20px;
-    display: none;
-}
-
-.join-modal .join-form {
-    font-size: 12px;
-    color: green;
-}
-
-.join-modal .join-text {
-    font-size: 12px;
-}
-
-.join-modal .join-alert, .join-overlap {
-    color: red;
-    margin-top: -50px;
-}
-
-.join-modal .overNic {
-    color: red;
-    margin-top: -20px;
-}
-
-.join-modal .join-div-wrap {
-    position: relative;
-}
-
-.join-modal .overlap-check {
-    width: 30px; height: 30px;
-    font-size: 25px;
-    position: absolute;
-    top: 13px;
-    margin-left: 5px;
-    background-color: transparent;
-    border: 0;
-}
-
-.join-modal .yes {
-    margin-top: 3vh;
-    margin-left: -1vw;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.join-modal .join-btns {
-    margin-left: 2.5vw;
-}
-
-.join-modal .join-btns>button {
-    width: 100px; height: 50px;
-    border-radius: 30px;
-    background-color: white;
-    border: 0;
-    font-weight: bold;
-}
-
-.login-modal {
-    display: none;
-}
-
-.login-front {
-    height: 35%;
-    margin: 140px auto;
-}
-
-.login-modal .login-text {
-    font-size: 12px;
-    display: none;
-}
-
-.login-modal .login-form {
-    margin-top: -20px;
-    color: green;
-}
-
-.login-modal .login-alert {
-    margin-top: -50px;
-    color: red;
-}
-
-.login-modal .login-btns {
-    margin-top: 2vh;
-    margin-left: calc(3.5vw - 20px);
-}
-
-.login-modal .login-btns>button {
-    width: 80px; height: 40px;
-    border-radius: 30px;
-    background-color: white;
-    border: 0;
-    font-weight: bold;
-    margin-left: 10px;
-}
-
-.header-wrap {
-    display: flex;
-    justify-content: space-between;
-    padding: 1vw 2vw;
-    align-items: center;
-}
-
-header .logo {
-    font-size: 36px;
-}
-
-header .header-ul {
-    display: flex;
-    font-size: 16px;
-}
-
-header .header-ul .fas {
-    font-size: 26px;
-}
-
-.content {
-    display: flex;
-}
-
-.content>nav {
-    width: 12vw;
-    margin-top: 1vw;
-}
-
-.content>nav>.nav-wrap>.user-nav li {
-    margin-top: 5vh;
-    line-height: calc((83.5vh / 7) - 5vh);
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.content>nav>.nav-wrap>.admin-nav {
-    display: none;
-}
-
-.content>nav>.nav-wrap>.admin-nav-sub {
-    display: none;
-}
-
-.content>nav ul>li {
-    display: flex;
-}
-
-.content>section {
-    width: 88vw;
-    overflow: hidden;
-}
-
-.content>section>.article-wrap {
-    background-color: rgb(245, 246, 241);
-    padding-top: 66px;
-    padding-left: 55px;
-    height: 83.5vh;
-    overflow: hidden;
-    display: flex;
-    border-radius: 30px 0;
-}
-
-.content>section>.article-wrap>article {
-    background-color: white;
-    width: calc(100% - 55px + 55px);
-    padding: 3vw;
-}
-
-.content>section>.article-wrap>article>p {
+.article-before>p {
     font-size: 26px;
     text-align: center;
 }
 
-.content>section>.article-wrap>article>.img {
-    width: 100%; height: calc(100% - 13vh);
+.article-before .img {
+    width: 100%;
+    height: 62vh;
     background-color: black;
     margin: 5vh 0;
 }
 
-/* 기능 구현 예시 */
-#user-nav-1 {
-    background-color: rgb(245, 246, 241);
+.article-after {
+    width: calc(80% - 10vw);
+    padding: 3vw;
+    position: relative;
+}
+
+.article-after>p {
+    font-size: 40px;
+    margin-left: 15vw;
+}
+
+.article-after .gallery-wrap {
+    margin-top: 4.5vh;
+    overflow: hidden;
+}
+
+.article-after .gallery-wrap>.gallery-group {
+    display: flex;
+    width: 300%;
+    transition: 1s;
+}
+
+.article-after .gallery-wrap .gall-img {
+    width: 100%; height: 62vh;
+}
+
+.article-after .btns {
+    position: absolute;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    margin-top: -36vh;
+    padding: 30px;
+}
+
+.article-after .right {
+    right: 3.5vw;
+}
+
+/* 구현 */
+/* .article-before {
+    display: none;
+} */
+
+.article-after {
+    display: none;
+}
+
+/* #after-2,
+#after-3,
+#after-4 {
+    display: none;
+} */
+
+/* js 연결 class */
+.slide-1 {
+    transform: translateX(0vw);
+}
+
+.slide-2 {
+    transform: translateX(-58.1vw);
+}
+
+.slide-3 {
+    transform: translateX(calc(-58.1vw * 2))
+}
+
+/* background-color */
+#before-1 {
+    background-color: red;
+}
+
+#before-2 {
+    background-color: orange;
+}
+
+#before-3 {
+    background-color: yellow;
+}
+
+#before-4 {
+    background-color: green;
+}
+
+/* 이미지 경로 */
+.img {
+    background-position: center;
+    background-size: cover;
+}
+
+.article-after .i1 {
+    background-color: pink;
+}
+
+.article-after .i2 {
+    background-color: blue;
+}
+
+.article-after .i3 {
+    background-color: violet;
 }

@@ -2,22 +2,31 @@ package com.web.mall.controller;
 
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.security.GeneralSecurityException;
+import java.util.Collections;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken.Payload;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.googleapis.util.Utils;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.json.JsonFactory;
 import com.web.mall.model.AccountService;
 import com.web.mall.model.AccountVO;
+import com.web.mall.model.GoogleAccountVO;
 
 @Controller
-@RequestMapping(value="/")
 public class AccountController {
 	@Autowired
 	private AccountService service;
 	
-
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String main() {
 		return "sunghatest/main";
@@ -47,15 +56,62 @@ public class AccountController {
 		// 세션 또는 별도의 저장 공간에서 상태 토큰을 가져옴
 		String storedState = (String)session.getAttribute("state");
 
-
-		if( !state.equals( storedState ) ) {
+		System.out.println("CALLBACK 까지 왔음");
+		if( !state1.equals( storedState ) ) {
 		    model.addAttribute("error_msg", "401 error"); //401 unauthorized
 		} else {
 			model.addAttribute("error_msg", "200 success"); //200 success
+			
 		}
 
 		return "sunghatest/callbackagain";
 	}
+	@RequestMapping(value="/googlelogin", method=RequestMethod.GET)
+	public String googlelogin() {
+		return "sunghatest/googlelogin";
+	}
+	@RequestMapping(value="/googlelogin2", method=RequestMethod.GET)
+	public String googlelogin2() {
+		return "sunghatest/googlelogin2";
+	}
+	@RequestMapping(value="/google/auth", method=RequestMethod.POST)
+	public String googleLogin(String idtoken, Model model) throws GeneralSecurityException, IOException {
+		HttpTransport transport = Utils.getDefaultTransport();
+		JsonFactory jsonFactory = Utils.getDefaultJsonFactory();
+		
+		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
+				.setAudience(Collections.singletonList("494231445138-2h489p3ollojmgeb6531mas1508c9eb0.apps.googleusercontent.com")).build();
+		
+		GoogleIdToken idToken = verifier.verify(idtoken);
+		if (idToken != null) {
+			Payload payload = idToken.getPayload();
+			
+			AccountVO accountVo = new AccountVO();
+			accountVo.setName("given_name"+"family_name");
+			accountVo.setEmail("email"); //구글은 핸드폰 정보가 없음.
+			
+			//if (service.checkSameAccount(accountVo) != null) { //회원가입이 안 되어 있는 경우
+				GoogleAccountVO vo = new GoogleAccountVO();
+				vo.setSub((String) payload.get("sub"));
+				vo.setEmail((String) payload.getEmail());
+				vo.setGiven_name((String) payload.get("given_name"));
+				vo.setFamily_name((String) payload.get("family_name"));
+				vo.setPlatform("google");
+				vo.setAccess_token(idtoken);
+				System.out.println(vo);
+			//}//end if
+				
+			model.addAttribute("id", (String) payload.get("email"));
+			model.addAttribute("login_result", "success");
+				
+		} else { //유효하지 않은 토큰
+			model.addAttribute("login_result", "fail");;
+		}//end else
+			
+		return "sunghatest/googlelogin2_result";
+	    
+	}//googleLogin
+	
 	@RequestMapping(value="/join", method=RequestMethod.GET)
 	public String join() {
 		return "sunghatest/join";
