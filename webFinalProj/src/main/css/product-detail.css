@@ -1,0 +1,102 @@
+.article-container {
+    position: relative;
+}
+
+.btns {
+    position: absolute;
+    margin-top: -50px;
+    right: 20px;
+}
+
+.btn {
+    width: 120px; height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 1px solid #999;
+}
+
+.article-wrap {
+    display: flex !important;
+}
+
+.img-group {
+    width: 30%;
+}
+
+.img-group>.img {
+    width: calc(85% + 3vw); height: 80%;
+    background-color: black;
+    margin: 0 auto;
+    margin-top: 5vh;
+    margin-left: 2vw;
+}
+
+.img-btns {
+    margin-top: 2vh;
+    margin-left: 6vw;
+}
+
+.img-btns .btn {
+    background-color: black;
+    color: white;
+}
+
+.product-content {
+    display: block;
+}
+
+.product-content {
+    width: 70%;
+    margin-left: 5vw;
+    margin-top: 7.5vh;
+}
+
+span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+input {
+    margin-left: .5vw;
+    width: 50%; height: 26px; 
+    outline: none;
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.title>input {
+    margin-top: 0;
+}
+
+.category>input {
+    width: 46.6%;
+}
+
+.size-radio, .color-radio {
+    margin-top: 0;
+    width: 20px;
+    margin-top: 17px;
+    height: 15px;
+}
+
+label {
+    margin-left: 5px;
+}
+
+.segment {
+    margin-top: 30px;
+}
+
+.segment>div {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 2vh 0;
+}
+
+textarea {
+    width: 55%; height: 308px;
+    outline: none;
+    resize: none;
+}

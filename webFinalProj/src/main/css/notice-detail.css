@@ -1,0 +1,78 @@
+.article-container {
+    position: relative;
+}
+
+.btns {
+    position: absolute;
+    margin-top: -50px;
+    right: 20px;
+}
+
+.btn {
+    width: 120px; height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 1px solid #999;
+}
+
+.article-wrap {
+    display: flex !important;
+}
+
+.img-group {
+    width: 30%;
+}
+
+.img-group>.img {
+    width: calc(85% + 3vw); height: 80%;
+    background-color: black;
+    margin: 0 auto;
+    margin-top: 5vh;
+    margin-left: 2vw;
+}
+
+.img-btns {
+    margin-top: 2vh;
+    margin-left: 6vw;
+}
+
+.img-btns .btn {
+    background-color: black;
+    color: white;
+}
+
+.notice-content {
+    display: block;
+}
+
+.notice-content {
+    width: 70%;
+    margin-left: 5vw;
+    margin-top: 7.5vh;
+}
+
+span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.title>input {
+    margin-left: .5vw;
+    width: 50%; height: 26px; 
+    outline: none;
+    font-size: 18px;
+}
+
+.segment>div {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 2vh 0;
+}
+
+textarea {
+    width: 57%;
+    outline: none;
+    resize: none;
+}

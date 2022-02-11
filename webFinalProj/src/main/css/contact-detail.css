@@ -1,0 +1,134 @@
+.title {
+    width: 100%;
+    display: flex;
+}
+
+.title li {
+    position: relative;
+    width: calc(100% / 4);
+    height: 100%;
+    text-align: center;
+    margin-top: 1vh;
+    margin-bottom: 1vh;
+    font-weight: bold;
+}
+
+.line {
+    width: 95%;
+    height: 2px;
+    background-color: black;
+    margin: 0 auto;
+    /* margin: 1.5vh auto; */
+}
+
+.list {
+    width: 100%;
+    display: flex;
+}
+
+.list li {
+    position: relative;
+    width: calc(100% / 4);
+    height: 100%;
+    text-align: center;
+}
+
+.list button {
+    width: 50px;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px;
+}
+
+.detail {
+    width: 80px !important;
+}
+
+select {
+    width: 80px;
+    text-align: center;
+    padding: 3px;
+    border: 1px solid #999;
+    font-family: inherit;
+    border-radius: 0px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.big-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1.5vh;
+    margin-left: 30px;
+}
+
+.list {
+    margin-top: 15px;
+}
+
+.down {
+    margin-top: 6vh;
+}
+
+.detail-box {
+    width: 95%; height: 240px;
+    margin: 0 auto;
+    margin-top: 20px;
+    border-radius: 30px;
+    position: relative;
+    border: 1.5px solid #000;
+}
+
+.box-title {
+    font-size: 16px;
+    font-weight: bold;
+    width: 5%;
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 65px;
+}
+
+.cols {
+    position: absolute;
+    background-color: black;
+    width: 2px; height: 100%;
+    margin-left: 200px;
+}
+
+.user {
+    background-color: rgb(219, 219, 219);
+}
+
+.admin {
+    background-color: white;
+}
+
+.answer {
+    margin-left: 13%;
+    width: calc(100% - 17%); height: 80%;
+    border: 0;
+    font-size: 16px;
+    resize: none;
+    padding: 10px;
+    margin-top: 5px;
+    outline: none;
+}
+
+.btns {
+    position: absolute;
+    margin-top: -50px;
+    right: 20px;
+}
+
+.btn {
+    width: 120px; height: 40px;
+    border-radius: 10px;
+    background-color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    border: 1px solid #999;
+}
