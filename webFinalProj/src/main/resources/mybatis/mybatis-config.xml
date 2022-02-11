@@ -6,8 +6,8 @@
   <typeAliases>
     <typeAlias type="com.web.mall.model.AccountVO" alias="account" />
     <typeAlias type="com.web.mall.model.ShoppingListVO" alias="shoppingList" />
-    <typeAlias type="com.web.mall.model.ItemVO" alias="item" />
-    <typeAlias type="com.web.mall.model.ItemOptionVO" alias="itemOption" />
+    <typeAlias type="com.web.mall.model.ItemDTO" alias="item" />
+    <typeAlias type="com.web.mall.model.ItemOptionDTO" alias="itemOption" /> 
     <typeAlias type="com.web.mall.model.ZzimListVO" alias="zzim" />
     <typeAlias type="com.web.mall.model.GiveCouponVO" alias="giveCoupon" />
     <typeAlias type="com.web.mall.model.CouponVO" alias="coupon" />

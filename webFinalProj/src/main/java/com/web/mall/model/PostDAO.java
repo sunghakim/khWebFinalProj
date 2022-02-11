@@ -9,44 +9,63 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class PostDAO {
 	@Autowired
-	SqlSession session;
+	SqlSession sqlSession;
 	
-	public PostVO selectPost(int PostID) {
-		return this.session.selectOne("PostMapper.GetPost", PostID);
+	//선택한 게시글 가져오기
+	public PostDTO selectPost(int post_id) {
+		PostDTO datas = sqlSession.selectOne("PostMapper.selectPostList", post_id);
+		return datas;
 	}
 	
-	public void addPostView(int PostID) {
-		this.session.update("PostMapper.AddPostView", PostID);
+	//게시판의 게시글 추가하기
+	public int insertPost(PostDTO data) {
+		return sqlSession.insert("PostMapper.insertPost", data);
 	}
 	
-	public List<PostVO> selectPostList(String boardID) {
-		return this.session.selectList("PostMapper.GetPostList", boardID);
+	//게시글 수정하기
+	public int updatePost(PostDTO data) {
+		return sqlSession.update("PostMapper.updatePost", data);
 	}
 	
-	public PostVO insertPost(PostVO PostingVO) {
-		//마이바티스를 통해 insert 요청후 입력한 id 값을 돌려받음
-		//돌려받은 id값으로 실제 입력된 게시글 조회
-		this.session.insert("PostMapper.Posting", PostingVO);
-		return this.selectPost(PostingVO.getPost_id());
-	}
-	
-	public int updatePost(PostVO PostingVO) {
-		return this.session.update("PostMapper.updatePost", PostingVO);
-	}
-	
-	public int deletePost(int PostID) {
-		PostVO viewPostVO = new PostVO();
-		viewPostVO.setPost_id(PostID);
-		return this.session.delete("PostMapper.deletePost", PostID);
+	//게시글 삭제하기
+	public int deletePost(int post_id) {
+		return sqlSession.delete("PostMapper.deletePost", post_id);
 	}
 
-	public int updatePostFavorite(int PostID) {
-		return this.session.update("PostMapper.addPostFavorite", PostID);
+	//게시글 좋아요
+	public int updatePostGood(int post_id) {
+		return sqlSession.update("PostMapper.addPostGood", post_id);
 	}
 
-	public int updatePostDislike(int PostID) {
-		return this.session.update("PostMapper.addPostDislike", PostID);
+	//게시글 안좋아요
+	public int updatePostDislike(int post_id) {
+		return sqlSession.update("PostMapper.addPostDislike", post_id);
+	}
+
+	//댓글 조회
+	public List<CommentsDTO> selectComments(int post_id) {
+		List<CommentsDTO> datas = sqlSession.selectList("PostMapper.selectComments", post_id);
+		return datas;
 	}
 	
+	//댓글 하나만 수정전에 조회
+	public CommentsDTO selectCommentsDetail(int comment_id) {
+		CommentsDTO datas = sqlSession.selectOne("PostMapper.selectCommentsDetail", comment_id);
+		return datas;
+	}
 	
+	//댓글 추가하기
+	public int insertComments(CommentsDTO data) {
+		return sqlSession.insert("PostMapper.insertComments", data);
+	}
+	
+	//댓글 수정하기
+	public int updateComments(CommentsDTO data) {
+		return sqlSession.update("PostMapper.updateComments", data);
+	}
+
+	//댓글 삭제하기
+	public int deleteComments(int comment_id) {
+		return sqlSession.update("PostMapper.deleteComments", comment_id);
+	}
 }

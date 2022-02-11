@@ -18,10 +18,10 @@ public class MyinfoDAO {
 	public ShoppingListVO selectShoppingListItem(ShoppingListVO vo) {
 		return this.sess.selectOne("MyinfoMapper.selectShoppingListItem", vo);
 	}
-	public ItemVO selectItem(ItemVO vo) {
+	public ItemDTO selectItem(ItemDTO vo) {
 		return this.sess.selectOne("MyinfoMapper.selectItem", vo);
 	}
-	public ItemOptionVO selectItemOption(ItemOptionVO vo) {
+	public ItemOptionDTO selectItemOption(ItemOptionDTO vo) {
 		return this.sess.selectOne("MyinfoMapper.selectItemOption", vo);
 	}
 	public int deleteShoppingList(ShoppingListVO vo) {

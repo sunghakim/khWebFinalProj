@@ -2,14 +2,13 @@ package com.web.mall.model;
 
 import java.sql.Date;
 
-public class PostVO {
+public class PostDTO {
 
 	private int post_id;
-	private int writer_id;
+	private String writer_id;
 	private int board_id;
 	private String title;
 	private String content;
-	private int post_views;
 	private int good_number;
 	private Date posting_date;
 	
@@ -19,10 +18,11 @@ public class PostVO {
 	public void setPost_id(int post_id) {
 		this.post_id = post_id;
 	}
-	public int getWriter_id() {
+	
+	public String getWriter_id() {
 		return writer_id;
 	}
-	public void setWriter_id(int writer_id) {
+	public void setWriter_id(String writer_id) {
 		this.writer_id = writer_id;
 	}
 	public int getBoard_id() {
@@ -42,12 +42,6 @@ public class PostVO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public int getPost_views() {
-		return post_views;
-	}
-	public void setPost_views(int post_views) {
-		this.post_views = post_views;
 	}
 	public int getGood_number() {
 		return good_number;

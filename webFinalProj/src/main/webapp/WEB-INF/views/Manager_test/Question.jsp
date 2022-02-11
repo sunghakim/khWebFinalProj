@@ -13,9 +13,13 @@
 	<header>
 		<jsp:include page="/WEB-INF/views/Manage_test/module/top-navigation.jsp" flush="false"/>
 	</header>
-	<% BoardVO Board = new BoardVO(); %>
+	<%
+	BoardDTO Board = new BoardDTO();
+	%>
 	<c:if test="{request.getAttribute(\"Board\") =! null">
-		<% Board = (BoardVO)request.getAttribute("Board"); %>	
+		<%
+		Board = (BoardDTO)request.getAttribute("Board");
+		%>	
 	</c:if>
 	<main class="container">
 		<div class="card">

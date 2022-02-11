@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.web.mall.model.AccountVO;
 import com.web.mall.model.CouponVO;
 import com.web.mall.model.GiveCouponVO;
-import com.web.mall.model.ItemOptionVO;
-import com.web.mall.model.ItemVO;
+import com.web.mall.model.ItemOptionDTO;
+import com.web.mall.model.ItemDTO;
 import com.web.mall.model.MyinfoService;
 import com.web.mall.model.QuestionVO;
 import com.web.mall.model.ReportReasonVO;
@@ -31,21 +31,21 @@ public class MyinfoController {
 	private MyinfoService service;
 	
 	@RequestMapping(value="/checkCarts", method=RequestMethod.GET) //장바구니
-	public String seeCarts(ShoppingListVO shop, ItemVO item, ItemOptionVO itemOp, HttpSession session, Model model) {
+	public String seeCarts(ShoppingListVO shop, ItemDTO item, ItemOptionDTO itemOp, HttpSession session, Model model) {
 		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 		shop.setAccount_id(nowAcc.getAccount_id());
 		
 		List<ShoppingListVO> shoppingList = service.getCarts(shop);
 		model.addAttribute("shoppingList", shoppingList);
 		
-		List<ItemVO> itemList = new ArrayList<ItemVO>();
-		List<ItemOptionVO> itemOptionList = new ArrayList<ItemOptionVO>();
+		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
+		List<ItemOptionDTO> itemOptionList = new ArrayList<ItemOptionDTO>();
 		for(ShoppingListVO shopping : shoppingList) {
 			item.setItem_id(shopping.getItem_id());
 			itemOp.setItem_option_id(shopping.getItem_option_id());
 			
-			ItemVO getItem = service.getItem(item);
-			ItemOptionVO getItemOption = service.getItemOption(itemOp);
+			ItemDTO getItem = service.getItem(item);
+			ItemOptionDTO getItemOption = service.getItemOption(itemOp);
 			itemList.add(getItem);
 			itemOptionList.add(getItemOption);
 		}
@@ -77,18 +77,18 @@ public class MyinfoController {
 		return "redirect:/checkCarts";
 	}
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)
-	public String seeZzimList(ZzimListVO zzim, ItemVO item, HttpSession session, Model model) {
+	public String seeZzimList(ZzimListVO zzim, ItemDTO item, HttpSession session, Model model) {
 		AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 		zzim.setAccount_id(nowAcc.getAccount_id());
 		
 		List<ZzimListVO> zzimList = service.getZzims(zzim);
 		model.addAttribute("zzimList", zzimList);
 		
-		List<ItemVO> itemList = new ArrayList<ItemVO>();
+		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
 		for(ZzimListVO zzim1 : zzimList) {
 			item.setItem_id(zzim1.getItem_id());
 			
-			ItemVO getItem = service.getItem(item);
+			ItemDTO getItem = service.getItem(item);
 			itemList.add(getItem);
 		}
 		model.addAttribute("itemList", itemList);

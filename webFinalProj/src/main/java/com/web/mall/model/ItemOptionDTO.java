@@ -1,6 +1,6 @@
 package com.web.mall.model;
 
-public class ItemOptionVO {
+public class ItemOptionDTO {
 	private int item_option_id;
 	private int item_id;
 	private String item_size;

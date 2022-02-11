@@ -1,77 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PostMapper">
-	<resultMap id = "PostResult" type = "PostVO"> 
-		<!-- 
-			글정보를 저장할 resultMap을 설정
-			데이터베이스 항목명(컬럼) 불러온 항목을 저장할 클래스 내의 변수명(프로퍼티) 
-		-->
-		<result column="PostId"  property="POST_ID" />
-		<result column="WriterId"  property="WRITER_ID" />
-		<result column="BoardId"  property="BOARD_ID" />
-		<result column="Title"  property="TITLE" />
-		<result column="Content"  property="CONTENT" />
-		<result column="PostViews"  property="POST_VIEWS" />
-		<result column="GoodNumber"  property="GOOD_NUMBER" />
-		<result column="PostingDate"  property="POSTING_DATE" />
-	</resultMap>
-	
-	<resultMap id="CommentsResult" type="CommentsVO">
-			<result property="CommentsId" column="COMMENT_ID" />
-			<result property="PostId" column="POST_ID" />
-			<result property="WriterId" column="WRITER_ID" />
-			<result property="PostingDate" column="POSTING_DATE" />
-			<result property="Content" column="CONTENT" />
-	</resultMap>
-	
-	<resultMap id="ReportResult" type="ReportVO">
-			<result property="ReportId" column="REPORT_ID" />
-			<result property="ReportReasonId" column="REPORT_Reason_ID" />
-			<result property="ReporterId" column="REPORTER_ID" />
-			<result property="ReportedAccountId" column="REPORTED_ACCOUNT_ID" />
-			<result property="ReportedPostId" column="REPORTED_POST_ID" />
-			<result property="ReportedDate" column="REPORTED_Date" />
-			<result property="Content" column="CONTENT" />
-			<result property="Result" column="Result" />
-			<result property="ClosedDate" column="CLOSED_DATE" />
-	</resultMap>
-	
-	<select id ="selectPostList" parameterType="PostVO" resultMap="PostResult">
+	<!-- 선택한 게시판의 게시글 상세페이지 보여주기  -->
+	<select id ="selectPostList" resultMap="com.web.mall.model.PostDTO">
 	  <![CDATA[
-	  	SELECT * 
+	  	SELECT  POST_ID, WRITER_ID, BOARD_ID, TITLE
+	  		, CONTENT, GOOD_NUMBER, POSTING_DATE
 	  	FROM POST
-	  	ORDER BY POST_ID DESC
 	  	WHERE POST_ID = #{post_id}
 	  ]]>
 	</select>
 	
-  	<update id="updatePost" parameterType="POSTVO">
-	    UPDATE POST
-	    <trim prefix="SET" prefixOverrides=",">
-	    	<if test="question_content != null">
-	    		, CONTENT = #{post_content} 
-	    	</if>
-	    </trim>
+	<!--선택한 게시판의 게시글 추가  -->
+	<insert id="insertPost" parameterType="com.web.mall.model.PostDTO">
+    	INSERT INTO POST VALUES(
+    		POST_ID_SEQ.NEXTVAL, #{writer_id}, #{board_id}, 
+    			#{title}, #{content}, 0, 0, SYSDATE) 
+  	</insert>
+  	
+  	<!-- 선택한 게시판의 게시글 추가시 이미지 추가할때 넣기 -->
+  	<!-- insert id="insertImage" parameterType="com.web.mall.model.ImageDTO">
+    	INSERT INTO POST VALUES(
+    		IMAGE_ID_SEQ.NEXTVAL, #{post_id} ,'POST'
+    		, #{file_name}, #{file_url}) 
+  	</insert -->
+	
+	<!-- 선택한 게시글 수정 -->
+  	<update id="updatePost" parameterType="com.web.mall.model.PostDTO">
+	   UPDATE POSTS SET TITLE = #{Title}, CONTENT = #{Content} 
 	    WHERE POST_ID = #{post_id}
   	</update>
   	
-  	<delete id="deletePost" parameterType="String">
+  	<!-- 게시글 삭제 -->
+  	<delete id="deletePost" parameterType="com.web.mall.model.PostDTO">
 		DELETE FROM POST WHERE POST_ID = #{post_id}
 	</delete>
 	
-	<insert id="insertGood" parameterType="POSTVO">
-  		INSERT INTO POST VALUES(#{good_number} + 1)
-  	</insert>
+	<!-- 게시글 신고 -->
+	<insert id="insertReport" parameterType="com.web.mall.model.ReportDTO">
 	
-	<insert id="insertComments" parameterType="CommentsVO">
-    	INSERT INTO COMMENT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
+	</insert>
+	
+	<!-- 좋아요 -->
+	<update id="addPostGood" parameterType="int">
+		UPDATE POST SET GOOD_NUMBER = #{good_number} + 1 
+		WHERE POST_ID = #{post_id}
+	</update>
+	
+	<!-- 좋아요 한번더 누르기 -->
+	<update id="addPostDislike" parameterType="int">
+		UPDATE POST SET GOOD_NUMBER = #{good_number} - 1 
+		WHERE POST_ID = #{post_id}
+	</update>
+	
+	<!-- 댓글 조회 -->
+	<select id="selectComments" parameterType="com.web.mall.model.CommentsDTO">
+		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT 
+		FROM COMMENTS
+		ORDER BY COMMENT_ID DESC
+		WHERE POST_ID = #{post_id}
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert id="insertComments" parameterType="com.web.mall.model.CommentsDTO">
+    	INSERT INTO COMMENT(COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT) 
+    	VALUES(COMMENT_SEQ.NEXTVAL, #{post_id}, #{writer_id}, SYSDATE, #{content})
   	</insert>
   	
-  	<delete id="deleteComments" parameterType="CommentsVO">
-		DELETE FROM COMMENT WHERE COMMENT_ID = #{comment_id}
-	</delete>
-	
-	<update id="updateComments" parameterType="CommentsVO">
+  	
+  	
+	<!-- 댓글 수정 -->
+	<update id="updateComments" parameterType="com.web.mall.model.CommentsDTO">
 	    UPDATE POST
 	    <trim prefix="SET" prefixOverrides=",">
 	    	<if test="content != null">
@@ -79,8 +80,15 @@
 	    	</if> <!-- if문이 생성될때는 set구문이 붙고 아니면 set구문 안붙음 -->
 	    </trim>
 	    WHERE COMMENT_ID = #{comment_id}
-  </update>
-  	<insert id="insertReport" parameterType="CommentsVO">
+  	</update>
+  
+  	<!-- 댓글 삭제 -->
+  	<delete id="deleteComments" parameterType="com.web.mall.model.CommentsDTO">
+		DELETE FROM COMMENT WHERE COMMENT_ID = #{comment_id}
+	</delete>
+	
+  	<!-- 신고 문의 -->
+  	<insert id="insertReport2" parameterType="com.web.mall.model.ReportDTO"> 
     	INSERT INTO COMMENT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
   	</insert>
 	
