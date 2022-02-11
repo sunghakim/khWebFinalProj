@@ -47,7 +47,7 @@
 			</c:when>
 			<c:otherwise>
 				<div>
-					<input type="hidden" name="account_id" value="${account.social_account_id}">
+					<input type="hidden" name="social_account_id" value="${account.social_account_id}">
 				</div>
 			</c:otherwise>
 		</c:choose>

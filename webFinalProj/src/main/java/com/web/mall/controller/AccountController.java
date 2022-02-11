@@ -31,10 +31,6 @@ public class AccountController {
 	@Autowired
 	private AccountService service;
 	
-	@RequestMapping(value="/main", method=RequestMethod.GET) //메인페이지 담당이 알아서 해줄테니 삭제해도 됨.
-	public String main() {
-		return "sunghatest/main";
-	}
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.GET)
 	public String jusoPopupGET() {
 		return "sunghatest/jusoPopup";
@@ -132,7 +128,7 @@ public class AccountController {
 				session.setAttribute("logined", true);
 				session.setAttribute("account", sameData);
 				session.setAttribute("usertype", "social");
-				return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
+				return "sunghatest/main"; //로그인 요청한 위치로 이동 필요. redirect 할 것 재로그인 안하게
 			}
 			else{
 				if(sameData.getLogin_type() == 1) {
@@ -157,7 +153,7 @@ public class AccountController {
 					session.setAttribute("logined", true);
 					session.setAttribute("account", data);
 					session.setAttribute("usertype", "social");
-					return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.
+					return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.redirect 할 것 재로그인 안하게
 				}
 				else {
 					System.out.println("login 실패");
@@ -198,7 +194,7 @@ public class AccountController {
 					model.addAttribute("isError", true);
 					model.addAttribute("error_msg", "관리자로 등록되어있습니다. 회원으로 등록하시겠습니까?");
 				} //회원으로 등록하시겠습니까? -> attribute 상태에 따라서 y,n 확인 받는거 보이고 숨기게 하고 결과 처리
-				return "sunghatest/join";
+				return "sunghatest/join"; //아직 정식으로 구현이나 테스트된것 없음. 추가 검토 필요
 			}
 			else {
 				System.out.println("같은 정보의 사람이 없음. ");
@@ -252,7 +248,7 @@ public class AccountController {
 				session.setAttribute("account", data);
 				session.setAttribute("usertype", "web");
 				
-				return "sunghatest/main"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.
+				return "sunghatest/main"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.redirect 할 것 재로그인 안하게
 			}
 			else {
 				model.addAttribute("accountVO", accountVo);
@@ -299,24 +295,29 @@ public class AccountController {
 	}
 	@RequestMapping(value="/findMyinfo", method=RequestMethod.GET)
 	public String myinfoPage() {
-		return "sunghatest/myinfo"; //user/mypage/mypage
+		return "user/mypage/mypage"; //sunghatest/myinfo
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.GET)
 	public String seeMyinfo() {
-		return "sunghatest/myinfodetail"; //user/mypage/info
+		return "user/mypage/info"; //sunghatest/myinfodetail
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.POST)
 	public String updateMyinfo(AccountVO accountVo, SocialAccountVO socialVo, HttpSession session) {
-		//accountVO랑 socialVO랑 같이 있을 때 겹치는 값은 둘다 적용되어 저장되는지 오류 발생하는지 확인 필요.
-		//오류 발생하면 JSP에서 어떤 값인지 확인 후 TYPE 값을 전달하여 따로 동작하게 해야할것.
-		if(service.updateMyinfo(accountVo)) {
-			AccountVO data = service.login(accountVo);
-			session.setAttribute("account", data);
-			return "sunghatest/myinfodetail"; //user/mypage/info
+		if(session.getAttribute("usertype").equals("web")) {
+			if(service.updateMyinfo(accountVo)) {
+				AccountVO data = service.login(accountVo);
+				session.setAttribute("account", data);
+				return "user/mypage/info"; //sunghatest/myinfodetail
+			}
 		}
 		else {
-			session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
-			return "sunghatest/myinfodetail"; //user/mypage/info
+			if(service.updateMyinfo(socialVo)) {
+				SocialAccountVO data = service.login(socialVo);
+				session.setAttribute("account", data);
+				return "user/mypage/info"; //sunghatest/myinfodetail
+			}
 		}
+		session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
+		return "user/mypage/info"; //sunghatest/myinfodetail
 	}
 }

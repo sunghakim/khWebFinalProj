@@ -51,6 +51,27 @@
     </trim>
     WHERE ACCOUNT_ID = #{account_id}
   </update>
+  <update id="updateSocialAccountInfo" parameterType="socialAccount">
+    UPDATE SOCIAL_ACCOUNT
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="phone != null">
+    		, PHONE = #{phone} 
+    	</if>
+    	<if test="email != null">
+    		, EMAIL = #{email}
+    	</if>
+    	<if test="address != null">
+    		, ADDRESS = #{address}
+    	</if>
+    	<if test="address_no != null">
+    		, ADDRESS_NO = #{address_no}
+    	</if>
+    	<if test="nickname != null">
+    		, NICKNAME = #{nickname}
+    	</if>
+    </trim>
+    WHERE SOCIAL_ACCOUNT_ID = #{social_account_id}
+  </update>
   <delete id="deleteAccount" parameterType="account">
     DELETE FROM ACCOUNT WHERE ACCOUNT_ID = #{account_id}
   </delete>

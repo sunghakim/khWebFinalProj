@@ -59,7 +59,7 @@ public class MyinfoController {
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("itemOptionList", itemOptionList);
 		
-		return "sunghatest/cart"; //user/mypage/basket
+		return "user/mypage/basket"; //sunghatest/cart
 	}
 	@RequestMapping(value="/deleteCartItem", method=RequestMethod.GET) //장바구니 물건 삭제
 	public String deleteCartItem(ShoppingListVO shop, Model model) {
@@ -106,7 +106,7 @@ public class MyinfoController {
 		}
 		model.addAttribute("itemList", itemList);
 		
-		return "sunghatest/zzim"; //user/mypage/like
+		return "user/mypage/like"; //sunghatest/zzim
 	}
 	@RequestMapping(value="/deleteZzimItem", method=RequestMethod.GET)
 	public String deleteZzimItem(ZzimListVO zzim, Model model) {
@@ -145,7 +145,7 @@ public class MyinfoController {
 		}
 		model.addAttribute("couponInfo", couponInfo);
 		
-		return "sunghatest/coupon"; //user/mypage/coupon
+		return "user/mypage/coupon"; //sunghatest/coupon
 	}
 	@RequestMapping(value="/checkReport", method=RequestMethod.GET)
 	public String seeReportedList(ReportVO report, HttpSession session, Model model) {
@@ -164,7 +164,7 @@ public class MyinfoController {
 		List<ReportReasonVO> reportReason = service.getReportReason();
 		model.addAttribute("reportReason", reportReason);
 		
-		return "sunghatest/reportlist"; //user/mypage/report
+		return "user/mypage/report"; //sunghatest/reportlist
 	}
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
 	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
@@ -180,11 +180,11 @@ public class MyinfoController {
 		List<QuestionVO> questionList = service.getQuestions(question);
 		model.addAttribute("questionList", questionList);
 		
-		return "sunghatest/questionlist"; //user/mypage/question
+		return "user/mypage/question"; //sunghatest/questionlist
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.GET)
 	public String addQuestionform() {
-		return "sunghatest/addquestion"; //user/mypage/questionWrite
+		return "user/mypage/questionWrite"; //sunghatest/addquestion
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
 	public String addQuestion(QuestionVO questionVo, Model model) {
@@ -195,7 +195,7 @@ public class MyinfoController {
 		else {
 			System.out.println("문의 등록 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "sunghatest/addquestion"; //user/mypage/questionWrite
+			return "user/mypage/questionWrite"; //sunghatest/addquestion
 		}
 	}
 	//
@@ -204,7 +204,7 @@ public class MyinfoController {
 		QuestionVO question = service.getOneQuestion(questionVo);
 		model.addAttribute("question", question);
 		
-		return "문의 상세페이지"; //user/mypage/questionPost
+		return "user/mypage/questionPost"; //문의상세페이지
 	}
 	//
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.GET)
@@ -213,7 +213,7 @@ public class MyinfoController {
 		QuestionVO question = service.getOneQuestion(questionVo);
 		model.addAttribute("questionVo", question);
 		
-		return "sunghatest/addquestion"; //user/mypage/questionWrite
+		return "user/mypage/questionWrite"; //sunghatest/addquestion
 	}
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.POST)
 	public String updateQuestion(QuestionVO questionVo, Model model) {
@@ -225,7 +225,7 @@ public class MyinfoController {
 		else {
 			System.out.println("문의 수정 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "sunghatest/addquestion"; //user/mypage/questionWrite
+			return "user/mypage/questionWrite"; //sunghatest/addquestion
 		}
 	}
 	@RequestMapping(value="/deleteQuestion", method=RequestMethod.GET)
@@ -266,7 +266,7 @@ public class MyinfoController {
 		model.addAttribute("detailList", soldDetail);
 		model.addAttribute("detailNumber", numberOfDetail);
 		
-		return "sunghatest/payedlist"; //user/mypage/history
+		return "user/mypage/history"; //sunghatest/payedlist
 	}
 	@RequestMapping(value="/checkPayed", method=RequestMethod.GET)
 	public String seePayedDay(SoldDetailVO detailVo, Model model) {
@@ -274,7 +274,7 @@ public class MyinfoController {
 		List<SoldDetailVO> detailList = service.getOnePayedDetails(detailVo);
 		model.addAttribute("detailList", detailList);
 		
-		return "";
+		return ""; //하루 구매목록보기페이지
 	}
 	@RequestMapping(value="/doRefund", method=RequestMethod.GET)
 	public String doRefund(SoldDetailVO detailVo, Model model) {
@@ -312,6 +312,6 @@ public class MyinfoController {
 			System.out.println("배송 중입니다.");
 		}
 		
-		return "";
+		return ""; //배송버튼 누르고나서 띄울 페이지
 	}
 }

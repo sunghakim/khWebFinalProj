@@ -67,10 +67,16 @@ public class AccountService {
 		return dao.selectSameAccount(vo);
 	}
 	
-	public AccountVO getMyinfo(AccountVO vo) {		
-		return dao.selectLoginAccount(vo);
-	}
 	public boolean updateMyinfo(AccountVO vo) {
+		int res = dao.updateAccountInfo(vo);
+		if(res == 0) { // 업데이트 실패
+			return false;
+		}
+		else {
+			return true;
+		}
+	}
+	public boolean updateMyinfo(SocialAccountVO vo) {
 		int res = dao.updateAccountInfo(vo);
 		if(res == 0) { // 업데이트 실패
 			return false;

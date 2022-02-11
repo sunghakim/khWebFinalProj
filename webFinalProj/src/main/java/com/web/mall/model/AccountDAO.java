@@ -46,4 +46,7 @@ public class AccountDAO {
 	public int updateAccountInfo(AccountVO vo) {
 		return this.sess.update("AccountMapper.updateAccountInfo", vo);
 	}
+	public int updateAccountInfo(SocialAccountVO vo) {
+		return this.sess.update("AccountMapper.updateSocialAccountInfo", vo);
+	}
 }
