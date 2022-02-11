@@ -21,33 +21,27 @@ public class Manage_RefundController extends Manage_C_Module {
 	Manage_RefundService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager/Refund";
+	private final String URL = "/Manager_test/Refund";
 	
 	//환불 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectRefundList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			//Request에 Page파라미터로 숫자를 입력하면 요청후 해당 페이지로 이동함
-			mv.addObject("TotalPageCount", Service.selectTotalPageCount());
-			List<Manage_SoldHistoryDTO> List = Service.selectList(setPage(mv, request));
+			int TotalPageCount = Service.selectTotalPageCount();
+			mv.addObject("TotalPageCount", TotalPageCount);
+
+			int Page = setPage(mv, request);
+			List<Manage_SoldHistoryDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
-		}
-		return mv;
-	}
-	
-	//환불 상세 조회
-	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
-	public ModelAndView selectRefund(HttpSession session, ModelAndView mv, HttpServletRequest request, int ID) {
-		if (isManager(mv, session, URL + "Detail") == 0) {
-			mv.addObject("Item", Service.selectOne(ID));
 		}
 		return mv;
 	}
 		
 	//환불DB에 환불승인/환불거절 요청
-	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
+	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateRefund(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_SoldHistoryDTO dto) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
+			System.out.println(dto.toString());
 			setResult(mv, Service.update(dto));
 			selectRefundList(session, mv, request);
 		}

@@ -15,8 +15,8 @@
 		<result property="Color" column="COLOR"/>
 		<result property="Amount" column="AMOUNT"/>
 		<!--Item_Category-->
-		<result property="CategoryID" column="ITEM_CATEGORY_ID"/>
-		<result property="CategoryName" column="ITEM_CATEGORY_NAME"/>
+		<result property="ItemCategoryID" column="ITEM_CATEGORY_ID"/>
+		<result property="ItemCategoryName" column="ITEM_CATEGORY_NAME"/>
 		<result property="NavShow" column="NAV_SHOW"/>
 	</resultMap>
 	
@@ -25,10 +25,11 @@
 			SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.ITEM_OPTION_ID, Y.ITEM_SIZE, Y.COLOR, Y.AMOUNT
 			FROM ITEM X
 			LEFT OUTER JOIN ITEM_OPTION Y ON Y.ITEM_ID = X.ITEM_ID
+			WHERE X.ITEM_ID != 0
 			)
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
+	<select id="selectOne" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
 		SELECT * 
 		FROM (
 			SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.ITEM_OPTION_ID, Y.ITEM_SIZE, 
@@ -51,27 +52,36 @@
 				FROM ITEM X 
 				LEFT OUTER JOIN ITEM_OPTION Y ON Y.ITEM_ID = X.ITEM_ID
 				LEFT OUTER JOIN ITEM_CATEGORY Z ON X.ITEM_CATEGORY_ID = Z.ITEM_CATEGORY_ID
+				WHERE X.ITEM_ID != 0
 				ORDER BY X.ITEM_ID ASC
 				)
 			)
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
+	
+	<select id="searchItemID" resultType="Manage_ItemDTO" resultMap="Manage_ItemDTOMap">
+		SELECT ITEM_ID 
+		FROM ITEM
+		WHERE ITEM_ID = #{ItemID}
+	</select>
 		
-	<insert id="insert" parameterType="Manage_ItemDTO">
-		BEGIN
-			INSERT INTO ITEM VALUES (ITEM_SEQ.NEXTVAL, #{CategoryID}, #{Name}, #{Content}, #{Price});
-			INSERT INTO ITEM_OPTION VALUES(ITEM_OPTION_SEQ.NEXTVAL, #{ItemID}, #{ItemSize}, #{Color}, #{Amount});
-		END;
+	<insert id="insertItem" parameterType="Manage_ItemDTO">
+		INSERT INTO ITEM VALUES (ITEM_SEQ.NEXTVAL, #{ItemCategoryID}, #{Name}, #{Content}, #{Price});
+	</insert>
+		
+	<insert id="insertItemOption" parameterType="Manage_ItemDTO">
+		INSERT INTO ITEM_OPTION VALUES(ITEM_OPTION_SEQ.NEXTVAL, #{ItemID}, #{ItemSize}, #{Color}, #{Amount});
 	</insert>
 	
-	<update id="update" parameterType="Manage_ItemDTO">
-		BEGIN
-			UPDATE ITEM SET ITEM_CATEGORY_ID = {CategoryID}, NAME = #{Name}, CONTENT = #{Content}, PRICE = #{Price} WHERE ITEM_ID = #{ItemID};
-			UPDATE ITEM_OPTION SET AMOUNT = #{Amount} WHERE ITEM_OPTION_ID = #{ItemOptionID};
-		END;
+	<update id="updateItem" parameterType="Manage_ItemDTO">
+		UPDATE ITEM SET ITEM_CATEGORY_ID = {ItemCategoryID}, NAME = #{Name}, CONTENT = #{Content}, PRICE = #{Price} WHERE ITEM_ID = #{ItemID};
 	</update>
 	
-	<delete id="delete" parameterType="String">
+	<update id="updateItemOption" parameterType="Manage_ItemDTO">
+		UPDATE ITEM_OPTION SET ITEM_SIZE = #{ItemSize}, COLOR = #{Color} WHERE ITEM_OPTION_ID = #{ItemOptionID};
+	</update>
+	
+	<delete id="delete" parameterType="Manage_ItemDTO">
 		DELETE FROM ITEM WHERE ITEM_ID = #{ItemID}
 	</delete>
 </mapper>

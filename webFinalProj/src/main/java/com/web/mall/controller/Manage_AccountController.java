@@ -33,9 +33,6 @@ public class Manage_AccountController extends Manage_C_Module {
 			int Page = setPage(mv, request);
 			List<Manage_AccountDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
-			
-			mv.addObject("Page", Page);
-			mv.addObject("pageType", URL);
 		}
 		return mv;
 	}

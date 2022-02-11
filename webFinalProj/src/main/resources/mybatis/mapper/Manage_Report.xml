@@ -33,24 +33,27 @@
 			FROM (
 				SELECT X.REPORT_ID, X.REPORTER_ID, X.REPORTED_ACCOUNT_ID, X.REPORTED_POST_ID, X.REPORTED_DATE, 
 						X.CONTENT, X.RESULT, X.CLOSED_DATE, X.REPORT_REASON_ID, Y.CONTENT AS REPORT_REASON_CONTENT
-				FROM REPORT X LEFT OUTER JOIN REPORT_REASON Y ON Y.REPORT_REASON_ID = X.REPORT_REASON_ID;
+				FROM REPORT X LEFT OUTER JOIN REPORT_REASON Y ON Y.REPORT_REASON_ID = X.REPORT_REASON_ID
 				ORDER BY REPORTED_DATE ASC
 				)
 			)
-		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
-		AND RNUM <![CDATA[<=]]> (#{Page}*10)
+		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 	
-	<select id="selectOne" parameterType="String" resultType="Manage_ReportDTO" resultMap="Manage_ReportDTOMap">
-		SELECT X.REPORT_ID, X.REPORTER_ID, X.REPORTED_ACCOUNT_ID, X.REPORTED_POST_ID, X.REPORTED_DATE, 
-				X.CONTENT, X.RESULT, X.CLOSED_DATE, X.REPORT_REASON_ID, Y.CONTENT AS REPORT_REASON_CONTENT
-		FROM REPORT X LEFT OUTER JOIN REPORT_REASON Y ON Y.REPORT_REASON_ID = X.REPORT_REASON_ID;
+	<select id="selectPunish" parameterType="Manage_ReportDTO" resultType="Manage_ReportDTO" resultMap="Manage_ReportDTOMap">
+		SELECT * FROM PUNISH 
+		WHERE REPORTED_ACCOUNT_ID = #{ReportedAccountID} AND END_DATE > SYSDATE
 	</select>
 	
-	<update id="update" parameterType="Manage_ReportDTO">
-		BEGIN
-			UPDATE REPORT SET RESULT = #{Result}, CLOSED_DATE = SYSDATE WHERE REPORT_ID = #{ReportID};
-			INSERT PUNISH INTO VALUE(#{ReportID}, #{ReportedAccountID}, #{StartDate}, #{EndDate};
-		END;
+	<insert id="insertPunish" parameterType="Manage_ReportDTO">
+		INSERT INTO PUNISH VALUES(#{ReportID}, #{ReportedAccountID}, SYSDATE, SYSDATE + 7)
+	</insert>
+	
+	<update id="updatePunish" parameterType="Manage_ReportDTO">
+		UPDATE PUNISH SET END_DATE = #{END_DATE} + 7 WHERE REPORTED_ACCOUNT_ID = #{ReportedAccountID}
+	</update>
+	
+	<update id="updateReport" parameterType="Manage_ReportDTO">
+		UPDATE REPORT SET RESULT = #{Result}, CLOSED_DATE = SYSDATE WHERE REPORT_ID = #{ReportID}
 	</update>
 </mapper>

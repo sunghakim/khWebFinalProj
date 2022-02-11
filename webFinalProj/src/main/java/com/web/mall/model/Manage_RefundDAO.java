@@ -21,10 +21,6 @@ public class Manage_RefundDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
-	public Manage_SoldHistoryDTO selectOne(int ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
-	}
-
 	public int update(Manage_SoldHistoryDTO DTO) {
 		return this.session.update(Mapper + ".update", DTO);
 	}

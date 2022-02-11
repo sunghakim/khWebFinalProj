@@ -3,11 +3,18 @@ package com.web.mall.model;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class Manage_CouponDTO {
 	private int CouponID;
 	private String Name;
+	
+	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date StartDate;
+	
+	@DateTimeFormat(pattern = "yy-MM-dd")
 	private Date EndDate;
+	
 	private int Discount;
 	private int Amount;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");

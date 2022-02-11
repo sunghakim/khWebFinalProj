@@ -15,27 +15,21 @@ public class Manage_ItemDTO extends Manage_ItemCategoryDTO{
 	public int getItemID() {
 		return ItemID;
 	}
-
 	public void setItemID(int itemID) {
 		ItemID = itemID;
 	}
-
 	public String getName() {
 		return Name;
 	}
-
 	public void setName(String name) {
 		Name = name;
 	}
-
 	public String getContent() {
 		return Content;
 	}
-
 	public void setContent(String content) {
 		Content = content;
 	}
-
 	public int getPrice() {
 		return Price;
 	}
@@ -80,7 +74,7 @@ public class Manage_ItemDTO extends Manage_ItemCategoryDTO{
 	public String toString() {
 		return "Manage_ItemDTO [ItemID=" + ItemID + ", Name=" + Name + ", Content=" + Content + ", Price=" + Price + 
 				", ItemOptionID=" + ItemOptionID + ", ItemSize=" + ItemSize + ", Color=" + Color + 
-				", Amount="	+ Amount + "ItemCategoryID=" + ItemCategoryID + ", ItemCategoryName=" + ItemCategoryName + 
+				", Amount="	+ Amount + ", ItemCategoryID=" + ItemCategoryID + ", ItemCategoryName=" + ItemCategoryName + 
 				", NavShow=" + NavShow + "]";
 	}
 }

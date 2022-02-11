@@ -22,6 +22,7 @@
 		-->
 	</bean>
 	
+	<!-- 매니저 페이지 파일 업로드용 경로-->
 	<bean id="uploadPath" class="java.lang.String">
 		<constructor-arg value="/resources/upload-img"/>
 	</bean>

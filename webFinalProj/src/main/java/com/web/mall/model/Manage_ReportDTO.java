@@ -20,6 +20,7 @@ public class Manage_ReportDTO {
 	private Date StartDate;
 	private Date EndDate;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd");
+	
 	public int getReportID() {
 		return ReportID;
 	}
@@ -62,6 +63,18 @@ public class Manage_ReportDTO {
 	public int getResult() {
 		return Result;
 	}
+	public String getResultStr() {
+		switch(Result) {
+		case(1):
+			return "신고 검토중";
+		case(2):
+			return "활동 제한 처리";
+		case(3):
+			return "사유 불충분 기각";
+		default:
+			return "에러";
+		}
+	}
 	public void setResult(int result) {
 		Result = result;
 	}
@@ -69,6 +82,9 @@ public class Manage_ReportDTO {
 		return ClosedDate;
 	}
 	public String getClosedDateStr() {
+		if(ClosedDate == null) {
+			return "신고 검토중";
+		}
 		return form.format(ClosedDate);
 	}
 	public void setClosedDate(Date closedDate) {
@@ -90,6 +106,9 @@ public class Manage_ReportDTO {
 		return StartDate;
 	}
 	public String getStartDateStr() {
+		if(StartDate == null) {
+			return "신고 검토중";
+		}
 		return form.format(StartDate);
 	}
 	public void setStartDate(Date startDate) {
@@ -99,6 +118,9 @@ public class Manage_ReportDTO {
 		return EndDate;
 	}
 	public String getEndDateStr() {
+		if(EndDate == null) {
+			return "신고 검토중";
+		}
 		return form.format(EndDate);
 	}
 	public void setEndDate(Date endDate) {

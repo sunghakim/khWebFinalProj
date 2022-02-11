@@ -1,30 +1,25 @@
 package com.web.mall.controller;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.Manage_AccountDTO;
-import com.web.mall.model.Manage_ImageDTO;
 
 public class Manage_C_Module {
 	//컨트롤러에서 중복되는 로직을 모듈화한다.
 	
 	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
-	public int isManager(ModelAndView mv, HttpSession session, String Page) {
+	public int isManager(ModelAndView mv, HttpSession session, String URL) {
 		Manage_AccountDTO AccountDTO;
-		if (session.getAttribute("Account") != null) {
+		if (session.getAttribute("account") != null) {
 			//로그인된 경우
-			AccountDTO = (Manage_AccountDTO)session.getAttribute("Account");
+			AccountDTO = (Manage_AccountDTO)session.getAttribute("account");
 			if(AccountDTO.getUserType() == 0) {
 				//로그인된 계정의 권한이 관리자인 경우
-				mv.setViewName(Page);//접근할 페이지 설정
+				mv.addObject("pageType", URL);
+				mv.setViewName(URL);//접근할 페이지 설정
 				return 0;
 			} else {
 				//권한 부족, 접근 거부
@@ -59,44 +54,5 @@ public class Manage_C_Module {
 		}
 		mv.addObject("Page", Page);
 		return Page;
-	}
-	
-	//DB업로드용 이미지 정보(DTO)로 가공
-	public List<Manage_ImageDTO> BuildImageDTOList(HttpServletRequest request, MultipartFile[] files, String uploadPath) throws Exception {
-		//DB저장용 정보 설정
-		List<Manage_ImageDTO> List = new ArrayList<Manage_ImageDTO>();
-		for (MultipartFile file : files) {
-			Manage_ImageDTO dto = new Manage_ImageDTO();
-			dto.setReferencesID(Integer.parseInt(request.getParameter("ReferencesID")));
-			dto.setIDType(request.getParameter("IDType"));
-			dto.setFileName(file.getOriginalFilename());
-			dto.setFileURL(uploadPath + "/" + dto.getIDType());
-			dto.setRealPath(request.getSession().getServletContext().getRealPath(uploadPath + "/"));
-			dto.setFile(file);
-			List.add(dto);
-			System.out.println("다중 업로드 dto생성: " + dto.toString());
-		}
-		return List;
-	}
-	
-	//이미지 저장
-	public void saveImages(List<Manage_ImageDTO> List) throws Exception {
-		for (Manage_ImageDTO dto : List) {
-			if(dto.getFile() == null) {
-				System.out.println("파일이 없습니다.");
-				System.out.println("saveImages: " + dto.toString());
-				break;
-			}
-			
-			//경로가 없을 경우 생성
-			if (!new File(dto.getRealSavedPath()).exists()) {
-	            new File(dto.getRealSavedPath()).mkdirs();
-	            System.out.println("다중 경로 생성: " + dto.getRealPath());
-			}
-			//파일저장
-			File dest = new File(dto.getRealSavedFile());
-			dto.getFile().transferTo(dest);
-			System.out.println("다중 파일 저장: " + dest.getAbsoluteFile());
-		}
 	}
 }

@@ -58,6 +58,16 @@ public class Manage_QuestionDTO {
 	public int getResult() {
 		return Result;
 	}
+	public String getResultStr() {
+		switch(Result) {
+		case(0):
+			return "답변 중";
+		case(1):
+			return "답변 완료";
+		default:
+			return "";
+		}
+	}
 	public void setResult(int result) {
 		Result = result;
 	}
@@ -77,7 +87,7 @@ public class Manage_QuestionDTO {
 		return AnswerDate;
 	}
 	public String getAnswerDateStr() {
-		return form.format(AnswerDate);
+		return new SimpleDateFormat("yy.MM.dd HH:MM").format(AnswerDate);
 	}
 	public void setAnswerDate(Date answerDate) {
 		AnswerDate = answerDate;

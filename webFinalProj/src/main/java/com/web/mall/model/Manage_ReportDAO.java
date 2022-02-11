@@ -17,15 +17,23 @@ public class Manage_ReportDAO {
 		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
 	
-	public Manage_ReportDTO selectOne(int ID) {
-		return this.session.selectOne(Mapper + ".selectOne", ID);
-	}
-	
 	public List<Manage_ReportDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
-
-	public int update(Manage_ReportDTO DTO) {
-		return this.session.update(Mapper + ".update", DTO);
+	
+	public Manage_ReportDTO selectPunish(Manage_ReportDTO DTO) {
+		return this.session.selectOne(Mapper + ".selectPunish", DTO);
+	}
+	
+	public int insertPunish(Manage_ReportDTO DTO) {
+		return this.session.insert(Mapper + ".insertPunish", DTO);
+	}
+	
+	public int updatePunish(Manage_ReportDTO DTO) {
+		return this.session.update(Mapper + ".updatePunish", DTO);
+	}
+	
+	public int updateReport(Manage_ReportDTO DTO) {
+		return this.session.update(Mapper + ".updateReport", DTO);
 	}
 }

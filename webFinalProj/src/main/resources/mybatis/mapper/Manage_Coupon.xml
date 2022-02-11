@@ -21,7 +21,6 @@
 	</select>
 	
 	<select id="selectList" resultType="Manage_CouponDTO" resultMap="Manage_CouponDTOMap">
-		SELECT * FROM COUPON
 		SELECT B.*
 		FROM (
 			SELECT ROWNUM AS RNUM, A.*
