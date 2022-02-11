@@ -17,12 +17,12 @@
     margin: 1.5vh auto;
 }
 
-.user-list {
+.list {
     width: 100%;
     display: flex;
 }
 
-.user-list li {
+.list li {
     position: relative;
     width: calc(100% / 4); height: 100%;
     text-align: center;
