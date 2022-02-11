@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/static/css/basket.css">
+    <link type="text/css" rel="stylesheet" href="/resources/static/css/basket.css">
     <title>장바구니</title>
 </head>
 <body  class="basket">
@@ -90,7 +90,7 @@
     </div>
 </div>
 
-    <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/static/js/basket.js"></script>
+    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/resources/static/js/basket.js"></script>
 </body>
 </html>
