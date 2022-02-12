@@ -16,8 +16,9 @@
 		</c:if>
 		<c:if test="${status eq 'update'}">
 			<form action="${pageType}/Update" method="post" enctype="multipart/form-data">
-		</c:if>
 			<input type="hidden" name="ItemID" value="${Item.getItemID()}" required>
+			<input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
+		</c:if>
 			<div>
 				<label>상품 이름</label>
 				<input type="text" name="Name" value="${Item.getName()}" required>
@@ -26,7 +27,6 @@
 				<label>가격</label>
 				<input type="number" name="Price" value="${Item.getPrice()}" required>
 			</div>
-			<input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
 			<div>
 				<label>사이즈</label>
 				<input type="text" name="ItemSize" value="${Item.getItemSize()}" required>
@@ -39,7 +39,9 @@
 				<label>수량(재고량)</label>
 				<input type="number" name="Amount" value="${Item.getAmount()}" required>
 			</div>
-			<input type="hidden" name="ItemCategoryID" value="${Item.getItemCategoryID()}">
+			<c:if test="${status eq 'update'}">
+				<input type="hidden" name="ItemCategoryID" value="${Item.getItemCategoryID()}">
+			</c:if>
 			<div>
 				<label>카테고리</label>
 				<select id="CategoryList" name="ItemCategoryID" required>
@@ -58,10 +60,15 @@
 				<label>상세 설명</label>
 				<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
 			</div>
-			<div>
-				<label>첨부파일</label>
-				<input type="file" name="UploadFile">
-			</div>
+			<input type="file" accept=".bmp, .gif, .jpg, .jpeg, .png" name="uploadImages" multiple="multiple">
+		    <c:if test="${ImageList ne null}">
+				<div>
+					<label>첨부파일 목록(체크후 저장시 삭제)</label>
+					<c:forEach var="List" items="${ImageList}">
+						 <div><input type='checkbox' name='deleteImages' value='${List.getImageID()}'/>${List.getFileName()}</div>
+					</c:forEach>
+				</div>
+			</c:if>
 			<button type="submit">저장</button>
 			<button type="button" onclick="location.href='${pageType}'">상품관리 페이지로 돌아가기</button>
 		</form>

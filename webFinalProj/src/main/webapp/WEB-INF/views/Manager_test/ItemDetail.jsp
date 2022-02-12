@@ -45,9 +45,14 @@
 				<h6>상세 설명: ${Item.getContent()}</h6>
 			</div>
 		</div>
-		<c:if test="Post.getFileName() != null">
-			<h6>첨부파일:
-				<a href="${viewPostVO.getFileURL()}" download>${viewPostVO.getFileName()}</a>
+		<c:if test="${ImageList ne null}">
+			<h6>첨부파일:<!-- IE, Edge, Safari, Opera 미지원... ㅜㅜ -->
+				<c:forEach var="List" items="${ImageList}">
+					<a href="${List.getDownloadPath()}" download="${List.getFileName()}">
+						<img src="${List.getDownloadPath()}" style="width:100px; height:100px;">
+						${List.getFileName()}
+					</a>
+				</c:forEach>
 			</h6>
 		</c:if>
 	</main>

@@ -29,23 +29,28 @@ public class Manage_ItemDAO {
 		return this.session.selectOne(Mapper + ".searchItemID", DTO);
 	}
 	
-	public int insertItem(Manage_ItemDTO DTO) {
-		return this.session.delete(Mapper + ".insertItem", DTO);
+	public int insertItem(Manage_ItemDTO dto) {
+		System.out.println("상품 추가: " + dto.toString());
+		return this.session.insert(Mapper + ".insertItem", dto);
 	}
 	
-	public int insertItemOption(Manage_ItemDTO DTO) {
-		return this.session.delete(Mapper + ".insertItemOption", DTO);
+	public int insertItemOption(Manage_ItemDTO dto) {
+		System.out.println("상품 옵션 추가: " + dto.toString());
+		return this.session.insert(Mapper + ".insertItemOption", dto);
 	}
 
-	public int updateItem(Manage_ItemDTO DTO) {
-		return this.session.update(Mapper + ".updateItem", DTO);
+	public int updateItem(Manage_ItemDTO dto) {
+		System.out.println("상품 수정: " + dto.toString());
+		return this.session.update(Mapper + ".updateItem", dto);
 	}
 	
-	public int updateItemOption(Manage_ItemDTO DTO) {
-		return this.session.delete(Mapper + ".updateItemOption", DTO);
+	public int updateItemOption(Manage_ItemDTO dto) {
+		System.out.println("상품 옵션 수정: " + dto.toString());
+		return this.session.update(Mapper + ".updateItemOption", dto);
 	}
 	
-	public int delete(Manage_ItemDTO DTO) {
-		return this.session.delete(Mapper + ".delete", DTO);
+	public int delete(Manage_ItemDTO dto) {
+		System.out.println("상품 삭제: " + dto.toString());
+		return this.session.delete(Mapper + ".delete", dto);
 	}
 }

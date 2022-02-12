@@ -67,7 +67,6 @@ public class Manege_NoticeController extends Manage_C_Module {
 			//해당 공지글에 등록된 이미지 목록 불러오기
 			mv.addObject("ImageList", Service.selectImageList(PostID));
 		}
-		mv.addObject("status", "insert");
 		return mv;
 	}
 	
