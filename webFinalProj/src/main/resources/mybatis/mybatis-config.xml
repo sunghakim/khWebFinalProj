@@ -13,6 +13,7 @@
 		<typeAlias type="com.web.mall.model.ShoppingListVO" alias="shoppingList" />
     	<typeAlias type="com.web.mall.model.ItemDTO" alias="item" />
     	<typeAlias type="com.web.mall.model.ItemOptionDTO" alias="itemOption" /> 
+    	<typeAlias type="com.web.mall.model.BoardDTO" alias="Board" /> <!-- 버그 처리용으로 추가 -->
 		<typeAlias type="com.web.mall.model.ZzimListVO" alias="zzim" />
 		<typeAlias type="com.web.mall.model.GiveCouponVO" alias="giveCoupon" />
 		<typeAlias type="com.web.mall.model.CouponVO" alias="coupon" />

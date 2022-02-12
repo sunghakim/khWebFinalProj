@@ -26,22 +26,18 @@
 				<label>내용</label>
 				<textarea rows="10" name="Content" required>${Notice.getContent()}</textarea>
 			</div>
-			
-			<h6>이미지 업로드</h6>
-			
 			<c:if test="${status eq 'update'}">
 				<input type="hidden" name="ReferencesID" value="${Notice.getPostID()}">
 			</c:if>
 			<input type="hidden" name="IDType" value="NOTICE">
 		    <input type="file" accept=".bmp, .gif, .jpg, .jpeg, .png" name="uploadImages" multiple="multiple">
-		    
-			<c:if test="${ImageList != null}">
-				<h6>이미지 다운로드</h6>
-				<c:forEach var="Image" items="${ImageList}">
-					<a href="${Image.getDownloadPath()}" download="${dto.getFileName()}">
-						<img src="${Image.getDownloadPath()}" style="width:100px; height:100px;">
-					</a>
-				</c:forEach>
+		    <c:if test="${ImageList ne null}">
+				<div>
+					<label>첨부파일 목록(체크후 저장시 삭제)</label>
+					<c:forEach var="List" items="${ImageList}">
+						 <div><input type='checkbox' name='deleteImages' value='${List.getImageID()}'/>${List.getFileName()}</div>
+					</c:forEach>
+				</div>
 			</c:if>
 			<button type="submit">저장</button>
 			<button type="button" onclick="location.href='${pageType}'">공지관리 페이지로 돌아가기</button>

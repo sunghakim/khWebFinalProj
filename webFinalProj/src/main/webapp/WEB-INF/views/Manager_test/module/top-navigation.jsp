@@ -4,7 +4,7 @@
 
 <div>
 	<span>
-		<a href="/">관리자홈</a>
+		<a href="${URL}">관리자홈</a>
 	</span>
 	<span>
 		<a href="${URL}/Account">회원관리</a>

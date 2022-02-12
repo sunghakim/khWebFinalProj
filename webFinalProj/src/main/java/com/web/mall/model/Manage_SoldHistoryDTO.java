@@ -18,7 +18,7 @@ public class Manage_SoldHistoryDTO {
 	private int SoldDetailID;
 	private int Amount;
 	//ITEM 관련
-	private String Name;
+	private String ItemName;
 	private int Price;
 	//ITEM_OPTION 관련
 	private String ItemSize;

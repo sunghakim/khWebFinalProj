@@ -41,7 +41,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 	//문의 상세 페이지 접속
 	@RequestMapping(value = URL + "/Detail", method = RequestMethod.GET)
 	public ModelAndView selectQuestion(HttpSession session, ModelAndView mv, int QuestionID) {
-		if (isManager(mv, session, URL + "Detail") == 0) {
+		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Question", Service.selectOne(QuestionID));
 		}
 		return mv;

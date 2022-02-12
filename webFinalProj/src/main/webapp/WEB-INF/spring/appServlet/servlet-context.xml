@@ -13,7 +13,7 @@
 
 	<annotation-driven />
 
-	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/resources/**" location="/resources/"/>
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<beans:property name="prefix" value="/WEB-INF/views/"/>
@@ -24,7 +24,7 @@
 	<context:component-scan base-package="com.web.mall.*"/>
 	
 	<!-- 마이바티스 -->
-	<context:property-placeholder location="file:///D:\eclipse\KHFinalProject/oracle_connection.prop"/>
+	<context:property-placeholder location="file:///C:/Users/Coder/Final_connection.prop"/>
 	
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="${driver}"/>

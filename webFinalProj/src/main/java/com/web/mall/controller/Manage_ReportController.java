@@ -39,7 +39,6 @@ public class Manage_ReportController extends Manage_C_Module{
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateReport(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ReportDTO DTO) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			System.out.println("DTO: " + DTO.toString());
 			setResult(mv, Service.update(DTO));
 			selectReportList(session, mv, request);
 		}
