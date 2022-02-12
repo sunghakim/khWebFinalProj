@@ -31,7 +31,7 @@
   	</insert>
   	
 	<select id="selectQuestionList" parameterType="question" resultType="question">
-    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id}
+    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id} ORDER BY QUESTION_DATE
   	</select>
 	<select id="selectQuestion" parameterType="question" resultType="question">
     SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}

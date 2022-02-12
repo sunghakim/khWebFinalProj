@@ -1,5 +1,6 @@
 package com.web.mall.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -65,7 +66,20 @@ public class ItemDetailController {
 	}
 	
 	//구매하기 버튼 누를 시 동작(구매페이지로 이동)
-	
+	@RequestMapping(value="/buyItem", method=RequestMethod.GET)
+	public String itemBuy(SoldDetailVO sdetailVo, Model model, HttpSession session) {
+		//item_id, amount, item_option_id 데이터 들어와야함.
+		if(session.getAttribute("logined") == null) {
+			model.addAttribute("isError", true);
+			model.addAttribute("error_msg", "로그인되어있지 않습니다. 로그인 해주세요.");
+			return "user/shop/review"; //모달창은 어떻게 열어?
+		}
+		else {
+			model.addAttribute("soldDetailVO", sdetailVo);
+		}
+		
+		return "user/mypage/payment";
+	}
 	
 	//상세보기 페이지
 	@RequestMapping(value="/content", method=RequestMethod.GET)
@@ -176,12 +190,24 @@ public class ItemDetailController {
 	
 	//문의하기 페이지(8개?10개?보여주고 페이징처리)
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
-	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
-		//item_id 받아와야함.
+	public String seeQuestionList(int page, QuestionVO question, HttpSession session, Model model) {
+		//item_id 받아와야함, page 번호 가져와야함.(기본은 1로 줄것)
 		List<QuestionVO> questionList = itemService.getQuestions(question);
-		model.addAttribute("questionList", questionList);
+		List<QuestionVO> thisPageQuestions = new ArrayList<QuestionVO>();
 		
-		// -> 졸림..페이징처리는 나중에 구현
+		int index = 0;
+		for(QuestionVO que: questionList) {
+			index++;
+			if(index < (page*10) && index >= (page*10)-10) {
+				thisPageQuestions.add(que);
+			}
+			else {}
+		}
+		
+		int maxPage = (questionList.size() / 10) + 1; //한페이지에 10개
+		
+		model.addAttribute("maxPage", maxPage);
+		model.addAttribute("questionList", thisPageQuestions);
 		
 		return "user/shop/question";
 	}
