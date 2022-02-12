@@ -16,7 +16,7 @@
 		<result property="SoldDetailID" column="SOLD_DETAIL_ID"/>
 		<result property="Amount" column="AMOUNT"/>
 		<!--ITEM-->
-		<result property="ItemName" column="NAME"/>
+		<result property="Name" column="NAME"/>
 		<result property="Price" column="PRICE"/>
 		<!--ITEM_OPTION-->
 		<result property="ItemSize" column="ITEM_SIZE"/>
