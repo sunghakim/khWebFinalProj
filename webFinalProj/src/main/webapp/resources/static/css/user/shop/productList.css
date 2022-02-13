@@ -1,0 +1,151 @@
+@charset "UTF-8";
+.listMenu {
+    width: 100%;
+    margin: 0;
+    padding-left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #f2f3ee;
+}
+
+.listMenu::-webkit-scrollbar {
+    display: none;
+}
+
+.button {
+    display: inline-block;
+    margin: 8px 4px 8px 0px;
+    padding: 6px 10px;
+    border: none;
+    border-radius: 5px;
+    list-style: none;
+    background-color: white;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(231, 76, 60);
+    color: white;
+}
+
+.here {
+    background-color: rgb(231, 76, 60);
+    color: white;
+    cursor: default;
+}
+
+#best {
+    width: 100%;
+}
+
+.flex-colum {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.best-title {
+    width: 730px;
+    font-size: 36px;
+    font-weight: bold;
+    color: rgb(255, 25, 0);
+    margin: 20px 0 20px 0;
+}
+
+.like-section, .review-section {
+    display: flex;
+    flex-direction: row;
+    height: 500px;
+}
+
+.best-item {
+    justify-content: center;
+    width: 250px;
+    height: 380px;
+    position: relative;
+    padding: 10px;
+    margin: 0;
+
+}
+
+.best-item:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgb(224, 224, 224);
+}
+
+.best-img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.best-btn {
+    color: rgb(231, 76, 60);
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    padding: 5px;
+    z-index: 1;
+    top: 5%;
+    left: 78%;
+}
+
+.best-btn:hover {
+    color: rgb(255, 25, 0);
+}
+
+.best-text {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 4px;
+}
+
+.productList {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	flex-wrap: wrap;
+}
+
+.product-item {
+    justify-content: center;
+    width: 180px;
+    height: 250px;
+    position: relative;
+    padding: 10px;
+    margin: 15px 20px;
+
+}
+
+.product-item:hover {
+    border-radius: 5px;
+    box-shadow: 0 0 10px 0 rgb(224, 224, 224);
+}
+
+.product-img {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+}
+
+.product-btn {
+    color: rgb(231, 76, 60);
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    padding: 5px;
+    z-index: 1;
+    top: 5%;
+    left: 78%;
+}
+
+.product-btn:hover {
+    color: rgb(255, 25, 0);
+}
+
+.product-text {
+    text-align: center;
+    margin: 4px;
+}

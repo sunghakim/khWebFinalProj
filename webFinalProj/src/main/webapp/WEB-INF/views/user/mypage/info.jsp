@@ -8,7 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/static/css/info.css">
+    <link type="text/css" rel="stylesheet" href="/resources/static/css/user/mypage/info.css">
     <title>내정보</title>
 </head>
 <body  class="info">
@@ -17,8 +17,8 @@
         <a href="#"><i id="backPage" class="fa-solid fa-angles-left"></i></a>
         <label><h1>내정보</h1></label>
     </div>
-    <div class="form">
-    <form id="update-Info">
+    <div class="form-div">
+    <form id="form" name="form" method="post">
         <table>
             <tr>
                 <th>아이디</th>
@@ -28,7 +28,7 @@
                 <th>닉네임</th>
                 <td colspan="2">
                     <label id="nick">abcd</label>
-                    <input id="nick-Input" type="text" value="" style="display: none;"/>
+                    <input id="name" name="name" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
                     <button id="nick-Btn" type="button">변경하기</button>
@@ -38,14 +38,14 @@
             <tr>
                 <th>비밀번호</th>
                 <td colspan="3">
-                    <input id="txtPwd" type="text" value="1234" hidden/>
+                    <input id="password" name="password" type="text" value="1234" hidden/>
                     <button id="bootstrap-update-pwd" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">변경하기</button></td>
             </tr>
             <tr>
                 <th>전화번호</th>
                 <td colspan="2">
-                    <label id="phone">010-1234-5678</label>
-                    <input id="phone-Input" type="text" value="" style="display: none;"/>
+                    <label id="phone-label">010-1234-5678</label>
+                    <input id="phone" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
                     <button id="phone-Btn" type="button">수정하기</button>
@@ -55,8 +55,8 @@
             <tr>
                 <th>이메일</th>
                 <td colspan="2">
-                    <label id="email">1234@mail.com</label>
-                    <input id="email-Input" type="text" value="" style="display: none;"/>
+                    <label id="email-text">1234@mail.com</label>
+                    <input id="email" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
                     <button id="email-Btn" type="button">수정하기</button>
@@ -64,39 +64,18 @@
                 </td>
             </tr>
             <tr>
-                <th rowspan="3">주소</th>
-                <th>우편번호</th>
-                <td>
-                    <label id="postalCode">12345</label>
-                    <input id="postalCode-Input" type="text" value="" style="display: none;"/>
-                </td>
-                <td>
-                    <button id="postalCode-Btn" type="button">수정하기</button>
-                    <button class="back" type="button" style="display: none;">취소</button>
-                </td>
-            </tr>
-            <tr>
-                <th>주소지</th>
-                <td>
-                    <label id="address1">경기도 어딘가 하나아파트</label>
-                    <input id="address1-Input" type="text" value="" style="display: none;"/>
-                </td>
-                <td>
-                    <button id="address1-Btn" type="button">수정하기</button>
-                    <button class="back" type="button" style="display: none;">취소</button>
-                </td>
-            </tr>
-            <tr>
-                <th>상세주소</th>
-                <td>
-                    <label id="address2">둘 동 셋 호</label>
-                    <input id="address2-Input" type="text" value="" style="display: none;"/>
-                </td>
-                <td>
-                    <button id="address2-Btn" type="button">수정하기</button>
-                    <button class="back" type="button" style="display: none;">취소</button>
-                </td>
-            </tr>
+                <th rowspan="2">주소</th>
+				<th>우편번호</th>
+				<td>
+					<input type="hidden" id="confmKey" name="confmKey" value=""  >
+					<input type="text" id="zipNo" name="zipNo" readonly style="width:100px">
+					<input type="button"  value="주소검색" onclick="goPopup();">
+				</td>
+			</tr>
+			<tr>
+				<th>도로명주소</th>
+				<td><input type="text" id="roadFullAddr" name="address" style="width:85%" value="${accountVo.address}"></td>
+			</tr>
         </table>
     </form>
     </div>
@@ -141,7 +120,7 @@
           </div>
     </div>
 
-    <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/static/js/info.js"></script>
+    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/resources/static/js/user/mypage/info.js"></script>
 </body>
 </html>
