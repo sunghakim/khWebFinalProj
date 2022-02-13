@@ -11,6 +11,8 @@ public class PostDTO {
 	private String content;
 	private int good_number;
 	private Date posting_date;
+	private String file_name;
+	private String file_url;
 	
 	public int getPost_id() {
 		return post_id;
@@ -54,6 +56,18 @@ public class PostDTO {
 	}
 	public void setPosting_date(Date posting_date) {
 		this.posting_date = posting_date;
+	}
+	public String getFile_name() {
+		return file_name;
+	}
+	public void setFile_name(String file_name) {
+		this.file_name = file_name;
+	}
+	public String getFile_url() {
+		return file_url;
+	}
+	public void setFile_url(String file_url) {
+		this.file_url = file_url;
 	}
 	
 	
