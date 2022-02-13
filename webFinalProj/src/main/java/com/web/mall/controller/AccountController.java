@@ -33,7 +33,7 @@ public class AccountController {
 	
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public String main() {
-		return "sunghatest/main"; //user/mypage/basket
+		return "index"; //user/mypage/basket
 	}
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.GET)
 	public String jusoPopupGET() {

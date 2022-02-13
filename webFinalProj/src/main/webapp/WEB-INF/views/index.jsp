@@ -85,9 +85,9 @@
     <div class="login-modal modal-back" id="login-modal">
         <div class="login-modal modal-front login-front">
             <p class="title">L O G I N</p>
-            <form method="" action="">
+            <form method="post" action="/login">
                 <div class="login-id">
-                    <input id="login-id" type="text" maxlegth="20" placeholder="아이디를 입력하세요">
+                    <input id="login-id" name="account-id" type="text" maxlegth="20" placeholder="아이디를 입력하세요">
                     <div class="login-text">
                         <div class="login-form" id="login-id-form">아이디는 20자 이하로 작성해주세요. 대소문자를 구분합니다.</div>
                         <div class="login-alert" id="login-id-null">아이디를 입력해주세요.</div>
@@ -95,8 +95,9 @@
                     </div>
                 </div>
                 <div class="login-password">
-                    <input id="login-pwd" type="password" maxlegth="20" placeholder="비밀번호를 입력하세요">
+                    <input id="login-pwd" name="password" type="password" maxlegth="20" placeholder="비밀번호를 입력하세요">
                     <div class="login-text">
+                    
                         <div class="login-form" id="login-pwd-form">비밀번호는 20자 이하로 작성해주세요.</div>
                         <div class="login-alert" id="login-pwd-null">비밀번호를 입력해주세요.</div>
                         <div class="login-alert" id="login-pwd-wrong">잘못된 비밀번호입니다. 다시 입력하세요.</div>
