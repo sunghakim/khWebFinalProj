@@ -97,20 +97,4 @@ public class Manage_ItemService extends Manage_S_Module {
 			throw new Exception("상품 수정 처리중 문제발생");
 		}
 	}
-	
-	@Transactional(rollbackFor=Exception.class)
-	public boolean delete(Manage_ItemDTO dto) throws Exception{
-		if (dao.delete(dto) == 1) {
-			Manage_ImageDTO ImageDTO = new Manage_ImageDTO();
-			ImageDTO.setReferencesID(dto.getItemID());
-			ImageDTO.setIDType("ITEM");
-			//이미지 삭제
-			if (ImageService.deleteList(ImageDTO)) {
-				return true;
-			}
-			throw new Exception("이미지 삭제 처리중 문제발생");
-		} else {
-			throw new Exception("상품 삭제 처리중 문제발생");
-		}
-	}
 }

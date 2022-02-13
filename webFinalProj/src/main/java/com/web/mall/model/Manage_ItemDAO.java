@@ -48,9 +48,4 @@ public class Manage_ItemDAO {
 		System.out.println("상품 옵션 수정: " + dto.toString());
 		return this.session.update(Mapper + ".updateItemOption", dto);
 	}
-	
-	public int delete(Manage_ItemDTO dto) {
-		System.out.println("상품 삭제: " + dto.toString());
-		return this.session.delete(Mapper + ".delete", dto);
-	}
 }

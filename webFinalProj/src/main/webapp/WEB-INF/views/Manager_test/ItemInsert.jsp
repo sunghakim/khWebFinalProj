@@ -35,10 +35,18 @@
 				<label>색깔</label>
 				<input type="text" name="Color" value="${Item.getColor()}" required>
 			</div>
-			<div>
-				<label>수량(재고량)</label>
-				<input type="number" name="Amount" value="${Item.getAmount()}" required>
-			</div>
+			<c:if test="${status eq 'insert'}">
+				<div>
+					<label>초기 입고량</label>
+					<input type="number" name="Amount" value="${Item.getAmount()}" required>
+				</div>
+			</c:if>
+			<c:if test="${status eq 'update'}">
+				<div>
+					<label>추가 입고량(현재 재고량: ${Item.getAmount()})</label>
+					<input type="number" name="Amount" value="0" required>
+				</div>
+			</c:if>
 			<c:if test="${status eq 'update'}">
 				<input type="hidden" name="ItemCategoryID" value="${Item.getItemCategoryID()}">
 			</c:if>

@@ -18,9 +18,6 @@
 			<span>
 				<button type="button" onclick="location.href='${pageType}/Update?ItemID=${Item.getItemID()}&&ItemOptionID=${Item.getItemOptionID()}&&ItemCategoryID=${Item.getItemCategoryID()}'">상품 수정</button>
 			</span>
-			<span>
-				<button type="button" onclick="location.href='${pageType}/Delete?ItemID=${Item.getItemID()}&&ItemOptionID=${Item.getItemOptionID()}&&ItemCategoryID=${Item.getItemCategoryID()}'">상품 삭제</button>
-			</span>
 		</div>
 		<div>
 			<div>

@@ -109,14 +109,4 @@ public class Manage_ItemController extends Manage_C_Module {
 		}
 		return mv;
 	}
-
-	//상품DB에 삭제 요청
-	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteItem(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_ItemDTO DTO) throws Exception {
-		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.delete(DTO));
-			selectItemList(session, mv, request);
-		}
-		return mv;
-	}
 }

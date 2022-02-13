@@ -10,11 +10,19 @@ import org.springframework.web.servlet.ModelAndView;
 import com.web.mall.model.Manage_AccountDTO;
 
 @Controller
-public class Manage_HomeController extends Manage_C_Module {
+public class EX_MainPageController extends Manage_C_Module {
+
 	
 	//메인페이지
-	@RequestMapping(value = "/Manager_test", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView Home(ModelAndView mv, HttpSession session) {
+		mv.setViewName("ex_index");
+		return mv;
+	}
+	
+	//관리자 메인페이지
+	@RequestMapping(value = "/Manager_test", method = RequestMethod.GET)
+	public ModelAndView ManagerHome(ModelAndView mv, HttpSession session) {
 		Manage_AccountDTO dto = new Manage_AccountDTO();
 		dto.setAccountID("tester");
 		dto.setUserType(0);

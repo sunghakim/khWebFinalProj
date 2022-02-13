@@ -28,6 +28,7 @@
 		<table border="1" style="border_collapse: collapse;">
 			<thead>
 				<tr>
+					<th>상품 ID</th>
 					<th>상품 이름</th>
 					<th>가격</th>
 					<th>상품 카테고리</th>
@@ -40,6 +41,7 @@
 			<tbody>
 				<c:forEach var="List" items="${List}">
 					<tr>
+						<td>${List.getItemID()}</td>
 						<td>${List.getName()}</td>
 						<td>${List.getPrice()}</td>
 						<td>${List.getItemCategoryName()}</td>
@@ -47,8 +49,7 @@
 						<td>${List.getColor()}</td>
 						<td>${List.getAmount()}</td>
 						<td><a href="${pageType}/Detail?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">상세보기</a></td>
-						<td><a href="${pageType}/Update?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">수정</a></td>
-						<td><a href="${pageType}/Delete?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">삭제</a></td>
+						<td><a href="${pageType}/Update?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">수정/추가입고</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
