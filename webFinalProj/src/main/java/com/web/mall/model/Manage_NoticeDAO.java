@@ -30,7 +30,8 @@ public class Manage_NoticeDAO {
 	}
 
 	public int update(Manage_NoticeDTO DTO) {
-		return this.session.update(Mapper + ".update", DTO);
+		int res = this.session.update(Mapper + ".update", DTO);
+		return res;
 	}
 	
 	public int delete(int PostID) {

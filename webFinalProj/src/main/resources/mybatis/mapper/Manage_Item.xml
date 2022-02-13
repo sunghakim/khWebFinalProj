@@ -66,22 +66,24 @@
 	</select>
 		
 	<insert id="insertItem" parameterType="Manage_ItemDTO">
-		INSERT INTO ITEM VALUES (ITEM_SEQ.NEXTVAL, #{ItemCategoryID}, #{Name}, #{Content}, #{Price});
+		INSERT INTO ITEM 
+		VALUES(ITEM_SEQ.NEXTVAL, #{ItemCategoryID}, #{Name}, #{Content}, #{Price})
 	</insert>
 		
 	<insert id="insertItemOption" parameterType="Manage_ItemDTO">
-		INSERT INTO ITEM_OPTION VALUES(ITEM_OPTION_SEQ.NEXTVAL, #{ItemID}, #{ItemSize}, #{Color}, #{Amount});
+		INSERT INTO ITEM_OPTION 
+		VALUES(ITEM_OPTION_SEQ.NEXTVAL, #{ItemID}, #{ItemSize}, #{Color}, #{Amount})
 	</insert>
 	
 	<update id="updateItem" parameterType="Manage_ItemDTO">
-		UPDATE ITEM SET ITEM_CATEGORY_ID = {ItemCategoryID}, NAME = #{Name}, CONTENT = #{Content}, PRICE = #{Price} WHERE ITEM_ID = #{ItemID};
+		UPDATE ITEM 
+		SET ITEM_CATEGORY_ID = #{ItemCategoryID}, NAME = #{Name}, CONTENT = #{Content}, PRICE = #{Price} 
+		WHERE ITEM_ID = #{ItemID}
 	</update>
 	
 	<update id="updateItemOption" parameterType="Manage_ItemDTO">
-		UPDATE ITEM_OPTION SET ITEM_SIZE = #{ItemSize}, COLOR = #{Color} WHERE ITEM_OPTION_ID = #{ItemOptionID};
+		UPDATE ITEM_OPTION 
+		SET ITEM_SIZE = #{ItemSize}, COLOR = #{Color}, AMOUNT = AMOUNT + #{Amount} 
+		WHERE ITEM_OPTION_ID = #{ItemOptionID}
 	</update>
-	
-	<delete id="delete" parameterType="Manage_ItemDTO">
-		DELETE FROM ITEM WHERE ITEM_ID = #{ItemID}
-	</delete>
 </mapper>

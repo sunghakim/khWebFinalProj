@@ -34,7 +34,8 @@ public class Manage_S_Module {
 			dto.setRealPath(request.getSession().getServletContext().getRealPath(uploadPath + "/"));
 			dto.setFile(file);
 			List.add(dto);
-			System.out.println("다중 업로드 dto생성: " + dto.toString());
+			System.out.println("Manage_S_Module > BuildImageDTOList > 다중 업로드 dto생성:");
+			System.out.println(dto.toString());
 		}
 		return List;
 	}
@@ -43,20 +44,21 @@ public class Manage_S_Module {
 	public void saveImages(List<Manage_ImageDTO> List) throws Exception {
 		for (Manage_ImageDTO dto : List) {
 			if(dto.getFile() == null) {
-				System.out.println("파일이 없습니다.");
-				System.out.println("saveImages: " + dto.toString());
+				System.out.println("Manage_S_Module > saveImages > 파일이 없습니다.");
 				break;
 			}
 			
 			//경로가 없을 경우 생성
 			if (!new File(dto.getRealSavedPath()).exists()) {
 	            new File(dto.getRealSavedPath()).mkdirs();
-	            System.out.println("다중 경로 생성: " + dto.getRealPath());
+	            System.out.println("Manage_S_Module > saveImages > 경로 생성:");
+	            System.out.println(dto.getRealPath());
 			}
 			//파일저장
 			File dest = new File(dto.getRealSavedFile());
 			dto.getFile().transferTo(dest);
-			System.out.println("다중 파일 저장: " + dest.getAbsoluteFile());
+			System.out.println("Manage_S_Module > saveImages > 다중 파일 저장:");
+			System.out.println(dest.getAbsoluteFile());
 		}
 	}
 }

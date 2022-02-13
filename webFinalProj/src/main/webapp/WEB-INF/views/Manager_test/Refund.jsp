@@ -56,7 +56,7 @@
 						<td>${List.getOrderDateStr()}</td>
 						<td>${List.getStatusStr()}</td>
 						<th>${List.getAmount()}</th>
-						<td>${List.getItemName()}</td>
+						<td>${List.getName()}</td>
 						<td>${List.getItemSize()}</td>
 						<td>${List.getColor()}</td>
 						<td>${List.getIsRefundStr()}</td>

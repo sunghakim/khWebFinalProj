@@ -54,7 +54,7 @@
 						<td>${List.getOrderDateStr()}</td>
 						<th>${List.getStatusStr()}</th>
 						<td>${List.getSoldDetailID()}</td>
-						<td>${List.getItemName()}</td>
+						<td>${List.getName()}</td>
 						<td>${List.getAmount()}</td>
 						<td>${List.getItemSize()}</td>
 						<td>${List.getColor()}</td>

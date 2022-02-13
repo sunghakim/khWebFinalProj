@@ -12,28 +12,31 @@ public class Manage_ImageDAO {
 	@Autowired
 	SqlSession session;
 	private String Mapper = "Manage_ImageMapper";
+
+	public int selectReferencesIDCount(Manage_ImageDTO dto) {
+		return this.session.selectOne(Mapper + ".selectReferencesIDCount", dto);
+	}
 	
 	public List<Manage_ImageDTO> selectList(Manage_ImageDTO dto) {
 		return this.session.selectList(Mapper + ".selectList", dto);
 	}
 
 	public int insertList(List<Manage_ImageDTO> List) {
-		System.out.println("Run ImageDAO");
+		
+		//이미지 저장갯수(Count)를 반환
 		int count = 0;
 		for (Manage_ImageDTO dto : List) {
-			System.out.println("insertList: dto: " + dto.toString());
 			this.session.insert(Mapper + ".insert", dto);//맵핑에러
 			count++;
-			System.out.println("insertList: " + count);
 		}
 		return count;
 	}
 	
-	public int updateList(Manage_ImageDTO dto) {
-		return this.session.update(Mapper + ".update", dto);
+	public int deleteOne(int ImageID) {
+		return this.session.delete(Mapper + ".deleteOne", ImageID);
 	}
 	
-	public int delete(Manage_ImageDTO dto) {
-		return this.session.delete(Mapper + ".delete", dto);
+	public int deleteList(Manage_ImageDTO dto) {
+		return this.session.delete(Mapper + ".deleteList", dto);
 	}
 }

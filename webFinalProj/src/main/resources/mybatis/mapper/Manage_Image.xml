@@ -11,15 +11,23 @@
 		<result property="FileURL" column="FILE_URL"/>
 	</resultMap>
 	
-	<select id="selectList" parameterType="int" resultType="Manage_ImageDTO" resultMap="Manage_ImageDTOMap">
-		SELECT * FROM IMAGE WHERE REFERENCES_ID = #{ReferencesID}
+	<select id="selectReferencesIDCount" parameterType="Manage_ImageDTO" resultType="int">
+		SELECT COUNT(IMAGE_ID) FROM IMAGE WHERE REFERENCES_ID = #{ReferencesID} AND ID_TYPE = #{IDType}
 	</select>
-		
+	
+	<select id="selectList" parameterType="Manage_ImageDTO" resultType="Manage_ImageDTO" resultMap="Manage_ImageDTOMap">
+		SELECT * FROM IMAGE WHERE REFERENCES_ID = #{ReferencesID} AND ID_TYPE = #{IDType}
+	</select>
+	
 	<insert id="insert" useGeneratedKeys="true" keyColumn="IMAGE_ID" keyProperty="ImageID" parameterType="Manage_ImageDTO">
 		INSERT INTO IMAGE VALUES(IMAGE_SEQ.NEXTVAL, #{ReferencesID}, #{IDType}, #{FileName}, #{FileURL})
 	</insert>
 	
-	<delete id="delete" parameterType="String">
+	<delete id="deleteOne" parameterType="int">
 		DELETE FROM IMAGE WHERE IMAGE_ID = #{ImageID}
+	</delete>
+	
+	<delete id="deleteList" parameterType="Manage_ImageDTO">
+		DELETE FROM IMAGE WHERE REFERENCES_ID = #{ReferencesID} AND ID_TYPE = #{IDType}
 	</delete>
 </mapper>

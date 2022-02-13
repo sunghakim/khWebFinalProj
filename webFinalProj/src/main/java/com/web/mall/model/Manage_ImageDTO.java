@@ -9,7 +9,7 @@ public class Manage_ImageDTO {
 	private int ReferencesID;
 	private String IDType;
 	private String FileName;
-	private String FileURL;//웹에서 다운로드시 이용되는 경로
+	private String FileURL;
 	private String RealPath;//실질적으로 파일이 저장되는 경로
 	private MultipartFile File;
 	

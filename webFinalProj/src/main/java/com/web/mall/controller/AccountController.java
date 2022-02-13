@@ -31,10 +31,6 @@ public class AccountController {
 	@Autowired
 	private AccountService service;
 	
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String main() {
-		return "index"; //user/mypage/basket
-	}
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.GET)
 	public String jusoPopupGET() {
 		return "sunghatest/jusoPopup";

@@ -31,9 +31,6 @@ public class Manage_StatisticsController extends Manage_C_Module {
 			mv.addObject("TotalCount", TotalCount);
 			
 			List<Manage_SoldHistoryDTO> Statistics = Service.getStatistics(1);
-			for (Manage_SoldHistoryDTO temp : Statistics) {
-				System.out.println("통계: Name=" + temp.getName() + ", Amount=" + temp.getAmount());
-			}
 			mv.addObject("Statistics", Statistics);
 		}
 		return mv;

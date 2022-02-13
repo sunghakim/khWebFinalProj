@@ -17,12 +17,10 @@ import com.web.mall.model.Manage_SoldHistoryService;
 
 @Controller
 public class Manage_SoldHistoryController extends Manage_C_Module {
-	//유효성체크 미구현, AOP/인터셉터/필터 미반영
 	
 	@Autowired
 	Manage_SoldHistoryService Service;
 	
-	//페이지 링크
 	private final String URL = "/Manager_test/SoldHistory";
 	
 	//종류에 따른 통계 반환

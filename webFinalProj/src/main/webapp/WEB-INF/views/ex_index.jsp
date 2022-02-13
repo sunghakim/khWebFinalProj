@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/resources/static/css/common.css">
-    <link rel="stylesheet" href="/resources/static/css/admin-common.css">
-    <link rel="stylesheet" href="/resources/static/css/notice-detail.css">
+    <link rel="stylesheet" href="/resources/static/css/index.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final notice-detail management</title>
-    <!-- 공지 상세 페이지 (공지 등록) -->
+    <title>kh Final main</title>
+    <!-- 메인 페이지 -->
 </head>
 
 <body>
@@ -159,7 +159,7 @@
                         </li>
                     </ul>
                     <ul class="admin-nav">
-                        <li id="admin-nav-1">
+                        <li id="admin-nav-1" class="click-color">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>회원 관리</p>
                         </li>
@@ -167,7 +167,7 @@
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>신고 관리</p>
                         </li>
-                        <li id="admin-nav-3" class="click-color">
+                        <li id="admin-nav-3">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>사이트 관리</p>
                         </li>
@@ -213,35 +213,79 @@
             </nav>
             <section>
                 <div class="article-container">
-                    <div class="btns">
-                        <button type="submit" class="btn regist">등록</button>
-                        <button class="btn cancel">등록 취소</button>
-                    </div>
                     <div class="article-wrap">
-                        <article class="img-group">
+                        <article class="article-before" id="before-1">
+                            <p>Segment<br>Title</p>
                             <div class="img"></div>
-                            <div class="img-btns">
-                                <button type="submit" class="btn submit">이미지 등록</button>
-                                <button class="btn remove">이미지 삭제</button>
-                            </div>
                         </article>
-                        <article class="notice-content">
-                            <div class="title">
-                                <span>글제목</span>
-                                <input type="text">
+                        <article class="article-before" id="before-2">
+                            <p>Segment<br>Title</p>
+                            <div class="img"></div>
+                        </article>
+                        <article class="article-before" id="before-3">
+                            <p>Segment<br>Title</p>
+                            <div class="img"></div>
+                        </article>
+                        <article class="article-before" id="before-4">
+                            <p>Segment<br>Title</p>
+                            <div class="img"></div>
+                        </article>
+                        <article class="article-after" id="after-1">
+                            <p>Segment Title</p>
+                            <div class="gallery-wrap">
+                                <div class="gallery-group">
+                                    <div class="gall-img i1"></div>
+                                    <div class="gall-img i2"></div>
+                                    <div class="gall-img i3"></div>
+                                </div>
                             </div>
-                            <div class="segment">
-                                <div>내용</div>
-                                <textarea name="" id="" cols="30" rows="34"></textarea>
+                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
+                        </article>
+                        <article class="article-after" id="after-2">
+                            <p>Segment Title</p>
+                            <div class="gallery-wrap">
+                                <div class="gallery-group">
+                                    <div class="gall-img i1"></div>
+                                    <div class="gall-img i2"></div>
+                                    <div class="gall-img i3"></div>
+                                </div>
                             </div>
+                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
+                        </article>
+                        <article class="article-after" id="after-3">
+                            <p>Segment Title</p>
+                            <div class="gallery-wrap">
+                                <div class="gallery-group">
+                                    <div class="gall-img i1"></div>
+                                    <div class="gall-img i2"></div>
+                                    <div class="gall-img i3"></div>
+                                </div>
+                            </div>
+                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
+                        </article>
+                        <article class="article-after" id="after-4">
+                            <p>Segment Title</p>
+                            <div class="gallery-wrap">
+                                <div class="gallery-group">
+                                    <div class="gall-img i1"></div>
+                                    <div class="gall-img i2"></div>
+                                    <div class="gall-img i3"></div>
+                                </div>
+                            </div>
+                            <button class="btns left"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btns right"><i class="fas fa-chevron-right"></i></button>
                         </article>
                     </div>
                 </div>
             </section>
         </div>
     </div>
+
     <script src="/resources/static/js/common.js"></script>
-    <script src="/resources/static/js/notice-detail.js"></script>
+    <script src="/resources/static/js/index.js"></script>
 </body>
 
 </html>
