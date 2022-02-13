@@ -1,0 +1,111 @@
+@charset "UTF-8";
+.question-body {
+    display: flex;
+    justify-content: center;
+}
+
+.questionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#backPage {
+    font-size: 2.5em;
+    color: rgb(231, 76, 60);
+}
+  
+.questionBody {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.sub-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+hr {
+    margin-top: 8px;
+}
+
+.div-one div{
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    width: 80vw;
+    text-align: center;
+    margin: 10px 0 20px 0;
+    border-top: 1px solid rgb(150, 150, 150);
+    border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+table thead {
+    border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+table tbody tr {
+    cursor: pointer;
+}
+
+table td {
+    padding: 5px;
+}
+
+table tr td:nth-child(1){
+    width: 20%;
+    border-left: none;
+}
+table tr td:nth-child(2){
+    width: 35%;
+}
+table tr td:nth-child(3){
+    width: 20%;
+}
+table tr td:nth-child(4){
+    width: 15%;
+}
+
+table tbody tr:hover {
+    background-color: #f2f3ee8a;
+}
+
+.product-link:hover {
+    font-weight: bold;
+    color:rgb(231, 76, 60);
+    cursor: pointer;
+}
+
+button{
+    width: 94px;
+    padding: 4px 15px;
+    border-radius: 5px;
+  
+    background-color: rgb(224, 224, 224);
+    color: rgb(64, 64, 64);
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(231, 76, 60);
+    color: white;
+}
+
+.button {
+    display: flex;
+    justify-content:space-between;
+}
+  
+.button > a {
+    color: rgb(170, 170, 170);
+    text-decoration: none;
+}
+  
+.button > a:hover {
+    color: rgb(120, 120, 120);
+}

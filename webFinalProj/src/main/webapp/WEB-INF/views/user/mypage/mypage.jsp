@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://use.fontawesome.com/releases/v5.15.0/js/all.js"></script>
-    <link type="text/css" rel="stylesheet" href="/resources/static/css/mypage.css">
+    <link type="text/css" rel="stylesheet" href="/resources/static/css/user/mypage/mypage.css">
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
     <title>Document</title>
 </head>

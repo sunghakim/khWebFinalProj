@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,7 +10,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
 
-    <link type="text/css" rel="stylesheet" href="/resources/static/css/basket.css">
+    <link type="text/css" rel="stylesheet" href="/resources/static/css/user/mypage/basket.css">
     <title>장바구니</title>
 </head>
 <body  class="basket">
@@ -20,63 +22,29 @@
     <div class="form">
     <form id="go-payment">
         <div class="div-back">
+        <c:forEach var="i" items="${itemList}" varStatus="status">
             <div class="product">
-                <input type="checkbox" class="item" name="상품명id" value="상품명id-1" checked>
+                <input type="checkbox" class="item" name="item_id" value="${i.getItem_id()}" checked>
                 <div>
                     <div>
                         <img>
                         <div class="data">
-                            <h5>상품명1234</h5>
-                            <label>상품 옵션</label><br>
-                            <label class="price">111111</label>
+                            <h5>${i.getName()}</h5>
+                            <c:set val="itemOpt" value="${itemOptionList[status.index].getItem_size()}'/'${itemOptionList[status.index].getColor()}"/>
+                            <label>${itemOpt}</label><br>
+                            <c:set val="price" value="${itemOptionList[status.index].getAmount()} * ${i.getPrice()}" />
+                            <label class="price"></label>
                         </div>
                     </div>
                     <div class="count">
                         <button type="button"><i class="fa-solid fa-plus"></i></button>
-                        <h4>0</h4>
+                        <h4>${itemOptionList[status.index].getAmount()}</h4>
                         <button type="button"><i class="fa-solid fa-minus"></i></button>
                         <button id="delete" type="button"><i id="xmark" class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
             </div>
-            <div class="product">
-                <input type="checkbox" class="item" name="상품명id" value="상품명id-1" checked>
-                <div>
-                    <div>
-                        <img>
-                        <div class="data">
-                            <h5>상품명1234</h5>
-                            <label>상품 옵션</label><br>
-                            <label class="price">222222</label>
-                        </div>
-                    </div>
-                    <div class="count">
-                        <button type="button"><i class="fa-solid fa-plus"></i></button>
-                        <h4>0</h4>
-                        <button type="button"><i class="fa-solid fa-minus"></i></button>
-                        <button id="delete" type="button"><i id="xmark" class="fa-solid fa-xmark"></i></button>
-                    </div>
-                </div>
-            </div>
-            <div class="product">
-                <input type="checkbox" class="item" name="상품명id" value="상품명id-1" checked>
-                <div>
-                    <div>
-                        <img>
-                        <div class="data">
-                            <h5>상품명1234</h5>
-                            <label>상품 옵션</label><br>
-                            <label class="price">33333</label>
-                        </div>
-                    </div>
-                    <div class="count">
-                        <button type="button"><i class="fa-solid fa-plus"></i></button>
-                        <h4>0</h4>
-                        <button type="button"><i class="fa-solid fa-minus"></i></button>
-                        <button id="delete" type="button"><i id="xmark" class="fa-solid fa-xmark"></i></button>
-                    </div>
-                </div>
-            </div>
+         </c:forEach>
         </div>
     </form>
     </div>
@@ -91,6 +59,6 @@
 </div>
 
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/resources/static/js/basket.js"></script>
+    <script type="text/javascript" src="/resources/static/js/user/mypage/basket.js"></script>
 </body>
 </html>

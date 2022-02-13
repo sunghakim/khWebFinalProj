@@ -1,0 +1,165 @@
+@charset "UTF-8";
+.history-body {
+    display: flex;
+    justify-content: center;
+}
+
+.historyHeader {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+#backPage {
+    font-size: 2.5em;
+    color: rgb(231, 76, 60);
+}
+  
+.historyBody {
+    display: flex;
+    justify-content: center;
+}
+
+.history td {
+    padding: 5px;
+    border-left: 1px solid rgb(224, 224, 224);
+    border-right: 1px solid rgb(224, 224, 224);
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+
+.history {
+    width: 80vw;
+    text-align: center;
+    border-top: 1.4px solid;
+    border-bottom: 2px solid;
+}
+
+.history thead {
+    border-bottom: 1.2px solid;
+}
+
+.history tbody tr {
+    cursor: pointer;
+}
+
+.history tr td:nth-child(1){
+    width: 20%;
+    border-left: none;
+}
+.history tr td:nth-child(2){
+    width: 35%;
+}
+.history tr td:nth-child(3){
+    width: 20%;
+}
+.history tr td:nth-child(4){
+    width: 15%;
+}
+.history tr td:nth-child(5){
+    width: 15%;
+    border-right: none;
+}
+
+.history tbody tr:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+
+button{
+    width: 94px;
+    padding: 4px 15px;
+    border-radius: 5px;
+  
+    background-color: rgb(224, 224, 224);
+    color: rgb(64, 64, 64);
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(231, 76, 60);
+    color: white;
+}
+  
+.button {
+    display: flex;
+    justify-content:space-between;
+}
+  
+.button > a {
+    color: rgb(170, 170, 170);
+    text-decoration: none;
+}
+  
+.button > a:hover {
+    color: rgb(120, 120, 120);
+}
+
+.product-list {
+    padding: 5px;
+    background-color: #f2f3ee;
+}
+
+.product {
+    display: flex;
+    flex-direction: row;
+    margin: 2px;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: white;
+}
+
+.img-box {
+    width: 100px; height: 100px;
+    margin-right: 15px;
+}
+
+.img-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#product-name {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.row-obj {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.colum-obj {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+#delibery-state {
+    width: 100%;
+    border-color: rgb(170, 170, 170);
+    background-color: rgb(170, 170, 170);
+}
+
+#delibery-state:hover {
+    border-color: rgb(150, 150, 150);
+    background-color: rgb(150, 150, 150);
+}
+
+#history-return {
+    width: 100%;
+    border-color: rgb(231, 76, 60);
+    background-color: rgb(231, 76, 60);
+}
+  
+#history-return:hover {
+    border-color: rgb(231, 44, 23);
+    background-color: rgb(231, 44, 23);
+}
+
+#modal-footer {
+    flex-direction: column;
+    justify-content: center;
+}

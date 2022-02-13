@@ -1,0 +1,56 @@
+@charset "UTF-8";
+.mypage-area {
+    display: flex;
+    justify-content: center;
+}
+
+.ttxt {
+    font-size: 32px;
+    font-weight: bolder;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    padding-left: 15px;
+}
+
+.btn {
+    align-items: center;
+
+    width: 265px;
+    height: 60px;
+    margin: 20px 15px;
+    padding-left: 25px;
+
+    text-align: left;
+    font-size: 20px;
+    font-weight: bold;
+
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(204, 204, 204);
+
+    background-color: white;
+}
+
+.btn > svg {
+    margin-right: 20px;
+}
+
+.btn:hover {
+    color: rgb(231, 76, 60);
+}
+
+.home {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    padding-left: 15px;
+}
+
+#user > .home {
+    text-align: center;
+    padding-left: 0;
+}
+
+.point {
+    color: rgb(231, 76, 60);
+}
