@@ -4,20 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PostMapper">
 	<!-- 선택한 게시판의 게시글 상세페이지 보여주기  -->
-	<select id ="selectPostList" resultMap="com.web.mall.model.PostDTO">
+	<select id ="selectPostList" parameterType="PostDTO" resultType="PostDTO" >
 	  <![CDATA[
-	  	SELECT  POST_ID, WRITER_ID, BOARD_ID, TITLE
-	  		, CONTENT, GOOD_NUMBER, POSTING_DATE
-	  	FROM POST
-	  	WHERE POST_ID = #{post_id}
+	  	SELECT  P.POST_ID, P.WRITER_ID, P.BOARD_ID, P.TITLE
+	  		, P.CONTENT, P.GOOD_NUMBER, P.POSTING_DATE, I.FILE_NAME, I.FILE_URL
+	  	FROM POST P JOIN IMAGE I ON (P.POST_ID = I.REFERENCES_ID)
+	  	WHERE POST_ID = #{post_id} 
+	  	AND ID_TYPE = 'POST'
 	  ]]>
 	</select>
 	
 	<!--선택한 게시판의 게시글 추가  -->
-	<insert id="insertPost" parameterType="com.web.mall.model.PostDTO">
+	<insert id="insertPost" parameterType="PostDTO">
     	INSERT INTO POST VALUES(
     		POST_ID_SEQ.NEXTVAL, #{writer_id}, #{board_id}, 
-    			#{title}, #{content}, 0, 0, SYSDATE) 
+    			#{title}, #{content}, 0, 0, SYSDATE)
+    			 
   	</insert>
   	
   	<!-- 선택한 게시판의 게시글 추가시 이미지 추가할때 넣기 -->
@@ -28,35 +30,35 @@
   	</insert -->
 	
 	<!-- 선택한 게시글 수정 -->
-  	<update id="updatePost" parameterType="com.web.mall.model.PostDTO">
+  	<update id="updatePost" parameterType="PostDTO">
 	   UPDATE POSTS SET TITLE = #{Title}, CONTENT = #{Content} 
 	    WHERE POST_ID = #{post_id}
   	</update>
   	
   	<!-- 게시글 삭제 -->
-  	<delete id="deletePost" parameterType="com.web.mall.model.PostDTO">
+  	<delete id="deletePost" parameterType="PostDTO">
 		DELETE FROM POST WHERE POST_ID = #{post_id}
 	</delete>
 	
-	<!-- 게시글 신고 -->
-	<insert id="insertReport" parameterType="com.web.mall.model.ReportDTO">
-	
-	</insert>
+	<!-- 신고 문의 -->
+  	<insert id="insertReport" parameterType="ReportVO"> 
+    	INSERT INTO REPORT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
+  	</insert>
 	
 	<!-- 좋아요 -->
-	<update id="addPostGood" parameterType="int">
+	<update id="addPostGood" parameterType="PostDTO">
 		UPDATE POST SET GOOD_NUMBER = #{good_number} + 1 
 		WHERE POST_ID = #{post_id}
 	</update>
 	
 	<!-- 좋아요 한번더 누르기 -->
-	<update id="addPostDislike" parameterType="int">
+	<update id="addPostDislike" parameterType="PostDTO">
 		UPDATE POST SET GOOD_NUMBER = #{good_number} - 1 
 		WHERE POST_ID = #{post_id}
 	</update>
 	
 	<!-- 댓글 조회 -->
-	<select id="selectComments" parameterType="com.web.mall.model.CommentsDTO">
+	<select id="selectComments" parameterType="CommentsDTO" resultType="CommentsDTO">
 		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT 
 		FROM COMMENTS
 		ORDER BY COMMENT_ID DESC
@@ -64,7 +66,7 @@
 	</select>
 	
 	<!-- 댓글 추가 -->
-	<insert id="insertComments" parameterType="com.web.mall.model.CommentsDTO">
+	<insert id="insertComments" parameterType="CommentsDTO">
     	INSERT INTO COMMENT(COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT) 
     	VALUES(COMMENT_SEQ.NEXTVAL, #{post_id}, #{writer_id}, SYSDATE, #{content})
   	</insert>
@@ -72,7 +74,7 @@
   	
   	
 	<!-- 댓글 수정 -->
-	<update id="updateComments" parameterType="com.web.mall.model.CommentsDTO">
+	<update id="updateComments" parameterType="CommentsDTO">
 	    UPDATE POST
 	    <trim prefix="SET" prefixOverrides=",">
 	    	<if test="content != null">
@@ -83,13 +85,10 @@
   	</update>
   
   	<!-- 댓글 삭제 -->
-  	<delete id="deleteComments" parameterType="com.web.mall.model.CommentsDTO">
+  	<delete id="deleteComments" parameterType="CommentsDTO">
 		DELETE FROM COMMENT WHERE COMMENT_ID = #{comment_id}
 	</delete>
 	
-  	<!-- 신고 문의 -->
-  	<insert id="insertReport2" parameterType="com.web.mall.model.ReportDTO"> 
-    	INSERT INTO COMMENT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
-  	</insert>
+  	
 	
 </mapper>

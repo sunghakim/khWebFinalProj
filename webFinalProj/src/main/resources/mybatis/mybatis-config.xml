@@ -11,7 +11,7 @@
 		<typeAlias type="com.web.mall.model.AccountVO" alias="account" />
 		<typeAlias type="com.web.mall.model.SocialAccountVO" alias="socialAccount" />
 		<typeAlias type="com.web.mall.model.ShoppingListVO" alias="shoppingList" />
-    	<typeAlias type="com.web.mall.model.ItemDTO" alias="item" />
+    	<typeAlias type="com.web.mall.model.ItemDTO" alias="ItemDTO" />
     	<typeAlias type="com.web.mall.model.ItemOptionDTO" alias="itemOption" /> 
 		<typeAlias type="com.web.mall.model.ZzimListVO" alias="zzim" />
 		<typeAlias type="com.web.mall.model.GiveCouponVO" alias="giveCoupon" />
@@ -30,5 +30,7 @@
 		<typeAlias type="com.web.mall.model.Manage_ReportDTO" alias="Manage_ReportDTO"/>
 		<typeAlias type="com.web.mall.model.Manage_SoldHistoryDTO" alias="Manage_SoldHistoryDTO"/>
 		<typeAlias type="com.web.mall.model.Manage_ImageDTO" alias="Manage_ImageDTO"/>
+		<typeAlias type="com.web.mall.model.PostDTO" alias="PostDTO"/>
+		<typeAlias type="com.web.mall.model.CommentsDTO" alias="CommentsDTO"/>
 	</typeAliases>
 </configuration>

@@ -51,12 +51,12 @@ public class PostController {
 	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
 		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //세션값 가져오기
 		
-		String path = session.getServletContext().getRealPath("/resources/images");
+		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정
 		System.out.println(path);
 		
-		File saveFile = new File(path, fileUpload.getOriginalFilename());
+		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
 		
-		while(saveFile.exists()) {
+		while(saveFile.exists()) {	//파일 저장되면 반복
 			UUIDGenerator uuid = new UUIDGenerator();
 			UUID id = uuid.generateId(fileUpload.getOriginalFilename());
 			saveFile = new File(path, id.toString() );
