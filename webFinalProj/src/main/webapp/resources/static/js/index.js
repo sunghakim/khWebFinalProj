@@ -1,4 +1,4 @@
-// index
+// main
 var leftmouse = 0;
 
 $('.article-before').on('click', function () {

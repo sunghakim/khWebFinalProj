@@ -7,12 +7,16 @@ ul {
     list-style: none;
 }
 
-li, button, .article-before, .after {
+li,
+button,
+.article-before,
+.after {
     cursor: pointer;
 }
 
 .modal-back {
-    width: 100%; height: 100%;
+    width: 100%;
+    height: 100%;
     background: rgba(0, 0, 0, .5);
     backdrop-filter: blur(5px);
     position: fixed;
@@ -20,7 +24,8 @@ li, button, .article-before, .after {
 }
 
 .modal-front {
-    width: 30%; height: 80%;
+    width: 30%;
+    height: 85%;
     background: rgba(255, 255, 255, .8);
     box-shadow: 0 8px 32px 0 rgba(116, 116, 116, .6);
     border: 8px solid rgb(255, 255, 255);
@@ -43,7 +48,8 @@ li, button, .article-before, .after {
 }
 
 .modal-front input {
-    width: calc(35% + 7vw); height: 30px;
+    width: calc(35% + 7vw);
+    height: 30px;
     border: 0;
     border-radius: 15px;
     outline: none;
@@ -69,11 +75,43 @@ li, button, .article-before, .after {
     margin-top: -20px;
 }
 
-#join-id-form, #join-id-null, #join-id-overlap, #join-id-wrong, #join-nic-overlap {
+#join-id-form, #join-id-null, #join-id-wrong, #join-id-overlap {
     display: none;
 }
 
-#join-pwd-form, #join-pwd-null, #join-pwd-wrong, #join-pwd-check-form, #join-pwd-check-yes, #join-pwd-check-no {
+#join-pwd-form, #join-pwd-wrong, #join-pwd-null {
+    display: none;
+}
+
+#join-pwd-check-form, #join-pwd-check-null, #join-pwd-check-yes, #join-pwd-check-no {
+    display: none;
+}
+
+#join-name-null {
+    display: none;
+}
+
+#join-nic-overlap, #join-nic-null {
+    display: none;
+}
+
+#join-phone-wrong, #join-phone-null {
+    display: none;
+}
+
+#join-email-null {
+    display: none;
+}
+
+#join-address-num-null, #join-address-null {
+    display: none;
+}
+
+#login-phone-form, #login-phone-null, #login-phone-wrong {
+    display: none;
+}
+
+#login-chkPwd-form, #login-chkPwd-null, #login-chkPwd-wrong {
     display: none;
 }
 
@@ -82,7 +120,8 @@ li, button, .article-before, .after {
 }
 
 .join-modal .overlap-check {
-    width: calc(100% / 6) + 10px; height: 30px;
+    width: calc(100% / 6) + 10px;
+    height: 30px;
     background-color: #999;
     color: white;
     font-size: 14px;
@@ -106,7 +145,8 @@ li, button, .article-before, .after {
 }
 
 .join-modal .join-btns>button {
-    width: 100px; height: 50px;
+    width: 100px;
+    height: 50px;
     border-radius: 30px;
     background-color: white;
     border: 0;
@@ -118,6 +158,11 @@ li, button, .article-before, .after {
 }
 
 .login-front {
+    height: 50%;
+    margin: 140px auto;
+}
+
+#nonMember-front {
     height: 35%;
     margin: 140px auto;
 }
@@ -136,21 +181,26 @@ li, button, .article-before, .after {
     margin-top: -20px;
 }
 
-#login-id-form, #login-id-null, #login-id-wrong {
+#login-id-form,
+#login-id-null,
+#login-id-wrong {
     display: none;
 }
 
-#login-pwd-form, #login-pwd-null, #login-pwd-wrong {
+#login-pwd-form,
+#login-pwd-null,
+#login-pwd-wrong {
     display: none;
 }
 
 .login-modal .login-btns {
     margin-top: 2vh;
-    margin-left: calc(3.5vw - 20px);
+    margin-left: 10px;
 }
 
 .login-modal .login-btns>button {
-    width: 80px; height: 40px;
+    width: 120px;
+    height: 40px;
     border-radius: 30px;
     background-color: white;
     border: 0;
@@ -172,10 +222,6 @@ header .logo {
 header .header-ul {
     display: flex;
     font-size: 16px;
-}
-
-header #admin-ul {
-    display: none;
 }
 
 header .header-ul .fas {
@@ -235,8 +281,18 @@ header .header-ul .fas {
 
 .content>section>.article-container>.article-wrap {
     background-color: white;
-    width: calc(100% - 55px + 55px); height: 100%;
+    width: calc(100% - 55px + 55px);
+    height: 100%;
     display: flex;
+}
+
+#address-num-btn {
+    width: 80px;
+    height: 30px;
+    border-radius: 30px;
+    background-color: white;
+    border: 0;
+    font-weight: bold;
 }
 
 /* js 기능 구현 class */
@@ -244,12 +300,72 @@ header .header-ul .fas {
     background-color: rgb(245, 246, 241);
     color: rgb(240, 97, 80);
 }
+
 .click-time {
     translate: all 3s;
 }
+
 .click-bg {
     background-color: rgb(245, 246, 241);
 }
+
 .click-font {
     color: rgb(240, 97, 80);
+}
+
+.radio-box {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+.radio-box>input {
+    width: 20px;
+}
+
+.radio-box>input[type=radio] {
+    margin-top: -1px;
+    vertical-align: middle;
+}
+
+.radio-box>label {
+    margin-left: 10px;
+}
+
+.other-login-btns {
+    width: 222px; height: 100px;
+    margin-left: 43px;
+}
+
+.other-login-title {
+    font-weight: bold;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.other-login-btns img {
+    margin-top: 10px;
+}
+
+#noMember-login-modal {
+    display: none;
+}
+
+#join-radio {
+	display: none;
+}
+
+#admin-front {
+    height: 35%;
+}
+
+#admin-login-modal {
+    display: none;
+}
+
+#admin-id-form, #admin-id-null, #admin-id-wrong {
+    display: none;
+}
+
+#admin-pwd-form, #admin-pwd-null, #admin-pwd-wrong {
+    display: none;
 }

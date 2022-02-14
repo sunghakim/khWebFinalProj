@@ -17,3 +17,11 @@
 .article-wrap {
     display: block !important;
 }
+
+#logout, #noMember-logout {
+	display: none;
+}
+
+.article-wrap li {
+	cursor: default !important;
+}
