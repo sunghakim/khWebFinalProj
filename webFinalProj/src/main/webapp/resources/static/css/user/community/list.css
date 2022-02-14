@@ -1,0 +1,79 @@
+@charset "UTF-8";
+body {
+    padding: 4vh 4vw;
+}
+
+body > div {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.list div{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+    margin: 10px 0 20px 0;
+    border-top: 1px solid rgb(150, 150, 150);
+    border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+table thead {
+    border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+table tbody tr {
+    cursor: pointer;
+}
+
+table td {
+    padding: 5px;
+}
+
+table tr td:nth-child(1){
+    width: 15%;
+    border-left: none;
+}
+table tr td:nth-child(2){
+    width: 40%;
+}
+table tr td:nth-child(3){
+    width: 20%;
+}
+table tr td:nth-child(4){
+    width: 15%;
+}
+
+table tbody tr:hover {
+    background-color: #f2f3ee8a;
+}
+
+.noti{
+    border-bottom: 1px solid rgb(150, 150, 150);
+}
+
+.noti:hover {
+    color:rgb(231, 76, 60);
+    cursor: pointer;
+}
+
+button{
+    width: 94px;
+    height: 36px;
+    padding: 4px 15px;
+    border-radius: 5px;
+  
+    background-color: rgb(231, 76, 60);
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: rgb(247, 45, 22);
+    color: white;
+}
