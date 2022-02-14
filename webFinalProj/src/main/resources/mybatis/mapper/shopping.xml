@@ -20,9 +20,6 @@
 	<select id="selectShoppingListItemById" parameterType="int" resultType="shoppingList">
     	SELECT * FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
 	</select>
-	<insert id="insertShoppingList" parameterType="shoppingList">
-    	INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
-	</insert>
 	<update id="updateShoppingList" parameterType="shoppingList">
     	UPDATE SHOPPING_LIST
 	    <trim prefix="SET" prefixOverrides=",">
