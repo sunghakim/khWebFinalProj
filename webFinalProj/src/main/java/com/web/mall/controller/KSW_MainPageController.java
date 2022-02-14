@@ -27,7 +27,7 @@ public class KSW_MainPageController extends Manage_C_Module {
 		//각 dto 연동 필요
 		List<Manage_ItemDTO> ItemList = ItemService.selectMainPageItemList();
 		mv.addObject("ItemList", ItemList);
-		mv.setViewName("ex_index");
+		mv.setViewName("index");
 		return mv;
 	}
 	
