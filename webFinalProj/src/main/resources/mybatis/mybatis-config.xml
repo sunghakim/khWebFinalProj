@@ -34,5 +34,6 @@
 		<typeAlias type="com.web.mall.model.ReviewVO" alias="review" />
 		<typeAlias type="com.web.mall.model.PostDTO" alias="PostDTO"/>
 		<typeAlias type="com.web.mall.model.CommentsDTO" alias="CommentsDTO"/>
+		<typeAlias type="com.web.mall.model.BoardDTO" alias="BoardDTO"/>
 	</typeAliases>
 </configuration>

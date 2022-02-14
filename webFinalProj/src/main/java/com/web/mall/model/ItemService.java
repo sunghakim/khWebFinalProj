@@ -15,6 +15,7 @@ public class ItemService {
 		return dao.selectItem(item_category_id);
 	}
 	
+	
 	//김성하 작업
 	public ItemDTO getItemDetail(ItemDTO dto) {
 		return dao.selectItemDetail(dto);

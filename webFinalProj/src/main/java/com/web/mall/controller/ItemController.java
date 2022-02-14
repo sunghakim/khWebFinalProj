@@ -2,6 +2,8 @@ package com.web.mall.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,18 +15,15 @@ import com.web.mall.model.*;
 @Controller
 @RequestMapping(value="/item")
 public class ItemController {
-
-	
 	@Autowired
-	private ItemService ItemService;
+	private ItemService service;
 	
-	//선택한 상세 카테고리 상품들 조회
-	@RequestMapping(value = "/item", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET) 
 	public String selectItem(Model model, int item_category_id) {
-		List<ItemDTO> datas = ItemService.getItem(item_category_id);
+		List<ItemDTO> datas = service.getItem(item_category_id);
 		model.addAttribute("datas", datas);
-		return "item"; //item.jsp에 매치
-	}
-	
+		return "itemlist"; //servlet의 viewResolver가 가져감 ->"/WEB-INF/views/jinitest" + itemlist + .jsp
+	}  
 	
 }

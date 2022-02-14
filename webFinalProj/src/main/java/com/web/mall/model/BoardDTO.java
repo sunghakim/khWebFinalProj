@@ -7,9 +7,10 @@ public class BoardDTO {
 	private int board_id;
 	private String board_name;
 	private String title;
-	private int writer_id;
+	private String writer_id;
 	private int good_number;
 	private Date posting_date;
+	private int page_num;
 	
 	public int getPost_id() {
 		return post_id;
@@ -29,10 +30,10 @@ public class BoardDTO {
 	public void setBoard_name(String board_name) {
 		this.board_name = board_name;
 	}
-	public int getWriter_id() {
+	public String getWriter_id() {
 		return writer_id;
 	}
-	public void setWriter_id(int writer_id) {
+	public void setWriter_id(String writer_id) {
 		this.writer_id = writer_id;
 	}
 	public String getTitle() {
@@ -53,6 +54,13 @@ public class BoardDTO {
 	public void setPosting_date(Date posting_date) {
 		this.posting_date = posting_date;
 	}
+	public int getPage_num() {
+		return page_num;
+	}
+	public void setPage_num(int page_num) {
+		this.page_num = page_num;
+	}
+	
 	
 	
 	

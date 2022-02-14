@@ -19,7 +19,7 @@
 			)WHERE RNUM BETWEEN ((#{page_num} - 1) * 24 + 1) AND (#{page_num} * 24) 
 	    ]]>
 	</select>
-	
+
 	<!-- 김성하 작업 -->
 	<select id="selectItemDetail" parameterType="item" resultType="item">
     SELECT * FROM ITEM WHERE ITEM_ID = #{item_id}

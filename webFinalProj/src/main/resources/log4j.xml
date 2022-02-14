@@ -31,7 +31,7 @@
 	<logger name="org.springframework.web">
 		<level value="INFO" />
 	</logger>
-	Rot Logger 
+	<!-- Rot Logger -->
 	<root>
 		<priority value="INFO" />
 		<appender-ref ref="console" />

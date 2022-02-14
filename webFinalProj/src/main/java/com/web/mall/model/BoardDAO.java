@@ -14,13 +14,13 @@ public class BoardDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<BoardDTO> selectBoard(int board_id){ // 최신순으로 선택한 게시판 조회 가져옴
-		List<BoardDTO> datas = sqlSession.selectList("BoardMapper.selectBoardList", board_id);
+	public List<BoardDTO> selectBoard(BoardDTO dto){ // 최신순으로 선택한 게시판 조회 가져옴
+		List<BoardDTO> datas = sqlSession.selectList("BoardMapper.selectBoardList", dto);
 		return datas;
 	}
 	
-	public List<BoardDTO> selectGoodBoard(int board_id){ // 좋아요 높은 선택한 게시판 조회 가져옴
-		List<BoardDTO> datas = sqlSession.selectList("BoardMapper.selectGoodBoardList");
+	public List<BoardDTO> selectGoodBoard(BoardDTO dto){ // 좋아요 높은 선택한 게시판 조회 가져옴
+		List<BoardDTO> datas = sqlSession.selectList("BoardMapper.selectGoodBoardList", dto);
 		return datas;
 	}
 
