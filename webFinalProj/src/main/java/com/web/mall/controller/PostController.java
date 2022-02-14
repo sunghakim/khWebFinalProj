@@ -22,70 +22,69 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator;
 import com.web.mall.model.*;
 
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value="/post")
 public class PostController {
 
 	@Autowired
 	private PostService service;
 	
-	//root-context.xml에 등록한 값 주입
-	@Resource(name="uploadPath")
-	String uploadPath;
 	
 	//선택한 게시글 조회
-	@RequestMapping(value="/post", method=RequestMethod.GET) 
+	@RequestMapping(value="/list", method=RequestMethod.GET) 
 	public String post(Model model, int post_id) {
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
-		return "post";
+		System.out.println(datas);
+		//viewResolver가 가져감 ->/WEB-INF/views/ + post + .jsp
+		return "postList";
 	}
 	
 	//게시글 추가
-	@RequestMapping(value="/post/add", method=RequestMethod.GET)
+	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String postAdd(){
 		return "postAdd";
 	}
 	
 	//게시글 추가 매개변수 넣기
-	@RequestMapping(value="/post/add", method=RequestMethod.POST)
-	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //세션값 가져오기
+	@RequestMapping(value="/add", method=RequestMethod.POST)
+	public String postAdd(int board_id, String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
+		UUID id = UUID.randomUUID();
+		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴
 		
 		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정
-		System.out.println(path);
-		
 		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
+		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1];
 		
-		while(saveFile.exists()) {	//파일 저장되면 반복
+		
+		
+		while(saveFile.exists()) {	//uuid로 파일 저장
 			UUIDGenerator uuid = new UUIDGenerator();
-			UUID id = uuid.generateId(fileUpload.getOriginalFilename());
-			saveFile = new File(path, id.toString() );
+			id = uuid.generateId(fileUpload.getOriginalFilename()); //파일 네임 여기서 생성해준게 uuid 
+			saveFile = new File(path, id.toString() + ext );
 		}
-		
 		fileUpload.transferTo(saveFile);
 		
+		boolean result = service.setPost(title, content, nowAcc.getAccount_id()
+				, board_id, id.toString() + ext , "/resources/images");
 		
-		
-		// boolean result = service.setPost(title, content, nowAcc.getAccount_id(), board_id);
-		
-		// if(result) {
-		// 	return "redirect:/board";
-		// }
+		if(result) {
+		 	return "redirect:/board";
+		 }
 		return "postAdd";
 	}
 	
 	
 	//게시글 수정전의 정보 불러오기
-	@RequestMapping(value = "/post/update", method = RequestMethod.GET)
+	@RequestMapping(value = "/update", method = RequestMethod.GET)
 	public String updatePost(Model model, int post_id) {
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
-		return "post/update";
+		return "postUpdate";
 	}
 	
 	//게시글 수정 요청
-	@RequestMapping(value = "/post/update", method = RequestMethod.POST)
-	public String updatePost(int post_id,String title, String content ) {
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public String updatePost(int post_id, String title, String content) {
 		boolean result = service.updatePost(title, content, post_id);
 		if(result) {
 			return "redirect:/post/post_id=" + post_id;
@@ -94,7 +93,7 @@ public class PostController {
 	}
 		
 	//게시글 삭제 요청
-	@RequestMapping(value = "/post/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public String deletePost(int post_id) {
 		boolean result = service.deletePost(post_id);
 		if(result) {
@@ -104,7 +103,7 @@ public class PostController {
 	}
 		
 	//게시글 좋아요 요청
-	@RequestMapping(value="/post/good", method = RequestMethod.GET)
+	@RequestMapping(value="/good", method = RequestMethod.GET)
 	public String goodPost(int post_id) {
 		boolean result = service.addGoodPost(post_id);
 		if(result) {
@@ -112,8 +111,8 @@ public class PostController {
 		}
 		return "postGood";
 	}
-	//게시글 안좋아요 요청
-	@RequestMapping(value="/post/dislike", method = RequestMethod.GET)
+	//게시글 좋아요 두번 요청(좋아요 다시 누를때)
+	@RequestMapping(value="/dislike", method = RequestMethod.GET)
 	public String dislikePost(int post_id) {
 		boolean result = service.addDislikePost(post_id);
 		if(result) {
@@ -127,28 +126,27 @@ public class PostController {
 	public String comments(Model model, int post_id) {
 			List<CommentsDTO> datas = service.getComments(post_id);
 			model.addAttribute("datas", datas);
-			return "comments";
+			return "postComments";
 	}
 	
 	//댓글 추가 요청
 	@RequestMapping(value="/comments/add", method=RequestMethod.GET)
 	public String commentsAdd(){
-		return "commentsAdd";
+		return "postCommentsAdd";
 	}
 	
 	//댓글 추가 매개변수 넣기
 	@RequestMapping(value="/comments/add", method=RequestMethod.POST)
-	public String commentsAdd(String content, int post_id, HttpSession session){
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //세션값 가져오기
+	public String commentsAdd(String content, int comment_id, HttpSession session){
+		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //현재 로그인한 계정 세션 가져오기
 		
-		// boolean result = service.setComments(content, nowAcc.getAccount_id(), post_id);
-		// if(result) {
-		// 	return "redirect:/comments";
-		// }
-		return "commentsAdd";
+		 boolean result = service.setComments(content, nowAcc.getAccount_id(), comment_id);
+		 if(result) {
+		 	return "redirect:/comments";
+		 }
+		return "postCommentsAdd";
 	}
 	
-	//여기서부터 아직 부족함
 	//댓글 수정전의 정보 불러오기
 	@RequestMapping(value = "/comments/update", method = RequestMethod.GET)
 	public String updateComments(Model model, int comment_id) {

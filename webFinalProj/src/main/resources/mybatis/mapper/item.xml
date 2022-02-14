@@ -6,7 +6,7 @@
 <mapper namespace="ItemMapper">
 	
 	<!-- 아이템 구매하기 -->
-	<select id="selectItemList" parameterType="ItemDTO" resultMap="ItemDTO">
+	<select id="selectItemList" parameterType="item" resultType="item"> 
       <!-- <처럼 괄호인가 비교연산자인가 고민될때 문자열로 표시 ![CDATE ] 최신순으로 아이템 정렬 
       근데 이미지 여러개있는거중에 어떻게 하나만 가져옴? -->
         <![CDATA[
@@ -19,6 +19,8 @@
 			)WHERE RNUM BETWEEN ((#{page_num} - 1) * 24 + 1) AND (#{page_num} * 24) 
 	    ]]>
 	</select>
+	
+	
 	
 	<!-- 김성하 작업 -->
 	<select id="selectItemDetail" parameterType="item" resultType="item">

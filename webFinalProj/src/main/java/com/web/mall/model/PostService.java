@@ -18,12 +18,14 @@ public class PostService {
 	}
 
 	// 게시글 추가하기위해 값 넣기
-	public boolean setPost(String title, String content ,String writer_id, int board_id) {
+	public boolean setPost(String title, String content ,String writer_id, int board_id, String file_name, String file_url) {
 		PostDTO data = new PostDTO();
 		data.setTitle(title);
 		data.setContent(content);
 		data.setWriter_id(writer_id);
 		data.setBoard_id(board_id);
+		data.setFile_name(file_name);
+		data.setFile_url(file_url);
 		int result = dao.insertPost(data);
 		if(result == 1) {
 			return true;
@@ -82,14 +84,15 @@ public class PostService {
 
 	//댓글 하나만 조회
 	public CommentsDTO getCommentsDetail(int comment_id) {
-		return dao.selectComments(comment_id);
+		return dao.selectCommentsDetail(comment_id);
 	}
 	
 	//댓글 추가
-	public boolean setComments(int comment_id, String content) {
+	public boolean setComments(String content, String writer_id,int comment_id) {
 		CommentsDTO data = new CommentsDTO();
 		data.setContent(content);
 		data.setComment_id(comment_id);
+		data.setWriter_id(writer_id);
 		int result = dao.insertComments(data);
 		if(result == 1) {
 			return true;

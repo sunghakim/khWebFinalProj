@@ -6,23 +6,23 @@
 <mapper namespace="BoardMapper">
 	
 	<!-- 선택한 게시판의 리스트 출력 -->
-	<select id ="selectBoardList" resultType="com.web.mall.model.BoardDTO">
+	<select id ="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT * FROM (
-		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  SELECT ROWNUM RNUM, TB.POST_ID,TB.TITLE, TB.WRITER_ID, TB.GOOD_NUMBER,TB.POSTING_DATE FROM(
 		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
-		  	WHERE BOARD_ID = #{board_id}
-		  	ORDER BY POST_ID DESC ) TB
+		  	WHERE PO.BOARD_ID = #{board_id}
+		  	ORDER BY POST_ID DESC )TB
 	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
 	</select>
 
 	<!-- 선택한 게시판의 좋아요 높은 리스트 출력 -->
-	<select id ="selectGoodBoardList" resultMap="com.web.mall.model.BoardDTO">
+	<select id ="selectGoodBoardList" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT * FROM (
-		  SELECT ROWNUM RNUM, TB.*  FROM(
+		  SELECT ROWNUM RNUM, TB.POST_ID,TB.TITLE, TB.WRITER_ID, TB.GOOD_NUMBER,TB.POSTING_DATE FROM(
 		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
-		  	WHERE BOARD_ID = #{board_id}
-		  	ORDER BY GOOD_NUMBER DESC ) TB
-	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
+		  	WHERE PO.BOARD_ID = #{board_id}
+		  	ORDER BY GOOD_NUMBER DESC) TB
+		)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
 	</select>
 </mapper>
 

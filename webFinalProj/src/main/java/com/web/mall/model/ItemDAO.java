@@ -17,6 +17,7 @@ public class ItemDAO {
 		return datas;
 	}
 	
+	
 	//김성하 작업
 	public ItemDTO selectItemDetail(ItemDTO dto) {
 		return sqlSession.selectOne("ItemMapper.selectItemDetail", dto);
@@ -36,4 +37,8 @@ public class ItemDAO {
 	public int insertQuestion(QuestionVO vo) {
 		return sqlSession.insert("ItemMapper.insertQuestion", vo);
 	}
+
+
+
+	
 }
