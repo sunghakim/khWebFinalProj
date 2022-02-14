@@ -10,18 +10,6 @@ public class MyinfoService {
 	@Autowired
 	private MyinfoDAO dao;
 
-	public List<ZzimListVO> getZzims(ZzimListVO vo) {
-		return dao.selectZzimList(vo);
-	}
-	public boolean deleteZzimItem(ZzimListVO vo) {
-		int res = dao.deleteZzimItem(vo);
-		if(res == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
 	public List<GiveCouponVO> getGivenCoupons(GiveCouponVO vo) {
 		return dao.selectGivenCouponList(vo);
 	}

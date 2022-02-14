@@ -4,12 +4,6 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="MyinfoMapper">
   
-	<select id="selectZzimList" parameterType="zzim" resultType="zzim">
-    SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
-	</select>
-	<delete id="deleteZzimItem" parameterType="zzim">
-    DELETE FROM ZZIM_LIST WHERE ZZIM_LIST_ID = #{zzim_list_id}
-	</delete>
   <select id="selectGiveCouponList" parameterType="giveCoupon" resultType="giveCoupon">
     SELECT * FROM GIVE_COUPON WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
   </select>

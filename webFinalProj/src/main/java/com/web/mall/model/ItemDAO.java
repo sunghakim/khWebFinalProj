@@ -31,8 +31,4 @@ public class ItemDAO {
 	public ItemOptionDTO selectItemOption(ItemOptionDTO vo) {
 		return sqlSession.selectOne("ItemMapper.selectItemOption", vo);
 	}
-
-
-
-	
 }

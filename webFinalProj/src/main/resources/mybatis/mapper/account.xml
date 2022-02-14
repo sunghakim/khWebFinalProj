@@ -22,10 +22,10 @@
     SELECT * FROM SOCIAL_ACCOUNT ORDER BY JOINDATE
   </select>
   <insert id="insertWebUserAccount" parameterType="account">
-    INSERT INTO ACCOUNT VALUES(#{account_id}, #{password}, #{user_type}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, SYSDATE)
+    INSERT INTO ACCOUNT VALUES(#{account_id}, #{password}, #{user_type}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, SYSDATE, 'F')
   </insert>
   <insert id="insertSocialUserAccount" parameterType="socialAccount">
-    INSERT INTO SOCIAL_ACCOUNT VALUES('USER' || SOCIAL_ACCOUNT_SEQ.NEXTVAL, #{rand_id}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, #{login_type}, SYSDATE)
+    INSERT INTO SOCIAL_ACCOUNT VALUES('USER' || SOCIAL_ACCOUNT_SEQ.NEXTVAL, #{rand_id}, #{name}, #{phone}, #{email}, #{address}, #{address_no}, #{nickname}, #{login_type}, SYSDATE, 'F')
   </insert>
   <update id="updateAccountInfo" parameterType="account">
     UPDATE ACCOUNT
@@ -72,7 +72,22 @@
     </trim>
     WHERE SOCIAL_ACCOUNT_ID = #{social_account_id}
   </update>
-  <delete id="deleteAccount" parameterType="account">
-    DELETE FROM ACCOUNT WHERE ACCOUNT_ID = #{account_id}
-  </delete>
+  <update id="updateAccountHide" parameterType="account">
+    UPDATE ACCOUNT
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="is_banned == 'F'">
+    		, IS_BANNED = 'T'
+    	</if>
+    </trim>
+    WHERE ACCOUNT_ID = #{account_id}
+  </update>
+  <update id="updateSocialAccountHide" parameterType="socialAccount">
+    UPDATE SOCIAL_ACCOUNT
+    <trim prefix="SET" prefixOverrides=",">
+    	<if test="is_banned == 'F'">
+    		, IS_BANNED = 'T'
+    	</if>
+    </trim>
+    WHERE SOCIAL_ACCOUNT_ID = #{social_account_id}
+  </update>
 </mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ZzimMapper">
+	<select id="selectZzimList" parameterType="zzim" resultType="zzim">
+    SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+	</select>
+	<select id="selectZzim" parameterType="zzim" resultType="zzim">
+    SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} AND ITEM_ID = #{item_id}
+	</select>
+	<delete id="deleteZzimItem" parameterType="zzim">
+    DELETE FROM ZZIM_LIST WHERE ZZIM_LIST_ID = #{zzim_list_id}
+	</delete>
+	<insert id="insertZzim" parameterType="zzim">
+    INSERT INTO ZZIM_LIST VALUES(ZZIM_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id})
+  </insert>
+</mapper>

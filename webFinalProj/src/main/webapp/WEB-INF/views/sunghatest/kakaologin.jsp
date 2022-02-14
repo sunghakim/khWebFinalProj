@@ -77,7 +77,7 @@
 			  return;
 			}
 			Kakao.Auth.logout(function() {
-				location.href="http://localhost:8080/main";
+				location.href="http://localhost:8080/";
 			});
 	}
 </script>
@@ -100,5 +100,21 @@
   }
 </script>
 
+<button type="button" class="g_id_signout" id="signout_button">로그아웃</button>
+<script>
+	const button = document.getElementById("signout_button");
+    button.onclick = () => {
+		google.accounts.id.disableAutoSelect();
+		
+		if (!Kakao.Auth.getAccessToken()) {
+			  console.log('Not logged in.');
+			  return;
+			}
+			Kakao.Auth.logout(function() {
+				location.href="http://localhost:8080/";
+			});
+        console.log("logout success");
+        }
+</script>
 </body>
 </html>

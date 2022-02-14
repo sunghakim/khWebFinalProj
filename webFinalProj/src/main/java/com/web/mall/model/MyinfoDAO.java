@@ -10,14 +10,7 @@ import org.springframework.stereotype.Repository;
 public class MyinfoDAO {
 	@Autowired
 	private SqlSession sess;
-	
 
-	public List<ZzimListVO> selectZzimList(ZzimListVO vo) {
-		return this.sess.selectList("MyinfoMapper.selectZzimList", vo);
-	}
-	public int deleteZzimItem(ZzimListVO vo) {
-		return this.sess.delete("MyinfoMapper.deleteZzimItem", vo);
-	}
 	public List<GiveCouponVO> selectGivenCouponList(GiveCouponVO vo) {
 		return this.sess.selectList("MyinfonMapper.selectGiveCouponList", vo);
 	}

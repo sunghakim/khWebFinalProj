@@ -33,8 +33,11 @@ public class AccountDAO {
 		return this.sess.insert("AccountMapper.insertSocialUserAccount", vo);
 	}
 	
-	public int deleteAccount(AccountVO vo) {
-		return this.sess.delete("AccountMapper.deleteAccount", vo);
+	public int updateAccountHide(AccountVO vo) {
+		return this.sess.delete("AccountMapper.updateAccountHide", vo);
+	}
+	public int updateAccountHide(SocialAccountVO vo) {
+		return this.sess.delete("AccountMapper.updateSocialAccountHide", vo);
 	}
 	
 	public AccountVO selectSameAccount(AccountVO vo) {

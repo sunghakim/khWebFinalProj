@@ -13,6 +13,8 @@ public class SocialAccountVO {
 	private String nickname;
 	private int login_type;
 	private Date joindate;
+	private char is_banned;
+	
 	public String getSocial_account_id() {
 		return social_account_id;
 	}
@@ -73,10 +75,16 @@ public class SocialAccountVO {
 	public void setJoindate(Date joindate) {
 		this.joindate = joindate;
 	}
+	public char getIs_banned() {
+		return is_banned;
+	}
+	public void setIs_banned(char is_banned) {
+		this.is_banned = is_banned;
+	}
 	@Override
 	public String toString() {
 		return "SocialAccountVO [social_account_id=" + social_account_id + ", rand_id=" + rand_id + ", name=" + name
 				+ ", phone=" + phone + ", email=" + email + ", address=" + address + ", address_no=" + address_no
-				+ ", nickname=" + nickname + ", login_type=" + login_type + ", joindate=" + joindate + "]";
+				+ ", nickname=" + nickname + ", login_type=" + login_type + ", joindate=" + joindate + ", is_banned=" + is_banned + "]";
 	}
 }

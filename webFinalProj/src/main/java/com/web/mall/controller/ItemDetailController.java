@@ -30,6 +30,8 @@ import com.web.mall.model.ShoppingListVO;
 import com.web.mall.model.SocialAccountVO;
 import com.web.mall.model.SoldDetailVO;
 import com.web.mall.model.SoldHistoryVO;
+import com.web.mall.model.ZzimListVO;
+import com.web.mall.model.ZzimService;
 
 @Controller
 @RequestMapping(value="/itemDetail")
@@ -44,13 +46,36 @@ public class ItemDetailController extends Manage_S_Module {
 	private ShoppingListService shoppingService;
 	@Autowired
 	private QuestionService questionService;
+	@Autowired
+	private ZzimService zzimService;
 	
 	//구매하기 페이지
-	@RequestMapping(value="/", method=RequestMethod.GET)
-	public String itemDetailMain(ItemDTO itemDto, ItemOptionDTO optionDto, Model model) {
+	@RequestMapping(value="/main", method=RequestMethod.GET)
+	public String itemDetailMain(ItemDTO itemDto, ItemOptionDTO optionDto, ZzimListVO zzimVo, Model model, HttpSession session) {
 		//item_id 받아와야함.
+		System.out.println(itemDto.getItem_id());
 		itemDto = itemService.getItemDetail(itemDto);
+		System.out.println(itemDto);
 		List<ItemOptionDTO> optionList = itemService.getItemOptions(optionDto);
+		System.out.println(optionList);
+		if((Boolean)session.getAttribute("logined")) {
+			if(session.getAttribute("usertype").equals("web")) {
+				AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+				zzimVo.setAccount_id(nowAcc.getAccount_id());
+			}
+			else {
+				SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+				zzimVo.setAccount_id(nowAcc.getSocial_account_id());
+			}
+			if(zzimService.getZzim(zzimVo) != null) {
+				model.addAttribute("zzim", true);
+			}
+			else {
+				model.addAttribute("zzim", false);
+			}
+		}
+		else {}
+		
 		model.addAttribute("itemData", itemDto);
 		model.addAttribute("optionList", optionList);
 		List<Manage_ImageDTO> itemImageList = selectImageList(itemDto.getItem_id(), "ITEM");
@@ -350,5 +375,26 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	public List<Manage_ImageDTO> selectImageList(int id, String type) {
 		return imageService.selectList(id, type);
+	}
+	@RequestMapping(value="/changeZzim", method=RequestMethod.GET)
+	public String changeZzim(ZzimListVO vo, Model model, HttpSession session) {
+		//item_id 가져와야함
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			vo.setAccount_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			vo.setAccount_id(nowAcc.getSocial_account_id());
+		}
+		ZzimListVO zzim = zzimService.getZzim(vo);
+		if(zzim != null) {
+			zzimService.deleteZzimItem(vo);
+		}
+		else {
+			zzimService.addZzim(vo);
+		}
+		
+		return "redirect:/itemDetail/main?item_id=" + vo.getItem_id();
 	}
 }

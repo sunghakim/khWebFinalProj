@@ -49,21 +49,18 @@ public class AccountService {
 		}
 	}
 	
-	public boolean dropAccount(AccountVO vo) {
-		//리뷰 삭제(review)
-		//문의 삭제(quesion)
-		//sold_history 삭제
-		//give_coupon 삭제
-		//shoppinglist 삭제
-		//zzimlist 삭제
-		//post 삭제
-		//good 삭제
-		//comments 삭제
-		//report 삭제
-		//punish  삭제
-		
+	public boolean dropAccount(AccountVO vo) {		
 		System.out.println("deleteMember 실행됨!");
-		if(dao.deleteAccount(vo) == 1) {
+		if(dao.updateAccountHide(vo) == 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	public boolean dropAccount(SocialAccountVO vo) {		
+		System.out.println("deleteMember 실행됨!");
+		if(dao.updateAccountHide(vo) == 1) {
 			return true;
 		}
 		else {

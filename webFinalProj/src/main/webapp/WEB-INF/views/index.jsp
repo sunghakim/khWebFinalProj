@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="/resources/static/css/index.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script>
             Kakao.init('7d314791f1c38113b612f034c9d3f42f');
             console.log(Kakao.isInitialized());
@@ -168,7 +169,7 @@
                 <p class="title">L O G I N</p>
                 <form method="post" action="/login">
                     <div class="login-phone">
-                        <input type="text" id="login-phone" maxlength="13" placeholder="핸드폰 번호를 입력하세요. 010-1234-1234" name="phone">
+                        <input type="email" id="login-phone" maxlength="13" placeholder="핸드폰 번호를 입력하세요. 010-1234-1234" name="email">
                         <div class="login-text text">
                             <div class="login-form" id="login-phone-form">본인 확인용으로 사용됩니다.</div>
                             <div class="login-alert" id="login-phone-null">핸드폰 번호를 입력해주세요.</div>
@@ -227,38 +228,44 @@
                 <div class="header-wrap">
                     <h2 class="logo">logo</h2>
                     <div class="ul-wrap">
-                    <c:choose>
-	                    <c:when test="${sessionScope.account.user_type eq 0 }">
-	                    	<script>
-	                    		$(() => {
-	                    			$(location).attr('href', '/Manager_test/Account');
-	                    		})
-	                    	</script>
-                        	</c:when>
-                        	<c:when test="${sessionScope.account.user_type eq 1 }">
-                        		<ul class="header-ul" id="logout-ul">
-	                            	<li id="cart">장바구니&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        			<li id="logout">로그아웃</li>
-                        		</ul>
-                        	</c:when>
-                        	<c:when test="${sessionScope.account.user_type eq 2 }">
-                        		<ul class="header-ul" id="noMember-logout-ul">
-                        			<li id="cart">장바구니&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-                        			<li id="noMember-logout">로그아웃</li>
-                        		</ul>
-                        	</c:when>
-                        	<c:otherwise>
 	                        	<ul class="header-ul" id="user-ul">
 	                            	<li id="join">회원가입&nbsp;&nbsp;|&nbsp;&nbsp;</li>
 	                            	<li id="member-login">회원 로그인&nbsp;&nbsp;|&nbsp;&nbsp;</li>
 	                            	<li id="non-member-login">비회원 로그인&nbsp;&nbsp;|&nbsp;&nbsp;</li>
 	                            	<li id="admin-change">관리자 로그인</li>
 	                        	</ul>
-                        	</c:otherwise>
-	                    </c:choose>
                     </div>
                 </div>
             </header>
+            <button type="button" class="g_id_signout" id="signout_button">로그아웃</button>
+<script>
+window.onload = function() {
+	if(${empty logout? false : true}) {
+		const button = document.getElementById("signout_button");
+	    button.onclick = () => {
+			google.accounts.id.disableAutoSelect();
+			
+			console.log("google logout success");
+			if (!Kakao.Auth.getAccessToken()) {
+				  console.log('Not logged in.');
+				  return;
+				}
+			Kakao.Auth.logout(function() {
+		        console.log("kakao logout success");
+				location.href="http://localhost/";
+			});
+			
+			console.log("web logout success");
+			location.href = "/logout";
+	        }
+	}
+	else{
+		
+	}
+}
+	
+</script>
+
             <div class="content">
                 <nav>
                     <div class="nav-wrap">
