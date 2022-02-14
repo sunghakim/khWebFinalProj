@@ -14,6 +14,7 @@ public class Manage_AccountDTO {
 	private String Address;
 	private String NickName;
 	private Date JoinDate;
+	private char IsBanned;
 	private SimpleDateFormat form = new SimpleDateFormat("yy.MM.dd HH");
 	
 	public String getAccountID() {
@@ -111,6 +112,25 @@ public class Manage_AccountDTO {
 
 	public void setJoinDate(Date joinDate) {
 		JoinDate = joinDate;
+	}
+	
+	public char getIsBanned() {
+		return IsBanned;
+	}
+	
+	public String getIsBannedStr() {
+		switch(IsBanned) {
+		case('T'):
+			return "영구탈퇴";
+		case('F'):
+			return "사용가능";
+		default:
+			return "";
+		}
+	}
+	
+	public void setIsBanned(char isBanned) {
+		IsBanned = isBanned;
 	}
 
 	@Override

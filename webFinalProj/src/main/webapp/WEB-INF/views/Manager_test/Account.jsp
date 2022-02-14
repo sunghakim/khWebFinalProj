@@ -36,7 +36,7 @@
 					<th>우편번호</th>
 					<th>닉네임</th>
 					<th>가입일</th>
-					<th>기능</th>
+					<th>영구탈퇴여부</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -51,8 +51,7 @@
 						<td>${List.getAddressNumber()}</td>
 						<td>${List.getNickName()}</td>
 						<td>${List.getJoinDateStr()}</td>
-						<td><a href="${pageType}/Delete?ID=${List.getAccountID()}">탈퇴처리</a></td>
-						<!-- 기능 사용전 정말 해당 기능을 사용할지 경고문 띄우기 기능 사용 결과는 'res'파라미터로 전달됨 -->
+						<td>${List.getIsBannedStr()}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

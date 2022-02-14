@@ -24,4 +24,8 @@ public class Manage_AccountDAO {
 	public int delete(String accountID) {
 		return this.session.delete(Mapper + ".delete", accountID);
 	}
+	
+	public int updateBan(String reportedAccountID) {
+		return this.session.update(Mapper + ".updateBan", reportedAccountID);
+	}
 }

@@ -21,19 +21,23 @@ public class Manage_ReportDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 	
-	public Manage_ReportDTO selectPunish(Manage_ReportDTO DTO) {
-		return this.session.selectOne(Mapper + ".selectPunish", DTO);
+	public Manage_ReportDTO selectPunish(Manage_ReportDTO dto) {
+		return this.session.selectOne(Mapper + ".selectPunish", dto);
+	}
+
+	public int selectAllPunish(Manage_ReportDTO dto) {
+		return this.session.selectOne(Mapper + ".selectAllPunish", dto);
 	}
 	
-	public int insertPunish(Manage_ReportDTO DTO) {
-		return this.session.insert(Mapper + ".insertPunish", DTO);
+	public int insertPunish(Manage_ReportDTO dto) {
+		return this.session.insert(Mapper + ".insertPunish", dto);
 	}
 	
-	public int updatePunish(Manage_ReportDTO DTO) {
-		return this.session.update(Mapper + ".updatePunish", DTO);
+	public int updatePunish(Manage_ReportDTO dto) {
+		return this.session.update(Mapper + ".updatePunish", dto);
 	}
 	
-	public int updateReport(Manage_ReportDTO DTO) {
-		return this.session.update(Mapper + ".updateReport", DTO);
+	public int updateReport(Manage_ReportDTO dto) {
+		return this.session.update(Mapper + ".updateReport", dto);
 	}
 }

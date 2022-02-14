@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.Manage_AccountDAO;
 import com.web.mall.model.Manage_AccountDTO;
 import com.web.mall.model.Manage_AccountService;
 
 @Controller
 public class Manage_AccountController extends Manage_C_Module {
-	
+
 	@Autowired
 	Manage_AccountService Service;
 	
@@ -27,22 +28,12 @@ public class Manage_AccountController extends Manage_C_Module {
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectAccountList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			int TotalPageCount = Service.selectTotalPageCount();
+			int TotalPageCount = dao.selectTotalPageCount();
 			mv.addObject("TotalPageCount", TotalPageCount);
 			
 			int Page = setPage(mv, request);
 			List<Manage_AccountDTO> List = Service.selectList(Page);
 			mv.addObject("List", List);
-		}
-		return mv;
-	}
-
-	//회원DB에 해당 회원 탈퇴 요청
-	@RequestMapping(value = URL + "/Delete", method = RequestMethod.GET)
-	public ModelAndView deleteAccount(HttpSession session, ModelAndView mv, HttpServletRequest request, String ID) throws Exception {
-		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.delete(ID));
-			selectAccountList(session, mv, request);
 		}
 		return mv;
 	}

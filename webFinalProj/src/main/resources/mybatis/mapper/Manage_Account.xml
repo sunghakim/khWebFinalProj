@@ -29,9 +29,8 @@
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
 		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
-		
-	<delete id="delete" parameterType="String">
-		DELETE FROM ACCOUNT WHERE ACCOUNT_ID = #{ID}
-	</delete>
-
+	
+	<update id="updateBan" parameterType="String">
+		UPDATE ACCOUNT SET IS_BANNED = #{reportedAccountID}
+	</update>
 </mapper>
