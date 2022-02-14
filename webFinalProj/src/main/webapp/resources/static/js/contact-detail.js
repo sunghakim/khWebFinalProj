@@ -1,5 +1,5 @@
-$('.detail').click(() => {
-    $(location).attr('href', 'contact-detail.html');
+$('.back').click(() => {
+    $(location).attr('href', 'contact-list.html');
 })
 
 $(document).ready(function () {

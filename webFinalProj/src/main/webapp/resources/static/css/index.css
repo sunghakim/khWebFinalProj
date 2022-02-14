@@ -54,20 +54,9 @@
     right: 3.5vw;
 }
 
-/* 구현 */
-/* .article-before {
-    display: none;
-} */
-
 .article-after {
     display: none;
 }
-
-/* #after-2,
-#after-3,
-#after-4 {
-    display: none;
-} */
 
 /* js 연결 class */
 .slide-1 {

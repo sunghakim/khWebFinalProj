@@ -26,13 +26,16 @@
     position: relative;
     width: calc(100% / 4); height: 100%;
     text-align: center;
+    margin-top: 10px;
 }
 
-button {
+.cancel {
     width: 50px;
     background-color: black;
     color: white;
     border: 0;
     border-radius: 8px;
     padding: 3px;
+    cursor: pointer;
+    text-decoration: none;
 }
