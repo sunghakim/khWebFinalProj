@@ -16,7 +16,6 @@ import com.web.mall.model.Manage_QuestionService;
 
 @Controller
 public class Manage_QuestionController extends Manage_C_Module {
-	//상품문의, 마이페이지 문의 처리(마이페이지 문의는 item_id가 null)
 	
 	@Autowired
 	Manage_QuestionService Service;

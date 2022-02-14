@@ -30,6 +30,10 @@ public class Manage_ItemService extends Manage_S_Module {
 		return dao.selectList(Page);
 	}
 	
+	public List<Manage_ItemDTO> selectMainPageItemList() {
+		return dao.selectMainPageItemList();
+	}
+	
 	public List<Manage_ImageDTO> selectImageList(int PostID) {
 		return ImageService.selectList(PostID, "ITEM");
 	}
@@ -37,34 +41,38 @@ public class Manage_ItemService extends Manage_S_Module {
 	@Transactional(rollbackFor=Exception.class)
 	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath) throws Exception {
-		if (dao.searchItemID(dto) == null) {
+		String searchResult1 = dao.searchItemName(dto);
+		//상품 이름이 이미 존재하는지 확인
+		if (searchResult1 == null) {
 			if (dao.insertItem(dto) == 1) {
-				//첨부파일이 있는지 확인
-				if (file[0].getOriginalFilename() != "") {
-					int ReferencesID = dto.getItemID();
-					
-					//전달받은 정보로 DB에 저장할 DTO목록 생성
-					List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
-					
-					//DB에 이미지 정보 저장
-					if (ImageService.insertList(ImageList)) {
-						
-						//서버에 이미지 저장(이클립스 테스트환경이 아닌 실제 톰캣 경로에 저장된다.)
-						saveImages(ImageList);
-						return true;
-					}
-					throw new Exception("이미지 추가 처리중 문제발생");
-				}
-				return true;
 			} else {
 				throw new Exception("상품 추가 처리중 문제발생");
 			}
 		}
-		if (dao.insertItemOption(dto) == 1) {
-			return true;
+		
+		//상품 옵션이 이미 있는지 확인
+		if(dto.getItemID() != 0) {
+			if(dao.searchItemOptionID(dto) == null) {
+				if (dao.insertItemOption(dto) == 1) {
+				} else {
+					throw new Exception("상품옵션 추가 처리중 문제발생");
+				}
+			}
 		} else {
 			throw new Exception("상품옵션 추가 처리중 문제발생");
 		}
+		
+		//첨부파일이 있는지 확인
+		if (file[0].getOriginalFilename() != "") {
+			int ReferencesID = dto.getItemID();
+			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+			if (ImageService.insertList(ImageList)) {
+				saveImages(ImageList);
+			} else {
+				throw new Exception("이미지 추가 처리중 문제발생");
+			}
+		}
+		return true;
 	}
 	
 	@Transactional(rollbackFor=Exception.class)

@@ -28,6 +28,7 @@ import com.web.mall.model.SocialAccountVO;
 
 @Controller
 public class AccountController {
+	
 	@Autowired
 	private AccountService service;
 	
