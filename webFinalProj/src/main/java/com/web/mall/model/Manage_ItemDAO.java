@@ -24,28 +24,32 @@ public class Manage_ItemDAO {
 	public List<Manage_ItemDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
+
+	public List<Manage_ItemDTO> selectMainPageItemList() {
+		return this.session.selectList(Mapper + ".selectMainPageItemList");
+	}
 	
-	public Manage_ItemDTO searchItemID(Manage_ItemDTO DTO) {
-		return this.session.selectOne(Mapper + ".searchItemID", DTO);
+	public String searchItemName(Manage_ItemDTO dto) {
+		return this.session.selectOne(Mapper + ".searchItemName", dto);
+	}
+
+	public Integer searchItemOptionID(Manage_ItemDTO dto) {
+		return this.session.selectOne(Mapper + ".searchItemOptionID", dto);
 	}
 	
 	public int insertItem(Manage_ItemDTO dto) {
-		System.out.println("상품 추가: " + dto.toString());
 		return this.session.insert(Mapper + ".insertItem", dto);
 	}
 	
 	public int insertItemOption(Manage_ItemDTO dto) {
-		System.out.println("상품 옵션 추가: " + dto.toString());
 		return this.session.insert(Mapper + ".insertItemOption", dto);
 	}
 
 	public int updateItem(Manage_ItemDTO dto) {
-		System.out.println("상품 수정: " + dto.toString());
 		return this.session.update(Mapper + ".updateItem", dto);
 	}
 	
 	public int updateItemOption(Manage_ItemDTO dto) {
-		System.out.println("상품 옵션 수정: " + dto.toString());
 		return this.session.update(Mapper + ".updateItemOption", dto);
 	}
 }

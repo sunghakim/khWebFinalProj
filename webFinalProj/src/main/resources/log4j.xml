@@ -11,31 +11,29 @@
 		</layout>
 	</appender>
 	
-	<!-- Application Loggers --><!--
+	<!-- Application Loggers -->
 	<logger name="com.web.mall">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
-	-->
-	<!-- 3rdparty Loggers --><!--
+	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
 	
 	<logger name="org.springframework.beans">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
 	
 	<logger name="org.springframework.context">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
 
 	<logger name="org.springframework.web">
-		<level value="DEBUG" />
+		<level value="INFO" />
 	</logger>
-	-->
-	<!-- Rot Logger -->
+	Rot Logger 
 	<root>
-		<priority value="warn" />
+		<priority value="INFO" />
 		<appender-ref ref="console" />
 	</root>
 </log4j:configuration>

@@ -19,6 +19,7 @@
 			<input type="hidden" name="ItemID" value="${Item.getItemID()}" required>
 			<input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
 		</c:if>
+		<input type="hidden" name="IDType" value="ITEM">
 			<div>
 				<label>상품 이름</label>
 				<input type="text" name="Name" value="${Item.getName()}" required>
