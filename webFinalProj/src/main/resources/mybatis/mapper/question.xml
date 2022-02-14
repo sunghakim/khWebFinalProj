@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="QuestionMapper">
+	<select id="selectItemQuestionList" parameterType="question" resultType="question">
+    	SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id} ORDER BY QUESTION_DATE
+  	</select>
+  	<insert id="insertQuestion" parameterType="question">
+    	INSERT INTO QUESTION VALUES(QUESTION_SEQ.NEXTVAL, #{item_id}, #{writer_id}, #{question_title}, #{question_content}, SYSDATE, '0', NULL, NULL, NULL)
+	</insert>
+	<select id="selectWriterQuestionList" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE WRITER_ID = #{writer_id} ORDER BY 1
+	</select>
+	<select id="selectOneQuestion" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}
+	</select>
+	<update id="updateQuestion" parameterType="question">
+	  UPDATE QUESTION
+	  <trim prefix="SET" prefixOverrides=",">
+	  	<if test="question_content != null">
+	  		, QUESTION_CONTENT = #{question_content} 
+	  	</if>
+	  </trim>
+	  WHERE QUESTION_ID = #{question_id}
+	</update>
+	<delete id="deleteQuestion" parameterType="question">
+	  DELETE FROM QUESTION WHERE QUESTION_ID = #{question_id}
+	</delete>
+</mapper>

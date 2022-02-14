@@ -6,7 +6,7 @@
 <mapper namespace="ItemMapper">
 	
 	<!-- 아이템 구매하기 -->
-	<select id="selectItemList" parameterType="ItemDTO" resultMap="ItemDTO">
+	<select id="selectItemList" parameterType="item" resultMap="item">
       <!-- <처럼 괄호인가 비교연산자인가 고민될때 문자열로 표시 ![CDATE ] 최신순으로 아이템 정렬 
       근데 이미지 여러개있는거중에 어떻게 하나만 가져옴? -->
         <![CDATA[
@@ -27,19 +27,10 @@
 	<select id="selectItemOptionList" parameterType="itemOption" resultType="itemOption">
     SELECT * FROM ITEM_OPTION WHERE ITEM_ID = #{item_id} AND AMOUNT NOT IN ('0')
   	</select>
-	<insert id="insertShoppingList" parameterType="shoppingList">
-    INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
-  	</insert>
-  	
-	<select id="selectQuestionList" parameterType="question" resultType="question">
-    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id} ORDER BY QUESTION_DATE
-  	</select>
-	<select id="selectQuestion" parameterType="question" resultType="question">
-    SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}
-  	</select>
-  	<insert id="insertQuestion" parameterType="question">
-    INSERT INTO QUESTION VALUES(QUESTION_ID_SEQ.NEXTVAL, #{item_id}, #{writer_id}, #{question_title}, #{question_content}, SYSDATE, '0', NULL, NULL, NULL)
-  </insert>
-	
-
+  	<select id="selectItem" parameterType="item" resultType="item">
+    SELECT * FROM ITEM WHERE ITEM_ID = #{item_id}
+	</select>
+ 	<select id="selectItemOption" parameterType="itemOption" resultType="itemOption">
+    SELECT * FROM ITEM_OPTION WHERE ITEM_OPTION_ID = #{item_option_id}
+	</select>
 </mapper>

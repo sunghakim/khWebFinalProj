@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ShoppingMapper">
+
+	<insert id="insertShoppingList" parameterType="shoppingList">
+		INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
+	</insert>
+	<select id="selectOneShopingList" parameterType="shoppingList" resultType="shoppingList">
+	    SELECT * FROM SHOPPING_LIST WHERE ACCOUNT_ID = #{account_id} AND ITEM_ID = #{item_id} AND ITEM_OPTION_ID = #{item_option_id} AND AMOUNT = #{amount}
+	</select>
+  	<select id="selectShoppingLists" parameterType="shoppingList" resultType="shoppingList">
+    	SELECT * FROM SHOPPING_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  	</select>
+  	<select id="selectShoppingListItem" parameterType="shoppingList" resultType="shoppingList">
+    	SELECT * FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+	</select>
+	<select id="selectShoppingListItemById" parameterType="int" resultType="shoppingList">
+    	SELECT * FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+	</select>
+	<insert id="insertShoppingList" parameterType="shoppingList">
+    	INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
+	</insert>
+	<update id="updateShoppingList" parameterType="shoppingList">
+    	UPDATE SHOPPING_LIST
+	    <trim prefix="SET" prefixOverrides=",">
+	    	<if test="amount != 0">
+	    		, AMOUNT = #{amount} 
+	    	</if>
+	    	<if test="item_option_id != 0">
+	    		, ITEM_OPTION_ID = #{item_option_id} 
+	    	</if>
+	    </trim>
+	    WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+	</update>
+	<delete id="deleteShoppingList" parameterType="shoppingList">
+    	DELETE FROM SHOPPING_LIST WHERE SHOPPING_LIST_ID = #{shopping_list_id}
+	</delete>
+	
+</mapper>

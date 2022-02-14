@@ -41,7 +41,7 @@
 	</delete>
 	
 	<!-- 신고 문의 -->
-  	<insert id="insertReport" parameterType="ReportVO"> 
+  	<insert id="insertReport" parameterType="report"> 
     	INSERT INTO REPORT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
   	</insert>
 	

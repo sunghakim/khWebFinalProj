@@ -9,37 +9,7 @@ import org.springframework.stereotype.Service;
 public class MyinfoService {
 	@Autowired
 	private MyinfoDAO dao;
-	
-	public List<ShoppingListVO> getCarts(ShoppingListVO vo) {
-		System.out.println("장바구니 실행됨!");
-		System.out.println(vo);
-		
-		return dao.selectShoppingList(vo);
-	}
-	public ItemDTO getItem(ItemDTO vo) {
-		return dao.selectItem(vo);
-	}
-	
-	public ItemOptionDTO getItemOption(ItemOptionDTO vo) {
-		return dao.selectItemOption(vo);
-	}
-	public boolean deleteCartItem(ShoppingListVO vo) {
-		if(dao.deleteShoppingList(vo) == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	public boolean updateCartItem(ShoppingListVO vo) {
-		if(dao.updateShoppingList(vo) == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
+
 	public List<ZzimListVO> getZzims(ZzimListVO vo) {
 		return dao.selectZzimList(vo);
 	}
@@ -58,44 +28,12 @@ public class MyinfoService {
 	public CouponVO getCouponInfo(CouponVO vo) {
 		return dao.selectCouponInfo(vo);
 	}
-	
-	public List<QuestionVO> getQuestions(QuestionVO vo) {
-		return dao.selectQuestionList(vo);
-	}
 	public List<ReportVO> getReportedUsers(ReportVO vo) {
 		return dao.selectReportedUsers(vo);
 	}
 	public List<ReportReasonVO> getReportReason() {
 		return dao.selectReportReason();
 	}
-	public boolean addQuestion(QuestionVO vo) {
-		if(dao.insertQuestion(vo) == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}	
-	}
-	public QuestionVO getOneQuestion(QuestionVO vo) {
-		return dao.getOneQuestion(vo);
-	}
-	public boolean updateQuestion(QuestionVO vo) {
-		if(dao.updateQuestion(vo) == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	public boolean deleteQuestion(QuestionVO vo) {
-		if(dao.deleteQuestion(vo) == 0) {
-			return false;
-		}
-		else {
-			return true;
-		}
-	}
-	
 	public List<SoldHistoryVO> getPayedDays(SoldHistoryVO vo) {
 		return dao.selectAllSoldHistory(vo);
 	}
@@ -116,4 +54,5 @@ public class MyinfoService {
 	public SoldDetailVO getOnePayedDetail(SoldDetailVO vo) {
 		return dao.selectOneSoldDetail(vo);
 	}
+	
 }

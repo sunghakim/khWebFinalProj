@@ -33,42 +33,11 @@ public class AccountController {
 	
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.GET)
 	public String jusoPopupGET() {
-		return "sunghatest/jusoPopup";
+		return "jusoApi/jusoPopup";
 	}
 	@RequestMapping(value="/jusoPopup", method=RequestMethod.POST)
 	public String jusoPopupPOST() {
-		return "sunghatest/jusoPopup";
-	}
-	@RequestMapping(value="/naverlogin", method=RequestMethod.GET)
-	public String naverlogin() {
-		return "sunghatest/naverlogin";
-	}
-	@RequestMapping(value="/callback", method=RequestMethod.GET)
-	public String naverlogincallback(String state, HttpSession session, Model model) {
-		// CSRF 방지를 위한 상태 토큰 검증 검증
-		// 세션 또는 별도의 저장 공간에 저장된 상태 토큰과 콜백으로 전달받은 state 파라미터의 값이 일치해야 함
-
-
-		// 콜백 응답에서 state 파라미터의 값을 가져옴
-		String state1 = state;
-
-
-		// 세션 또는 별도의 저장 공간에서 상태 토큰을 가져옴
-		String storedState = (String)session.getAttribute("state");
-
-		System.out.println("CALLBACK 까지 왔음");
-		if( !state1.equals( storedState ) ) {
-		    model.addAttribute("error_msg", "401 error"); //401 unauthorized
-		} else {
-			model.addAttribute("error_msg", "200 success"); //200 success
-			
-		}
-
-		return "sunghatest/callbackagain";
-	}
-	@RequestMapping(value="/googlelogin2", method=RequestMethod.GET)
-	public String googlelogin2GET() {
-		return "sunghatest/googlelogin2";
+		return "jusoApi/jusoPopup";
 	}
 	@RequestMapping(value="/google/auth", method=RequestMethod.POST)
 	public String googleLoginAuth(SocialAccountVO vo, String credential, Model model, HttpSession session) throws GeneralSecurityException, IOException {
@@ -97,13 +66,9 @@ public class AccountController {
 		  model.addAttribute("login_result","fail");
 		}
 			
-		return "sunghatest/googlelogin2";
+		return "index";
 	    
 	}//googleLogin
-	@RequestMapping(value="/kakaologin", method=RequestMethod.GET)
-	public String kakaologinGET() {
-		return "sunghatest/kakaologin";
-	}
 	@ResponseBody
 	@RequestMapping(value="/kakaologin/doing", method=RequestMethod.POST)
 	public Map<String, String> dokakaologin(SocialAccountVO vo, String id, String email, String nickname, HttpSession session, Model model) {
@@ -128,7 +93,7 @@ public class AccountController {
 				session.setAttribute("logined", true);
 				session.setAttribute("account", sameData);
 				session.setAttribute("usertype", "social");
-				return "sunghatest/main"; //로그인 요청한 위치로 이동 필요. redirect 할 것 재로그인 안하게
+				return "index"; //로그인 요청한 위치로 이동 필요. redirect 할 것 재로그인 안하게
 			}
 			else{
 				if(sameData.getLogin_type() == 1) {
@@ -142,7 +107,7 @@ public class AccountController {
 				}
 			}
 			model.addAttribute("isError", true);
-			return "redirect:/login";
+			return "redirect:/login";//모달창으로 어떻게 이동함?
 		}
 		else {
 			System.out.println("같은 정보의 사람이 없음. ");
@@ -153,87 +118,66 @@ public class AccountController {
 					session.setAttribute("logined", true);
 					session.setAttribute("account", data);
 					session.setAttribute("usertype", "social");
-					return "sunghatest/main"; //로그인 요청한 위치로 이동 필요.redirect 할 것 재로그인 안하게
+					return "index"; //로그인 요청한 위치로 이동 필요.redirect 할 것 재로그인 안하게
 				}
 				else {
 					System.out.println("login 실패");
 					model.addAttribute("error_msg", "로그인 오류. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
-					return "redirect:/login";
+					return "redirect:/login";//모달창으로 어떻게 이동함?
 				}
 			}
 			else {
 				System.out.println("join 실패");
 				model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
-				return "redirect:/login";
+				return "redirect:/login";//모달창으로 어떻게 이동함?
 			}
 		}
 	}
 	
-	@RequestMapping(value="/join", method=RequestMethod.GET) //모달창 띄움. get 없어도 됨
-	public String join() {
-		return "sunghatest/join";
-	}
-	@RequestMapping(value="/join", method=RequestMethod.POST) //모달창 띄움. 메인으로 이동.
-	public String join(AccountVO accountVo, String zipNo, Boolean reJoin, Model model) {
+	@RequestMapping(value="/join", method=RequestMethod.POST)
+	public String join(AccountVO accountVo, String zipNo, Model model) {
 		//관리자는 관리자 로그인 후 회원관리카테고리에서 관리자 회원가입 누를수 있는 버튼 추가. 일반회원은 일반 회원가입과 동일. 위치에 따라 userType 이 다르게 들어오도록 처리.
 		model.addAttribute("accountVO", accountVo);
 		AccountVO sameData = service.checkSameAccount(accountVo);
-		if(reJoin == null || reJoin == false) {
-			if(sameData != null) { //같은 사람이 있으면
-				System.out.println("이미 계정에 같은 정보의 사람이 있음");
-				if(sameData.getUser_type() == 1) {
-					model.addAttribute("isError", true);
-					model.addAttribute("error_msg", "회원으로 등록되어있습니다.");
-					return "redirect:/login";
-				}
-				else if(sameData.getUser_type() == 2) {
-					model.addAttribute("isError", true);
-					model.addAttribute("error_msg", "비회원으로 등록되어있습니다. 회원으로 등록하시겠습니까?");
-				}
-				else {
-					model.addAttribute("isError", true);
-					model.addAttribute("error_msg", "관리자로 등록되어있습니다. 회원으로 등록하시겠습니까?");
-				} //회원으로 등록하시겠습니까? -> attribute 상태에 따라서 y,n 확인 받는거 보이고 숨기게 하고 결과 처리
-				return "sunghatest/join"; //아직 정식으로 구현이나 테스트된것 없음. 추가 검토 필요
+		if(sameData != null) { //같은 사람이 있으면
+			System.out.println("이미 계정에 같은 정보의 사람이 있음");
+			if(sameData.getUser_type() == 1) {
+				model.addAttribute("isError", true);
+				model.addAttribute("error_msg", "회원으로 등록되어있습니다.");
+				return "redirect:/login"; //모달창 어떻게 띄움?
+			}
+			else if(sameData.getUser_type() == 2) {
+				model.addAttribute("isError", true);
+				model.addAttribute("error_msg", "비회원으로 등록되어있습니다.");
 			}
 			else {
-				System.out.println("같은 정보의 사람이 없음. ");
-				sameData = service.login(accountVo);
-				if(sameData != null) {
-					System.out.println("같은 아이디가 있음.");
-					model.addAttribute("error_msg", "데이터베이스에 같은 아이디의 계정이 있습니다.");
-					return "redirect:/join";
-				}
-				else {
-					accountVo.setAddress_no(zipNo);
-					if(service.join(accountVo)) {
-						return "redirect:/login"; //회원가입 완료 시 로그인 페이지로 이동
-					}
-					else {
-						System.out.println("join 실패");
-						model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-						return "redirect:/join";
-					}
-				}
+				model.addAttribute("isError", true);
+				model.addAttribute("error_msg", "관리자로 등록되어있습니다.");
 			}
+			return "redirect:/login"; //모달창 어떻게 띄움? -> 나중에 가능하면 y,n 입력받아서 회원으로 재등록할지 확인 후 처리
 		}
 		else {
-			accountVo.setUser_type(1); //일반 회원으로 변경해서 가입
-			if(service.join(accountVo)) {
-				return "redirect:/login"; //회원가입 완료 시 로그인 페이지로 이동
+			System.out.println("같은 정보의 사람이 없음. ");
+			sameData = service.login(accountVo);
+			if(sameData != null) {
+				System.out.println("같은 아이디가 있음.");
+				model.addAttribute("error_msg", "데이터베이스에 같은 아이디의 계정이 있습니다.");
+				return "redirect:/join"; //다시 join 창으로 돌아가기
 			}
 			else {
-				System.out.println("join 실패");
-				model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-				return "redirect:/join";
+				accountVo.setAddress_no(zipNo);
+				if(service.join(accountVo)) {
+					return "redirect:/login"; //회원가입 완료 시 로그인 페이지로 이동. 모달창 어떻게 띄움?
+				}
+				else {
+					System.out.println("join 실패");
+					model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
+					return "redirect:/join"; //다시 join 창으로 돌아가기 이전 데이터 가지고.
+				}
 			}
 		}
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.GET) //모달창 띄움. get 없어도 됨
-	public String login(HttpServletRequest request) {		
-		return "sunghatest/login";
-	}
 	@RequestMapping(value="/login", method=RequestMethod.POST)
 	public String login(AccountVO accountVo, HttpSession session, Model model) {
 		System.out.println(accountVo.getUser_type());
@@ -248,20 +192,20 @@ public class AccountController {
 				session.setAttribute("account", data);
 				session.setAttribute("usertype", "web");
 				
-				return "sunghatest/main"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.redirect 할 것 재로그인 안하게
+				return "index"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.redirect 할 것 재로그인 안하게
 			}
 			else {
 				model.addAttribute("accountVO", accountVo);
 				model.addAttribute("isError", true);
 				model.addAttribute("error_msg", "패스워드가 잘못되었습니다.");
 				session.setAttribute("id", accountVo.getAccount_id()); //돌아갔을때 아이디 그대로 써있도록
-				return "sunghatest/login";
+				return "sunghatest/login"; // -> 로그인페이지로 다시 이동. 모달창으로 어떻게 이동함?
 			}
 		}
 		else {
 			model.addAttribute("isError", true);
 			model.addAttribute("error_msg", "동일한 아이디가 없습니다.");
-			return "sunghatest/login";
+			return "sunghatest/login"; // -> 로그인 페이지로 다시 이동. 모달창으로 어떻게 이동함?
 		}
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
@@ -275,7 +219,7 @@ public class AccountController {
 		}
 		else {
 			System.out.println("logout 오류 발생");
-			return "redirect:/login"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.
+			return "redirect:/main"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.
 		}
 	}
 	@RequestMapping(value="/drop", method=RequestMethod.GET)
@@ -295,11 +239,11 @@ public class AccountController {
 	}
 	@RequestMapping(value="/findMyinfo", method=RequestMethod.GET)
 	public String myinfoPage() {
-		return "user/mypage/mypage"; //sunghatest/myinfo
+		return "user/mypage/mypage";
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.GET)
 	public String seeMyinfo() {
-		return "user/mypage/info"; //sunghatest/myinfodetail
+		return "user/mypage/info";
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.POST)
 	public String updateMyinfo(AccountVO accountVo, SocialAccountVO socialVo, HttpSession session) {
@@ -307,17 +251,17 @@ public class AccountController {
 			if(service.updateMyinfo(accountVo)) {
 				AccountVO data = service.login(accountVo);
 				session.setAttribute("account", data);
-				return "user/mypage/info"; //sunghatest/myinfodetail
+				return "user/mypage/info";
 			}
 		}
 		else {
 			if(service.updateMyinfo(socialVo)) {
 				SocialAccountVO data = service.login(socialVo);
 				session.setAttribute("account", data);
-				return "user/mypage/info"; //sunghatest/myinfodetail
+				return "user/mypage/info";
 			}
 		}
 		session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
-		return "user/mypage/info"; //sunghatest/myinfodetail
+		return "user/mypage/info";
 	}
 }

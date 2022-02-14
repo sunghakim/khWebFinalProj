@@ -50,7 +50,7 @@ function init(){
 		document.form.confmKey.value = confmKey;
 		document.form.returnUrl.value = url;
 		document.form.resultType.value = resultType; // resultType항목 추가(2016.10.06)
-		document.form.action="http://www.juso.go.kr/addrlink/addrLinkUrl.do"; // 인터넷망
+		document.form.action="https://www.juso.go.kr/addrlink/addrLinkUrl.do"; // 인터넷망
 		document.form.submit();
 	}else{
 		if(opener == null || opener == undefined) opener = window.open("", "jusoPopup");

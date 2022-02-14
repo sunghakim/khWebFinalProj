@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MyinfoMapper">
+  
+	<select id="selectZzimList" parameterType="zzim" resultType="zzim">
+    SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+	</select>
+	<delete id="deleteZzimItem" parameterType="zzim">
+    DELETE FROM ZZIM_LIST WHERE ZZIM_LIST_ID = #{zzim_list_id}
+	</delete>
+  <select id="selectGiveCouponList" parameterType="giveCoupon" resultType="giveCoupon">
+    SELECT * FROM GIVE_COUPON WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <select id="selectCouponInfo" parameterType="coupon" resultType="coupon">
+    SELECT * FROM COUPON WHERE COUPON_ID = #{coupon_id}
+  </select>
+  <select id="selectReports" parameterType="report" resultType="report">
+    SELECT * FROM REPORT WHERE REPORTER_ID = #{reporter_id} ORDER BY 1
+  </select>
+  
+  <select id="selectReportReason" resultType="reportReason">
+    SELECT * FROM REPORT_REASON ORDER BY 1
+  </select>
+  
+  <select id="selectAllSoldHistory" parameterType="soldHistory" resultType="soldHistory">
+    SELECT * FROM SOLD_HISTORY WHERE ACCOUNT_ID = #{account_id} ORDER BY 1
+  </select>
+  <select id="selectOneSoldHistory" parameterType="soldHistory" resultType="soldHistory">
+    SELECT * FROM SOLD_HISTORY WHERE SOLD_HISTORY_ID = #{sold_history_id}
+  </select>
+  <select id="selectAllSoldDetail" parameterType="soldDetail" resultType="soldDetail">
+    SELECT * FROM SOLD_DETAIL WHERE SOLD_HISTORY_ID = #{sold_history_id} ORDER BY 1
+  </select>
+  <select id="selectOneSoldDetail" parameterType="soldDetail" resultType="soldDetail">
+  	SELECT * FROM SOLD_DETAIL WHEER SOLD_DETAIL_ID = #{sold_detail_id}
+  </select>
+  <update id="updateRefund" parameterType="soldDetail">
+    UPDATE SOLD_DETAIL
+    <trim prefix="SET" prefixOverrides=",">
+    	<choose>
+	    	<when test="is_refund == 0">
+	    		, IS_REFUND = 1 
+	    	</when>
+	    	<otherwise>
+	    		, IS_REFUND = 0 
+	    	</otherwise>
+    	</choose>
+    </trim>
+    WHERE SOLD_DETAIL_ID = #{sold_detail_id}
+  </update>
+  
+</mapper>

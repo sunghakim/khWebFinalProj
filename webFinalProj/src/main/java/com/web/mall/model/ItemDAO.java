@@ -24,16 +24,10 @@ public class ItemDAO {
 	public List<ItemOptionDTO> selectItemOptions(ItemOptionDTO dto) {
 		return sqlSession.selectList("ItemMapper.selectItemOptionList", dto);
 	}
-	public int insertShoppingList(ShoppingListVO vo) {
-		return sqlSession.insert("ItemMapper.insertShoppingList", vo);
+	public ItemDTO selectItem(ItemDTO vo) {
+		return sqlSession.selectOne("ItemMapper.selectItem", vo);
 	}
-	public List<QuestionVO> selectQuestionList(QuestionVO vo) {
-		return sqlSession.selectList("ItemMapper.selectQuestionList", vo);
-	}
-	public QuestionVO selectQuestion(QuestionVO vo) {
-		return sqlSession.selectOne("ItemMapper.selectQuestion", vo);
-	}
-	public int insertQuestion(QuestionVO vo) {
-		return sqlSession.insert("ItemMapper.insertQuestion", vo);
+	public ItemOptionDTO selectItemOption(ItemOptionDTO vo) {
+		return sqlSession.selectOne("ItemMapper.selectItemOption", vo);
 	}
 }

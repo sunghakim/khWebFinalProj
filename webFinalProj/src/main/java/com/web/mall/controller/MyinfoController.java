@@ -3,6 +3,7 @@ package com.web.mall.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,16 +11,24 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.web.mall.model.AccountVO;
 import com.web.mall.model.CouponVO;
 import com.web.mall.model.GiveCouponVO;
 import com.web.mall.model.ItemOptionDTO;
+import com.web.mall.model.ItemService;
+import com.web.mall.model.Manage_ImageDTO;
+import com.web.mall.model.Manage_ImageService;
+import com.web.mall.model.Manage_S_Module;
 import com.web.mall.model.ItemDTO;
 import com.web.mall.model.MyinfoService;
+import com.web.mall.model.QuestionService;
 import com.web.mall.model.QuestionVO;
 import com.web.mall.model.ReportReasonVO;
 import com.web.mall.model.ReportVO;
+import com.web.mall.model.ShoppingListService;
 import com.web.mall.model.ShoppingListVO;
 import com.web.mall.model.SocialAccountVO;
 import com.web.mall.model.SoldDetailVO;
@@ -27,9 +36,23 @@ import com.web.mall.model.SoldHistoryVO;
 import com.web.mall.model.ZzimListVO;
 
 @Controller
-public class MyinfoController {
+@RequestMapping(value="/mypage")
+public class MyinfoController extends Manage_S_Module{
+	@Autowired
+	private Manage_ImageService imageService;
+	@Autowired
+	private ShoppingListService shoppingService;
+	@Autowired
+	private ItemService itemService;
+	@Autowired
+	private QuestionService questionService;
 	@Autowired
 	private MyinfoService service;
+	
+	@RequestMapping(value="/mypage", method=RequestMethod.GET) //마이페이지
+	public String myPage() {
+		return "user/mypage/mypage";
+	}
 	
 	@RequestMapping(value="/checkCarts", method=RequestMethod.GET) //장바구니
 	public String seeCarts(ShoppingListVO shop, ItemDTO item, ItemOptionDTO itemOp, HttpSession session, Model model) {
@@ -42,7 +65,7 @@ public class MyinfoController {
 			shop.setAccount_id(nowAcc.getSocial_account_id());
 		}
 		
-		List<ShoppingListVO> shoppingList = service.getCarts(shop);
+		List<ShoppingListVO> shoppingList = shoppingService.getCarts(shop);
 		model.addAttribute("shoppingList", shoppingList);
 		
 		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
@@ -51,44 +74,50 @@ public class MyinfoController {
 			item.setItem_id(shopping.getItem_id());
 			itemOp.setItem_option_id(shopping.getItem_option_id());
 			
-			ItemDTO getItem = service.getItem(item);
-			ItemOptionDTO getItemOption = service.getItemOption(itemOp);
+			ItemDTO getItem = itemService.getItem(item);
+			ItemOptionDTO getItemOption = itemService.getItemOption(itemOp);
 			itemList.add(getItem);
 			itemOptionList.add(getItemOption);
 		}
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("itemOptionList", itemOptionList);
 		
-		return "user/mypage/basket"; //sunghatest/cart
+		return "user/mypage/basket";
 	}
 	@RequestMapping(value="/deleteCartItem", method=RequestMethod.GET) //장바구니 물건 삭제
 	public String deleteCartItem(ShoppingListVO shop, Model model) {
 		//id 받아와야함
-		if(service.deleteCartItem(shop)) {
+		if(shoppingService.deleteCartItem(shop)) {
 		}
 		else {
 			System.out.println("장바구니 삭제 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 삭제되지 않았습니다.");
 		}
-		return "redirect:/checkCarts";
+		return "redirect:/mypage/checkCarts";
 	}
 	@RequestMapping(value="/updateCartItem", method=RequestMethod.GET) //장바구니 물건 수량변경
 	public String updateCartItem(ShoppingListVO shop, Model model) {
 		//id 받아와야함
-		if(service.updateCartItem(shop)) {
+		if(shoppingService.updateCartItem(shop)) {
 		}
 		else {
 			System.out.println("장바구니 수정 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 수정되지 않았습니다.");
 		}
-		return "redirect:/checkCarts";
+		return "redirect:/mypage/checkCarts";
 	}
 	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
-	
-	
-	
-	
-	
+	@RequestMapping(value="/BuyItem", method=RequestMethod.GET)
+	public String buyItem(List<Integer> shop, Model model, HttpSession session) {
+		//shopping_list_id 를 리스트로 받아와야함
+		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
+		for(Integer index: shop) {
+			list.add(shoppingService.getCartItem(index));
+		}
+		
+		model.addAttribute("shoppingList", list);
+		return "user/mypage/payment";
+	}
 	
 	
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)
@@ -109,12 +138,12 @@ public class MyinfoController {
 		for(ZzimListVO zzim1 : zzimList) {
 			item.setItem_id(zzim1.getItem_id());
 			
-			ItemDTO getItem = service.getItem(item);
+			ItemDTO getItem = itemService.getItem(item);
 			itemList.add(getItem);
 		}
 		model.addAttribute("itemList", itemList);
 		
-		return "user/mypage/like"; //sunghatest/zzim
+		return "user/mypage/like";
 	}
 	@RequestMapping(value="/deleteZzimItem", method=RequestMethod.GET)
 	public String deleteZzimItem(ZzimListVO zzim, Model model) {
@@ -128,7 +157,7 @@ public class MyinfoController {
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 삭제되지 않았습니다.");
 		}
 		
-		return "redirect:/checkZzim";
+		return "redirect:/mypage/checkZzim";
 	}
 	@RequestMapping(value="/checkCoupon", method=RequestMethod.GET)
 	public String seeCouponList(GiveCouponVO givenCoupon, CouponVO coupon, HttpSession session, Model model) {
@@ -153,7 +182,7 @@ public class MyinfoController {
 		}
 		model.addAttribute("couponInfo", couponInfo);
 		
-		return "user/mypage/coupon"; //sunghatest/coupon
+		return "user/mypage/coupon";
 	}
 	@RequestMapping(value="/checkReport", method=RequestMethod.GET)
 	public String seeReportedList(ReportVO report, HttpSession session, Model model) {
@@ -172,7 +201,7 @@ public class MyinfoController {
 		List<ReportReasonVO> reportReason = service.getReportReason();
 		model.addAttribute("reportReason", reportReason);
 		
-		return "user/mypage/report"; //sunghatest/reportlist
+		return "user/mypage/report";
 	}
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
 	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
@@ -185,67 +214,121 @@ public class MyinfoController {
 			question.setWriter_id(nowAcc.getSocial_account_id());
 		}
 		
-		List<QuestionVO> questionList = service.getQuestions(question);
+		List<QuestionVO> questionList = questionService.getWriterQuestions(question);
 		model.addAttribute("questionList", questionList);
 		
-		return "user/mypage/question"; //sunghatest/questionlist
+		return "user/mypage/question";
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.GET)
 	public String addQuestionform() {
-		return "user/mypage/questionWrite"; //sunghatest/addquestion
+		return "user/questionWrite";
 	}
 	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
-	public String addQuestion(QuestionVO questionVo, Model model) {
+	public String addQuestion(QuestionVO questionVo, Model model, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
+		//파일 추가 기능 추가
+		
 		model.addAttribute("questionVO", questionVo);
-		if(service.addQuestion(questionVo)) {
-			return "redirect:/checkQuestionList";
+		if(questionService.addQuestion(questionVo)) {
+			if (file[0].getOriginalFilename() != "") { //파일 있음.
+				int ReferencesID = questionVo.getQuestion_id();
+				
+				//전달받은 정보로 DB에 저장할 DTO목록 생성
+				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+				
+				//DB에 이미지 정보 저장
+				if (imageService.insertList(ImageList)) {
+					
+					//서버에 이미지 저장(이클립스 테스트환경이 아닌 실제 톰캣 경로에 저장된다.)
+					saveImages(ImageList);
+					return "redirect:/mypage/checkQuestionList";
+				}
+				else {
+					System.out.println("이미지 등록 실패");
+					model.addAttribute("error_msg", "이미지가 데이터베이스에 정상적으로 저장되지 않았습니다.");
+					return "user/questionWrite";
+				}
+			}
+			else {
+				return "redirect:/mypage/checkQuestionList";
+			}
 		}
 		else {
 			System.out.println("문의 등록 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "user/mypage/questionWrite"; //sunghatest/addquestion
+			return "user/questionWrite";
 		}
 	}
 	//
 	@RequestMapping(value="/checkQuestion", method=RequestMethod.GET)
 	public String seeQuestion(QuestionVO questionVo, Model model) {
-		QuestionVO question = service.getOneQuestion(questionVo);
+		QuestionVO question = questionService.getOneQuestion(questionVo);
 		model.addAttribute("question", question);
 		
-		return "user/mypage/questionPost"; //문의상세페이지
+		List<Manage_ImageDTO> questionImageList = selectImageList(questionVo.getQuestion_id(), "QUESTION");
+		model.addAttribute("questionImageList", questionImageList);
+		
+		return "user/questionPost";
 	}
 	//
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.GET)
 	public String updateQuestionForm(QuestionVO questionVo, Model model) {
 		//id 받아와야함
-		QuestionVO question = service.getOneQuestion(questionVo);
+		QuestionVO question = questionService.getOneQuestion(questionVo);
 		model.addAttribute("questionVo", question);
 		
-		return "user/mypage/questionWrite"; //sunghatest/addquestion
+		List<Manage_ImageDTO> questionImageList = selectImageList(questionVo.getQuestion_id(), "QUESTION");
+		model.addAttribute("questionImageList", questionImageList);
+		
+		return "user/questionWrite";
 	}
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.POST)
-	public String updateQuestion(QuestionVO questionVo, Model model) {
+	public String updateQuestion(QuestionVO questionVo, Model model, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
 		//id 받아와야함
+		
 		model.addAttribute("questionVO", questionVo);
-		if(service.updateQuestion(questionVo)) {
-			return "redirect:/checkQuestionList";
+		if(questionService.updateQuestion(questionVo)) {
+			if (file[0].getOriginalFilename() != "") { //파일 있음.
+				int ReferencesID = questionVo.getQuestion_id();
+				
+				//전달받은 정보로 DB에 저장할 DTO목록 생성
+				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+				
+				//DB에 이미지 정보 저장
+				if (imageService.insertList(ImageList)) {
+					
+					//서버에 이미지 저장(이클립스 테스트환경이 아닌 실제 톰캣 경로에 저장된다.)
+					saveImages(ImageList);
+					return "redirect:/mypage/checkQuestionList";
+				}
+				else {
+					System.out.println("이미지 등록 실패");
+					model.addAttribute("error_msg", "이미지가 데이터베이스에 정상적으로 저장되지 않았습니다.");
+					return "user/questionWrite";
+				}
+			}
+			else {
+				return "redirect:/mypage/checkQuestionList";
+			}
 		}
 		else {
 			System.out.println("문의 수정 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "user/mypage/questionWrite"; //sunghatest/addquestion
+			return "user/questionWrite";
 		}
 	}
 	@RequestMapping(value="/deleteQuestion", method=RequestMethod.GET)
-	public String deleteQuestion(QuestionVO questionVo, Model model) {
+	public String deleteQuestion(QuestionVO questionVo, Manage_ImageDTO dto, Model model) throws Exception {
 		//id 받아와야함
-		if(service.deleteQuestion(questionVo)) {
-			return "redirect:/checkQuestionList"; 
+		dto.setIDType("QUESTION");
+		dto.setReferencesID(questionVo.getQuestion_id());
+		
+		if(questionService.deleteQuestion(questionVo, dto)) {
+			return "redirect:/mypage/checkQuestionList"; 
 		}
 		else {
 			System.out.println("문의 삭제 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "redirect:/checkQuestionList"; 
+			return "redirect:/mypage/checkQuestionList"; 
 		}
 	}
 	@RequestMapping(value="/checkPayedList", method=RequestMethod.GET)
@@ -274,7 +357,7 @@ public class MyinfoController {
 		model.addAttribute("detailList", soldDetail);
 		model.addAttribute("detailNumber", numberOfDetail);
 		
-		return "user/mypage/history"; //sunghatest/payedlist
+		return "user/mypage/history";
 	}
 	@RequestMapping(value="/checkPayed", method=RequestMethod.GET)
 	public String seePayedDay(SoldDetailVO detailVo, Model model) {
@@ -321,5 +404,8 @@ public class MyinfoController {
 		}
 		
 		return ""; //배송버튼 누르고나서 띄울 페이지
+	}
+	public List<Manage_ImageDTO> selectImageList(int id, String type) {
+		return imageService.selectList(id, type);
 	}
 }

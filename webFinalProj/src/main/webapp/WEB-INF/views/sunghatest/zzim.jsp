@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="com.web.mall.model.ZzimListVO" %>
-<%@page import="com.web.mall.model.ItemVO" %>
+<%@page import="com.web.mall.model.ItemDTO" %>
 <%@page import="java.util.List" %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
 	${error_msg}
 	<% 
 	List<ZzimListVO> zzimlist = (List<ZzimListVO>)request.getAttribute("zzimList");
-	List<ItemVO> itemlist = (List<ItemVO>)request.getAttribute("itemList");
+	List<ItemDTO> itemlist = (List<ItemDTO>)request.getAttribute("itemList");
 	for(int i = 0; i < zzimlist.size(); i++) { %>
 		<div>
 			zzim_list_id : <%= zzimlist.get(i).getZzim_list_id() %>
