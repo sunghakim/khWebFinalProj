@@ -11,25 +11,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.KSW_PurchaseService;
 import com.web.mall.model.Manage_ItemService;
+import com.web.mall.model.Manage_SoldHistoryDTO;
 import com.web.mall.model.ShoppingListVO;
 
 @Controller
 public class KSW_PurchaseController extends Manage_C_Module {
 	
 	@Autowired
-	Manage_ItemService ItemService;
+	KSW_PurchaseService Service;
 	
 	@RequestMapping(value = "/user/mypage/payment", method = RequestMethod.GET)
-	public ModelAndView Purchase(ModelAndView mv, HttpSession session, HttpServletRequest reqeust, List<ShoppingListVO> List) {
+	public ModelAndView Purchase(ModelAndView mv, HttpSession session, HttpServletRequest reqeust, List<ShoppingListVO> List) throws Exception {
 		if (session.getAttribute("account") != null) {
-			/* input hidden 태그로 값 넘겨받기
-			 * 1. 파라미터로 넘어온 구매 데이터를 가져오기
-			 * 2. SHOPPING_LIST db에서 해당 데이터 삭제
+			/* 1. input hidden 태그로 값 넘겨받기
+			 * 2. 파라미터로 넘어온 구매 데이터를 가져오기
 			 * 3. SOLD_HISTORY db에 주문내역 추가
 			 * 4. SOLD_DETAIL db에 결제내역 추가
-			 * 5. 외부 결제 api 사용하는 방법 알아보기
+			 * 5. SHOPPING_LIST db에서 해당 데이터 삭제
+			 * 6. 외부 결제 api 사용하는 방법 알아보기
 			 */
+			Service.purchase(List);
 			
 		} else {
 			//로그인 페이지로 연결

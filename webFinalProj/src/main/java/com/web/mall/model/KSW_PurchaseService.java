@@ -11,21 +11,30 @@ public class KSW_PurchaseService extends Manage_S_Module {
 	
 	@Autowired
 	KSW_PurchaseDAO dao;
-	
-	public int selectTotalPageCount() {
-		return PostCountToPageCount(dao.selectTotalCount());
-	}
-	
-	public List<Manage_AccountDTO> selectList(int Page) {
-		return dao.selectList(Page);
-	}
-	
+
 	@Transactional(rollbackFor=Exception.class)
-	public boolean delete(String ID) throws Exception{
-		if (dao.delete(ID) == 1) {
-			return true;
-		} else {
-			throw new Exception("계정 탈퇴 처리중 문제발생");
+	public void purchase(List<ShoppingListVO> list) throws Exception{
+		for (ShoppingListVO vo :list) {
+			//1. SOLD_HISTORY db에 주문내역 추가
+			
+			
+			//2. SOLD_DETAIL db에 결제내역 추가
+			
+			
+			//3. SHOPPING_LIST db에서 해당 데이터 삭제
+			
+			
+			//4. 외부 결제 api 사용하는 방법 알아보기
+			
+			
+			vo.getShopping_list_id();
+			vo.getAccount_id();
+			vo.getItem_id();
+			vo.getItem_option_id();
+			vo.getAmount();
+//			if() {
+//				Manage_SoldHistoryDTO dto = new Manage_SoldHistoryDTO();
+//			}
 		}
 	}
 }
