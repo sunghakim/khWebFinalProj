@@ -18,12 +18,11 @@ public class PostService {
 	}
 
 	// 게시글 추가하기위해 값 넣기
-	public boolean setPost(String title, String content ,String writer_id, int board_id, String file_name, String file_url) {
+	public boolean setPost(String title, String content ,String writer_id, String file_name, String file_url) {
 		PostDTO data = new PostDTO();
 		data.setTitle(title);
 		data.setContent(content);
 		data.setWriter_id(writer_id);
-		data.setBoard_id(board_id);
 		data.setFile_name(file_name);
 		data.setFile_url(file_url);
 		int result = dao.insertPost(data);

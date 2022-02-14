@@ -36,41 +36,40 @@ public class PostController {
 		model.addAttribute("datas", datas);
 		System.out.println(datas);
 		//viewResolver가 가져감 ->/WEB-INF/views/ + post + .jsp
-		return "postList";
+		return "user/community/detail";
 	}
 	
 	//게시글 추가
 	@RequestMapping(value="/add", method=RequestMethod.GET)
 	public String postAdd(){
-		return "postAdd";
+		return "user/community/write";
 	}
 	
-	//게시글 추가 매개변수 넣기
+	//게시글 추가 (제목, 내용, 이미지파일)
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String postAdd(int board_id, String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
+	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
 		UUID id = UUID.randomUUID();
 		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴
 		
-		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정
+		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정 url
 		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
-		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1];
+		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1]; //확장자 
 		
 		
 		
 		while(saveFile.exists()) {	//uuid로 파일 저장
 			UUIDGenerator uuid = new UUIDGenerator();
-			id = uuid.generateId(fileUpload.getOriginalFilename()); //파일 네임 여기서 생성해준게 uuid 
+			id = uuid.generateId(fileUpload.getOriginalFilename()); //파일 이름이고 확장자 전까지임. 
 			saveFile = new File(path, id.toString() + ext );
 		}
 		fileUpload.transferTo(saveFile);
 		
-		boolean result = service.setPost(title, content, nowAcc.getAccount_id()
-				, board_id, id.toString() + ext , "/resources/images");
+		boolean result = service.setPost(title, content, nowAcc.getAccount_id(), id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임 
 		
 		if(result) {
 		 	return "redirect:/board";
 		 }
-		return "postAdd";
+		return "user/community/write";
 	}
 	
 	
@@ -89,7 +88,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/post/post_id=" + post_id;
 		}
-		return "postUpdate";
+		return "user/community/write";
 	}
 		
 	//게시글 삭제 요청
@@ -99,7 +98,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/post/post_id=" + post_id;
 		}
-		return "postDelete";
+		return "user/community/list";
 	}
 		
 	//게시글 좋아요 요청
@@ -109,7 +108,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/post";
 		}
-		return "postGood";
+		return "user/community/list";
 	}
 	//게시글 좋아요 두번 요청(좋아요 다시 누를때)
 	@RequestMapping(value="/dislike", method = RequestMethod.GET)
@@ -118,7 +117,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/post";
 		}
-		return "postDislike";
+		return "user/community/list";
 	}
 	
 	//선택한 게시글의 댓글 조회
@@ -126,13 +125,13 @@ public class PostController {
 	public String comments(Model model, int post_id) {
 			List<CommentsDTO> datas = service.getComments(post_id);
 			model.addAttribute("datas", datas);
-			return "postComments";
+			return "user/community/comment";
 	}
 	
 	//댓글 추가 요청
 	@RequestMapping(value="/comments/add", method=RequestMethod.GET)
 	public String commentsAdd(){
-		return "postCommentsAdd";
+		return "user/community/comment";
 	}
 	
 	//댓글 추가 매개변수 넣기
@@ -144,7 +143,7 @@ public class PostController {
 		 if(result) {
 		 	return "redirect:/comments";
 		 }
-		return "postCommentsAdd";
+		return "user/community/comment";
 	}
 	
 	//댓글 수정전의 정보 불러오기
@@ -162,7 +161,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/comments/comment_id=" + comment_id;
 		}
-		return "commentUpdate";
+		return "user/community/comment";
 	}
 			
 	//댓글 삭제 요청
@@ -172,7 +171,7 @@ public class PostController {
 		if(result) {
 			return "redirect:/comments/comment_id=" + comment_id;
 		}
-		return "commentsDelete";
+		return "user/community/comment";
 	}
 	
 }

@@ -5,7 +5,7 @@
 
 <mapper namespace="BoardMapper">
 	
-	<!-- 선택한 게시판의 리스트 출력 -->
+	<!-- 일반 유저가 사용하는 게시판(board_id=1)의 최신 리스트 출력 -->
 	<select id ="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT * FROM (
 		  SELECT ROWNUM RNUM, TB.POST_ID,TB.TITLE, TB.WRITER_ID, TB.GOOD_NUMBER,TB.POSTING_DATE FROM(
@@ -14,16 +14,18 @@
 		  	ORDER BY POST_ID DESC )TB
 	  	)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
 	</select>
+	
 
-	<!-- 선택한 게시판의 좋아요 높은 리스트 출력 -->
+	<!-- 일반 유저가 사용하는 게시판의 좋아요 높은 리스트 출력 -->
 	<select id ="selectGoodBoardList" parameterType="BoardDTO" resultType="BoardDTO">
 		SELECT * FROM (
 		  SELECT ROWNUM RNUM, TB.POST_ID,TB.TITLE, TB.WRITER_ID, TB.GOOD_NUMBER,TB.POSTING_DATE FROM(
 		  	SELECT * FROM POST PO JOIN BOARD BO ON (PO.BOARD_ID = BO.BOARD_ID)
-		  	WHERE PO.BOARD_ID = #{board_id}
+		  	WHERE PO.BOARD_ID = '1'
 		  	ORDER BY GOOD_NUMBER DESC) TB
 		)WHERE RNUM BETWEEN ((#{page_num} - 1) * 8 + 1) AND (#{page_num} * 8) 
 	</select>
+	
 </mapper>
 
 

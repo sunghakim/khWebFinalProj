@@ -16,7 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/"/>
 
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<beans:property name="prefix" value="/WEB-INF/views/jinitest/"/> <!-- 테스트용으로 해놨음 "/WEB-INF/views/" -->
+		<beans:property name="prefix" value="/WEB-INF/views/"/> <!-- 테스트용으로 해놨음 "/WEB-INF/views/" -->
 		<beans:property name="suffix" value=".jsp"/>
 		<beans:property name="order" value="1"/>
 	</beans:bean>
