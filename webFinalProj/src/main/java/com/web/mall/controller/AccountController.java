@@ -179,7 +179,7 @@ public class AccountController {
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.POST)
-	public String login(AccountVO accountVo, HttpSession session, Model model) {
+	public String login(AccountVO accountVo, HttpSession session, Model model, HttpServletRequest request) {
 		System.out.println(accountVo.getUser_type());
 		if(accountVo.getUser_type() == 2) {
 			accountVo.setAccount_id(accountVo.getEmail());
@@ -191,7 +191,11 @@ public class AccountController {
 				session.setAttribute("logined", true);
 				session.setAttribute("account", data);
 				session.setAttribute("usertype", "web");
-				
+				//이전페이지 테스트
+				String referer = request.getHeader("Referer");
+				session.setAttribute("redirectURI", referer);
+				System.out.println("referer : " + referer);
+				System.out.println(session.getAttribute("redirectURI"));
 				return "index"; //메인페이지가 아니라 이전페이지로 이동하도록 수정 필요.redirect 할 것 재로그인 안하게
 			}
 			else {
