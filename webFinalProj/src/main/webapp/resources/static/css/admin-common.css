@@ -18,8 +18,8 @@
     display: block !important;
 }
 
-#logout, #noMember-logout {
-	display: none;
+#logout {
+	font-size: 16px;
 }
 
 .article-wrap li {

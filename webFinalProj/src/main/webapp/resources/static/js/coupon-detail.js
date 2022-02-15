@@ -1,5 +1,5 @@
 $('.back').click(() => {
-    $(location).attr('href', 'coupon-list.html');
+    $(location).attr('href', '/Manager_test/Coupon');
 })
 
 $(document).ready(function () {

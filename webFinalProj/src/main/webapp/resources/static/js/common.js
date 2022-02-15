@@ -269,6 +269,16 @@ $('#non-member-login').click(() => {
     $('#noMember-login-modal').show();
 })
 
+$('#login-name').focusout(() => {
+    let inputName = $('#login-name').val();
+
+    if(inputName == '') {
+        $('#login-name-null').show();
+    } else {
+        $('#login-name-null').show();
+    }
+})
+
 $('#login-phone').click(() => {
     $('.login-alert').hide();
     $('#login-phone-form').show();
@@ -311,21 +321,26 @@ $('#login-check-pwd').focusout(() => {
 $('#noMember-login-submit').click((e) => {
     let inputPhone = $('#login-phone').val();
     let inputPwd = $('#login-check-pwd').val();
+    let inputName = $('#login-name').val();
 
 	console.log(inputPhone);
 	console.log(inputPwd);
 
-    if (inputPhone == '' && inputPwd == '') {
+    if (inputPhone == '' && inputPwd == '' && inputName == '') {
         e.preventDefault();
         $('#login-phone-null').show();
         $('#login-chkPwd-null').show();
+        $('#login-name-null').show();
     } else if (inputPhone == '') {
         e.preventDefault();
         $('#login-phone-null').show();
     } else if (inputPwd == '') {
         e.preventDefault();
         $('#login-chkPwd-null').show();
-    } else {
+    } else if (inputName == '') {
+        e.preventDefault();
+        $('#login-name-null').show();
+    }else {
         $('#join').hide();
         $('#member-login').hide();
         $('#non-member-login').hide();
@@ -427,9 +442,6 @@ $('#change').click(() => {
 })
 
 // 이동
-// $('#admin-change').click(() => {
-//     $(location).attr('href', 'user.html');
-// })
 
 $('#noMember-logout').click(() => {
 	$(location).attr('href', '/logout');
@@ -443,66 +455,52 @@ $('#change').click(() => {
 	$(location).attr('href', '/logout');	
 })
 
+$('#admin-nav-1').click(() => {
+	$(location).attr('href', '/Manager_test/Account');
+})
+
 $('#admin-nav-2').click(() => {
-/*	console.log(123);*/
 	$(location).attr('href', '/Manager_test/Report');
 })
 
-/*$('#change').click(() => {
-    $(location).attr('href', 'index.html');
-})
-
-$('#admin-nav-1').click(() => {
-    $(location).attr('href', 'user.html');
-})
-
-$('#admin-nav-2').click(() => {
-    $(location).attr('href', 'report.html');
-})
-
 $('#admin-nav-3').click(() => {
-    $(location).attr('href', 'product-list.html');
+	$(location).attr('href', '/Manager_test/Item');
 })
 
 $('#sub-1').click(() => {
-    $(location).attr('href', 'product-list.html');
+	console.log(12334);
+	$(location).attr('href', '/Manager_test/Item');
 })
 
 $('#sub-2').click(() => {
-    $(location).attr('href', 'category.html');
+	$(location).attr('href', '/Manager_test/ItemCategory');
 })
 
 $('#sub-3').click(() => {
-    $(location).attr('href', 'statistics.html');
+	$(location).attr('href', '/Manager_test/Statistics');
 })
 
 $('#sub-4').click(() => {
-    $(location).attr('href', 'coupon-list.html');
+	$(location).attr('href', '/Manager_test/Coupon');
 })
 
 $('#sub-5').click(() => {
-    $(location).attr('href', 'contact-list.html');
+	$(location).attr('href', '/Manager_test/Question');
 })
 
 $('#sub-6').click(() => {
-    $(location).attr('href', 'repond.html');
+	$(location).attr('href', '/Manager_test/Refund');
 })
 
 $('#sub-7').click(() => {
-    $(location).attr('href', 'notice-list.html');
-})*/
+	$(location).attr('href', '/Manager_test/Notice');
+})
 
 // 카테고리 이벤트
 for (let i = 1; i <= $('.user-nav li').length; i++) {
     $('#user-nav-' + i).click(() => {
         $('.user-nav li').removeClass('click-color');
         $('#user-nav-' + i).addClass('click-color');
-        $(".article-wrap").load("/item/list?item_category_id=" + i);
-        $(".article-wrap").css("flex-direction", "column");
-        $(".article-container").css("padding-top", "10px");
-        
-        
-        //$(".article-wrap").hide();
     })
 }
 
@@ -589,4 +587,14 @@ $('#address-num-btn').click((e) => {
 
 $('.overlap-check').click((e) => {
     e.preventDefault();
+})
+
+// 토글
+$('#admin-nav-3').click(() => {
+    $('.admin-nav-sub').slideToggle();
+    $('.admin-nav-sub').addClass('click-bg');
+    $('#sub-1').addClass('click-font');
+
+    $('#admin-nav-3 .fas').removeClass('fa-chevron-circle-right');
+    $('#admin-nav-3 .fas').addClass('fa-chevron-circle-down');
 })

@@ -1,5 +1,5 @@
 $('.stats').click(() => {
-    $(location).attr('href', 'statistics.html');
+    $(location).attr('href', '/Manager_test/Statistics');
 })
 
 $(document).ready(function () {

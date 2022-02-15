@@ -1,5 +1,10 @@
 $('.back').click(() => {
-    $(location).attr('href', 'contact-list.html');
+    $(location).attr('href', '/Manager_test/Question');
+})
+
+$('.cancel').click(() => {
+	e.preventDefault();
+    $(location).attr('href', '/Manager_test/Question');
 })
 
 $(document).ready(function () {

@@ -1,6 +1,6 @@
-$('.regist').click(() => {
+/*$('.regist').click(() => {
     $(location).attr('href', 'product-detail.html');
-})
+})*/
 
 $(document).ready(function () {
     $('.admin-nav-sub').slideToggle();

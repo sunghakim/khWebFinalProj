@@ -1,11 +1,11 @@
-.article-container {
+/* .article-container {
     position: relative;
-}
+} */
 
 .btns {
-    position: absolute;
-    margin-top: -50px;
-    right: 20px;
+    /* position: absolute; */
+    margin-top: -80px;
+    margin-left: 900px;
 }
 
 .btn {
