@@ -3,10 +3,7 @@
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
-<html lang="en">
-
-    <!DOCTYPE html>
-    <html lang="en">
+    <html>
     
     <head>
         <meta charset="UTF-8">
@@ -17,9 +14,20 @@
         <link rel="stylesheet" href="/resources/static/css/index.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://accounts.google.com/gsi/client" async defer></script>
+        <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script>
             Kakao.init('7d314791f1c38113b612f034c9d3f42f');
             console.log(Kakao.isInitialized());
+            
+            document.domain = "localhost";
+         
+            /** API 서비스 제공항목 확대 (2017.02) **/
+        	function jusoCallBack(roadFullAddr,zipNo){
+        		// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
+        		console.log(roadFullAddr);
+        		document.form.roadFullAddr.value = roadFullAddr;
+        		document.form.zipNo.value = zipNo;
+        	}
         </script>
         <title>kh Final main</title>
         <!-- 메인 페이지 -->
@@ -31,7 +39,7 @@
         <div class="join-modal modal-back" id="join-modal">
             <div style="display: block;" class="join-modal modal-front">
                 <p class="title">J O I N</p>
-                <form method="post" action="/join">
+                <form id="form" name="form" method="post" action="/join">
                     <div class="radio-box">
                         <input type="radio" value="0" class="size-radio" id="admin" name="user_type"><label
                             for="admin">관리자</label>
@@ -96,9 +104,10 @@
                         </div>
                     </div>
                     <div class="join-address">
-                        <button class="btn" id="address-num-btn">우편번호</button>
-                        <input style="width: 210px" type="text" name="address_no" placeholder="우편번호" id="join-address-number">
-                        <input type="text" id="join-address-text" placeholder="주소" name="address">
+                    	<input type="hidden" id="confmKey" name="confmKey" value="">
+                    	<button type="button" class="btn" id="address-num-btn">우편번호</button>
+                        <input style="width: 210px" type="text" name="zipNo" placeholder="우편번호" id="zipNo">
+                        <input type="text" id="roadFullAddr" placeholder="주소" name="address" >
                         <div class="join-text text">
                             <div class="join-alert" id="join-address-num-null">우편번호를 확인하세요.</div>
                             <div class="join-alert" id="join-address-null">주소를 입력해주세요.</div>

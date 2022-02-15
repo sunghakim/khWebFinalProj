@@ -442,6 +442,9 @@ $('#change').click(() => {
 })
 
 // 이동
+$('#cart').click(() => {
+	$(location).attr('href', '/mypage');	
+})
 
 $('#noMember-logout').click(() => {
 	$(location).attr('href', '/logout');
@@ -582,7 +585,9 @@ function loginWithKakao() {
 
 // 버튼
 $('#address-num-btn').click((e) => {
-    e.preventDefault();
+    window.name = "jusoPopup";
+    var pop = window.open("/jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes");   
+        	
 })
 
 $('.overlap-check').click((e) => {

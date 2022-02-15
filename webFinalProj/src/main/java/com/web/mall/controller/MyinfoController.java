@@ -55,12 +55,7 @@ public class MyinfoController extends Manage_S_Module{
 	
 	@Resource(name="uploadPath")
     String uploadPath;
-	
-	@RequestMapping(value="/mypage", method=RequestMethod.GET) //마이페이지
-	public String myPage() {
-		return "user/mypage/mypage";
-	}
-	
+		
 	@RequestMapping(value="/checkCarts", method=RequestMethod.GET) //장바구니
 	public String seeCarts(ShoppingListVO shop, ItemDTO item, ItemOptionDTO itemOp, HttpSession session, Model model) {
 		if(session.getAttribute("usertype").equals("web")) {
