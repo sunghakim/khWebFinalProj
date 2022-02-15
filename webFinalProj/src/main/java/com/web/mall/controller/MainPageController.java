@@ -15,10 +15,7 @@ import com.web.mall.model.Manage_ItemDTO;
 import com.web.mall.model.Manage_ItemService;
 
 @Controller
-public class KSW_MainPageController extends Manage_C_Module {
-	
-	
-	
+public class MainPageController extends Manage_C_Module {
 	@Autowired
 	Manage_ItemService ItemService;
 	
@@ -30,21 +27,6 @@ public class KSW_MainPageController extends Manage_C_Module {
 		List<Manage_ItemDTO> ItemList = ItemService.selectMainPageItemList();
 		mv.addObject("ItemList", ItemList);
 		mv.setViewName("index");
-		return mv;
-	}
-	
-	//관리자 메인페이지
-	@RequestMapping(value = "/Manager_test", method = RequestMethod.GET)
-	public ModelAndView ManagerHome(ModelAndView mv, HttpSession session) {
-		//로그인 세션이 없을 경우 테스트용 관리자 세션 생성
-		if (session.getAttribute("account") == null) {
-			Manage_AccountDTO dto = new Manage_AccountDTO();
-			dto.setAccountID("tester");
-			dto.setUserType(0);
-			session.setAttribute("account", dto);
-			System.out.println("임시 관리자 세션 발급 성공");
-		}
-		mv.setViewName("Manager_test/Home");
 		return mv;
 	}
 }

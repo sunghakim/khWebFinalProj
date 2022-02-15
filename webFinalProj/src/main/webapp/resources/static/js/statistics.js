@@ -38,7 +38,7 @@ var chart = new Chart(ctx, {
 */
 
 $('.list').click(() => {
-    $(location).attr('href', '/Manager_test/SoldHistory');
+    $(location).attr('href', '/Manager/SoldHistory');
 })
 
 

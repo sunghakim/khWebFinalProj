@@ -21,7 +21,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 	Manage_QuestionService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Question";
+	private final String URL = "/Manager/Question";
 	
 	//문의 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)

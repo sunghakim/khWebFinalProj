@@ -459,44 +459,43 @@ $('#change').click(() => {
 })
 
 $('#admin-nav-1').click(() => {
-	$(location).attr('href', '/Manager_test/Account');
+	$(location).attr('href', '/Manager/Account');
 })
 
 $('#admin-nav-2').click(() => {
-	$(location).attr('href', '/Manager_test/Report');
+	$(location).attr('href', '/Manager/Report');
 })
 
 $('#admin-nav-3').click(() => {
-	$(location).attr('href', '/Manager_test/Item');
+	$(location).attr('href', '/Manager/Item');
 })
 
 $('#sub-1').click(() => {
-	console.log(12334);
-	$(location).attr('href', '/Manager_test/Item');
+	$(location).attr('href', '/Manager/Item');
 })
 
 $('#sub-2').click(() => {
-	$(location).attr('href', '/Manager_test/ItemCategory');
+	$(location).attr('href', '/Manager/ItemCategory');
 })
 
 $('#sub-3').click(() => {
-	$(location).attr('href', '/Manager_test/Statistics');
+	$(location).attr('href', '/Manager/Statistics');
 })
 
 $('#sub-4').click(() => {
-	$(location).attr('href', '/Manager_test/Coupon');
+	$(location).attr('href', '/Manager/Coupon');
 })
 
 $('#sub-5').click(() => {
-	$(location).attr('href', '/Manager_test/Question');
+	$(location).attr('href', '/Manager/Question');
 })
 
 $('#sub-6').click(() => {
-	$(location).attr('href', '/Manager_test/Refund');
+	$(location).attr('href', '/Manager/Refund');
 })
 
 $('#sub-7').click(() => {
-	$(location).attr('href', '/Manager_test/Notice');
+	$(location).attr('href', '/Manager/Notice');
 })
 
 // 카테고리 이벤트

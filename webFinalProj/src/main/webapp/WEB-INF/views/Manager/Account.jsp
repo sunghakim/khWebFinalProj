@@ -128,7 +128,6 @@
 							<li>우편번호</li>
 							<li>닉네임</li>
 							<li>가입일</li>
-							<li>기능</li>
                         </ul>
                         <div class="line"></div>
                         <c:forEach items="${List}" var="List" >
@@ -141,8 +140,7 @@
 								<li>${List.getAddress()}</li>
 								<li>${List.getAddressNumber()}</li>
 								<li>${List.getNickName()}</li>
-								<li><fmt:formatDate var="formatRegDate" value="${List.getJoinDateStr()}" pattern="yy-MM-dd"/>${formatRegDate}</li>
-								<li><a href="${pageType}/Delete?ID=${List.getAccountID()}" class="cancel">&nbsp;탈퇴처리&nbsp;</a></li>
+								<li>${List.getJoinDateStr()}</li>
 	                        </ul>
                         </c:forEach>
                     </div>

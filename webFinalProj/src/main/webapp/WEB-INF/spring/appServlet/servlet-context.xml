@@ -25,7 +25,7 @@
 	<context:component-scan base-package="com.web.mall.*"/>
 	
 	<!-- 마이바티스 -->
-	<context:property-placeholder location="file:///D:/eclipse/KHFinalProject/Final_connection.prop"/>
+	<context:property-placeholder location="file:///C:/Users/Coder/Final_connection.prop"/>
 	
 	<beans:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<beans:property name="driverClassName" value="${driver}"/>

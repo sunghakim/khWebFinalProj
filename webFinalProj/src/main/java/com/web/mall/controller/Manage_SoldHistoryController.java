@@ -21,7 +21,7 @@ public class Manage_SoldHistoryController extends Manage_C_Module {
 	@Autowired
 	Manage_SoldHistoryService Service;
 	
-	private final String URL = "/Manager_test/SoldHistory";
+	private final String URL = "/Manager/SoldHistory";
 	
 	//종류에 따른 통계 반환
 	@RequestMapping(value = URL, method = RequestMethod.GET)

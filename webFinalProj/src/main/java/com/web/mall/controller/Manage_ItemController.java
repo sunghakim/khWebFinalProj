@@ -34,7 +34,7 @@ public class Manage_ItemController extends Manage_C_Module {
     String uploadPath;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Item";
+	private final String URL = "/Manager/Item";
 	
 	//상품 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)

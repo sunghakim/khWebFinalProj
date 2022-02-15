@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.mall.model.Manage_AccountDTO;
+import com.web.mall.model.AccountVO;
 
 public class Manage_C_Module {
 	//컨트롤러에서 중복되는 로직을 모듈화한다.
@@ -25,12 +25,12 @@ public class Manage_C_Module {
 	
 	//관리자인지, 접근할 페이지 대상 설정
 	public int isManager(ModelAndView mv, HttpSession session, String URL, String optionURL) {
-		Manage_AccountDTO AccountDTO;
+		AccountVO AccountVO;
 		//중복되는 요청경로를 파라미터로 설정
 		if (isLogined(session)) {
 			//로그인된 경우
-			AccountDTO = (Manage_AccountDTO)session.getAttribute("account");
-			if(AccountDTO.getUserType() == 0) {
+			AccountVO = (AccountVO)session.getAttribute("account");
+			if(AccountVO.getUser_type() == 0) {
 				//로그인된 계정의 권한이 관리자인 경우
 				mv.addObject("pageType", URL);
 				mv.setViewName(URL + optionURL);//접근할 페이지 설정

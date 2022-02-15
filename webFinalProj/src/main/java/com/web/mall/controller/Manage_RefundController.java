@@ -21,7 +21,7 @@ public class Manage_RefundController extends Manage_C_Module {
 	Manage_RefundService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Refund";
+	private final String URL = "/Manager/Refund";
 	
 	//환불 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
