@@ -23,8 +23,11 @@ public class QuestionService {
 			return false;
 		}
 	}
-	public List<QuestionVO> getWriterQuestions(QuestionVO vo) {
-		return dao.selectWriterQuestionList(vo);
+	public List<QuestionVO> getWriterQuestionsInMypage(QuestionVO vo) {
+		return dao.selectWriterQuestionListInMypage(vo);
+	}
+	public List<QuestionVO> getWriterQuestionsInItem(QuestionVO vo) {
+		return dao.selectWriterQuestionListInItem(vo);
 	}
 	public QuestionVO getOneQuestion(QuestionVO vo) {
 		return dao.getOneQuestion(vo);

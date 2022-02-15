@@ -57,6 +57,7 @@ $(document).ready(function(){
         if(name == '수정하기') {
             $("#phone-label").hide();
             $("#phone").val(value);
+			alert($("#phone").val());
             $("#phone").show();
             $("#phone-Btn").text('확인');
             $(this).next().show();

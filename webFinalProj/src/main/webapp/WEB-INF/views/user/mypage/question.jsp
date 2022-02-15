@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -44,12 +45,21 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="myQue" items="${myQuestionList}">
                         <tr class="post">
-                            <td>번호</td>
-                            <td>제목</td>
-                            <td>상태</td>
-                            <td>날짜</td>
+                            <td>${myQue.question_id}</td>
+                            <td>${myQue.question_title}</td>
+                            <c:choose>
+                            <c:when test="${myQue.result eq 0}">
+                            	<td>답변중</td>
+                           	</c:when>
+                           	<c:otherwise>
+                           		<td>답변완료</td>
+                           	</c:otherwise>
+                           	</c:choose>
+                            <td>${myQue.question_date}</td>
                         </tr>
+                    </c:forEach>
                     </tbody>
                 </table>    
             </div>
@@ -66,12 +76,23 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <% int index = 0; %>
+                    <c:forEach var="itemQue" items="${itemQuestionList}">
                         <tr class="post">
-                            <td><label class="product-link">상품명</label></td>
-                            <td>제목</td>
-                            <td>상태</td>
-                            <td>날짜</td>
+                            <td><label class="product-link">${itemList.get(index).getName()}</label></td>
+                            <td>${itemQue.question_title}</td>
+                            <c:choose>
+                            <c:when test="${itemQue.result eq 0}">
+                            	<td>답변중</td>
+                           	</c:when>
+                           	<c:otherwise>
+                           		<td>답변완료</td>
+                           	</c:otherwise>
+                           	</c:choose>
+                            <td>${itemQue.question_date}</td>
                         </tr>
+                        <% index++; %>
+                    </c:forEach>
                     </tbody>
                 </table>
             </div>

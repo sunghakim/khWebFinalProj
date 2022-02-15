@@ -249,6 +249,9 @@ public class AccountController {
 						session.setAttribute("logined", true);
 						session.setAttribute("account", sameData);
 						session.setAttribute("usertype", "web");
+						if(sameData.getUser_type() == 0) {
+							return "/Manager/Account";
+						}
 					}
 					else {
 						System.out.println("join 실패");
@@ -332,28 +335,28 @@ public class AccountController {
 		return "user/mypage/info";
 	}
 	@RequestMapping(value="/checkMyinfo", method=RequestMethod.POST)
-	public String updateMyinfo(AccountVO accountVo, SocialAccountVO socialVo, HttpSession session) {
-		if((Boolean)session.getAttribute("logined")) {
-			if(session.getAttribute("usertype").equals("web")) {
-				if(service.updateMyinfo(accountVo)) {
-					AccountVO data = service.login(accountVo);
-					session.setAttribute("account", data);
-					return "user/mypage/info";
-				}
+	public String updateMyinfo(AccountVO accountVo, SocialAccountVO socialVo, HttpSession session, String zipNo) {
+		accountVo.setAddress_no(zipNo);
+		if(accountVo.getPhone().contains(",")) {
+			accountVo.setPhone(accountVo.getPhone().substring(0, accountVo.getPhone().length()));
+		}
+		System.out.println(accountVo.getPhone());
+		if(accountVo.getAccount_id() != null) {
+			if(service.updateMyinfo(accountVo)) {
+				AccountVO data = service.login(accountVo);
+				session.setAttribute("account", data);
+				return "user/mypage/info";
 			}
-			else {
-				if(service.updateMyinfo(socialVo)) {
-					SocialAccountVO data = service.login(socialVo);
-					session.setAttribute("account", data);
-					return "user/mypage/info";
-				}
-			}
-			session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
-			return "user/mypage/info";
 		}
 		else {
-			session.setAttribute("error_msg", "로그인되어있지 않습니다.");
-			return "redirect:/";
+			if(service.updateMyinfo(socialVo)) {
+				SocialAccountVO data = service.login(socialVo);
+				session.setAttribute("account", data);
+				return "user/mypage/info";
+			}
 		}
+		System.out.println("오류");
+		session.setAttribute("error_msg", "정보수정에 오류가 발생했습니다.");
+		return "user/mypage/info";
 	}
 }

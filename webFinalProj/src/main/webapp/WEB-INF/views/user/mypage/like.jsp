@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -17,17 +18,20 @@
             <a href="#"><i id="backPage" class="fa-solid fa-angles-left"></i></a>
             <label><h1>찜 목록</h1></label>
         </div>
+        <% int index = 0; %>
+    	<c:forEach var="zzim" items="${zzimList}">
         <div class="likeBody">
             <div class="like-item">
                 <img class="like-img" src="/resources/static/img/sample.png" alt="...">
                 <div class="like-btn"><i class="fa-solid fa-heart"></i></div>
                 <div class="like-text">
-                    상품명<br>가격
+                ${itemList.get(index).getName()}<br>${itemList.get(index).getPrice()}
                 </div>
             </div>
-        </div>    
+        </div> 
+        <% index++; %>
+        </c:forEach>   
     </div>
-    
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
     <!-- <script type="text/javascript" src="/resources/static/js/user/mypage/like.js"></script> -->
 </body>

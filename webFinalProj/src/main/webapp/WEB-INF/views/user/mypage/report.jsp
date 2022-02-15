@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -36,13 +37,29 @@
                         </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="report" items="${reportList}">
                         <tr class="report">
-                            <td>몇번 게시물 신고</td>
-                            <td>신고 사유</td>
-                            <td>신고한 날짜</td>
-                            <td>신고 진행 상태</td>
-                            <td>조치된 날짜</td>
+                            <td>${report.reported_post_id}</td>
+                            <c:forEach var="reason" items="reportReason">
+                            	<c:if test="${report.report_reason_id eq reason.report_reason_id}">
+                            		<td>${reason.content}</td>
+                            	</c:if>
+                            </c:forEach>
+                            <td>${report.reported_date}</td>
+                            <c:choose>
+	                            <c:when test="${report.result eq 1}">
+	                            	<td>진행중</td>
+	                           	</c:when>
+	                           	<c:when test="${report.result eq 2}">
+	                            	<td>활동제한</td>
+	                           	</c:when>
+	                           	<c:otherwise>
+	                           		<td>사유불충분</td>
+	                           	</c:otherwise>
+                           	</c:choose>
+                            <td>${report.closed_date}</td>
                         </tr>
+                    </c:forEach>
                     </tbody>
                 </table>    
             </div>

@@ -17,8 +17,11 @@ public class QuestionDAO {
 	public int insertQuestion(QuestionVO vo) {
 		return this.sess.insert("QuestionMapper.insertQuestion", vo);
 	}
-	public List<QuestionVO> selectWriterQuestionList(QuestionVO vo) {
-		return this.sess.selectList("QuestionMapper.selectWriterQuestionList", vo);
+	public List<QuestionVO> selectWriterQuestionListInMypage(QuestionVO vo) {
+		return this.sess.selectList("QuestionMapper.selectWriterQuestionListInMypage", vo);
+	}
+	public List<QuestionVO> selectWriterQuestionListInItem(QuestionVO vo) {
+		return this.sess.selectList("QuestionMapper.selectWriterQuestionListInItem", vo);
 	}
 	public QuestionVO getOneQuestion(QuestionVO vo) {
 		return this.sess.selectOne("QuestionMapper.selectOneQuestion", vo);

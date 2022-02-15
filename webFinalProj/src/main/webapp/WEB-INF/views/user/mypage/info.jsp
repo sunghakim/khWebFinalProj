@@ -19,19 +19,21 @@
         <label><h1>내정보</h1></label>
     </div>
     <div class="form-div">
-    <form id="form" name="form" method="post">
+    <form id="form" name="form" method="post" action="/checkMyinfo">
         <table>
             <c:choose>
 				<c:when test="${account.getSocial_account_id() eq 'false'}">
 					<tr>
 		                <th>아이디</th>
 		                <td colspan="3">${account.account_id} </td>
+		                <input id="account_id" name="account_id" type="text" value="${account.account_id}" style="display: none;" hidden/>
 		            </tr>
 				</c:when>
 				<c:otherwise>
 					<tr>
 		                <th>아이디</th>
 		                <td colspan="3">${account.social_account_id} </td>
+		                <input id="social_account_id" name="social_account_id" type="text" value="${account.social_account_id}" style="display: none;" hidden/>
 		            </tr>
 				</c:otherwise>
 			</c:choose>

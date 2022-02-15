@@ -10,8 +10,11 @@
   	<insert id="insertQuestion" parameterType="question">
     	INSERT INTO QUESTION VALUES(QUESTION_SEQ.NEXTVAL, #{item_id}, #{writer_id}, #{question_title}, #{question_content}, SYSDATE, '0', NULL, NULL, NULL)
 	</insert>
-	<select id="selectWriterQuestionList" parameterType="question" resultType="question">
-    SELECT * FROM QUESTION WHERE WRITER_ID = #{writer_id} ORDER BY 1
+	<select id="selectWriterQuestionListInMypage" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE WRITER_ID = #{writer_id} AND ITEM_ID = '0' ORDER BY 1
+	</select>
+	<select id="selectWriterQuestionListInItem" parameterType="question" resultType="question">
+    SELECT * FROM QUESTION WHERE WRITER_ID = #{writer_id} AND ITEM_ID != '0' ORDER BY 1
 	</select>
 	<select id="selectOneQuestion" parameterType="question" resultType="question">
     SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}

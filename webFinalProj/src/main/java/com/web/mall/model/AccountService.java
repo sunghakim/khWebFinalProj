@@ -79,20 +79,20 @@ public class AccountService {
 	
 	public boolean updateMyinfo(AccountVO vo) {
 		int res = dao.updateAccountInfo(vo);
-		if(res == 0) { // 업데이트 실패
-			return false;
+		if(res == 1) { // 업데이트 성공
+			return true;
 		}
 		else {
-			return true;
+			return false;
 		}
 	}
 	public boolean updateMyinfo(SocialAccountVO vo) {
 		int res = dao.updateAccountInfo(vo);
-		if(res == 0) { // 업데이트 실패
-			return false;
+		if(res == 1) { // 업데이트 성공
+			return true;
 		}
 		else {
-			return true;
+			return false;
 		}
 	}
 }

@@ -142,6 +142,7 @@ public class MyinfoController extends Manage_S_Module{
 			
 			ItemDTO getItem = itemService.getItem(item);
 			itemList.add(getItem);
+			System.out.println(getItem);
 		}
 		model.addAttribute("itemList", itemList);
 		
@@ -206,7 +207,7 @@ public class MyinfoController extends Manage_S_Module{
 		return "user/mypage/report";
 	}
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
-	public String seeQuestionList(QuestionVO question, HttpSession session, Model model) {
+	public String seeQuestionList(QuestionVO question, ItemDTO item, HttpSession session, Model model) {
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			question.setWriter_id(nowAcc.getAccount_id());
@@ -216,8 +217,21 @@ public class MyinfoController extends Manage_S_Module{
 			question.setWriter_id(nowAcc.getSocial_account_id());
 		}
 		
-		List<QuestionVO> questionList = questionService.getWriterQuestions(question);
-		model.addAttribute("questionList", questionList);
+		List<QuestionVO> myQuestionList = questionService.getWriterQuestionsInMypage(question);
+		model.addAttribute("myQuestionList", myQuestionList);
+		
+		List<QuestionVO> itemQuestionList = questionService.getWriterQuestionsInItem(question);
+		model.addAttribute("itemQuestionList", itemQuestionList);
+		
+		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
+		for(QuestionVO questions : itemQuestionList) {
+			item.setItem_id(questions.getItem_id());
+			
+			ItemDTO getItem = itemService.getItem(item);
+			itemList.add(getItem);
+			System.out.println(getItem);
+		}
+		model.addAttribute("itemList", itemList);
 		
 		return "user/mypage/question";
 	}
@@ -356,17 +370,18 @@ public class MyinfoController extends Manage_S_Module{
 		List<SoldHistoryVO> soldList = service.getPayedDays(soldHistoryVo);
 		model.addAttribute("soldList", soldList);
 		
-		List<SoldDetailVO> soldDetail = new ArrayList<SoldDetailVO>();
-		List<Integer> numberOfDetail = new ArrayList<Integer>();
-		for(SoldHistoryVO list : soldList) {
-			detailVo.setSold_history_id(list.getSold_history_id());
-			List<SoldDetailVO> detailList = service.getOnePayedDetails(detailVo);
-			
-			soldDetail.add(detailList.get(0));
-			numberOfDetail.add(detailList.size() - 1);
+		if(soldList != null) {
+			List<SoldDetailVO> soldDetail = new ArrayList<SoldDetailVO>();
+			List<Integer> numberOfDetail = new ArrayList<Integer>();
+			for(SoldHistoryVO list : soldList) {
+				detailVo.setSold_history_id(list.getSold_history_id());
+				List<SoldDetailVO> detailList = service.getOnePayedDetails(detailVo);
+				soldDetail.add(detailList.get(0));
+				numberOfDetail.add(detailList.size() - 1);
+			}
+			model.addAttribute("detailList", soldDetail); //같은날에 산것 중 최조 보여질 1개
+			model.addAttribute("detailNumber", numberOfDetail); //외 ~개
 		}
-		model.addAttribute("detailList", soldDetail);
-		model.addAttribute("detailNumber", numberOfDetail);
 		
 		return "user/mypage/history";
 	}
