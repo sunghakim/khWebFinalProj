@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ShoppingListService {
@@ -44,6 +45,16 @@ public class ShoppingListService {
 		}
 		else {
 			return true;
+		}
+	}
+	
+	//승원 작업
+	@Transactional(rollbackFor=Exception.class)
+	public boolean deleteOne(ShoppingListVO vo) throws Exception{
+		if(dao.deleteOne(vo) == 0) {
+			return false;
+		}else {
+			throw new Exception("문의답변 추가 처리중 문제발생");
 		}
 	}
 }

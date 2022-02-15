@@ -28,6 +28,14 @@ public class Manage_ItemDAO {
 	public List<Manage_ItemDTO> selectMainPageItemList() {
 		return this.session.selectList(Mapper + ".selectMainPageItemList");
 	}
+
+	public Manage_ItemDTO selectItemID(int itemID) {
+		return this.session.selectOne(Mapper + ".selectItemID", itemID);
+	}
+
+	public Manage_ItemDTO selectItemOptionID(int itemOptionId) {
+		return this.session.selectOne(Mapper + ".selectItemOptionID", itemOptionId);
+	}
 	
 	public String searchItemName(Manage_ItemDTO dto) {
 		return this.session.selectOne(Mapper + ".searchItemName", dto);

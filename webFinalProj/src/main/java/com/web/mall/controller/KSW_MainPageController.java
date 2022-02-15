@@ -28,13 +28,17 @@ public class KSW_MainPageController extends Manage_C_Module {
 		//최근 추가된 상품 정보 불러오기
 		//각 dto 연동 필요
 		List<Manage_ItemDTO> ItemList = ItemService.selectMainPageItemList();
+		System.out.println("메인 페이지 로딩 시작");
+		for (Manage_ItemDTO dto : ItemList) {
+			System.out.println("dto: " + dto.toString());
+		}
 		mv.addObject("ItemList", ItemList);
-		mv.setViewName("index");
+		mv.setViewName("test_index");
 		return mv;
 	}
 	
 	//관리자 메인페이지
-	@RequestMapping(value = "/Manager", method = RequestMethod.GET)
+	@RequestMapping(value = "/Manager_test", method = RequestMethod.GET)
 	public ModelAndView ManagerHome(ModelAndView mv, HttpSession session) {
 		//로그인 세션이 없을 경우 테스트용 관리자 세션 생성
 		if (session.getAttribute("account") == null) {
