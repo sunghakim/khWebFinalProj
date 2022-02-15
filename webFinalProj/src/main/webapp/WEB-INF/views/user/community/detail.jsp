@@ -56,19 +56,24 @@
         <div id="modal" class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <label class="modal-title">신고하기</label>
-            <div class="modal-report">
-                <label class="report-label"><span class="point">신고 이유</span>는 무엇인가요?</label>
-                <select name="" id="report-why">
-                    <option value="" selected>부적절한 게시글</option>
-                    <option value="">욕설</option>
-                </select>
-            </div>
-            <label class="report-label"><span class="point">닉네임</span> 님의</label>
-            <label class="report-label"><span class="point">제목</span> 게시물을</label>
-            <div class="buttons">
-                <button type="button">신고합니다</button>
-                <button type="button">좀 더 고민해볼게요</button>
-            </div>
+            <form action="/post/report" method="post" >
+	            <div class="modal-report">
+	                <label class="report-label"><span class="point">신고 이유</span>는 무엇인가요?</label>
+	                <select name="report_reason_id" id="report-why">
+	                    <option value="1" selected>부적절한 게시글</option>
+	                    <option value="2">욕설</option>
+	                </select>
+	            </div>
+	            <label class="report-label"><span class="point">닉네임</span> 님의</label>
+	            <label class="report-label"><span class="point">제목</span> 게시물을</label>
+	            
+	            	
+	            	<input type="hidden" name="post_id" value="1">
+		            <div class="buttons">
+		                <button type="submit">신고합니다</button>
+		                <button type="button">좀 더 고민해볼게요</button>
+		            </div>
+            </form>
         </div>
         </div>
     </div>

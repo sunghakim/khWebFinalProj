@@ -50,10 +50,20 @@ public class PostService {
 		data.setPost_id(post_id);
 		data.setTitle(title);
 		data.setContent(content);
-		data.setFile_name(file_name);
-		data.setFile_url(file_url);
+		
 		int result = dao.updatePost(data);
-		if(result == 1) {
+		
+		if(file_name != null) {
+			if(!file_name.isEmpty()) {
+				data.setFile_name(file_name);
+				data.setFile_url(file_url);
+				int res = dao.updateImage(data);
+				if(res==1) {
+					return true;
+				}else {
+					return false;
+				}
+			}
 			return true;
 		}
 		return false;
@@ -135,10 +145,11 @@ public class PostService {
 	}
 
 	//신고하기
-	public boolean setReport(int report_reason_id, String reporter_id, int reported_post_id) {
+	public boolean setReport(int report_reason_id, String reporter_id, String reported_account_id,int reported_post_id) {
 		ReportVO data = new ReportVO();
 		data.setReport_reason_id(report_reason_id);
 		data.setReporter_id(reporter_id);
+		data.setReported_account_id(reported_account_id);
 		data.setReported_post_id(reported_post_id);
 		int result = dao.insertReport(data);
 		if(result == 1) {
