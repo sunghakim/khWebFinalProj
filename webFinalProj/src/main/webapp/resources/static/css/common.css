@@ -215,17 +215,13 @@ button,
     align-items: center;
 }
 
-.logo {
+header .logo {
     font-size: 36px;
 }
 
 header .header-ul {
     display: flex;
     font-size: 16px;
-}
-
-header .header-ul .fas {
-    font-size: 26px;
 }
 
 .content {
@@ -368,4 +364,19 @@ header .header-ul .fas {
 
 #admin-pwd-form, #admin-pwd-null, #admin-pwd-wrong {
     display: none;
+}
+
+#login-name-null {
+    display: none;
+}
+
+#nonMember-front {
+    width: 30%;
+    height: 45%;
+    background: rgba(255, 255, 255, .8);
+    box-shadow: 0 8px 32px 0 rgba(116, 116, 116, .6);
+    border: 8px solid rgb(255, 255, 255);
+    margin: 70px auto;
+    padding: 20px;
+    border-radius: 20px;
 }

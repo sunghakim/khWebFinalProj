@@ -32,9 +32,15 @@ var chart = new Chart(ctx, {
     options: {}
 })
 
-$('.list').click(() => {
+/*$('.list').click(() => {
     $(location).attr('href', 'purchase-list.html');
 })
+*/
+
+$('.list').click(() => {
+    $(location).attr('href', '/Manager_test/SoldHistory');
+})
+
 
 $(document).ready(function () {
     $('.admin-nav-sub').slideToggle();

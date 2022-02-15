@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>    
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>    
     
 <!DOCTYPE html>
 <html lang="en">
@@ -22,32 +23,9 @@
                 <div class="header-wrap">
                     <h2 class="logo">logo</h2>
                     <div class="ul-wrap">
-                    <c:choose>
-	                    <c:when test="${sessionScope.account.user_type eq 0 }">
-	                    	<ul class="header-ul" id="admin-ul">
-                            	<li id="change">관리자 로그아웃</li>
-                        	</ul>
-                        	</c:when>
-                        	<c:when test="${sessionScope.account.user_type eq 1 }">
-                        		<ul class="header-ul" id="logout-ul">
-                        			<li id="logout">로그아웃</li>
-                        		</ul>
-                        	</c:when>
-                        	<c:when test="${sessionScope.account.user_type eq 2 }">
-                        		<ul class="header-ul" id="noMember-logout-ul">
-                        			<li id="noMember-logout">로그아웃</li>
-                        		</ul>
-                        	</c:when>
-                        	<c:otherwise>
-	                        	<ul class="header-ul" id="user-ul">
-	                            	<li id="cart">장바구니&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-	                            	<li id="join">회원가입&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-	                            	<li id="member-login">회원 로그인&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-	                            	<li id="non-member-login">비회원 로그인&nbsp;&nbsp;|&nbsp;&nbsp;</li>
-	                            	<li id="admin-change">관리자 로그인</li>
-	                        	</ul>
-                        	</c:otherwise>
-	                    </c:choose>
+                    <ul class="header-ul" id="logout-ul">
+                        	 <li id="logout">관리자 로그아웃</li>
+                    </ul>
                     </div>
                 </div>
             </header>
@@ -163,7 +141,7 @@
 								<li>${List.getAddress()}</li>
 								<li>${List.getAddressNumber()}</li>
 								<li>${List.getNickName()}</li>
-								<li>${List.getJoinDateStr()}</li>
+								<li><fmt:formatDate var="formatRegDate" value="${List.getJoinDateStr()}" pattern="yy-MM-dd"/>${formatRegDate}</li>
 								<li><a href="${pageType}/Delete?ID=${List.getAccountID()}" class="cancel">&nbsp;탈퇴처리&nbsp;</a></li>
 	                        </ul>
                         </c:forEach>

@@ -54,19 +54,33 @@
     width: calc(100% / 4);
     height: 100%;
     text-align: center;
+    margin-top: 10px;
 }
 
 .li-1 {
     width: 60% !important;
 }
 
-.list button {
+.modify {
     width: 80px;
     background-color: black;
     color: white;
     border: 0;
     border-radius: 8px;
     padding: 3px;
+    cursor: pointer;
+	text-decoration: none;
+}
+
+.delete {
+	width: 80px;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px;
+    cursor: pointer;
+	text-decoration: none;
 }
 
 .detail {
