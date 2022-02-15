@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -20,14 +21,24 @@
     <div class="form-div">
     <form id="form" name="form" method="post">
         <table>
-            <tr>
-                <th>아이디</th>
-                <td colspan="3">abcd1234</td>
-            </tr>
+            <c:choose>
+				<c:when test="${account.getSocial_account_id() eq 'false'}">
+					<tr>
+		                <th>아이디</th>
+		                <td colspan="3">${account.account_id} </td>
+		            </tr>
+				</c:when>
+				<c:otherwise>
+					<tr>
+		                <th>아이디</th>
+		                <td colspan="3">${account.social_account_id} </td>
+		            </tr>
+				</c:otherwise>
+			</c:choose>
             <tr>
                 <th>닉네임</th>
                 <td colspan="2">
-                    <label id="nick">abcd</label>
+                    <label id="nick">${account.nickname}</label>
                     <input id="name" name="name" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -35,16 +46,22 @@
                     <button class="back" type="button" style="display: none;">취소</button>
                 </td>
             </tr>
-            <tr>
-                <th>비밀번호</th>
-                <td colspan="3">
-                    <input id="password" name="password" type="text" value="1234" hidden/>
-                    <button id="bootstrap-update-pwd" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">변경하기</button></td>
-            </tr>
+            <c:choose>
+				<c:when test="${account.getSocial_account_id() eq 'false'}">
+					<tr>
+		                <th>비밀번호</th>
+		                <td colspan="3">
+		                    <input id="password" name="password" type="text" value="1234" hidden/>
+		                    <button id="bootstrap-update-pwd" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">변경하기</button></td>
+		            </tr>
+				</c:when>
+				<c:otherwise>
+				</c:otherwise>
+			</c:choose>
             <tr>
                 <th>전화번호</th>
                 <td colspan="2">
-                    <label id="phone-label">010-1234-5678</label>
+                    <label id="phone-label">${account.phone}</label>
                     <input id="phone" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -55,7 +72,7 @@
             <tr>
                 <th>이메일</th>
                 <td colspan="2">
-                    <label id="email-text">1234@mail.com</label>
+                    <label id="email-text">${account.email}</label>
                     <input id="email" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -66,6 +83,9 @@
             <tr>
                 <th rowspan="2">주소</th>
 				<th>우편번호</th>
+				<td colspan="2">
+                    <label id="phone-label">${account.address_no}</label>
+                </td>
 				<td>
 					<input type="hidden" id="confmKey" name="confmKey" value=""  >
 					<input type="text" id="zipNo" name="zipNo" readonly style="width:100px">
@@ -74,6 +94,9 @@
 			</tr>
 			<tr>
 				<th>도로명주소</th>
+				<td colspan="2">
+                    <label id="phone-label">주소 : ${account.address}</label>
+                </td>
 				<td><input type="text" id="roadFullAddr" name="address" style="width:85%" value="${accountVo.address}"></td>
 			</tr>
         </table>
