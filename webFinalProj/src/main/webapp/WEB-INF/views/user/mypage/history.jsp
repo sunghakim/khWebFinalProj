@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -28,34 +29,33 @@
                     </tr>
                 </thead>
                 <tbody>
+                <% int index = 0; %>
+                <c:forEach var="sold" items="${soldList}">
                     <tr id="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                        <td>주문번호</td>
-                        <td>제목</td>
-                        <td>주문 날짜</td>
-                        <td>상태</td>
-                        <td>환불</td>
+                        <td>${sold.sold_history_id}</td>
+                        <td>${detailList.get(index).getItem_id()} 외 ${detailNumber.get(index)} 개</td>
+                        <td>${sold.order_date}</td>
+                        <c:choose>
+                            <c:when test="${sold.status eq 0}">
+                            	<td>배송준비중</td>
+                           	</c:when>
+                           	<c:when test="${sold.status eq 1}">
+                            	<td>배송중</td>
+                           	</c:when>
+                           	<c:otherwise>
+                           		<td>배송완료</td>
+                           	</c:otherwise>
+                        </c:choose>
+                        <c:choose>
+                            <c:when test="${detailList.get(index).getIs_refund() eq 0}">
+                            	<td>환불신청안함</td>
+                           	</c:when>
+                           	<c:otherwise>
+                           		<td>환불신청함</td>
+                           	</c:otherwise>
+                        </c:choose>
                     </tr>
-                    <tr>
-                        <td>주문번호</td>
-                        <td>제목</td>
-                        <td>주문 날짜</td>
-                        <td>상태</td>
-                        <td>환불</td>
-                    </tr>
-                    <tr>
-                        <td>주문번호</td>
-                        <td>제목</td>
-                        <td>주문 날짜</td>
-                        <td>상태</td>
-                        <td>환불</td>
-                    </tr>
-                    <tr>
-                        <td>주문번호</td>
-                        <td>제목</td>
-                        <td>주문 날짜</td>
-                        <td>상태</td>
-                        <td>환불</td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

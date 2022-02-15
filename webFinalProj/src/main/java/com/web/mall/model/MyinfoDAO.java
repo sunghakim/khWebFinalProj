@@ -12,7 +12,7 @@ public class MyinfoDAO {
 	private SqlSession sess;
 
 	public List<GiveCouponVO> selectGivenCouponList(GiveCouponVO vo) {
-		return this.sess.selectList("MyinfonMapper.selectGiveCouponList", vo);
+		return this.sess.selectList("MyinfoMapper.selectGiveCouponList", vo);
 	}
 	public CouponVO selectCouponInfo(CouponVO vo) {
 		return this.sess.selectOne("MyinfoMapper.selectCouponInfo", vo);

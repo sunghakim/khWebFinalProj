@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -18,25 +19,29 @@
             <label><h1>쿠폰</h1></label>
         </div>
         <div class="couponBody">
+        <% int index = 0; %>
+        	<c:forEach var="coup" items="${couponList}">
             <div class="coupon">
                 <img class="coupon-img" src="/resources/static/img/sample.png" alt="...">
 
                 <div class="coupon-text">
                     <div class="coupon-name">
-                        <label>신규 가입 환영 쿠폰</label>
+                        <label>${couponInfo.get(index).getName()}</label>
                     </div>
                     <div class="coupon-bottom">
                         <div class="coupon-date">
-                            <label class="start-date">시작 날짜</label>
-                            <label class="last-date">~끝 날짜</label>
+                            <label class="start-date">${couponInfo.get(index).getStart_date()}</label>
+                            <label class="last-date">${couponInfo.get(index).getEnd_date()}</label>
                         </div>
                         <div class="coupon-sale">
-                            <label>할인율%</label>
+                            <label>${couponInfo.get(index).getDiscount()} %</label>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="coupon" style="visibility: hidden"></div>
+            <% index++; %>
+            </c:forEach>
         </div>    
     </div>
     
