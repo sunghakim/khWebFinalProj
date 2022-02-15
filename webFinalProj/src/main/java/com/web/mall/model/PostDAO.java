@@ -13,7 +13,7 @@ public class PostDAO {
 	
 	//선택한 게시글 가져오기
 	public PostDTO selectPost(int post_id) {
-		PostDTO datas = sqlSession.selectOne("PostMapper.selectPostList", post_id);
+		PostDTO datas = sqlSession.selectOne("PostMapper.selectPost", post_id);
 		return datas;
 	}
 	
@@ -67,5 +67,10 @@ public class PostDAO {
 	//댓글 삭제하기
 	public int deleteComments(int comment_id) {
 		return sqlSession.update("PostMapper.deleteComments", comment_id);
+	}
+
+	//신고 하기
+	public int insertReport(ReportVO data) {
+		return sqlSession.insert("PostMapper.insertReport", data);
 	}
 }

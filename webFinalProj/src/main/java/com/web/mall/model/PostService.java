@@ -18,12 +18,11 @@ public class PostService {
 	}
 
 	// 게시글 추가하기위해 값 넣기
-	public boolean setPost(String title, String content ,String writer_id, int board_id, String file_name, String file_url) {
+	public boolean setPost(String title, String content ,String writer_id, String file_name, String file_url) {
 		PostDTO data = new PostDTO();
 		data.setTitle(title);
 		data.setContent(content);
 		data.setWriter_id(writer_id);
-		data.setBoard_id(board_id);
 		data.setFile_name(file_name);
 		data.setFile_url(file_url);
 		int result = dao.insertPost(data);
@@ -35,11 +34,13 @@ public class PostService {
 	
 
 	//게시글 수정하기위해 값 수정
-	public boolean updatePost(String title, String content, int post_id) {
+	public boolean updatePost(int post_id, String title, String content, String file_name, String file_url) {
 		PostDTO data = new PostDTO();
+		data.setPost_id(post_id);
 		data.setTitle(title);
 		data.setContent(content);
-		data.setPost_id(post_id);
+		data.setFile_name(file_name);
+		data.setFile_url(file_url);
 		int result = dao.updatePost(data);
 		if(result == 1) {
 			return true;
@@ -116,6 +117,19 @@ public class PostService {
 	//댓글 삭제
 	public boolean deleteComments(int comment_id) {
 		int result = dao.deleteComments(comment_id);
+		if(result == 1) {
+			return true;
+		}
+		return false;
+	}
+
+	//신고하기
+	public boolean setReport(int report_reason_id, String reporter_id, int reported_post_id) {
+		ReportVO data = new ReportVO();
+		data.setReport_reason_id(report_reason_id);
+		data.setReporter_id(reporter_id);
+		data.setReported_post_id(reported_post_id);
+		int result = dao.insertReport(data);
 		if(result == 1) {
 			return true;
 		}
