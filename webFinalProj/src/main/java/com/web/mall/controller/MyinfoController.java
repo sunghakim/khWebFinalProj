@@ -34,6 +34,7 @@ import com.web.mall.model.SocialAccountVO;
 import com.web.mall.model.SoldDetailVO;
 import com.web.mall.model.SoldHistoryVO;
 import com.web.mall.model.ZzimListVO;
+import com.web.mall.model.ZzimService;
 
 @Controller
 @RequestMapping(value="/mypage")
@@ -48,6 +49,8 @@ public class MyinfoController extends Manage_S_Module{
 	private QuestionService questionService;
 	@Autowired
 	private MyinfoService service;
+	@Autowired
+	private ZzimService zzimService;
 	
 	@RequestMapping(value="/mypage", method=RequestMethod.GET) //마이페이지
 	public String myPage() {
@@ -131,7 +134,7 @@ public class MyinfoController extends Manage_S_Module{
 			zzim.setAccount_id(nowAcc.getSocial_account_id());
 		}
 		
-		List<ZzimListVO> zzimList = service.getZzims(zzim);
+		List<ZzimListVO> zzimList = zzimService.getZzims(zzim);
 		model.addAttribute("zzimList", zzimList);
 		
 		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
@@ -149,7 +152,7 @@ public class MyinfoController extends Manage_S_Module{
 	public String deleteZzimItem(ZzimListVO zzim, Model model) {
 		//zzim_id 받아와야함
 		System.out.println("찜 삭제 시작");
-		if(service.deleteZzimItem(zzim)) {
+		if(zzimService.deleteZzimItem(zzim)) {
 			System.out.println("찜 아이템 삭제 성공");
 		}
 		else {
