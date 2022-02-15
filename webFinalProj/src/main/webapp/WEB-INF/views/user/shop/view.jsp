@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,43 +14,46 @@
     <title>내정보</title>
 </head>
 <body>
+	<input id="item_id" value="${itemData.getItem_id()}" hidden/>
     <div class="detail">
         <div class="detail-tabs">
             <button class="detail-tab here" disabled>구매하기</button>
             <button class="detail-tab">상세보기</button>
-            <button class="detail-tab">후기<span class="review-num">(3)</span></button>
+            <button class="detail-tab">후기<span class="review-num"></span></button>
             <button class="detail-tab">문의하기</button>
         </div>
 
         <div id="buy" class="buy">
             <div class="item-view">
                 <div class="img-box">
-                    <img src="/resources/static/img/sample.png" alt="">
+                    <img src="${itemData.getFile_url()}" alt="">
                 </div>
                 <div class="item-div">
-                    <div class="item-name">상품명</div>
+                    <div class="item-name">${itemData.getName()}</div>
                     <div id="like-line">
-                        <label id="like-num">좋아요 수</label>
+                        <label id="like-num">?</label>
                         <label id="like-state">하트모양</label>
                     </div>
                 </div>
-                <label class="item-price">가격</label>
+                <label class="item-price"><fmt:formatNumber value="${itemData.getPrice()}" pattern="#,###" /></label>
             </div>
             <div class="item-opt">
                 <div>
                     <label style="color: rgb(180, 180, 180);">옵션</label>
                     <div class="opt opt-size">
-                        <select id="option-size">
+                        <select id="option-size" name="item_size">
                             <option value="" selected hidden>사이즈</option>
-                            <option value="1" >size1</option>
-                            <option value="2" >size2</option>
+                            <c:forEach var="i" items="${optionList}" varStatus="status">
+	                            <option value="${status.count}" >${i.getItem_size()}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="opt opt-color">
-                        <select id="option-color" disabled>
+                        <select id="option-color" name="color" disabled>
                             <option value="" selected hidden>색상</option>
-                            <option value="1">검정</option>
-                            <option value="2">하양</option>
+                            <c:forEach var="i" items="${optionList}">
+                            	<option value="0" class="oc-${i.getItem_size()}" hidden>${i.getColor()}</option>
+                            </c:forEach>
                         </select>
                     </div>
                 </div>
