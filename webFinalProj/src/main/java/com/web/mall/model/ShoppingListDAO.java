@@ -34,4 +34,9 @@ public class ShoppingListDAO {
 		System.out.println(vo);
 		return this.sess.update("ShoppingMapper.updateShoppingList", vo);
 	}
+	
+	//승원 작업
+	public int deleteOne(ShoppingListVO vo) {
+		return this.sess.update("ShoppingMapper.deleteOne", vo);
+	}
 }

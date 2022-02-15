@@ -22,10 +22,12 @@ public class Manage_ItemService extends Manage_S_Module {
 		return PostCountToPageCount(dao.selectTotalCount());
 	}
 
-	public Manage_ItemDTO selectOne(int itemID) {
-		Manage_ItemDTO dto = new Manage_ItemDTO();
-		dto.setItemID(itemID);
-		return dao.selectOne(dto);
+	public Manage_ItemDTO selectItemID(int itemID) {
+		return dao.selectItemID(itemID);
+	}
+
+	public Manage_ItemDTO selectItemOptionID(int itemOptionId) {
+		return dao.selectItemOptionID(itemOptionId);
 	}
 	
 	public Manage_ItemDTO selectOne(Manage_ItemDTO DTO) {
