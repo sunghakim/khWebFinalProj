@@ -9,15 +9,25 @@ import com.web.mall.model.Manage_AccountDTO;
 
 public class Manage_C_Module {
 	//컨트롤러에서 중복되는 로직을 모듈화한다.
+	
+	//로그인 되어 있는지 확인
+	public boolean isLogined(HttpSession session) {
+		if (session.getAttribute("account") != null) {
+			return true;
+		}
+		return false;
+	}
+
+	//관리자인지, 접근할 페이지 대상 설정
 	public int isManager(ModelAndView mv, HttpSession session, String URL) {
 		return isManager(mv, session, URL, "");
 	}
 	
-	//관리자인지, 로그인 했는지 확인, 접근할 페이지 대상 설정
+	//관리자인지, 접근할 페이지 대상 설정
 	public int isManager(ModelAndView mv, HttpSession session, String URL, String optionURL) {
 		Manage_AccountDTO AccountDTO;
 		//중복되는 요청경로를 파라미터로 설정
-		if (session.getAttribute("account") != null) {
+		if (isLogined(session)) {
 			//로그인된 경우
 			AccountDTO = (Manage_AccountDTO)session.getAttribute("account");
 			if(AccountDTO.getUserType() == 0) {
@@ -32,9 +42,9 @@ public class Manage_C_Module {
 				return 1;
 			}
 		} else {
-			//로그인 되지 않은 경우
-			mv.setViewName("redirect:/Account/Login");
-			return 2;
+			//로그인되지 않음
+			mv.setViewName("redirect:/");
+			return 3;
 		}
 	}
 	

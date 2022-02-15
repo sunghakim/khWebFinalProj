@@ -20,11 +20,10 @@
 				<th>상품 사이즈</th>
 				<th>상품 색깔</th>
 				<th>재고량</th>
-				<th colspan='3'>기능</th>
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="List" items="${List}">
+			<c:forEach var="List" items="${ItemList}">
 				<tr>
 					<td>${List.getItemID()}</td>
 					<td>${List.getName()}</td>
@@ -33,8 +32,6 @@
 					<td>${List.getItemSize()}</td>
 					<td>${List.getColor()}</td>
 					<td>${List.getAmount()}</td>
-					<td><a href="${pageType}/Detail?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">상세보기</a></td>
-					<td><a href="${pageType}/Update?ItemID=${List.getItemID()}&&ItemOptionID=${List.getItemOptionID()}&&ItemCategoryID=${List.getItemCategoryID()}">수정/추가입고</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

@@ -22,8 +22,7 @@ public class KSW_PurchaseService extends Manage_S_Module {
 	ShoppingListService ShoppingListService;
 
 	@Transactional(rollbackFor=Exception.class)
-	public void purchase(List<ShoppingListVO> list) throws Exception{
-		//1. SOLD_HISTORY db에 주문내역 추가
+	public void purchase(List<ShoppingListVO> list) throws Exception {
 		String AccountID = list.get(0).getAccount_id();
 		Manage_AccountDTO AccountDTO = AccountService.selectOne(AccountID);
 		Manage_SoldHistoryDTO SoldHistoryDTO = new Manage_SoldHistoryDTO();
