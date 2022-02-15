@@ -21,7 +21,10 @@ public class PostDAO {
 	public int insertPost(PostDTO data) {
 		return sqlSession.insert("PostMapper.insertPost", data);
 	}
-	
+	//게시글 이미지 추가하기
+	public int insertImage(PostDTO data) {
+		return sqlSession.insert("PostMapper.insertImage", data);
+	}
 	//게시글 수정하기
 	public int updatePost(PostDTO data) {
 		return sqlSession.update("PostMapper.updatePost", data);

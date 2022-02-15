@@ -48,25 +48,34 @@ public class PostController {
 	@RequestMapping(value="/post/add", method=RequestMethod.POST)
 	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
 		UUID id = UUID.randomUUID();
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴
+		System.out.println("1");
+		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴 계정 로그인이 필요한 작업임
+		System.out.println("2");
+		
 		
 		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정 url
+		System.out.println("3");
 		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
+		System.out.println("4");
 		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1]; //확장자 
+		System.out.println("5");
 		
 		while(saveFile.exists()) {	//파일 저장하는게 있으면 uuid로 저장.
 			UUIDGenerator uuid = new UUIDGenerator();
 			id = uuid.generateId(fileUpload.getOriginalFilename()); //파일 이름이고 확장자 전까지임. 
 			saveFile = new File(path, id.toString() + ext );
 		}
+		System.out.println("6");
 		fileUpload.transferTo(saveFile);
-		
-		boolean result = service.setPost(title, content, nowAcc.getAccount_id(), id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임 
-		
+		System.out.println(7);
+		boolean result = service.setPost(title, content, "ha1015", id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임
+		System.out.println(8);
+		//nowAcc.getAccount_id()
+
 		if(result) {
 		 	return "redirect:/post";
 		 }
-		
+		System.out.println("9");
 		return "jinitest/postAdd"; // 진희님 경로 user/community/list
 	}
 	
