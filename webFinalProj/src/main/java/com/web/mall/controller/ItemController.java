@@ -23,8 +23,7 @@ public class ItemController {
 	public String selectItem(Model model, int item_category_id) {
 		List<ItemDTO> datas = service.getItem(item_category_id);
 		model.addAttribute("datas", datas);
-		return "/user/shop/productList";
-		//return "itemlist"; //servlet의 viewResolver가 가져감 ->"/WEB-INF/views/jinitest" + itemlist + .jsp
+		return "/user/shop/productList"; 
 	}  
 	
 	

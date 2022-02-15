@@ -23,10 +23,21 @@ public class PostService {
 		data.setTitle(title);
 		data.setContent(content);
 		data.setWriter_id(writer_id);
-		data.setFile_name(file_name);
-		data.setFile_url(file_url);
 		int result = dao.insertPost(data);
-		if(result == 1) {
+		
+		if(result == 1) { //포스트 추가시
+			if(file_name != null) {
+				if(!file_name.isEmpty()) {
+					data.setFile_name(file_name);
+					data.setFile_url(file_url);
+					int res = dao.insertImage(data);
+					if(res == 1) {
+						return true;
+					} else {
+						return false;
+					}
+				}
+			}
 			return true;
 		}
 		return false;

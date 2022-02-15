@@ -16,9 +16,14 @@
 	
 	<!--선택한 게시판의 게시글 추가  -->
 	<insert id="insertPost" parameterType="PostDTO">
-    	INSERT ALL
-    		INTO POST VALUES(POST_ID_SEQ.NEXTVAL, #{writer_id}, 1, #{title}, #{content}, 0, 0, SYSDATE)
-    		INTO IMAGE VALUES(IMAGE_SEQ.NEXTVAL, #{post_id} ,'POST', #{file_name}, #{file_url})
+    	INSERT INTO POST(POST_ID, WRITER_ID, BOARD_ID, TITLE, CONTENT, GOOD_NUMBER, POST_VIEWS, POSTING_DATE) 
+    	VALUES(POST_ID_SEQ.NEXTVAL, #{writer_id}, 1, #{title}, #{content}, 0, 0, SYSDATE)
+  	</insert>
+	
+	<!--선택한 게시판의 이미지 추가  -->
+	<insert id="insertImage" parameterType="PostDTO">
+    	INSERT INTO IMAGE(IMAGE_ID, REFERENCES_ID, ID_TYPE, FILE_NAME, FILE_URL) 
+    	VALUES(IMAGE_SEQ.NEXTVAL, #{post_id} ,'POST', #{file_name}, #{file_url})
   	</insert>
 	
 	<!-- 선택한 게시글 수정 -->
