@@ -17,7 +17,7 @@
 	<!--선택한 게시판의 게시글 추가  -->
 	<insert id="insertPost" parameterType="PostDTO">
     	INSERT INTO POST(POST_ID, WRITER_ID, BOARD_ID, TITLE, CONTENT, GOOD_NUMBER, POST_VIEWS, POSTING_DATE) 
-    	VALUES(POST_ID_SEQ.NEXTVAL, #{writer_id}, 1, #{title}, #{content}, 0, 0, SYSDATE)
+    	VALUES(POST_SEQ.NEXTVAL, #{writer_id}, 1, #{title}, #{content}, 0, 0, SYSDATE)
   	</insert>
 	
 	<!--선택한 게시판의 이미지 추가  -->
@@ -28,8 +28,16 @@
 	
 	<!-- 선택한 게시글 수정 -->
   	<update id="updatePost" parameterType="PostDTO">
-	   UPDATE POST SET TITLE = #{title}, CONTENT = #{content} 
+	   UPDATE POST 
+	   	SET TITLE = #{title}, CONTENT = #{content}
 	    WHERE POST_ID = #{post_id}
+  	</update>
+  	
+  	<!-- 선택한 게시글 수정 -->
+  	<update id="updateImage" parameterType="PostDTO">
+	   UPDATE IMAGE 
+	   	SET FILE_NAME = #{file_name}, FILE_URL = #{file_url}
+	    WHERE REFERENCES_ID = #{post_id} AND ID_TYPE = 'POST'
   	</update>
   	
   	<!-- 게시글 삭제 -->
@@ -39,8 +47,8 @@
 	
 	<!-- 신고 문의 -->
   	<insert id="insertReport" parameterType="report"> 
-    	INSERT INTO REPORT(REPORT_ID,REPORT_REASON_ID, REPORTER_ID, REPORTED_ACCOUNT_ID, REPORTED_POST_ID, REPORTED_DATE, RESULT) 
-    		VALUES(REPORT_SEQ.NEXTVAL, #{report_reason_id}, #{reporter_id},#{reported_account_id}, #{reported_post_id}, SYSDATE, 1)
+    	INSERT INTO REPORT(REPORT_ID,REPORT_REASON_ID, REPORTER_ID, REPORTED_ACCOUNT_ID, REPORTED_POST_ID, REPORTED_DATE, CONTENT, RESULT) 
+    		VALUES(REPORT_SEQ.NEXTVAL, #{report_reason_id}, #{reporter_id},#{reported_account_id}, #{reported_post_id}, SYSDATE, '0', 1)
   	</insert>
 	
 	<!-- 좋아요 -->

@@ -12,20 +12,21 @@
     <title>후기 작성</title>
 </head>
 <body>
-    <form>
+    <form action="/post/update" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="post_id" value="${datas.getPost_id()}">
         <div class="writeHeader">
             <label class="title">제목</label>
-            <input id="title" class="frm" type="text" placeholder="내용을 입력해주세요" value="" required/>
+            <input id="title" name="title" class="frm" type="text" placeholder="내용을 입력해주세요" value="${datas.getTitle()}" required>
         </div>
         <div class="writeBody">
-            <textarea id="content" class="frm" placeholder="내용을 입력해주세요" required/></textarea>
-            <input type="file" />
+            <textarea id="content" name="content" class="frm" placeholder="내용을 입력해주세요" required>${datas.getContent()}</textarea>
+            <input type="file" name="fileUpload" >
         </div>
         <div class="writeFooter">
             <button class="common-btn" type="button">취소</button>
-            <button class="point-btn" type="button">작성완료</button>
+            <button class="point-btn" type="submit">작성완료</button>
         </div>
     </form>
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 </body>
-</html>l>
+</html>

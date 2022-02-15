@@ -29,6 +29,10 @@ public class PostDAO {
 	public int updatePost(PostDTO data) {
 		return sqlSession.update("PostMapper.updatePost", data);
 	}
+	//게시글 수정하기
+	public int updateImage(PostDTO data) {
+			return sqlSession.update("PostMapper.updateImage", data);
+	}
 	
 	//게시글 삭제하기
 	public int deletePost(int post_id) {
