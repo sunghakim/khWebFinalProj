@@ -28,12 +28,8 @@ public class KSW_MainPageController extends Manage_C_Module {
 		//최근 추가된 상품 정보 불러오기
 		//각 dto 연동 필요
 		List<Manage_ItemDTO> ItemList = ItemService.selectMainPageItemList();
-		System.out.println("메인 페이지 로딩 시작");
-		for (Manage_ItemDTO dto : ItemList) {
-			System.out.println("dto: " + dto.toString());
-		}
 		mv.addObject("ItemList", ItemList);
-		mv.setViewName("test_index");
+		mv.setViewName("index");
 		return mv;
 	}
 	
