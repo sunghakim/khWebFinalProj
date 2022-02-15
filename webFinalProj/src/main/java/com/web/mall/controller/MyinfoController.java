@@ -3,6 +3,7 @@ package com.web.mall.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -51,6 +52,9 @@ public class MyinfoController extends Manage_S_Module{
 	private MyinfoService service;
 	@Autowired
 	private ZzimService zzimService;
+	
+	@Resource(name="uploadPath")
+    String uploadPath;
 	
 	@RequestMapping(value="/mypage", method=RequestMethod.GET) //마이페이지
 	public String myPage() {
@@ -232,8 +236,9 @@ public class MyinfoController extends Manage_S_Module{
 		
 		model.addAttribute("questionVO", questionVo);
 		if(questionService.addQuestion(questionVo)) {
+			List<QuestionVO> sameItemandWriter = questionService.getOneQuestionGetId(questionVo);
 			if (file[0].getOriginalFilename() != "") { //파일 있음.
-				int ReferencesID = questionVo.getQuestion_id();
+				int ReferencesID = sameItemandWriter.get(0).getQuestion_id();
 				
 				//전달받은 정보로 DB에 저장할 DTO목록 생성
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
@@ -261,9 +266,10 @@ public class MyinfoController extends Manage_S_Module{
 			return "user/questionWrite";
 		}
 	}
-	//
+	
 	@RequestMapping(value="/checkQuestion", method=RequestMethod.GET)
 	public String seeQuestion(QuestionVO questionVo, Model model) {
+		//question_id
 		QuestionVO question = questionService.getOneQuestion(questionVo);
 		model.addAttribute("question", question);
 		
@@ -272,7 +278,7 @@ public class MyinfoController extends Manage_S_Module{
 		
 		return "user/questionPost";
 	}
-	//
+	
 	@RequestMapping(value="/updateQuestion", method=RequestMethod.GET)
 	public String updateQuestionForm(QuestionVO questionVo, Model model) {
 		//id 받아와야함
@@ -325,12 +331,19 @@ public class MyinfoController extends Manage_S_Module{
 		dto.setIDType("QUESTION");
 		dto.setReferencesID(questionVo.getQuestion_id());
 		
-		if(questionService.deleteQuestion(questionVo, dto)) {
-			return "redirect:/mypage/checkQuestionList"; 
+		if (imageService.deleteList(dto)) {
+			if(questionService.deleteQuestion(questionVo, dto)) {
+				return "redirect:/mypage/checkQuestionList"; 
+			}
+			else {
+				System.out.println("문의 삭제 실패");
+				model.addAttribute("error_msg", "데이터베이스에 정상적으로 삭제되지 않았습니다.");
+				return "redirect:/mypage/checkQuestionList"; 
+			}
 		}
 		else {
-			System.out.println("문의 삭제 실패");
-			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
+			System.out.println("이미지 삭제 실패");
+			model.addAttribute("error_msg", "데이터베이스에 정상적으로 삭제되지 않았습니다.");
 			return "redirect:/mypage/checkQuestionList"; 
 		}
 	}

@@ -12,6 +12,9 @@
   <select id="selectIsAlreadyBuy" parameterType="Map" resultType="int">
   	SELECT COUNT(*) FROM (SELECT * FROM (SELECT * FROM SOLD_HISTORY WHERE ACCOUNT_ID = #{account_id}) H JOIN SOLD_DETAIL D ON D.SOLD_HISTORY_ID = H.SOLD_HISTORY_ID WHERE ITEM_ID = #{item_id})
   </select>
+  <select id="selectOneReviewGetId" parameterType="review" resultType="review">
+    SELECT * FROM REVIEW WHERE ITEM_ID = #{item_id} AND WRITER_ID = #{writer_id} ORDER BY SYSDATE
+	</select>
   
   <insert id="insertReview" parameterType="review">
     INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, #{item_id}, #{writer_id}, SYSDATE, #{content}, #{score})

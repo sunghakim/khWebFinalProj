@@ -48,4 +48,7 @@ public class ReviewService {
 			return false;
 		}
 	}
+	public List<ReviewVO> getOneReviewGetId(ReviewVO vo) {
+		return dao.selectOneReviewGetId(vo);
+	}
 }

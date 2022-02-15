@@ -18,15 +18,18 @@ public class QuestionDAO {
 		return this.sess.insert("QuestionMapper.insertQuestion", vo);
 	}
 	public List<QuestionVO> selectWriterQuestionList(QuestionVO vo) {
-		return this.sess.selectList("MyinfoMapper.selectWriterQuestionList", vo);
+		return this.sess.selectList("QuestionMapper.selectWriterQuestionList", vo);
 	}
 	public QuestionVO getOneQuestion(QuestionVO vo) {
-		return this.sess.selectOne("MyinfoMapper.selectOneQuestion", vo);
+		return this.sess.selectOne("QuestionMapper.selectOneQuestion", vo);
 	}
 	public int updateQuestion(QuestionVO vo) {
-		return this.sess.update("MyinfoMapper.updateQuestion", vo);
+		return this.sess.update("QuestionMapper.updateQuestion", vo);
 	}
 	public int deleteQuestion(QuestionVO vo) {
-		return this.sess.delete("MyinfoMapper.deleteQuestion", vo);
+		return this.sess.delete("QuestionMapper.deleteQuestion", vo);
+	}
+	public List<QuestionVO> selectOneQuestionGetId(QuestionVO vo) {
+		return this.sess.selectList("QuestionMapper.selectOneQuestionGetId", vo);
 	}
 }

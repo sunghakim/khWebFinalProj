@@ -3,6 +3,7 @@ package com.web.mall.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -48,6 +49,9 @@ public class ItemDetailController extends Manage_S_Module {
 	private QuestionService questionService;
 	@Autowired
 	private ZzimService zzimService;
+	
+	@Resource(name="uploadPath")
+    String uploadPath;
 	
 	//구매하기 페이지
 	@RequestMapping(value="/main", method=RequestMethod.GET)
@@ -258,8 +262,9 @@ public class ItemDetailController extends Manage_S_Module {
 			vo.setWriter_id(nowAcc.getSocial_account_id());
 		}
 		if(reviewService.addReview(vo)) {
+			List<ReviewVO> sameItemandWriter = reviewService.getOneReviewGetId(vo);
 			if (file[0].getOriginalFilename() != "") { //파일 있음.
-				int ReferencesID = vo.getReview_id();
+				int ReferencesID = sameItemandWriter.get(0).getReview_id();
 				
 				//전달받은 정보로 DB에 저장할 DTO목록 생성
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
@@ -333,8 +338,9 @@ public class ItemDetailController extends Manage_S_Module {
 		}
 		model.addAttribute("questionVO", questionVo);
 		if(questionService.addQuestion(questionVo)) {
+			List<QuestionVO> sameItemandWriter = questionService.getOneQuestionGetId(questionVo);
 			if (file[0].getOriginalFilename() != "") { //파일 있음.
-				int ReferencesID = questionVo.getQuestion_id();
+				int ReferencesID = sameItemandWriter.get(0).getQuestion_id();
 				
 				//전달받은 정보로 DB에 저장할 DTO목록 생성
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);

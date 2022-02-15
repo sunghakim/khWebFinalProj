@@ -50,4 +50,7 @@ public class QuestionService {
 			return false;
 		}
 	}
+	public List<QuestionVO> getOneQuestionGetId(QuestionVO vo) {
+		return dao.selectOneQuestionGetId(vo);
+	}
 }

@@ -11,27 +11,30 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ReviewDAO {
 	@Autowired
-	SqlSession session;
+	private SqlSession sess;
 	
 	public List<ReviewVO> getReviewList(ReviewVO vo) {
-		return session.selectList("ReviewMapper.selectReviewList", vo);
+		return this.sess.selectList("ReviewMapper.selectReviewList", vo);
 	}
 	public ReviewVO getReview(ReviewVO vo) {
-		return session.selectOne("ReviewMapper.selectReview", vo);
+		return this.sess.selectOne("ReviewMapper.selectReview", vo);
 	}
 	public int selectIsAlreadyBuyItem(SoldHistoryVO shistoryVo, SoldDetailVO sdetailVo) {
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("account_id", shistoryVo.getAccount_id());
 		map.put("item_id", sdetailVo.getItem_id()+"");
-		return session.selectOne("ReviewMapper.selectIsAlreadyBuy", map);
+		return this.sess.selectOne("ReviewMapper.selectIsAlreadyBuy", map);
 	}
 	public int insertReview(ReviewVO vo) {
-		return session.insert("ReviewMapper.insertReview", vo);
+		return this.sess.insert("ReviewMapper.insertReview", vo);
 	}
 	public int updateReview(ReviewVO vo) {
-		return session.update("ReviewMapper.updateReview", vo);
+		return this.sess.update("ReviewMapper.updateReview", vo);
 	}
 	public int deleteReview(ReviewVO vo) {
-		return session.delete("ReviewMapper.deleteReview", vo);
+		return this.sess.delete("ReviewMapper.deleteReview", vo);
+	}
+	public List<ReviewVO> selectOneReviewGetId(ReviewVO vo) {
+		return this.sess.selectList("ReviewMapper.selectOneReviewGetId", vo);
 	}
 }
