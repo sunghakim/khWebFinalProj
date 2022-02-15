@@ -235,6 +235,10 @@
                     <div class="ul-wrap">
                     <c:choose>
                     	<c:when test="${sessionScope.usertype eq 'social'}">
+                    		<ul class="header-ul" id="logout-ul">
+			                    <li id="cart">마이페이지&nbsp;&nbsp;|&nbsp;&nbsp;</li>
+		                        <li id="logout">로그아웃</li>
+		                    </ul>
                     	</c:when>
                     	<c:otherwise>
 		                    <c:choose>

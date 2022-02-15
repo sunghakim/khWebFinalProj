@@ -69,7 +69,7 @@ public class AccountController {
 		  model.addAttribute("login_result","fail");
 		}
 			
-		return "redirect:/" + referer;
+		return "redirect:" + referer;
 	    
 	}//googleLogin
 	@ResponseBody
@@ -99,7 +99,7 @@ public class AccountController {
 				session.setAttribute("logined", true);
 				session.setAttribute("account", sameData);
 				session.setAttribute("usertype", "social");
-				return "redirect:/" + referer;
+				return "redirect:" + referer;
 			}
 			else{
 				if(sameData.getLogin_type() == 1) {
@@ -113,7 +113,7 @@ public class AccountController {
 				}
 			}
 			model.addAttribute("isError", true);
-			return "redirect:/" + referer;
+			return "redirect:" + referer;
 		}
 		else {
 			System.out.println("같은 정보의 사람이 없음. ");
@@ -124,18 +124,18 @@ public class AccountController {
 					session.setAttribute("logined", true);
 					session.setAttribute("account", data);
 					session.setAttribute("usertype", "social");
-					return "redirect:/" + referer;
+					return "redirect:" + referer;
 				}
 				else {
 					System.out.println("login 실패");
 					model.addAttribute("error_msg", "로그인 오류. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
-					return "redirect:/" + referer;
+					return "redirect:" + referer;
 				}
 			}
 			else {
 				System.out.println("join 실패");
 				model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다. 다른 외부계정으로 로그인하거나 회원가입 하세요.");
-				return "redirect:/" + referer;
+				return "redirect:" + referer;
 			}
 		}
 	}
@@ -149,7 +149,7 @@ public class AccountController {
 		if(accountVo.getAccount_id().indexOf("USER") == 0) {
 			model.addAttribute("isError", true);
 			model.addAttribute("error_msg", "ID는 USER로 시작할 수 없습니다.");
-			return "redirect:/" + referer;
+			return "redirect:" + referer;
 		}
 		else {
 			AccountVO sameData = service.checkSameAccount(accountVo);
@@ -178,7 +178,7 @@ public class AccountController {
 						model.addAttribute("error_msg", "카카오 로그인으로 등록되어있습니다.");
 					}
 				}
-				return "redirect:/" + referer; //나중에 가능하면 y,n 입력받아서 회원으로 재등록할지 확인 후 처리
+				return "redirect:" + referer; //나중에 가능하면 y,n 입력받아서 회원으로 재등록할지 확인 후 처리
 			}
 			else {
 				System.out.println("같은 정보의 사람이 없음. ");
@@ -186,18 +186,18 @@ public class AccountController {
 				if(sameData != null) {
 					System.out.println("같은 아이디가 있음.");
 					model.addAttribute("error_msg", "데이터베이스에 같은 아이디의 계정이 있습니다.");
-					return "redirect:/" + referer;
+					return "redirect:" + referer;
 				}
 				else {
 					accountVo.setNickname(accountVo.getAccount_id());
 					accountVo.setAddress_no(zipNo);
 					if(service.join(accountVo)) {
-						return "redirect:/" + referer;
+						return "redirect:" + referer;
 					}
 					else {
 						System.out.println("join 실패");
 						model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-						return "redirect:/" + referer;
+						return "redirect:" + referer;
 					}
 				}
 			}
@@ -234,7 +234,7 @@ public class AccountController {
 					}
 				}
 				
-				return "redirect:/" + referer; //나중에 가능하면 y,n 입력받아서 회원으로 재등록할지 확인 후 처리
+				return "redirect:" + referer; //나중에 가능하면 y,n 입력받아서 회원으로 재등록할지 확인 후 처리
 			}
 			else {
 				System.out.println("같은 정보의 사람이 없음. ");
@@ -245,6 +245,10 @@ public class AccountController {
 				}
 				else {
 					if(service.join(accountVo)) {
+						sameData = service.login(accountVo);
+						session.setAttribute("logined", true);
+						session.setAttribute("account", sameData);
+						session.setAttribute("usertype", "web");
 					}
 					else {
 						System.out.println("join 실패");
@@ -280,7 +284,7 @@ public class AccountController {
 				model.addAttribute("error_msg", "동일한 아이디가 없습니다.");
 			}
 		}
-		return "redirect:/" + referer;
+		return "redirect:" + referer;
 	}
 	@RequestMapping(value="/logout", method=RequestMethod.GET)
 	public String logout(HttpSession session, String type, HttpServletRequest request, Model model) {
@@ -291,12 +295,12 @@ public class AccountController {
 		
 		if(session.getAttribute("logined") == null) {
 			session.removeAttribute("account");
-			model.addAttribute("logout", "dologout");
+			session.removeAttribute("usertype");
 			return "redirect:/";
 		}
 		else {
 			System.out.println("logout 오류 발생");
-			return "redirect:/" + referer;
+			return "redirect:" + referer;
 		}
 	}
 	@RequestMapping(value="/drop", method=RequestMethod.GET)
@@ -317,7 +321,7 @@ public class AccountController {
 		}
 		model.addAttribute("isError", true);
 		model.addAttribute("error_msg", "계정삭제가 정상적으로 이루어지지 않았습니다.");
-		return "redirect:/" + referer;
+		return "redirect:" + referer;
 	}
 	@RequestMapping(value="/findMyinfo", method=RequestMethod.GET)
 	public String myinfoPage() {

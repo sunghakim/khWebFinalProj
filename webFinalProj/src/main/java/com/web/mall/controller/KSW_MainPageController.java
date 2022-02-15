@@ -33,7 +33,7 @@ public class KSW_MainPageController extends Manage_C_Module {
 			System.out.println("dto: " + dto.toString());
 		}
 		mv.addObject("ItemList", ItemList);
-		mv.setViewName("test_index");
+		mv.setViewName("index");
 		return mv;
 	}
 	
