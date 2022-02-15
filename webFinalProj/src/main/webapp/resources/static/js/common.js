@@ -497,6 +497,12 @@ for (let i = 1; i <= $('.user-nav li').length; i++) {
     $('#user-nav-' + i).click(() => {
         $('.user-nav li').removeClass('click-color');
         $('#user-nav-' + i).addClass('click-color');
+        $(".article-wrap").load("/item/list?item_category_id=" + i);
+        $(".article-wrap").css("flex-direction", "column");
+        $(".article-container").css("padding-top", "10px");
+        
+        
+        //$(".article-wrap").hide();
     })
 }
 

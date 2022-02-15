@@ -1,10 +1,4 @@
 @charset "UTF-8";
-body{
-    display: flex;
-    justify-content: center;
-    background-color: #f2f3ee;
-}
-
 .detail {
     width: 100%;
     padding: 10px 40px 20px 40px;
@@ -200,4 +194,9 @@ body{
 #payment:hover {
     color: white;
     background-color: rgb(231, 51, 31);
+}
+
+#container {
+	display: flex;
+	flex-direction: column;
 }

@@ -4,27 +4,21 @@ $(document).ready(function(){
     } else {
         $("#best").hide();
     }
-    
+
     $(".button").on("click", function() {
         if($(this).is(".here") === true) {
-            alert("여기임");
-        } else {
             $(".here").removeClass("here");
-            $(this).addClass("here");
-
-            if($(".here").text() == "BEST"){
-                $("#best").show();
-                $("#listContext").hide();
-            } else {
-                $("#best").hide();
-                $("#listContext").show();
-            }
-        }
+            $("#best").hide();
+            $("#listContext").show();
+        } else {
+			$(this).addClass("here");
+            $("#best").show();
+            $("#listContext").hide();
+		}        
     });
 
-    $(".best-btn").on("click", function() {
-        
-    });
-
-
+	$(".product-item").on("click", function() {
+		let item_id = $(this).find("input").val();
+		$(".article-wrap").load("/itemDetail/?item_id=" + item_id);
+	});
 });

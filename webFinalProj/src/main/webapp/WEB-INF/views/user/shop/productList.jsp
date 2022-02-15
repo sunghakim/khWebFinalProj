@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,12 +13,10 @@
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/shop/productList.css">
     <title>Document</title>
 </head>
-<body>
+<body class="body">
     <div class="menuLine">
         <ul id="listMenu" class="listMenu">
             <li class="button here">BEST</li>
-            <li class="button">티셔츠</li>
-            <li class="button">셔츠/블라우스</li>
         </ul>
     </div>
 
@@ -115,48 +114,14 @@
     <div id="listContext" style="display: none;">
         
         <div class="productList">
-            <div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
-			<div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
-            <div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
-            <div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
-            <div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
-            <div class="product-item">
-                <img class="product-img" src="/resources/static/img/sample.png" alt="...">
-                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                <div class="product-text">
-                    상품명<br>가격
-                </div>
-            </div>
+        	<c:forEach var="i" items="${datas}">
+	            <div class="product-item">
+	                <img class="product-img" src="${i.getFile_url()}" alt="${i.getFile_name()}">
+	                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
+	                <div class="product-text">${i.getName()}<br><fmt:formatNumber value="${i.getPrice()}" pattern="#,###" /></div>
+	                <input type="text" value="${i.getItem_id()}" hidden/>
+	            </div>   		
+        	</c:forEach>
         </div>
         <div>
             <ul>

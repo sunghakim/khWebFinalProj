@@ -12,6 +12,21 @@
     padding-left: 15px;
 }
 
+ .link:link {
+  color: black;
+  text-decoration: none;
+ }
+ 
+ .link:visited {
+  color: black; 
+  text-decoration: none;
+ }
+ 
+ .link:hover {
+  color: black; 
+  text-decoration: none;
+ }
+
 .btn {
     align-items: center;
 
@@ -47,8 +62,7 @@
 }
 
 #user > .home {
-    text-align: center;
-    padding-left: 0;
+    padding-left: 10;
 }
 
 .point {

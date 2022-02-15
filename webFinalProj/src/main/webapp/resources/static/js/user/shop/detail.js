@@ -1,4 +1,5 @@
 $(document).ready(function(){
+	let price =  parseInt($(".item-price").text().replace(/,/g, ''));
     if($(".here").text() == "구매하기"){
         $("#buy").show();
     } else {
@@ -6,6 +7,7 @@ $(document).ready(function(){
     }
     
     $(".detail-tab").on("click", function() {
+		let itemID = $("#item_id").val();
         $(".here").removeAttr('disabled');
         $(".here").removeClass("here");
         $(this).addClass("here");
@@ -14,17 +16,26 @@ $(document).ready(function(){
         if($(".here").text() == "구매하기"){
             $("#buy").show();
             $("#container").empty();
-        } else {
+        } else if($(".here").text() == "상세보기") {
             $("#buy").hide();
-            $("#container").html("<p>안녕하세욥</p>");
+            $("#container").load("/itemDetail/content?item_id=" + itemID);
+        } else if($(".here").text() == "후기") {
+            $("#buy").hide();
+            $("#container").load("/itemDetail/review?item_id=" + itemID);
+        } else if($(".here").text() == "문의하기") {
+            $("#buy").hide();
+            $("#container").load("/itemDetail/checkQuestionList?item_id=" + itemID + "$page=1");
         }
     });
 
     // 옵션 사이즈 선택해야 색상 선택 가능
     $("#option-size").change(function() {
         let val = $("#option-size option:selected").val();
+        let size = $("#option-size option:selected").text();
         
         if(val != ""){
+			let items = $(".oc-" + size);
+			$(".oc-" + size).removeAttr("hidden");
             $("#option-color").removeAttr("disabled");
         }
     });
@@ -64,13 +75,14 @@ $(document).ready(function(){
             }
 
             let totalPrice = parseInt($("#total").text().replace(/,/g, ''));
-            totalPrice += 20000;
+            totalPrice += price;
             totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             $("#total").text(totalPrice);
 
             $("#option-size option").removeAttr("selected");
             $("#option-size option:eq(0)").prop("selected", "true");
             $("#option-color option:eq(0)").prop("selected", "true");
+    		$("#option-color option").attr("hidden", "true");
             $("#option-color").attr("disabled", "true");
         }
     });
@@ -81,7 +93,7 @@ $(document).ready(function(){
         $(this).siblings("h5").text(amount);
 
         let totalPrice = parseInt($("#total").text().replace(/,/g, ''));
-        totalPrice += 20000;
+        totalPrice += price;
         totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         $("#total").text(totalPrice);
     });
@@ -93,7 +105,7 @@ $(document).ready(function(){
         $(this).siblings("h5").text(amount);
 
         let totalPrice = parseInt($("#total").text().replace(/,/g, ''));
-        totalPrice -= 20000;
+        totalPrice -= price;
         totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         $("#total").text(totalPrice);
     });
@@ -101,7 +113,7 @@ $(document).ready(function(){
     $(".item-box").on('click', '#delete', function() {
         let amount = $(this).siblings("h5").text();
         let totalPrice = parseInt($("#total").text().replace(/,/g, ''));
-        totalPrice = totalPrice - (amount * 20000);
+        totalPrice = totalPrice - (amount * price);
         totalPrice = totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         $("#total").text(totalPrice);
 

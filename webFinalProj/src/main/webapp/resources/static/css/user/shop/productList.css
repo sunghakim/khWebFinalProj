@@ -1,4 +1,10 @@
 @charset "UTF-8";
+.body {
+	display: flex;
+	flex-direction: colum;
+	width: 100%
+}
+
 .listMenu {
     width: 100%;
     margin: 0;
@@ -31,7 +37,11 @@
 .here {
     background-color: rgb(231, 76, 60);
     color: white;
-    cursor: default;
+}
+
+.here:hover {
+    background-color: rgb(190, 64, 50);
+    color: white;
 }
 
 #best {
