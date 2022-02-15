@@ -20,13 +20,12 @@ public class Manage_AccountService extends Manage_S_Module {
 		return dao.selectList(Page);
 	}
 	
-	
 	@Transactional(rollbackFor=Exception.class)
-	public boolean delete(String ID) throws Exception{
-		if (dao.delete(ID) == 1) {
-			return true;
-		} else {
-			throw new Exception("계정 탈퇴 처리중 문제발생");
-		}
+	public int updateBan(String reportedAccountID) throws Exception{
+		return dao.updateBan(reportedAccountID);
+	}
+
+	public Manage_AccountDTO selectOne(String accountID) {
+		return dao.selectOne(accountID);
 	}
 }

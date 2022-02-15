@@ -20,4 +20,12 @@ public class Manage_SoldHistoryDAO {
 	public List<Manage_SoldHistoryDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
+
+	public int insertSoldHistory(Manage_SoldHistoryDTO soldHistoryDTO) {
+		return this.session.insert(Mapper + ".insertSoldHistory", soldHistoryDTO);
+	}
+
+	public int insertSolsdDetail(Manage_SoldHistoryDTO soldHistoryDTO) {
+		return this.session.insert(Mapper + ".insertSoldDetail", soldHistoryDTO);
+	}
 }

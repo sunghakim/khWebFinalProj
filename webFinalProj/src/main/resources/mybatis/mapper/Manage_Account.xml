@@ -19,6 +19,10 @@
 		SELECT COUNT(ACCOUNT_ID) FROM ACCOUNT
 	</select>
 	
+	<select id="selectOne" parameterType="String" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
+		SELECT * FROM ACCOUNT WHERE ACCOUNT_ID = #{accountID}
+	</select>
+	
 	<select id="selectList" parameterType="int" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
 		SELECT B.*
 		FROM (
@@ -29,9 +33,8 @@
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
 		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
-		
-	<delete id="delete" parameterType="String">
-		DELETE FROM ACCOUNT WHERE ACCOUNT_ID = #{ID}
-	</delete>
-
+	
+	<update id="updateBan" parameterType="String">
+		UPDATE ACCOUNT SET IS_BANNED = #{reportedAccountID}
+	</update>
 </mapper>

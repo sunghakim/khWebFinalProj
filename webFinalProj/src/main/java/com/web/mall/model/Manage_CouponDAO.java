@@ -11,6 +11,7 @@ public class Manage_CouponDAO {
 	
 	@Autowired
 	SqlSession session;
+	
 	private String Mapper = "Manage_CouponMapper";
 	
 	public int selectTotalCount() {
@@ -23,9 +24,5 @@ public class Manage_CouponDAO {
 	
 	public int insert(Manage_CouponDTO DTO) {
 		return this.session.insert(Mapper + ".insert", DTO);
-	}
-	
-	public int delete(String ID) {
-		return this.session.delete(Mapper + ".delete", ID);
 	}
 }

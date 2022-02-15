@@ -45,6 +45,10 @@
 		WHERE REPORTED_ACCOUNT_ID = #{ReportedAccountID} AND END_DATE > SYSDATE
 	</select>
 	
+	<select id="selectAllPunish" parameterType="Manage_ReportDTO" resultType="int">
+		SELECT COUNT(REPORTED_ACCOUNT_ID) FROM PUNISH;
+	</select>
+	
 	<insert id="insertPunish" parameterType="Manage_ReportDTO">
 		INSERT INTO PUNISH VALUES(#{ReportID}, #{ReportedAccountID}, SYSDATE, SYSDATE + 7)
 	</insert>

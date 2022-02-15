@@ -8,6 +8,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class Manage_ReportService extends Manage_S_Module {
+
+	@Autowired
+	Manage_AccountService AccountService;
 	
 	@Autowired
 	Manage_ReportDAO dao;
@@ -22,22 +25,26 @@ public class Manage_ReportService extends Manage_S_Module {
 	
 	@Transactional(rollbackFor=Exception.class)
 	public boolean update(Manage_ReportDTO DTO) throws Exception {
-		switch(DTO.getResult()) {
+		switch(DTO.getResult()) {//1은 검토중
 		case(2)://활동제제
 			Manage_ReportDTO temp = dao.selectPunish(DTO);
-			
-			if (temp == null) {
-				if (dao.insertPunish(DTO) != 1) {
+			if(dao.selectAllPunish(DTO) != 3) {
+				if (temp == null) {
+					if (dao.insertPunish(DTO) != 1) {
+						throw new Exception("신고 내역 처리중 문제발생");
+					}
+				} else {
+					if (dao.updatePunish(temp) != 1) {
+						throw new Exception("신고 내역 처리중 문제발생");
+					}
+				}
+				if (dao.updateReport(DTO) != 1) {
 					throw new Exception("신고 내역 처리중 문제발생");
 				}
 			} else {
-				System.out.println("temp: " + temp.toString());
-				if (dao.updatePunish(temp) != 1) {
-					throw new Exception("신고 내역 처리중 문제발생");
+				if (AccountService.updateBan(DTO.getReportedAccountID()) != 1) {
+					throw new Exception("영구 활동 정지 처리중 문제발생");
 				}
-			}
-			if (dao.updateReport(DTO) != 1) {
-				throw new Exception("신고 내역 처리중 문제발생");
 			}
 			break;
 		case(3)://기각

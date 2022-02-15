@@ -18,4 +18,8 @@ public class Manage_SoldHistoryService extends Manage_S_Module {
 	public List<Manage_SoldHistoryDTO> selectList(int Page) {
 		return dao.selectList(Page);
 	}
+
+	public int insertSoldHistory(Manage_SoldHistoryDTO soldHistoryDTO) {
+		return dao.insertSoldHistory(soldHistoryDTO);
+	}
 }

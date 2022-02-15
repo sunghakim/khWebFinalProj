@@ -17,6 +17,8 @@ import com.web.mall.model.Manage_ItemService;
 @Controller
 public class KSW_MainPageController extends Manage_C_Module {
 	
+	
+	
 	@Autowired
 	Manage_ItemService ItemService;
 	
@@ -32,7 +34,7 @@ public class KSW_MainPageController extends Manage_C_Module {
 	}
 	
 	//관리자 메인페이지
-	@RequestMapping(value = "/Manage", method = RequestMethod.GET)
+	@RequestMapping(value = "/Manager", method = RequestMethod.GET)
 	public ModelAndView ManagerHome(ModelAndView mv, HttpSession session) {
 		//로그인 세션이 없을 경우 테스트용 관리자 세션 생성
 		if (session.getAttribute("account") == null) {
