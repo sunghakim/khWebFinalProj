@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.mall.model.Manage_AccountDAO;
 import com.web.mall.model.Manage_AccountDTO;
 import com.web.mall.model.Manage_AccountService;
 
@@ -28,7 +27,7 @@ public class Manage_AccountController extends Manage_C_Module {
 	@RequestMapping(value = URL, method = RequestMethod.GET)
 	public ModelAndView selectAccountList(HttpSession session, ModelAndView mv, HttpServletRequest request) {
 		if (isManager(mv, session, URL) == 0) {
-			int TotalPageCount = dao.selectTotalPageCount();
+			int TotalPageCount = Service.selectTotalPageCount();
 			mv.addObject("TotalPageCount", TotalPageCount);
 			
 			int Page = setPage(mv, request);

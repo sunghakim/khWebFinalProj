@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.KSW_PurchaseService;
-import com.web.mall.model.Manage_ItemService;
-import com.web.mall.model.Manage_SoldHistoryDTO;
 import com.web.mall.model.ShoppingListVO;
 
 @Controller

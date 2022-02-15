@@ -16,6 +16,10 @@ public class Manage_AccountDAO {
 	public int selectTotalCount() {
 		return this.session.selectOne(Mapper + ".selectTotalCount");
 	}
+
+	public Manage_AccountDTO selectOne(String accountID) {
+		return this.session.selectOne(Mapper + ".selectOne", accountID);
+	}
 	
 	public List<Manage_AccountDTO> selectList(int Page) {
 		return this.session.selectList(Mapper + ".selectList", Page);

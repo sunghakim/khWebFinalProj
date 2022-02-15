@@ -19,6 +19,10 @@
 		SELECT COUNT(ACCOUNT_ID) FROM ACCOUNT
 	</select>
 	
+	<select id="selectOne" parameterType="String" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
+		SELECT * FROM ACCOUNT WHERE ACCOUNT_ID = #{accountID}
+	</select>
+	
 	<select id="selectList" parameterType="int" resultType="Manage_AccountDTO" resultMap="Manage_AccountDTOMap">
 		SELECT B.*
 		FROM (

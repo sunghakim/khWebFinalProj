@@ -24,4 +24,8 @@ public class Manage_AccountService extends Manage_S_Module {
 	public int updateBan(String reportedAccountID) throws Exception{
 		return dao.updateBan(reportedAccountID);
 	}
+
+	public Manage_AccountDTO selectOne(String accountID) {
+		return dao.selectOne(accountID);
+	}
 }

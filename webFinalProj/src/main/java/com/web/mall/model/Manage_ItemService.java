@@ -22,6 +22,12 @@ public class Manage_ItemService extends Manage_S_Module {
 		return PostCountToPageCount(dao.selectTotalCount());
 	}
 
+	public Manage_ItemDTO selectOne(int itemID) {
+		Manage_ItemDTO dto = new Manage_ItemDTO();
+		dto.setItemID(itemID);
+		return dao.selectOne(dto);
+	}
+	
 	public Manage_ItemDTO selectOne(Manage_ItemDTO DTO) {
 		return dao.selectOne(DTO);
 	}
@@ -74,6 +80,8 @@ public class Manage_ItemService extends Manage_S_Module {
 		}
 		return true;
 	}
+	
+	
 	
 	@Transactional(rollbackFor=Exception.class)
 	public boolean update(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
