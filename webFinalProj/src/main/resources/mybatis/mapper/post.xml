@@ -4,13 +4,13 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="PostMapper">
 	<!-- 선택한 게시판의 게시글 상세페이지 보여주기  -->
-	<select id ="selectPostList" parameterType="PostDTO" resultType="PostDTO" >
+	<select id ="selectPost" parameterType="PostDTO" resultType="PostDTO" >
 	  <![CDATA[
 	  	SELECT  P.POST_ID, P.WRITER_ID, P.BOARD_ID, P.TITLE
 	  		, P.CONTENT, P.GOOD_NUMBER, P.POSTING_DATE, I.FILE_NAME, I.FILE_URL
 	  	FROM POST P JOIN IMAGE I ON (P.POST_ID = I.REFERENCES_ID)
-	  	WHERE POST_ID = #{post_id} 
-	  	AND ID_TYPE = 'POST'
+	  	WHERE P.POST_ID = #{post_id} 
+	  	AND I.ID_TYPE = 'POST'
 	  ]]>
 	</select>
 	
@@ -18,7 +18,7 @@
 	<insert id="insertPost" parameterType="PostDTO">
     	INSERT ALL
     		INTO POST VALUES(POST_ID_SEQ.NEXTVAL, #{writer_id}, 1, #{title}, #{content}, 0, 0, SYSDATE)
-    		INOT IMAGE VALUES(IMAGE_SEQ.NEXTVAL, #{post_id} ,'POST', #{file_name}, #{file_url})
+    		INTO IMAGE VALUES(IMAGE_SEQ.NEXTVAL, #{post_id} ,'POST', #{file_name}, #{file_url})
   	</insert>
 	
 	<!-- 선택한 게시글 수정 -->
@@ -34,7 +34,8 @@
 	
 	<!-- 신고 문의 -->
   	<insert id="insertReport" parameterType="report"> 
-    	INSERT INTO REPORT VALUES(COMMENT_SEQ.NEXTVAL, #{writer_id}, SYSDATE, #{content})
+    	INSERT INTO REPORT(REPORT_ID,REPORT_REASON_ID, REPORTER_ID, REPORTED_ACCOUNT_ID, REPORTED_POST_ID, REPORTED_DATE, RESULT) 
+    		VALUES(REPORT_SEQ.NEXTVAL, #{report_reason_id}, #{reporter_id},#{reported_account_id}, #{reported_post_id}, SYSDATE, 1)
   	</insert>
 	
 	<!-- 좋아요 -->
