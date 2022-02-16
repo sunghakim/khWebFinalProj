@@ -21,7 +21,7 @@ public class Manage_StatisticsController extends Manage_C_Module {
 	Manage_StatisticsService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Statistics";
+	private final String URL = "/Manager/Statistics";
 	
 	//종류에 따른 통계 반환
 	@RequestMapping(value = URL, method = RequestMethod.GET)

@@ -1,34 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>    
-    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="widli=device-widli, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/resources/static/css/common.css">
     <link rel="stylesheet" href="/resources/static/css/admin-common.css">
-    <link rel="stylesheet" href="/resources/static/css/category.css">
+    <link rel="stylesheet" href="/resources/static/css/product-list.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final category management</title>
-    <!-- 카테고리 관리 -->
+    <title>kh final product-list management</title>
+    <!-- 상품 목록 확인 페이지 -->
 </head>
+
 <body>
-	<div class="wrapper">
-        <header>
-                <div class="header-wrap">
-                    <h2 class="logo">logo</h2>
-                    <div class="ul-wrap">
-                    <ul class="header-ul" id="logout-ul">
-                        	 <li id="logout">관리자 로그아웃</li>
-                    </ul>
-                    </div>
-                </div>
-            </header>
+    <div class="wrapper">
+		<header>
+			<div class="header-wrap">
+				<h2 class="logo">logo</h2>
+				<div class="ul-wrap">
+					<ul class="header-ul" id="logout-ul">
+						<li id="logout">관리자 로그아웃</li>
+					</ul>
+				</div>
+			</div>
+		</header>
         <div class="content">
             <nav>
                 <div class="nav-wrap">
@@ -72,8 +74,8 @@
                             <p>신고 관리</p>
                         </li>
                         <li id="admin-nav-3" class="click-color">
-                                <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                                <p>사이트 관리</p>
+                            <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
+                            <p>사이트 관리</p>
                         </li>
                     </ul>
                     <ul class="admin-nav-sub">
@@ -82,7 +84,7 @@
                             </div>
                             <p>상품 관리</p>
                         </li>
-                        <li id="sub-2" class="click-font">
+                        <li id="sub-2">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;
                             </div>
                             <p>카테고리 관리</p>
@@ -118,24 +120,29 @@
             <section>
                 <div class="article-container">
                     <div class="btns">
-                    	<form action="${pageType}/Insert" method="post" accept-charset="UTF-8">
-                    		<input type="text" class="btn input" placeholder="  등록할 카테고리 이름" name="ItemCategoryName">
-                        	<button type="submit" class="btn regist">카테고리 등록</button>
-                    	</form>
-                        
+                    	<a href="${pageType}/Insert" class="btn" id="regist">상품 등록</a>
                     </div>
                     <div class="article-wrap">
                         <ul class="title">
-                            <li class="li-1">카테고리 이름</li>
-                            <li class="li-2">기능</li>
+                            <li>상품 이름</li>
+                            <li>카테고리</li>
+                            <li>가격</li>
+                            <li>재고 수량</li>
+                            <li>상품 상세</li>
+                            <li>기능</li>
                         </ul>
                         <div class="line"></div>
-                        <c:forEach var="List" items="${List}">
+                        <c:forEach items="${List}" var="List" >
 	                        <ul class="list">
-	                            <li class="li-1">${List.getItemCategoryName()}</li>
-	                            <li class="li-2">
-	                                <a href="${pageType}/Update?ItemCategoryID=${List.getItemCategoryID()}&NavShow=F" class="modify">&nbsp;수정&nbsp;</a>
-	                                <a href="${pageType}/Delete?ItemCategoryID=${List.getItemCategoryID()}" class="delete">&nbsp;삭제&nbsp;</a>
+	                            <li>${List.getName()}</li>
+	                            <li>${List.getItemCategoryName()}</li>
+	                            <li><fmt:setLocale value="ko_KR"/><fmt:formatNumber value="${List.getPrice()}" pattern="#,###"/></li>
+	                            <li>${List.getAmount()}</li>
+	                            <li>
+	                                <a href="${pageType}/Detail?ItemID=${List.getItemID()}&ItemOptionID=${List.getItemOptionID()}&ItemCategoryID=${List.getItemCategoryID()}" class="detail">&nbsp;상세보기&nbsp;</a>
+	                            </li>
+	                            <li>
+	                            <a href="${pageType}/Update?ItemID=${List.getItemID()}&ItemOptionID=${List.getItemOptionID()}&ItemCategoryID=${List.getItemCategoryID()}" class="modify">&nbsp;수정&nbsp;</a>
 	                            </li>
 	                        </ul>
 	                    </c:forEach>
@@ -145,6 +152,7 @@
         </div>
     </div>
     <script src="/resources/static/js/common.js"></script>
-    <script src="/resources/static/js/category.js"></script>
+    <script src="/resources/static/js/product-list.js"></script>
 </body>
+
 </html>

@@ -25,7 +25,7 @@ public class Manage_QuestionDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
-	public int update(Manage_QuestionDTO DTO) {
-		return this.session.update(Mapper + ".update", DTO);
+	public int update(Manage_QuestionDTO dto) {
+		return this.session.update(Mapper + ".update", dto);
 	}
 }

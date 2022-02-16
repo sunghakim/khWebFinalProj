@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/resources/static/css/common.css">
     <link rel="stylesheet" href="/resources/static/css/admin-common.css">
-    <link rel="stylesheet" href="/resources/static/css/notice-list.css">
+    <link rel="stylesheet" href="/resources/static/css/coupon-detail.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final notice-list management</title>
-    <!-- 공지 목록 페이지 -->
+    <title>kh final coupon-detail management</title>
+    <!-- 쿠폰 발급 페이지 (쿠폰 상세 페이지) -->
 </head>
 <body>
 	<div class="wrapper">
@@ -71,7 +71,7 @@
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>신고 관리</p>
                         </li>
-                        <li id="admin-nav-3"  class="click-color">
+                        <li id="admin-nav-3" class="click-color">
                                 <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                                 <p>사이트 관리</p>
                         </li>
@@ -107,7 +107,7 @@
                             </div>
                             <p>환불 관리</p>
                         </li>
-                        <li id="sub-7"  class="click-font">
+                        <li id="sub-7">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;
                             </div>
                             <p>공지 관리</p>
@@ -117,37 +117,47 @@
             </nav>
             <section>
                 <div class="article-container">
-                    <div class="btns">
-                        <button type="submit" class="btn regist">공지사항 등록</button>
-                    </div>
+                <div class="btns">
+                        <button class="btn back">쿠폰 목록</button>
+                </div>
                     <div class="article-wrap">
                         <ul class="title">
-                            <li>게시글 제목</li>
-                            <li>작성일자</li>
-                            <li>상세보기</li>
-                            <li>기능</li>
+                            <li>쿠폰명</li>
+                            <li>쿠폰 시작일</li>
+                            <li>쿠폰 종료일</li>
+                            <li>할인율</li>
+                            <li>수량</li>
                         </ul>
                         <div class="line"></div>
-                        
-                        <c:forEach var="List" items="${List}">
+                        <form action="${pageType}/Insert" method="post" accept-charset="UTF-8">
 	                        <ul class="list">
-	                            <li>${List.getTitle()}</li>
-	                            <li>${List.getPostingDateStr()}</li>
 	                            <li>
-	                                <a href="/board/boardnew?board_id=${List.getPostID()}" class="detail">상세보기</a>
+	                                <input type="text" name="Name" required>
 	                            </li>
 	                            <li>
-	                            	<a href="${pageType}/Update?PostID=${List.getPostID()}" class="modify">수정</a>
-	                            	<a href="${pageType}/Delete?PostID=${List.getPostID()}" class="delete">삭제</a>
+	                                <input type="date" name="StartDate" required>
+	                            </li>
+	                            <li>
+	                                <input type="date" name="EndDate" required>
+	                            </li>
+	                            <li>
+	                                <input type="number" name="Discount" placeholder="1~99 숫자 입력" required>
+	                            </li>
+	                            <li>
+	                                <input type="number" name="Amount" required>
 	                            </li>
 	                        </ul>
-                        </c:forEach>
+		                    <div class="bottom-btns">
+		                        <button type="submit" class="btn regist">등록</button>
+		                        <button class="btn cancel">등록 취소</button>
+		                    </div>
+	                   </form>
                     </div>
                 </div>
             </section>
         </div>
     </div>
     <script src="/resources/static/js/common.js"></script>
-    <script src="/resources/static/js/notice-list.js"></script>
+    <script src="/resources/static/js/coupon-detail.js"></script>
 </body>
 </html>

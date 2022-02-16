@@ -15,7 +15,7 @@ import com.web.mall.model.KSW_PurchaseService;
 import com.web.mall.model.ShoppingListVO;
 
 @Controller
-public class KSW_PurchaseController extends Manage_C_Module {
+public class PurchaseController extends Manage_C_Module {
 	
 	@Autowired
 	KSW_PurchaseService Service;
@@ -28,7 +28,7 @@ public class KSW_PurchaseController extends Manage_C_Module {
 		if (isLogined(session)) {
 			Service.purchase(List);
 			//구매결과 페이지(혹은 홈페이지)로 이동
-			//mv.setViewName("/");
+			mv.setViewName("/");
 		}
 		return mv;
 	}

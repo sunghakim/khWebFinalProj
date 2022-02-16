@@ -21,7 +21,7 @@ public class Manage_CouponController extends Manage_C_Module {
 	private Manage_CouponService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Coupon";
+	private final String URL = "/Manager/Coupon";
 	
 	//쿠폰 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
@@ -40,7 +40,7 @@ public class Manage_CouponController extends Manage_C_Module {
 	//쿠폰 추가 페이지 접근
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
 	public ModelAndView insertCoupon(HttpSession session, ModelAndView mv) {
-		isManager(mv, session, URL, "Insert");
+		isManager(mv, session, URL, "Detail");
 		return mv;
 	}
 	

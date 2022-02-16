@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/resources/static/css/common.css">
     <link rel="stylesheet" href="/resources/static/css/admin-common.css">
-    <link rel="stylesheet" href="/resources/static/css/user.css">
+    <link rel="stylesheet" href="/resources/static/css/category.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final user management</title>
-    <!-- 회원 관리 페이지 -->
+    <title>kh final category management</title>
+    <!-- 카테고리 관리 -->
 </head>
 <body>
 	<div class="wrapper">
@@ -63,7 +63,7 @@
                         </li>
                     </ul>
                     <ul class="admin-nav">
-                        <li id="admin-nav-1" class="click-color">
+                        <li id="admin-nav-1">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>회원 관리</p>
                         </li>
@@ -71,7 +71,7 @@
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>신고 관리</p>
                         </li>
-                        <li id="admin-nav-3">
+                        <li id="admin-nav-3" class="click-color">
                                 <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                                 <p>사이트 관리</p>
                         </li>
@@ -82,7 +82,7 @@
                             </div>
                             <p>상품 관리</p>
                         </li>
-                        <li id="sub-2">
+                        <li id="sub-2" class="click-font">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;
                             </div>
                             <p>카테고리 관리</p>
@@ -117,40 +117,33 @@
             </nav>
             <section>
                 <div class="article-container">
+                    <div class="btns">
+                    	<form action="${pageType}/Insert" method="post" accept-charset="UTF-8">
+                    		<input type="text" class="btn input" placeholder="  등록할 카테고리 이름" name="ItemCategoryName">
+                        	<button type="submit" class="btn regist">카테고리 등록</button>
+                    	</form>
+                        
+                    </div>
                     <div class="article-wrap">
                         <ul class="title">
-                        	<li>ID</li>
-							<li>권한</li>
-							<li>이름</li>
-							<li>휴대폰 번호</li>
-							<li>이메일</li>
-							<li>주소</li>
-							<li>우편번호</li>
-							<li>닉네임</li>
-							<li>가입일</li>
-							<li>기능</li>
+                            <li class="li-1">카테고리 이름</li>
+                            <li class="li-2">기능</li>
                         </ul>
                         <div class="line"></div>
-                        <c:forEach items="${List}" var="List" >
+                        <c:forEach var="List" items="${List}">
 	                        <ul class="list">
-	                          	<li>${List.getAccountID()}</li>
-								<li>${List.getUserTypeStr()}</li>
-								<li>${List.getName()}</li>
-								<li>${List.getPhone()}</li>
-								<li>${List.getEmail()}</li>
-								<li>${List.getAddress()}</li>
-								<li>${List.getAddressNumber()}</li>
-								<li>${List.getNickName()}</li>
-								<li><fmt:formatDate var="formatRegDate" value="${List.getJoinDateStr()}" pattern="yy-MM-dd"/>${formatRegDate}</li>
-								<li><a href="${pageType}/Delete?ID=${List.getAccountID()}" class="cancel">&nbsp;탈퇴처리&nbsp;</a></li>
+	                            <li class="li-1">${List.getItemCategoryName()}</li>
+	                            <li class="li-2">
+	                                <a href="${pageType}/Delete?ItemCategoryID=${List.getItemCategoryID()}" class="delete">&nbsp;삭제&nbsp;</a>
+	                            </li>
 	                        </ul>
-                        </c:forEach>
+	                    </c:forEach>
                     </div>
                 </div>
             </section>
         </div>
     </div>
     <script src="/resources/static/js/common.js"></script>
-    <script src="/resources/static/js/user.js"></script>
+    <script src="/resources/static/js/category.js"></script>
 </body>
 </html>

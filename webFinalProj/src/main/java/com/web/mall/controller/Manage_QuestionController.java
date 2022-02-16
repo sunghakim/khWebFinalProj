@@ -21,7 +21,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 	Manage_QuestionService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Question";
+	private final String URL = "/Manager/Question";
 	
 	//문의 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
@@ -43,6 +43,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Question", Service.selectOne(QuestionID));
 		}
+		System.out.println("문의 상세 DTO: "+Service.selectOne(QuestionID));
 		return mv;
 	}
 		

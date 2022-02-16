@@ -1,5 +1,5 @@
 $('.issue').click(() => {
-    $(location).attr('href', '/Manager_test/Coupon/Insert');
+    $(location).attr('href', '/Manager/Coupon/Insert');
 })
 
 $(document).ready(function () {

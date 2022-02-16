@@ -21,7 +21,7 @@ public class Manage_ReportController extends Manage_C_Module{
 	Manage_ReportService Service;
 	
 	//페이지 링크
-	private final String URL = "/Manager_test/Report";
+	private final String URL = "/Manager/Report";
 	
 	//신고 관리 페이지 접근	
 	@RequestMapping(value = URL, method = RequestMethod.GET)

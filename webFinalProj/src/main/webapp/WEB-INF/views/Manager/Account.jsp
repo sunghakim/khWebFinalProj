@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="/resources/static/css/common.css">
     <link rel="stylesheet" href="/resources/static/css/admin-common.css">
-    <link rel="stylesheet" href="/resources/static/css/coupon-detail.css">
+    <link rel="stylesheet" href="/resources/static/css/user.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <title>kh final coupon-detail management</title>
-    <!-- 쿠폰 발급 페이지 (쿠폰 상세 페이지) -->
+    <title>kh final user management</title>
+    <!-- 회원 관리 페이지 -->
 </head>
 <body>
 	<div class="wrapper">
@@ -63,7 +63,7 @@
                         </li>
                     </ul>
                     <ul class="admin-nav">
-                        <li id="admin-nav-1">
+                        <li id="admin-nav-1" class="click-color">
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>회원 관리</p>
                         </li>
@@ -71,7 +71,7 @@
                             <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                             <p>신고 관리</p>
                         </li>
-                        <li id="admin-nav-3" class="click-color">
+                        <li id="admin-nav-3">
                                 <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                                 <p>사이트 관리</p>
                         </li>
@@ -117,47 +117,38 @@
             </nav>
             <section>
                 <div class="article-container">
-                <div class="btns">
-                        <button class="btn back">쿠폰 목록</button>
-                </div>
                     <div class="article-wrap">
                         <ul class="title">
-                            <li>쿠폰명</li>
-                            <li>쿠폰 발급 날짜</li>
-                            <li>쿠폰 종료일</li>
-                            <li>할인율</li>
-                            <li>수량</li>
+                        	<li>ID</li>
+							<li>권한</li>
+							<li>이름</li>
+							<li>휴대폰 번호</li>
+							<li>이메일</li>
+							<li>주소</li>
+							<li>우편번호</li>
+							<li>닉네임</li>
+							<li>가입일</li>
                         </ul>
                         <div class="line"></div>
-                        <form action="${pageType}/Insert" method="post" accept-charset="UTF-8">
+                        <c:forEach items="${List}" var="List" >
 	                        <ul class="list">
-	                            <li>
-	                                <input type="text" name="Name" required>
-	                            </li>
-	                            <li>
-	                                <input type="date" name="StartDate" required>
-	                            </li>
-	                            <li>
-	                                <input type="date" name="EndDate" required>
-	                            </li>
-	                            <li>
-	                                <input type="number" name="Discount" placeholder="1~99 숫자 입력" required>
-	                            </li>
-	                            <li>
-	                                <input type="number" name="Amount" required>
-	                            </li>
+	                          	<li>${List.getAccountID()}</li>
+								<li>${List.getUserTypeStr()}</li>
+								<li>${List.getName()}</li>
+								<li>${List.getPhone()}</li>
+								<li>${List.getEmail()}</li>
+								<li>${List.getAddress()}</li>
+								<li>${List.getAddressNumber()}</li>
+								<li>${List.getNickName()}</li>
+								<li>${List.getJoinDateStr()}</li>
 	                        </ul>
-		                    <div class="bottom-btns">
-		                        <button type="submit" class="btn regist">등록</button>
-		                        <button class="btn cancel">등록 취소</button>
-		                    </div>
-	                   </form>
+                        </c:forEach>
                     </div>
                 </div>
             </section>
         </div>
     </div>
     <script src="/resources/static/js/common.js"></script>
-    <script src="/resources/static/js/coupon-detail.js"></script>
+    <script src="/resources/static/js/user.js"></script>
 </body>
 </html>

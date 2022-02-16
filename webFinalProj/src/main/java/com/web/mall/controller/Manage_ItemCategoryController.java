@@ -21,7 +21,7 @@ public class Manage_ItemCategoryController extends Manage_C_Module {
 	Manage_ItemCategoryService Service;
 	
 	//관리페이지 링크
-	private final String URL = "/Manager_test/ItemCategory";
+	private final String URL = "/Manager/ItemCategory";
 	
 	//상품 카테고리 관리 페이지 접속
 	@RequestMapping(value = URL, method = RequestMethod.GET)
