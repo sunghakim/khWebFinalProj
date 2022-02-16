@@ -51,7 +51,7 @@
 					<tr>
 		                <th>비밀번호</th>
 		                <td colspan="3">
-		                    <input id="password" name="password" type="text" value="1234" hidden/>
+		                    <input id="password" name="password" type="text" value="${account.password}" hidden/>
 		                    <button id="bootstrap-update-pwd" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">변경하기</button></td>
 		            </tr>
 				</c:when>
@@ -84,27 +84,23 @@
                 <th rowspan="2">주소</th>
 				<th>우편번호</th>
 				<td colspan="2">
-                    <label id="phone-label">${account.address_no}</label>
-                </td>
-				<td>
 					<input type="hidden" id="confmKey" name="confmKey" value=""  >
-					<input type="text" id="zipNo" name="zipNo" readonly style="width:100px">
-					<input type="button"  value="주소검색" onclick="goPopup();">
+					<input type="text" id="zipNo" name="zipNo" value="${account.address_no}" readonly style="width:100px" disabled>
+					<button type="button" onclick="goPopup();"> 주소검색</button>
 				</td>
 			</tr>
 			<tr>
 				<th>도로명주소</th>
 				<td colspan="2">
-                    <label id="phone-label">주소 : ${account.address}</label>
+                    <input type="text" id="roadFullAddr" name="address" style="width:100%" value="${account.address}" disabled>
                 </td>
-				<td><input type="text" id="roadFullAddr" name="address" style="width:85%" value="${accountVo.address}"></td>
 			</tr>
         </table>
     </form>
     </div>
     <hr>
     <div class="button">
-        <a href="#">회원탈퇴</a>
+        <a href="/drop">회원탈퇴</a>
         <div>
             <button id="cancel">취소</button>
             <button id="submit">수정완료</button>
@@ -123,7 +119,7 @@
                     <form>
                         <div id="pwd1">
                             <h4>기존 비밀번호</h4>
-                            <input id="pwd" type="text" required/>
+                            <input id="pwd" type="password" required/>
                         </div>
                         <div id="pwd2" style="display: none;">
                             <h4>새 비밀번호</h4>
