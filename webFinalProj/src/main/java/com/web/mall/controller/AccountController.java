@@ -313,12 +313,18 @@ public class AccountController {
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			if(service.dropAccount(nowAcc)) {
+				session.removeAttribute("logined");
+				session.removeAttribute("account");
+				session.removeAttribute("usertype");
 				return "redirect:/";
 			}
 		}
 		else {
 			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
 			if(service.dropAccount(nowAcc)) {
+				session.removeAttribute("logined");
+				session.removeAttribute("account");
+				session.removeAttribute("usertype");
 				return "redirect:/";
 			}
 		}
