@@ -21,16 +21,16 @@
 
 <body>
     <div class="wrapper">
-<header>
-                <div class="header-wrap">
-                    <h2 class="logo">logo</h2>
-                    <div class="ul-wrap">
-                    <ul class="header-ul" id="logout-ul">
-                        	 <li id="logout">관리자 로그아웃</li>
-                    </ul>
-                    </div>
-                </div>
-            </header>
+		<header>
+			<div class="header-wrap">
+				<h2 class="logo">logo</h2>
+				<div class="ul-wrap">
+					<ul class="header-ul" id="logout-ul">
+						<li id="logout">관리자 로그아웃</li>
+					</ul>
+				</div>
+			</div>
+		</header>
         <div class="content">
             <nav>
                 <div class="nav-wrap">

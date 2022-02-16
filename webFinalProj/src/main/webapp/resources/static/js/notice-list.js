@@ -1,5 +1,5 @@
 $('.regist').click(() => {
-    $(location).attr('href', '/Manager_test/Notice/Insert');
+    $(location).attr('href', '/Manager/Notice/Insert');
 })
 
 $(document).ready(function () {

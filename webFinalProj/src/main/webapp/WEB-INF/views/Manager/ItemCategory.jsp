@@ -134,7 +134,6 @@
 	                        <ul class="list">
 	                            <li class="li-1">${List.getItemCategoryName()}</li>
 	                            <li class="li-2">
-	                                <a href="${pageType}/Update?ItemCategoryID=${List.getItemCategoryID()}&NavShow=F" class="modify">&nbsp;수정&nbsp;</a>
 	                                <a href="${pageType}/Delete?ItemCategoryID=${List.getItemCategoryID()}" class="delete">&nbsp;삭제&nbsp;</a>
 	                            </li>
 	                        </ul>

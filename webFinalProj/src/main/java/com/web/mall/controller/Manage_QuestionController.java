@@ -43,6 +43,7 @@ public class Manage_QuestionController extends Manage_C_Module {
 		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Question", Service.selectOne(QuestionID));
 		}
+		System.out.println("문의 상세 DTO: "+Service.selectOne(QuestionID));
 		return mv;
 	}
 		

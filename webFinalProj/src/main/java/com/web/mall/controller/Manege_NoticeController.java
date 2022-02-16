@@ -75,7 +75,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 	public ModelAndView insertNotice(HttpSession session, ModelAndView mv) {
 
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
-		isManager(mv, session, URL, "Insert");
+		isManager(mv, session, URL, "Detail");
 		
 		mv.addObject("status", "insert");
 		return mv;
@@ -105,7 +105,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 	public ModelAndView updateNotice(HttpSession session, ModelAndView mv, int PostID) {
 
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
-		if (isManager(mv, session, URL, "Insert") == 0) {
+		if (isManager(mv, session, URL, "Detail") == 0) {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
 			mv.addObject("ImageList", Service.selectImageList(PostID));

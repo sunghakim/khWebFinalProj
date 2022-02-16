@@ -123,7 +123,7 @@
                     <div class="article-wrap">
                         <ul class="title">
                             <li>쿠폰명</li>
-                            <li>쿠폰 발급 날짜</li>
+                            <li>쿠폰 시작일</li>
                             <li>쿠폰 종료일</li>
                             <li>할인율</li>
                             <li>수량</li>

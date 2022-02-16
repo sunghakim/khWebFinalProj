@@ -37,7 +37,7 @@
 	
 	<update id="update" parameterType="Manage_QuestionDTO">
 		  UPDATE QUESTION 
-		  SET RESULT = #{Result}, ANSWER_TITLE = #{AnswerTitle}, ANSWER_CONTENT = #{AnswerContent}, ANSWER_DATE = SYSDATE
+		  SET RESULT = #{Result}, ANSWER_CONTENT = #{AnswerContent}, ANSWER_DATE = SYSDATE
 		  WHERE QUESTION_ID = #{QuestionID}
 	</update>
 </mapper>

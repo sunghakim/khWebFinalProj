@@ -124,6 +124,9 @@
                     </div> -->
                     <!-- 신고결과(Result)와 관련된 where절이 Mapper에 없어서 정렬 기능이 없다고 판단, 구현 보류 -->
                     <div class="article-wrap">
+	                    <div>
+	                    	3회 활동제한 처리를 받으면 영구탈퇴처리됩니다.
+	                    </div>
                         <ul class="title">
                         	<li>신고자 ID</li>
                             <li>신고대상 ID</li>
@@ -138,7 +141,6 @@
 	                        	<li>${List.getReporterID()}</li>
 	                            <li>${List.getReportedAccountID()}</li>
 	                            <li>${List.getContent()}</li>
-	                            <%-- <li>${List.getReportedDate()}</li> --%>
 	                            <li><fmt:formatDate var="formatRegDate" value="${List.getReportedDate()}" pattern="yy-MM-dd"/>${formatRegDate}</li>
 	                            <li>${List.getResultStr()}</li>						
 	                    	<c:if test="${List.getResult() eq 1}">        

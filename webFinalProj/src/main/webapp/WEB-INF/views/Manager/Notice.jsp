@@ -134,7 +134,7 @@
 	                            <li>${List.getTitle()}</li>
 	                            <li>${List.getPostingDateStr()}</li>
 	                            <li>
-	                                <a href="/board/boardnew?board_id=${List.getPostID()}" class="detail">상세보기</a>
+	                                <a href="${pageType}/Detail?PostID=${List.getPostID()}" class="detail">상세보기</a>
 	                            </li>
 	                            <li>
 	                            	<a href="${pageType}/Update?PostID=${List.getPostID()}" class="modify">수정</a>

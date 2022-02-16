@@ -122,7 +122,6 @@
                         <div class="btns">
                             <button class="btn back">문의 목록</button>
                             <button type="submit" class="btn regist">답변 등록</button>
-                            <button class="btn cancel">답변 취소</button>
                         </div>
                         <article class="up">
                             <div>
@@ -156,13 +155,14 @@
                             		<p class="box-title">답변내용</p>
                                	 	<div class="cols"></div>
 	                            <c:if test="${Question.getResult() eq 0}">
-	                            	<textarea class="answer" name="AnswerContent"></textarea>
+	                            	<textarea class="answer" name="AnswerContent" value="${Question.getAnswerContent()}" required></textarea>
 								</c:if>
 								<c:if test="${Question.getResult() eq 1}">
 									<textarea class="answer" value="${Question.getAnswerContent()}" readonly></textarea>
 								</c:if>
                             </div>
                         </article>
+                        <input type="hidden" name="QuestionID" value="${Question.getQuestionID()}">
                         </form>
                     </div>
                 </div>

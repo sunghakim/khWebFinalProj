@@ -64,7 +64,7 @@ public class Manage_ItemController extends Manage_C_Module {
 	//상품 추가 페이지 접근
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
 	public ModelAndView insertItem(HttpSession session, ModelAndView mv) {
-		isManager(mv, session, URL, "Insert");
+		isManager(mv, session, URL, "Detail");
 		
 		List<Manage_ItemCategoryDTO> List = ItemCategoryService.selectAll();
 		mv.addObject("ItemCategoryList", List);
@@ -87,7 +87,7 @@ public class Manage_ItemController extends Manage_C_Module {
 	//상품 수정 페이지 접근
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateItem(HttpSession session, ModelAndView mv, Manage_ItemDTO DTO) {
-		if (isManager(mv, session, URL, "Insert") == 0) {
+		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Item", Service.selectOne(DTO));
 		}
 		
