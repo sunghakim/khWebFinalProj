@@ -12,6 +12,8 @@
     <title>내정보</title>
 </head>
 <body>
+
+	<form action="/post" method="get">
     <div class="detailBody">
         <div id="detail" class="detail">
             <div class="detailHeader">
@@ -30,7 +32,7 @@
                 <div class="img-box">
                     <img src="/resources/static/img/sample.png" alt="">
                 </div>
-                <div id="content">
+                <div id="content" name="content" value="${datas.getContent()}">
                     ffafdafdafdsfas<br>
                     ffafdafdafdsfasfaf<br>
                     affaf<br>
@@ -50,7 +52,7 @@
         <hr>
         <div id="comments"></div>
     </div>
-
+	</form>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div id="modal" class="modal-dialog modal-dialog-centered">

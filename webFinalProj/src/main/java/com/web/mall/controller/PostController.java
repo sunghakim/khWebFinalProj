@@ -41,7 +41,7 @@ public class PostController {
 	//게시글 추가
 	@RequestMapping(value="/post/add", method=RequestMethod.GET)
 	public String postAdd(){
-		return "jinitest/postAdd";// 진희님 경로 user/community/list
+		return "user/community/write";// 진희님 경로 user/community/list
 	}
 	
 	//게시글 추가 (제목, 내용, 이미지파일)
@@ -74,7 +74,7 @@ public class PostController {
 		if(result) {
 		 	return "redirect:/board/list?board_id=1&page_num=1";
 		 }
-		return "jinitest/postAdd"; // 진희님 경로 user/community/list
+		return "user/community/write"; // 진희님 경로 user/community/list
 	}
 	
 	//게시글 신고
@@ -112,18 +112,12 @@ public class PostController {
 	//게시글 수정 요청
 	@RequestMapping(value = "/post/update", method = RequestMethod.POST)
 	public String updatePost(int post_id, String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
-		System.out.println("1");
 		UUID id = UUID.randomUUID();
-		System.out.println("2");
 		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정 url
-		System.out.println("3");
 		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
-		System.out.println("4");
 		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1]; //확장자 
-		
-		System.out.println("5");
 		PostDTO datas = service.getPost(post_id);
-		System.out.println("6");
+	
 		//파일 저장하는게 있으면 uuid로 저장.
 		if(saveFile.exists()) {
 			saveFile = new File(path, datas.getFile_name()); //새로운 파일 객체에 저장 원래 있던 이름으로
@@ -134,7 +128,7 @@ public class PostController {
 				return "redirect:/post/post_id=" + post_id;
 			}
 		}
-		System.out.println("7");
+		
 		while(saveFile.exists()) {
 			UUIDGenerator uuid = new UUIDGenerator();
 			id = uuid.generateId(fileUpload.getOriginalFilename()); //파일 이름이고 확장자 전까지임. 
@@ -145,7 +139,7 @@ public class PostController {
 				return "redirect:/post/post_id=" + post_id;
 			}
 		}
-		System.out.println("8");
+		
 		
 		
 		/*
@@ -181,6 +175,7 @@ public class PostController {
 		}
 		return "user/community/detail";
 	}
+	
 	//게시글 좋아요 두번 요청(좋아요 다시 누를때)
 	@RequestMapping(value="/post/dislike", method = RequestMethod.GET)
 	public String dislikePost(int post_id) {
@@ -222,7 +217,8 @@ public class PostController {
 	public String updateComments(Model model, int comment_id) {
 		CommentsDTO datas = service.getCommentsDetail(comment_id);
 		model.addAttribute("datas", datas);
-		return "redirect:/comments/comment_id="+comment_id;
+		
+		return "user/community/comment";
 	}
 	
 	//댓글 수정 요청
