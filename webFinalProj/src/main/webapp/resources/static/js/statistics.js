@@ -7,7 +7,7 @@ var chart = new Chart(ctx, {
     data: {
         labels: ['Outer', 'Shirts', 'Jeans', 'Accessary'],
         datasets: [{
-            label: '상품 통계',
+            label: '상품 판매 갯수통계',
             backgroundColor: 'rgb(240, 97, 80)',
             borderColor: 'rgb(255, 255, 255)',
             data: [0, 10, 5, 2]
@@ -23,7 +23,7 @@ var chart = new Chart(ctx, {
     data: {
         labels: [100, 200, 300, 400, 500],
         datasets: [{
-            label: '수입',
+            label: '상품 판매 매출액 평균',
             backgroundColor: 'rgb(0, 136, 255)',
             borderColor: 'rgb(255, 255, 255)',
             data: [0, 10, 5, 2, 3]

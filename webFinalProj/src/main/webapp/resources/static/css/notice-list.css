@@ -43,8 +43,10 @@
 
 .list li {
     position: relative;
-    width: calc(100% / 4); height: 100%;
+    width: calc(100% / 4); 
+    height: 100%;
     text-align: center;
+    margin-top: 10px;
 }
 
 .list button {
@@ -56,6 +58,43 @@
     padding: 3px;
 }
 
-.detail {
+
+/* 승원이 주석처리 */
+
+/*.detail {
     width: 80px !important;
+}*/
+
+/* 아래쪽 코드 전부 승원 추가 */
+
+.detail {
+    width: 80px;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.delete {
+	width: 80px;
+    background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px;
+    cursor: pointer;
+	text-decoration: none;
+}
+
+.modify {
+	background-color: black;
+    color: white;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px;
+    cursor: pointer;
+    text-decoration: none;
 }
