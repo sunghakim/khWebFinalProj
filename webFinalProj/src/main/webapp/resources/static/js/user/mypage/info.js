@@ -3,25 +3,9 @@ $.fn.formReset = function() {
     $(this).parent().siblings("td").find("label").show();
 };
 
-document.domain = "localhost";
-function goPopup(){
-// IE에서 opener관련 오류가 발생하는 경우, window에 이름을 명시해줍니다.
-	window.name = "jusoPopup";
-// 주소검색을 수행할 팝업 페이지를 호출합니다.
-	// 호출된 페이지(jusoPopup.jsp)에서 실제 주소검색URL(https://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
-    var pop = window.open("/jusoPopup","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-}
-
-/** API 서비스 제공항목 확대 (2017.02) **/
-function jusoCallBack(roadFullAddr,zipNo){
-	// 팝업페이지에서 주소입력한 정보를 받아서, 현 페이지에 정보를 등록합니다.
-	document.form.roadFullAddr.value = roadFullAddr;
-	document.form.zipNo.value = zipNo;
-}
-
 $(document).ready(function(){
     // 닉네임 변경
-    $("#nick-Btn").on("click", function(){
+     $("#nick-Btn").on("click", function(){
         let name = $("#nick-Btn").text();
         let value = $("#nick").text();
 
@@ -29,11 +13,16 @@ $(document).ready(function(){
             $("#nick").hide();
             $("#name").val(value);
             $("#name").show();
-            $("#nick-Btn").text('중복확인');
+            $("#nick-Btn").text('확인');
             $(this).next().show();
-        } else if(name == '중복확인') {
-            value = $("#nick input").val();
-            alert(value);
+        } else if(name == '확인') {
+            value = $("#name").val();
+            $("#nick").text(value);
+            $("#name").val(value);
+            $("#nick").show();
+            $("#name").hide();
+            $("#nick-Btn").text('변경하기');
+            $(this).next().hide();
         }
     });
 
@@ -52,7 +41,7 @@ $(document).ready(function(){
     // 전화번호 변경
     $("#phone-Btn").on("click", function() {
         let name = $("#phone-Btn").text();
-        let value = $("#phone-label").text();
+        let value = $("#phone").text();
 
         if(name == '수정하기') {
             $("#phone-label").hide();
@@ -63,12 +52,12 @@ $(document).ready(function(){
             $(this).next().show();
         } else if(name == '확인') {
             let regExp = /^(010|011|016|017|018|019)-?([0-9]{3,4})-?([0-9]{4})$/;
-            let phone = $("#phone").val();
+            let phone = $("#phone-Input").val();
             
             if(regExp.test(phone)){
-                phone =  $("#phone").val().replace(/(\d{3})-?(\d{3,4})-?(\d{4})$/, "$1-$2-$3");
-                $("#phone").val(phone);
-                $("#phone-label").text(phone);
+                phone =  $("#phone-Input").val().replace(/(\d{3})-?(\d{3,4})-?(\d{4})$/, "$1-$2-$3");
+                $("#phone-Input").val(phone);
+                $("#phone").text(phone);
                 alert(phone);
                 $(this).formReset();
                 $("#phone-Btn").text('수정하기');
@@ -83,20 +72,20 @@ $(document).ready(function(){
     // 이메일 변경
     $("#email-Btn").on("click", function() {
         let name = $("#email-Btn").text();
-        let value = $("#email-label").text();
+        let value = $("#email").text();
 
         if(name == '수정하기') {
-            $("#email-label").hide();
-            $("#email").val(value);
-            $("#email").show();
+            $("#email").hide();
+            $("#email-Input").val(value);
+            $("#email-Input").show();
             $("#email-Btn").text('확인');
             $(this).next().show();
         } else if(name == '확인') {
             let regExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
             let email = $("#email-Input").val();
             if(regExp.test(email)){
-                $("#email-label input").val(email);
-                $("#email-label").text(email);
+                $("#email input").val(email);
+                $("#email").text(email);
                 alert(email);
                 $(this).formReset();
                 $("#email-Btn").text('수정하기');
@@ -128,7 +117,7 @@ $(document).ready(function(){
     });
 
     $("#pwdNext").on("click", function() {
-        let txtPwd = $("#password").val();
+        let txtPwd = $("#txtPwd").val();
         let pwd = $("#pwd").val();
         let txt = $("#pwdNext").text();
 
@@ -143,12 +132,12 @@ $(document).ready(function(){
                 $("#pwd").attr("placeholder", "내용을 입력해주세요");
                 $("#pwd").empty();
                 $("#pwd").focus();
+                alert("비밀번호가 다릅니다");
             } 
 
         } else if(txt == "확인"){
             let after = $("#newPwd").val();
-            $("#password").val(after);
-            alert(after);
+            $("#txtPwd").val(after);
         }
     });
 
@@ -164,7 +153,10 @@ $(document).ready(function(){
     });
 
     $("#submit").on("click", function() {
-        $("#form").submit();
+        $("#update-Info").submit();
     });
     
+    $("#cancel, a[href='#']:eq(0)").on("click", function() {
+		history.back();
+	});
   });

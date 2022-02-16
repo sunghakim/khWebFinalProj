@@ -30,9 +30,9 @@
                         <img>
                         <div class="data">
                             <h5>${i.getName()}</h5>
-                            <c:set val="itemOpt" value="${itemOptionList[status.index].getItem_size()}'/'${itemOptionList[status.index].getColor()}"/>
+                            <c:set var="itemOpt" value="${itemOptionList[status.index].getItem_size()}'/'${itemOptionList[status.index].getColor()}"/>
                             <label>${itemOpt}</label><br>
-                            <c:set val="price" value="${itemOptionList[status.index].getAmount()} * ${i.getPrice()}" />
+                            <c:set var="price" value="${itemOptionList[status.index].getAmount()} * ${i.getPrice()}" />
                             <label class="price"></label>
                         </div>
                     </div>
