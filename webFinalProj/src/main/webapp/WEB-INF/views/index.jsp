@@ -254,7 +254,7 @@
 			                    <c:when test="${sessionScope.account.user_type eq 0 }">
 			                    	<script>
 			                    		$(() => {
-			                    			$(location).attr('href', '/Manager_test/Account');
+			                    			$(location).attr('href', '/Manager/Account');
 			                    		})
 			                    	</script>
 		                        	</c:when>
