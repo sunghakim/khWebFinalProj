@@ -20,8 +20,8 @@
                 <label><h1>문의 및 신고</h1></label>
             </div>
             <div class="tab-buttons">
-                <button id="question" class="tab-btn here" type="button">문의</button>
-                <button id="report" class="tab-btn" type="button">신고</button>
+                <button id="question" class="tab-btn here" type="button" onclick="location.href='/mypage/checkQuestionList'">문의</button>
+                <button id="report" class="tab-btn" type="button" onclick="location.href='/mypage/checkReport'">신고</button>
             </div>
         </div>
         <div class="questionBody">
@@ -31,7 +31,7 @@
                         <label class="sub-title">1:1 문의</label>
                     </div>
                     <div>
-                        <button type="button">문의하기</button>
+                        <button type="button" onclick="location.href='/mypage/addQuestion'">문의하기</button>
                     </div>
                 </div>
                 <hr>
@@ -46,7 +46,7 @@
                     </thead>
                     <tbody>
                     <c:forEach var="myQue" items="${myQuestionList}">
-                        <tr class="post">
+                        <tr class="post" onclick="location.href='/mypage/checkQuestion?question_id=' + ${myQue.question_id}">
                             <td>${myQue.question_id}</td>
                             <td>${myQue.question_title}</td>
                             <c:choose>

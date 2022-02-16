@@ -16,9 +16,6 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script>
-            Kakao.init('7d314791f1c38113b612f034c9d3f42f');
-            console.log(Kakao.isInitialized());
-            
             document.domain = "localhost";
          
             /** API 서비스 제공항목 확대 (2017.02) **/

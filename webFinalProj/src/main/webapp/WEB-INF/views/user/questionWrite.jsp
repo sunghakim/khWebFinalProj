@@ -13,19 +13,19 @@
     </head>
     <body  class="questionWrite-body">
         <div class="div">
-            <form id="questionWrite" action="">
+            <form id="questionWrite" method="post" action="/mypage/addQuestion">
                 <div class="questionWrite">
                     <div>
                         <label class="title-label">제목</label>
-                        <input type="text" id="question-title" class="frm" name="title" placeholder="내용을 입력해주세요" required/>
+                        <input type="text" id="question-title" class="frm" name="question_title" placeholder="내용을 입력해주세요" required/>
                     </div>
-                    <textarea id="question-content" class="frm" name="content" placeholder="내용을 입력해주세요" required></textarea>
+                    <textarea id="question-content" class="frm" name="question_content" placeholder="내용을 입력해주세요" required></textarea>
                 </div>
-            </form>
             <div class="button-box">
                 <button type="button" class="common-btn">취소</button>
-                <button type="button" class="point-btn">확인</button>
+                <button id="question-write-submit" type="submit" class="point-btn">확인</button>
             </div>
+            </form>
         </div>
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/resources/static/js/user/questionWrite.js"></script>

@@ -33,20 +33,20 @@
         </div>
     </div>
     <script>
-		if(${sessionScope.account.getSocial_account_id() eq 'false'}) {
-			if(${sessionScope.account.getUser_type() == 2}) {
-	    		$("#non-user").show();
-	    		$("#user").hide();
-	    	} else {    		
-	    		$("#user").show();
-	        	$("#non-user").hide();
-	    	}
-		}
-		else{
-			$("#user").show();
-        	$("#non-user").hide();
-		}
-    	
+       var sessionUserType = '${sessionScope.usertype}';
+       var accountUserType = '${sessionScope.account.getSocial_account_id()}';
+       if(sessionUserType == "web"){
+         if(accountUserType == 2) {
+             $("#non-user").show();
+             $("#user").hide();
+          } else {          
+             $("#user").show();
+              $("#non-user").hide();
+          }
+       } else if(sessionUserType == "social") {
+          $("#user").show();
+           $("#non-user").hide();
+       }
     </script>
 </body>
 </html>

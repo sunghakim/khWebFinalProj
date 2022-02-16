@@ -533,6 +533,7 @@ $('#logout').click(() => {
 
 // 카카오 로그인
 function loginWithKakao() {
+    Kakao.init('7d314791f1c38113b612f034c9d3f42f');
     Kakao.Auth.login({
         success: function (response) {
             Kakao.API.request({

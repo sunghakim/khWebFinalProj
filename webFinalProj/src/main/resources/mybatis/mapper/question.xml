@@ -20,7 +20,7 @@
     SELECT * FROM QUESTION WHERE QUESTION_ID = #{question_id}
 	</select>
 	<select id="selectOneQuestionGetId" parameterType="question" resultType="question">
-    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id} AND WRITER_ID = #{writer_id} ORDER BY SYSDATE
+    SELECT * FROM QUESTION WHERE ITEM_ID = #{item_id} AND WRITER_ID = #{writer_id} ORDER BY QUESTION_DATE
 	</select>
 	<update id="updateQuestion" parameterType="question">
 	  UPDATE QUESTION

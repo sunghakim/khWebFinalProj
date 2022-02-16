@@ -28,7 +28,7 @@
     SELECT * FROM SOLD_DETAIL WHERE SOLD_HISTORY_ID = #{sold_history_id} ORDER BY 1
   </select>
   <select id="selectOneSoldDetail" parameterType="soldDetail" resultType="soldDetail">
-  	SELECT * FROM SOLD_DETAIL WHEER SOLD_DETAIL_ID = #{sold_detail_id}
+  	SELECT * FROM SOLD_DETAIL WHERE SOLD_DETAIL_ID = #{sold_detail_id}
   </select>
   <update id="updateRefund" parameterType="soldDetail">
     UPDATE SOLD_DETAIL
