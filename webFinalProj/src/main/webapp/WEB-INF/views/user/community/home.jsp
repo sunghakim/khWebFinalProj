@@ -12,6 +12,8 @@
         <title>커뮤니티</title>
     </head>
     <body>
+    
+    
         <div class="cmmu-hot">
             <div class="div-box">
                 <div>
