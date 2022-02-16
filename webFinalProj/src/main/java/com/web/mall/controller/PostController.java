@@ -40,7 +40,8 @@ public class PostController {
 	
 	//게시글 추가
 	@RequestMapping(value="/post/add", method=RequestMethod.GET)
-	public String postAdd(){
+	public String postAdd(Model model){
+		model.addAttribute("status", "add");
 		return "user/community/write";// 진희님 경로 user/community/list
 	}
 	
@@ -68,11 +69,11 @@ public class PostController {
 		
 		fileUpload.transferTo(saveFile);
 		
-		boolean result = service.setPost(title, content, nowAcc.getAccount_id(), id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임
+		boolean result = service.setPost(title, content, "ha1015", id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임
 		
 
 		if(result) {
-		 	return "redirect:/board/list?board_id=1&page_num=1";
+		 	return "redirect:/board/list?board_id=1&page_num=1"; 
 		 }
 		return "user/community/write"; // 진희님 경로 user/community/list
 	}
@@ -83,7 +84,7 @@ public class PostController {
 		return "user/community/detail";// 진희님 경로 
 	}
 		
-	//게시글 신고
+	//게시글 신고 
 	@RequestMapping(value="/post/report", method=RequestMethod.POST)
 	public String reportPost(int post_id, int report_reason_id, HttpSession session){
 		
@@ -91,12 +92,12 @@ public class PostController {
 	
 		PostDTO datas = service.getPost(post_id);
 		
-		boolean result = service.setReport(report_reason_id, "ha1015",datas.getWriter_id(), post_id); 
+		boolean result = service.setReport(report_reason_id, nowAcc.getAccount_id(),datas.getWriter_id(), post_id); 
 		
 		if(result) {
 		 	return "redirect:/post?post_id=" + post_id;
 		 }
-		System.out.println("5");
+		
 		return "user/community/detail";
 	}
 	
@@ -105,7 +106,7 @@ public class PostController {
 	public String updatePost(Model model, int post_id) {
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
-		System.out.println(datas);
+		model.addAttribute("status", "update");
 		return "user/community/write"; 
 	}
 	
@@ -118,6 +119,7 @@ public class PostController {
 		String ext = "." + fileUpload.getOriginalFilename().split("\\.")[1]; //확장자 
 		PostDTO datas = service.getPost(post_id);
 	
+		
 		//파일 저장하는게 있으면 uuid로 저장.
 		if(saveFile.exists()) {
 			saveFile = new File(path, datas.getFile_name()); //새로운 파일 객체에 저장 원래 있던 이름으로
@@ -125,7 +127,7 @@ public class PostController {
 			boolean result = service.updatePost(post_id, title, content, datas.getFile_name() , "/resources/images"); //뒤에는 파일이름 파일url임 
 			//파일 이름 원래있던걸로 service실행
 			if(result) {
-				return "redirect:/post/post_id=" + post_id;
+				return "redirect:/post?post_id=" + post_id;
 			}
 		}
 		
@@ -136,7 +138,7 @@ public class PostController {
 			fileUpload.transferTo(saveFile); //파일 업로드
 			boolean res = service.updatePost(post_id, title, content, id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임 
 			if(res) {
-				return "redirect:/post/post_id=" + post_id;
+				return "redirect:/post?post_id=" + post_id;
 			}
 		}
 		

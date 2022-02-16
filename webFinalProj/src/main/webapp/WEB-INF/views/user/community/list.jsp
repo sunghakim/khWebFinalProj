@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%>   
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -18,7 +20,7 @@
                     <label class="title">인기글</label>
                 </div>
                 <div>
-                    <button type="button">글쓰기</button>
+                    <button type="button" onclick="location.href='/post/add'">글쓰기</button>
                 </div>
             </div>
             <table>
@@ -31,16 +33,14 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="noti">
-                        <td>공지</td>
-                        <td colspan="3">제목</td>
-                    </tr>
-                    <tr class="post">
-                        <td>번호</td>
-                        <td>제목</td>
-                        <td>작성자</td>
-                        <td>좋아요</td>
-                    </tr>
+                	<c:forEach var="datas" items="${datas}">
+	                    <tr class="post" onclick="location.href='/post?post_id='+ ${datas.getPost_id()}">
+	                        <td>${datas.getPost_id()}</td>
+	                        <td>${datas.getTitle()}</td>
+	                        <td>${datas.getWriter_id()}</td>
+	                        <td>${datas.getGood_number()}</td>
+	                    </tr>
+                    </c:forEach>
                 </tbody>
             </table>    
         </div>

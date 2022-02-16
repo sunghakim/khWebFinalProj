@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,14 +19,13 @@
     <div class="detailBody">
         <div id="detail" class="detail">
             <div class="detailHeader">
-                <div class="title">첫 게시글</div>
+                <div class="title">${datas.getTitle()}</div>
                 <div class="titleRigth">
                     <div class="view">
-                        <label>조회수 <span id="view">1</span></label>
+                        <label>${datas.getGood_number()}<span id="view">1</span></label>
                     </div>
                     <div>
-                        <label>작성자</label>
-                        <label class="writer">닉네임</label>
+                        <label>${datas.getWriter_id()}</label>
                     </div>
                 </div>
             </div>
@@ -32,16 +33,15 @@
                 <div class="img-box">
                     <img src="/resources/static/img/sample.png" alt="">
                 </div>
-                <div id="content" name="content" value="${datas.getContent()}">
-                    ffafdafdafdsfas<br>
-                    ffafdafdafdsfasfaf<br>
-                    affaf<br>
+                <div id="content" name="content" value="">
+      				${datas.getContent()}
                 </div>
             </div>
             <div class="buttons">
-                <button id="mod" type="button">수정</button>
+                <button id="mod" type="button" onclick="location.href='/post/update?post_id=' + ${datas.getPost_id()} 
+                ">수정</button>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">신고</button>
-                <button id="list" type="button">목록</button>
+                <button id="list" type="button"onclick="location.href='/board/list?board_id=' + ${datas.getBoard_id()}+'&page_num=1'">목록</button>
             </div>
         </div>
     
@@ -66,11 +66,11 @@
 	                    <option value="2">욕설</option>
 	                </select>
 	            </div>
-	            <label class="report-label"><span class="point">닉네임</span> 님의</label>
-	            <label class="report-label"><span class="point">제목</span> 게시물을</label>
+	            <label class="report-label"><span class="point">${datas.getWriter_id()}</span> 님의</label>
+	            <label class="report-label"><span class="point">${datas.getTitle()}</span> 게시물을</label>
 	            
 	            	
-	            	<input type="hidden" name="post_id" value="1">
+	            	<input type="hidden" name="post_id" value="${datas.getPost_id()}">
 		            <div class="buttons">
 		                <button type="submit">신고합니다</button>
 		                <button type="button">좀 더 고민해볼게요</button>

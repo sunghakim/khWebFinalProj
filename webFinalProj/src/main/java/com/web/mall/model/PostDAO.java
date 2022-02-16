@@ -85,4 +85,9 @@ public class PostDAO {
 	public int insertReport(ReportVO data) {
 		return sqlSession.insert("PostMapper.insertReport", data);
 	}
+	//추가할 게시글 post_id가져오기 
+	public int selectPost_id(PostDTO data) {
+		return sqlSession.selectOne("PostMapper.selectPost_id");
+		
+	}
 }

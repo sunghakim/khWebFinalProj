@@ -8,6 +8,7 @@ public class ItemDTO {
 	private int price;
 	private String file_name;
 	private String file_url;
+	private int page_num;
 	
 	public int getItem_id() {
 		return item_id;
@@ -52,11 +53,18 @@ public class ItemDTO {
 	public void setFile_url(String file_url) {
 		this.file_url = file_url;
 	}
+	
+	public int getPage_num() {
+		return page_num;
+	}
+	public void setPage_num(int page_num) {
+		this.page_num = page_num;
+	}
 	@Override
 	public String toString() {
-		return "ItemDTO [item_id=" + item_id + ", item_category_id=" + item_category_id + ", name=" + name + ", content="
-				+ content + ", price=" + price + "]";
+		return "ItemDTO [item_id=" + item_id + ", item_category_id=" + item_category_id + ", name=" + name
+				+ ", content=" + content + ", price=" + price + ", file_name=" + file_name + ", file_url=" + file_url
+				+ ", page_num=" + page_num + "]";
 	}
-	
-	
+		
 }

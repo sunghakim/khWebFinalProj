@@ -43,10 +43,8 @@ public class BoardController {
 	//선택한 게시판(일반,공지)의 최신 게시글 조회
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET) 
 	public String selectBoard(Model model, int board_id, int page_num) {
-		
 		List<BoardDTO> datas = BoardService.getBoard(board_id, page_num);
 		model.addAttribute("datas", datas);
-
 		return "user/community/list";//servlet의 viewResolver가 가져감 ->"/WEB-INF/views/jinitest" + board + .jsp
 		
 	} 

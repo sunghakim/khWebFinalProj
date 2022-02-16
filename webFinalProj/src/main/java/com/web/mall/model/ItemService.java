@@ -11,8 +11,11 @@ public class ItemService {
 	@Autowired
 	private ItemDAO dao;
 	
-	public List<ItemDTO> getItem(int item_category_id) {
-		return dao.selectItem(item_category_id);
+	public List<ItemDTO> getItem(int item_category_id, int page_num) {
+		ItemDTO dto = new ItemDTO();
+		dto.setItem_category_id(item_category_id);
+		dto.setPage_num(page_num);
+		return dao.selectItemList(dto);
 	}
 	
 	

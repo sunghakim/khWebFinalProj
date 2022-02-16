@@ -14,6 +14,18 @@
 	  ]]>
 	</select>
 	
+	<!-- 선택한 게시판의 게시글 상세페이지 보여주기  -->
+	<select id ="selectPost_id" resultType="int" >
+	  <![CDATA[
+	  	SELECT TB.POST_ID FROM(
+		  	  SELECT *
+			  	FROM POST
+				WHERE BOARD_ID = 1
+			  	ORDER BY POST_ID DESC)TB
+		WHERE ROWNUM = 1
+	  ]]>
+	</select>
+	
 	<!--선택한 게시판의 게시글 추가  -->
 	<insert id="insertPost" parameterType="PostDTO">
     	INSERT INTO POST(POST_ID, WRITER_ID, BOARD_ID, TITLE, CONTENT, GOOD_NUMBER, POST_VIEWS, POSTING_DATE) 

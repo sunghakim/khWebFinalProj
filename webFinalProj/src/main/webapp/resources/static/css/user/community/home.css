@@ -83,12 +83,14 @@ button:hover {
     color: white;
 }
   
+
 #more {
     font-size: 12px;
     font-weight: bold;
     color: rgb(170, 170, 170);
     text-decoration: none;
     vertical-align: top;
+    float:right;
 }
   
 #more:hover {

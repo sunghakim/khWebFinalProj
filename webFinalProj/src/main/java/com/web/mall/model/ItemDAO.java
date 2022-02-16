@@ -12,8 +12,8 @@ public class ItemDAO {
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<ItemDTO> selectItem(int item_category_id) {
-		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectItemList", item_category_id);
+	public List<ItemDTO> selectItemList(ItemDTO dto) {
+		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectItemList", dto);
 		return datas;
 	}
 	

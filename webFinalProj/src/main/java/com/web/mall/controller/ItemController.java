@@ -20,8 +20,8 @@ public class ItemController {
 	
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET) 
-	public String selectItem(Model model, int item_category_id) {
-		List<ItemDTO> datas = service.getItem(item_category_id);
+	public String selectItem(Model model, int item_category_id, int page_num) {
+		List<ItemDTO> datas = service.getItem(item_category_id, page_num);
 		model.addAttribute("datas", datas);
 		return "/user/shop/productList"; 
 	}  
