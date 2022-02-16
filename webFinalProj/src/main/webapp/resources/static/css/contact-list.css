@@ -42,13 +42,13 @@
 } */
 
 .detail {
-    width: 80px !important;
-    width: 50px;
+    width: 80px;
     background-color: black;
     color: white;
     border: 0;
     border-radius: 8px;
     padding: 3px;
+    text-decoration: none;
 }
 
 select {
