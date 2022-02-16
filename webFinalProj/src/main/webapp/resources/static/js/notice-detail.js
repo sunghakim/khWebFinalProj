@@ -1,6 +1,6 @@
 $('.cancel').click((e) => {
 	e.preventDefault();
-    $(location).attr('href', '/Manager_test/Notice');
+    $(location).attr('href', '/Manager/Notice');
 })
 
 $(document).ready(function () {
