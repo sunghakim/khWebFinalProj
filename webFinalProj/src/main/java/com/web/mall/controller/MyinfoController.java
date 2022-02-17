@@ -129,6 +129,7 @@ public class MyinfoController extends Manage_S_Module{
 	public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
 		//shopping_list_id 를 리스트로 받아와야함
 		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
+		System.out.println("controller");
 		try {		 
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject)jsonParser.parse(shop);
