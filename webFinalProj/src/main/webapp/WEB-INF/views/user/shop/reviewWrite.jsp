@@ -12,6 +12,7 @@
 <body>
 <%@ include file="../common/topnav.jsp"%>
 <%@ include file="../common/sidenav.jsp"%>
+<div class="body">
 <form>
     <div class="writeHeader">
         <label class="title">평가</label>
@@ -35,6 +36,7 @@
         <button class="point-btn" type="button">작성완료</button>
     </div>
 </form>
+</div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/reviewWrite.js"></script>
 <%@ include file="../common/footer.jsp"%>

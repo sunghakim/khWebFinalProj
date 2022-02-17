@@ -134,5 +134,11 @@
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
-
+<script>
+	var navNum = "${nav}";
+	if(navNum) {
+		$('.user-nav li').removeClass('click-color');
+        $('#user-nav-' + navNum).addClass('click-color');
+	}
+</script>
 <%@ include file="../common/footer.jsp"%>

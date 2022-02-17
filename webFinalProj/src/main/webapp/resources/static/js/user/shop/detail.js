@@ -19,12 +19,12 @@ $(document).ready(function(){
         } else if($(".here").text() == "상세보기") {
             $("#buy").hide();
             $("#container").load("/itemDetail/content?item_id=" + itemID);
-        } else if($(".here").text() == "후기") {
+        } else if($(".here").text().includes("후기")) {
             $("#buy").hide();
             $("#container").load("/itemDetail/review?item_id=" + itemID);
         } else if($(".here").text() == "문의하기") {
             $("#buy").hide();
-            $("#container").load("/itemDetail/checkQuestionList?item_id=" + itemID + "$page=1");
+            $("#container").load("/itemDetail/checkQuestionList?item_id=" + itemID + "&page=1");
         }
     });
 
@@ -55,7 +55,6 @@ $(document).ready(function(){
                 dupl.parent().siblings(".count").find("h5").text(amount);
             } else {
                 let item = `
-                    <form action="">
                                 <div class="item">
                                     <div class="item-option"><label>` + opt + `</label></div>
                                     <div class="count">
@@ -68,10 +67,9 @@ $(document).ready(function(){
                                     <input type="text" name="color" value="` + color + `" hidden/>
                                     <input type="text" name="amount" value="1" hidden/>
                                 </div>
-                            </form>
                 `
     
-                $(".item-box").append(item);
+                $(".item-box form").append(item);
             }
 
             let totalPrice = parseInt($("#total").text().replace(/,/g, ''));
@@ -119,4 +117,14 @@ $(document).ready(function(){
 
         $(this).parents("form").remove();
     });
+    
+    $("#basket").on("click", function() {
+		$("#put").attr("action", "/itemDetail/putCart");
+		$("#put").submit();
+	});
+	
+	$("#payment").on("click", function() {
+		$("#put").attr("action", "/itemDetail/buyItem");
+		$("#put").submit();
+	});
 });

@@ -12,6 +12,7 @@
 </head>
 <body>
 <%@ include file="../common/topnav.jsp"%>
+<div class="body">
 <div class="question-body">
 <div>
 <div class="questionHeader">
@@ -96,6 +97,7 @@
             </tbody>
         </table>
     </div>
+</div>
 </div>
 </div>
 </div>
