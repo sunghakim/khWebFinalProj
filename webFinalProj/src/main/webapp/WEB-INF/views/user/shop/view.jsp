@@ -69,7 +69,7 @@
                 </div>
                 <hr>
                 <div class="item-box">
-                	<form id="put" action="/itemDetail/putCart" method="get">
+                	<form id="put" action="" method="get">
                     </form>
                 </div>
                 <hr>
