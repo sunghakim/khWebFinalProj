@@ -16,9 +16,6 @@
         <script src="https://accounts.google.com/gsi/client" async defer></script>
         <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
         <script>
-            Kakao.init('7d314791f1c38113b612f034c9d3f42f');
-            console.log(Kakao.isInitialized());
-            
             document.domain = "localhost";
          
             /** API 서비스 제공항목 확대 (2017.02) **/
@@ -195,7 +192,6 @@
                         <div class="login-text text">
                             <div class="login-form" id="login-chkPwd-form">비밀번호는 20자 이하로 작성해주세요.</div>
                             <div class="login-alert" id="login-chkPwd-null">비밀번호를 입력해주세요.</div>
-                            <div class="login-alert" id="login-chkPwd-wrong">잘못된 비밀번호입니다. 다시 입력하세요.</div>
                         </div>
                     </div>
                     <div class="login-btns">

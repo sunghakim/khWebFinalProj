@@ -31,9 +31,9 @@
             <tbody>
             <% int index = 0; %>
             <c:forEach var="sold" items="${soldList}">
-                <tr id="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                <tr id="modal" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="location.href='/mypage/checkPayed?sold_history_id=' + ${sold.sold_history_id}">
                     <td>${sold.sold_history_id}</td>
-                    <td>${detailList.get(index).getItem_id()} 외 ${detailNumber.get(index)} 개</td>
+                    <td>${itemList.get(index).getItem_id()} 외 ${detailNumber.get(index)} 개</td>
                     <td>${sold.order_date}</td>
                     <c:choose>
                         <c:when test="${sold.status eq 0}">
@@ -61,38 +61,6 @@
     </div>
     </div>
 
-    <div>
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-body">
-                    <div class="product-list">
-                        <div id="product" class="product">
-                            <div class="img-box">
-                                <img src="/resources/static/img/sample.png" alt="">
-                            </div>
-                            <div class="colum-obj">
-                                <div id="product-name">상품명</div>
-                                <div class="row-obj">
-                                    <div class="colum-obj">
-                                        <div id="option">사이즈/색상</div>
-                                        <div id="num">수량</div>
-                                    </div>
-                                    <div><button id="refund" type="button">환불신청</button></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div id="modal-footer" class="modal-footer">
-                    <button type="button" id="delibery-state" class="btn btn-primary">배송현황</button>
-                    <button type="button" id="history-return" class="btn btn-secondary" data-bs-dismiss="modal">확인</button>
-                </div>
-              </div>
-            </div>
-          </div>
-    </div>
-</div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/mypage/history.js"></script>
 <%@ include file="../common/footer.jsp"%>

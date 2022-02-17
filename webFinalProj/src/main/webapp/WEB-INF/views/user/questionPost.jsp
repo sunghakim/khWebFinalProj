@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,7 +8,7 @@
     <%@ include file="./common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/questionPost.css">
-    <title>문의 결과?</title>
+    <title>문의 상세</title>
 </head>
 <body  class="questionPost-body">
 <%@ include file="./common/topnav.jsp"%>
@@ -15,23 +16,30 @@
     <div class="div">
         <div class="questionPostHeader">
             <div>
-                <label class="title">문의 title</label>
+                <label class="title">${question.question_title}</label>
             </div>
             <div>
-                <label class="date-label">답변완료되면 답변 완료된 날짜</label>
-                <label class="state">답변중/답변완료</label>
+                <label class="date-label">${question.answer_date}</label>
+                    <c:choose>
+                    	<c:when test="${question.result eq 0}">
+                    		<label class="state">답변중</label>
+                    	</c:when>
+                    	<c:otherwise>
+                    		<label class="state">답변완료</label>
+                    	</c:otherwise>
+                    </c:choose>
             </div>
         </div>
         <div class="questionPostBody">
             <div class="question-box">
-                배송문의 관련 질문~
+                ${question.question_content}
             </div>
             <div class="answer-box">
-                문의에 대한 답변~
+                ${question.answer_content}
             </div>
         </div>
         <div class="button-box">
-            <button type="button">확인</button>
+            <button type="button" onclick="location.href='/mypage/checkQuestionList'">확인</button>
         </div>
     </div>
 </div>

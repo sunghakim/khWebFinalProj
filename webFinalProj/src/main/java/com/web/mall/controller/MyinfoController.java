@@ -162,14 +162,18 @@ public class MyinfoController extends Manage_S_Module{
 		model.addAttribute("zzimList", zzimList);
 		
 		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
+		List<Manage_ImageDTO> imageList = new ArrayList<Manage_ImageDTO>();
 		for(ZzimListVO zzim1 : zzimList) {
 			item.setItem_id(zzim1.getItem_id());
-			
 			ItemDTO getItem = itemService.getItem(item);
 			itemList.add(getItem);
 			System.out.println(getItem);
+			
+			List<Manage_ImageDTO> images = imageService.selectList(zzim1.getItem_id(), "ITEM");
+			imageList.add(images.get(0));
 		}
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("imageList", imageList);
 		
 		return "user/mypage/like";
 	}
@@ -264,9 +268,18 @@ public class MyinfoController extends Manage_S_Module{
 	public String addQuestionform() {
 		return "user/questionWrite";
 	}
-	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
+	/* 문의할 때 파일 업로드 하는 기능 추가됨
+	 * @RequestMapping(value="/addQuestion", method=RequestMethod.POST)
 	public String addQuestion(QuestionVO questionVo, Model model, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
-		//파일 추가 기능 추가
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			questionVo.setWriter_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			questionVo.setWriter_id(nowAcc.getSocial_account_id());
+		}
+		questionVo.setItem_id(0);
 		
 		model.addAttribute("questionVO", questionVo);
 		if(questionService.addQuestion(questionVo)) {
@@ -293,6 +306,29 @@ public class MyinfoController extends Manage_S_Module{
 			else {
 				return "redirect:/mypage/checkQuestionList";
 			}
+		}
+		else {
+			System.out.println("문의 등록 실패");
+			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
+			return "user/questionWrite";
+		}
+	}*/
+	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
+	public String addQuestion(QuestionVO questionVo, Model model, HttpSession session) {
+		if(session.getAttribute("usertype").equals("web")) {
+			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+			questionVo.setWriter_id(nowAcc.getAccount_id());
+		}
+		else {
+			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+			questionVo.setWriter_id(nowAcc.getSocial_account_id());
+		}
+		questionVo.setItem_id(0);
+		model.addAttribute("questionVO", questionVo);
+		if(questionService.addQuestion(questionVo)) {
+			List<QuestionVO> sameItemandWriter = questionService.getOneQuestionGetId(questionVo);
+			model.addAttribute("questionVO", sameItemandWriter.get(0));
+			return "redirect:/mypage/checkQuestion?question_id=" + sameItemandWriter.get(0).getQuestion_id();
 		}
 		else {
 			System.out.println("문의 등록 실패");
@@ -382,7 +418,7 @@ public class MyinfoController extends Manage_S_Module{
 		}
 	}
 	@RequestMapping(value="/checkPayedList", method=RequestMethod.GET)
-	public String seePayedDayList(SoldHistoryVO soldHistoryVo, SoldDetailVO detailVo, Model model, HttpSession session) {
+	public String seePayedDayList(SoldHistoryVO soldHistoryVo, SoldDetailVO detailVo, ItemDTO dto, Model model, HttpSession session) {
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			soldHistoryVo.setAccount_id(nowAcc.getAccount_id());
@@ -397,30 +433,56 @@ public class MyinfoController extends Manage_S_Module{
 		
 		if(soldList != null) {
 			List<SoldDetailVO> soldDetail = new ArrayList<SoldDetailVO>();
+			List<ItemDTO> itemList = new ArrayList<ItemDTO>();
 			List<Integer> numberOfDetail = new ArrayList<Integer>();
 			for(SoldHistoryVO list : soldList) {
 				detailVo.setSold_history_id(list.getSold_history_id());
 				List<SoldDetailVO> detailList = service.getOnePayedDetails(detailVo);
+				dto.setItem_id(detailList.get(0).getItem_id());
+				ItemDTO item = itemService.getItemDetail(dto);
+				
 				soldDetail.add(detailList.get(0));
 				numberOfDetail.add(detailList.size() - 1);
+				itemList.add(item);
 			}
-			model.addAttribute("detailList", soldDetail); //같은날에 산것 중 최조 보여질 1개
+			model.addAttribute("detailOne", soldDetail); //같은날에 산것 중 최조 보여질 1개
 			model.addAttribute("detailNumber", numberOfDetail); //외 ~개
+			model.addAttribute("itemList", itemList);
 		}
 		
 		return "user/mypage/history";
 	}
 	@RequestMapping(value="/checkPayed", method=RequestMethod.GET)
-	public String seePayedDay(SoldDetailVO detailVo, Model model) {
+	public String seePayedDay(SoldDetailVO detailVo, ItemDTO itemDto, ItemOptionDTO optionDto, Model model) {
 		//id 받아와야함(하루에 산 내용 상세보기_soldhistoryid)
 		List<SoldDetailVO> detailList = service.getOnePayedDetails(detailVo);
 		model.addAttribute("detailList", detailList);
 		
-		return ""; //하루 구매목록보기페이지
+		List<List<ItemOptionDTO>> itemOptionList = new ArrayList<List<ItemOptionDTO>>();
+		List<ItemDTO> itemList = new ArrayList<ItemDTO>();
+		List<List<Manage_ImageDTO>> oneItemImageList = new ArrayList<List<Manage_ImageDTO>>();
+		for(SoldDetailVO sold : detailList) {
+			List<Manage_ImageDTO> images = imageService.selectList(sold.getItem_id(), "ITEM");
+			oneItemImageList.add(images);
+			
+			itemDto.setItem_id(detailList.get(0).getItem_id());
+			ItemDTO item = itemService.getItemDetail(itemDto);
+			itemList.add(item);
+			
+			optionDto.setItem_id(sold.getItem_id());
+			List<ItemOptionDTO> itemOptions = itemService.getItemOptions(optionDto);
+			itemOptionList.add(itemOptions);
+		}
+		model.addAttribute("imageList", oneItemImageList);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("itemOptionList", itemOptionList);
+		
+		return "user/mypage/historyDetail"; //하루 구매목록보기페이지
 	}
 	@RequestMapping(value="/doRefund", method=RequestMethod.GET)
 	public String doRefund(SoldDetailVO detailVo, Model model) {
 		//id 받아와야함(아이템 1개에 대한 detail id)
+		System.out.println(detailVo);
 		SoldDetailVO detailInfo = service.getOnePayedDetail(detailVo);
 		if(detailInfo.getRefund_status() == 3 || detailInfo.getRefund_status() == 4) {
 			System.out.println("이미 환불 처리 완료된 사항으로 환불신청할 수 없습니다.");
@@ -435,12 +497,13 @@ public class MyinfoController extends Manage_S_Module{
 				System.out.println("데이터 베이스 저장 시 문제가 발생했습니다.");
 			}
 		}
-		return "redirect:/checkPayed?sold_history_id=" + detailVo.getSold_history_id();
+		return "redirect:/mypage/checkPayed?sold_history_id=" + detailInfo.getSold_history_id();
 	}
 	@RequestMapping(value="/whereItem", method=RequestMethod.GET)
 	public String whereItem(SoldHistoryVO soldHistoryVo, Model model) {
-		//id 받아와야함(하루에 산 내용 상세보기_soldhistoryid)
+		//id 받아와야함 sold_history_id
 		SoldHistoryVO soldDay = service.getOnePayedDay(soldHistoryVo);
+		System.out.println(soldDay);
 		if(soldDay.getStatus() == 0) {
 			model.addAttribute("result", " 배송 준비중입니다.");
 			System.out.println("배송 준비중입니다.");
@@ -454,7 +517,7 @@ public class MyinfoController extends Manage_S_Module{
 			System.out.println("배송 중입니다.");
 		}
 		
-		return ""; //배송버튼 누르고나서 띄울 페이지
+		return "redirect:/mypage/checkPayed?sold_history_id=" + soldDay.getSold_history_id();
 	}
 	public List<Manage_ImageDTO> selectImageList(int id, String type) {
 		return imageService.selectList(id, type);

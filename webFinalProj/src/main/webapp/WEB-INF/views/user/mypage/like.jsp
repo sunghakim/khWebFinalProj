@@ -20,9 +20,9 @@
 	    </div>
 	    <% int index = 0; %>
 		<c:forEach var="zzim" items="${zzimList}">
-	    <div class="likeBody">
+	    <div class="likeBody" onclick="location.href='/itemDetail/main?item_id=' + ${zzim.item_id}">
 	        <div class="like-item">
-	            <img class="like-img" src="/resources/static/img/sample.png" alt="...">
+	            <img class="like-img" src="${imageList.get(index).getDownloadPath()}" alt="...">
 	            <div class="like-btn"><i class="fa-solid fa-heart"></i></div>
 	            <div class="like-text">
 	            ${itemList.get(index).getName()}<br>${itemList.get(index).getPrice()}

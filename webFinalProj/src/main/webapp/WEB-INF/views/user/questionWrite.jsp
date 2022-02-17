@@ -17,9 +17,9 @@
             <div class="questionWrite">
                 <div>
                     <label class="title-label">제목</label>
-                    <input type="text" id="question-title" class="frm" name="title" placeholder="내용을 입력해주세요" required/>
+                    <input type="text" id="question-title" class="frm" name="question_title" placeholder="내용을 입력해주세요" required/>
                 </div>
-                <textarea id="question-content" class="frm" name="content" placeholder="내용을 입력해주세요" required></textarea>
+                <textarea id="question-content" class="frm" name="question_content" placeholder="내용을 입력해주세요" required></textarea>
             </div>
         <div class="button-box">
             <button id="question-write-cancel" type="button" class="common-btn">취소</button>

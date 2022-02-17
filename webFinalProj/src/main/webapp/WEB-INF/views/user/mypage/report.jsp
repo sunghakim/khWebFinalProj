@@ -20,8 +20,8 @@
             <label><h1>문의 및 신고</h1></label>
         </div>
         <div class="tab-buttons">
-            <button id="question" class="tab-btn" type="button">문의</button>
-            <button id="report" class="tab-btn here" type="button">신고</button>
+            <button id="question" class="tab-btn" type="button" onclick="location.href='/mypage/checkQuestionList'">문의</button>
+            <button id="report" class="tab-btn here" type="button" onclick="location.href='/mypage/checkReport'">신고</button>
         </div>
     </div>
     <div class="reportBody">
@@ -37,27 +37,27 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="report" items="${reportList}">
+                <c:forEach var="reports" items="${reportList}">
                     <tr class="report">
                         <td>${report.reported_post_id}</td>
-                        <c:forEach var="reason" items="reportReason">
-                        	<c:if test="${report.report_reason_id eq reason.report_reason_id}">
+                        <c:forEach var="reason" items="${reportReason}">
+                        	<c:if test="${reason.report_reason_id eq reports.report_reason_id}">
                         		<td>${reason.content}</td>
                         	</c:if>
                         </c:forEach>
-                        <td>${report.reported_date}</td>
+                        <td>${reports.reported_date}</td>
                         <c:choose>
-                         <c:when test="${report.result eq 1}">
+                         <c:when test="${reports.result eq 1}">
                          	<td>진행중</td>
                         	</c:when>
-                        	<c:when test="${report.result eq 2}">
+                        	<c:when test="${reports.result eq 2}">
                          	<td>활동제한</td>
                         	</c:when>
                         	<c:otherwise>
                         		<td>사유불충분</td>
                         	</c:otherwise>
                        	</c:choose>
-                        <td>${report.closed_date}</td>
+                        <td>${reports.closed_date}</td>
                     </tr>
                 </c:forEach>
                 </tbody>
