@@ -70,6 +70,7 @@
                 <hr>
                 <div class="item-box">
                 	<form id="put" action="" method="get">
+                	<input type="text" name="item_id" value="${itemData.getItem_id()}" hidden/>
                     </form>
                 </div>
                 <hr>

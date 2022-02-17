@@ -72,4 +72,7 @@ public class ItemService {
 	public ItemOptionDTO getItemOption(ItemOptionDTO vo) {
 		return dao.selectItemOption(vo);
 	}
+	public ItemOptionDTO getOneItemOption(ItemOptionSpecVO vo) {
+		return dao.selectOneItemOption(vo);
+	}
 }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.mall.model.AccountVO;
 import com.web.mall.model.ItemDTO;
 import com.web.mall.model.ItemOptionDTO;
+import com.web.mall.model.ItemOptionSpecVO;
 import com.web.mall.model.ItemService;
 import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_ImageService;
@@ -98,37 +99,45 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	//장바구니에 담기 버튼 기능
 	@RequestMapping(value="/putCart", method=RequestMethod.GET)
-	public String itemPutCart(ShoppingListVO vo, String size, String color, Model model, HttpSession session) {
-		System.out.println("id : " + vo.getItem_id() + ", size : " + size + ", color : " + color + ", amount : " + vo.getAmount());
+	public String itemPutCart(ShoppingListVO vo, ItemOptionSpecVO optionVo, Model model, HttpSession session) {
+		ItemOptionDTO option_idx = itemService.getOneItemOption(optionVo);
+		vo.setItem_option_id(option_idx.getItem_option_id());
 		
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
 		//item_id, amount, item_option_id 데이터 들어와야함.
-		if(session.getAttribute("usertype").equals("web")) {
-			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
-			vo.setAccount_id(nowAcc.getAccount_id());
+		if(session.getAttribute("logined") == null) {
+			model.addAttribute("result", "로그인 후 이용바랍니다.");
 		}
 		else {
-			SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
-			vo.setAccount_id(nowAcc.getSocial_account_id());
-		}
-		if(shoppingService.addShoppingList(vo)) {
-			model.addAttribute("result", "장바구니에 정상적으로 저장되었습니다.");
-			
-		}
-		else {
-			model.addAttribute("result", "장바구니에 저장을 실패했습니다.");
+			if(session.getAttribute("usertype").equals("web")) {
+				AccountVO nowAcc = (AccountVO)session.getAttribute("account");
+				vo.setAccount_id(nowAcc.getAccount_id());
+			}
+			else {
+				SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
+				vo.setAccount_id(nowAcc.getSocial_account_id());
+			}
+			if(shoppingService.addShoppingList(vo)) {
+				model.addAttribute("result", "장바구니에 정상적으로 저장되었습니다.");
+				
+			}
+			else {
+				model.addAttribute("result", "장바구니에 저장을 실패했습니다.");
+			}
 		}
 
-		return "redirect:/itemDetail?item_id=" + vo.getItem_id();
+		return "redirect:/itemDetail/main?item_id=" + vo.getItem_id();
 	}
 	
 	//구매하기 버튼 누를 시 동작(구매페이지로 이동)
 	@RequestMapping(value="/buyItem", method=RequestMethod.GET)
-	public String itemBuy(ShoppingListVO vo, ReviewVO reviewVo, Model model, HttpSession session) {
+	public String itemBuy(ShoppingListVO vo, ItemOptionSpecVO optionVo, ReviewVO reviewVo, Model model, HttpSession session) {
+		ItemOptionDTO option_idx = itemService.getOneItemOption(optionVo);
+		vo.setItem_option_id(option_idx.getItem_option_id());
+		
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
 		//item_id, amount, item_option_id 데이터 들어와야함.
 		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
 		model.addAttribute("reviewCount", reviews.size());
@@ -184,6 +193,7 @@ public class ItemDetailController extends Manage_S_Module {
 		model.addAttribute("navList", category);
 		
 		//item_id 받아와야함.
+		model.addAttribute("item_id", review.getItem_id());
 		List<ReviewVO> reviewList = reviewService.getReviews(review);
 		model.addAttribute("reviewList", reviewList);
 		List<Manage_ImageDTO> reviewImageList = selectImageList(review.getReview_id(), "REVIEW");
@@ -293,7 +303,7 @@ public class ItemDetailController extends Manage_S_Module {
 				model.addAttribute("error_msg", "상품을 구매하지 않았습니다. 리뷰를 작성할 수 없습니다.");
 				List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
 				model.addAttribute("reviewCount", reviews.size());
-				return "user/shop/review";
+				return "redirect:/itemDetail/review?item_id=" + sdetailVo.getItem_id();
 			}
 			else {
 				model.addAttribute("item_id", sdetailVo.getItem_id());
@@ -377,7 +387,7 @@ public class ItemDetailController extends Manage_S_Module {
 		
 		model.addAttribute("maxPage", maxPage);
 		model.addAttribute("questionList", thisPageQuestions);
-		
+		model.addAttribute("item_id", question.getItem_id());
 		return "user/shop/question";
 	}
 	//문의하기 버튼 누를 시 동작(문의 작성 페이지)
@@ -389,7 +399,7 @@ public class ItemDetailController extends Manage_S_Module {
 		//item_id 가져옴
 		model.addAttribute("item_id", vo.getItem_id());
 		
-		return "user/shop/questionWrite";
+		return "user/questionWrite";
 	}
 	//작성완료 버튼 누를 시 동작
 	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
@@ -428,7 +438,7 @@ public class ItemDetailController extends Manage_S_Module {
 				else {
 					System.out.println("이미지 등록 실패");
 					model.addAttribute("error_msg", "이미지가 데이터베이스에 정상적으로 저장되지 않았습니다.");
-					return "user/shop/questionWrite";
+					return "user/questionWrite";
 				}
 			}
 			else {
@@ -438,7 +448,7 @@ public class ItemDetailController extends Manage_S_Module {
 		else {
 			System.out.println("문의 등록 실패");
 			model.addAttribute("error_msg", "데이터베이스에 정상적으로 저장되지 않았습니다.");
-			return "user/shop/questionWrite";
+			return "user/questionWrite";
 		}
 	}
 	//문의하기 페이지에서 상세보기
@@ -457,7 +467,7 @@ public class ItemDetailController extends Manage_S_Module {
 		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
 		model.addAttribute("reviewCount", reviews.size());
 		
-		return "user/shop/questionPost"; //문의상세페이지
+		return "user/questionPost"; //문의상세페이지
 	}
 	public List<Manage_ImageDTO> selectImageList(int id, String type) {		
 		return imageService.selectList(id, type);
