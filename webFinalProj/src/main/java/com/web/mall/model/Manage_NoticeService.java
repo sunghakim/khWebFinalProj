@@ -66,8 +66,12 @@ public class Manage_NoticeService extends Manage_S_Module {
 	public boolean update(Manage_NoticeDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath, int[] deleteImages) throws Exception {
 		if (dao.update(dto) == 1) {
+			//이미지는 최대 1개만 업로드 가능하다
+			//업로드된 이미지가 없으면 이미지수정을 하지 않는다.
+			//업로드시 기존의 이미지는 삭제한다.
+			
 			//이미지 추가
-			if (file[0].getOriginalFilename() != "") {
+			if (file[0].getOriginalFilename() != "" || file[0] != null) {
 				int ReferencesID = dto.getPostID();
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
 				if (ImageService.insertList(ImageList)) {

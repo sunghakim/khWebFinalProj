@@ -124,14 +124,19 @@
 					</c:if>
 	                <c:if test="${status eq 'insert'}">
 						<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-					<div class="btns">
-                        <button type="submit" class="btn regist">등록</button>
-                        <button class="btn cancel">등록 취소</button>
-                    </div>
                     </c:if>
                     <div class="article-wrap">
 						<article class="img-group">
-							<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
+							<diㄴv class="btns">
+		                        <button type="submit" class="btn regist">등록</button>
+		                        <button class="btn cancel">등록 취소</button>
+		                    </div>
+							<c:if test="${Image eq null}">
+								<img class="img" id="img"></img>
+							</c:if>
+							<c:if test="${Image ne null}">
+								<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
+							</c:if>
 							<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
 							<div class="img-btns">
 								<button type="submit" class="btn submit" id="inputShow">이미지 등록</button>
