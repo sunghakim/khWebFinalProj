@@ -26,6 +26,7 @@ public class Manage_QuestionDAO {
 	}
 
 	public int update(Manage_QuestionDTO dto) {
+		System.out.println("문의 답변 등록: "+dto.toString());
 		return this.session.update(Mapper + ".update", dto);
 	}
 }
