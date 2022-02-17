@@ -16,6 +16,11 @@ public class Manage_ImageDTO {
 	public BigDecimal getImageID() {
 		return ImageID;
 	}
+	public int getImageIDtoInt() {
+		String temp1 = ""+ImageID;
+		int temp2 = Integer.parseInt(temp1);
+		return temp2;
+	}
 	public void setImageID(BigDecimal imageID) {
 		ImageID = imageID;
 	}

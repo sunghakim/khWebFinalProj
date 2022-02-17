@@ -115,6 +115,9 @@ public class Manege_NoticeController extends Manage_C_Module {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
+			for (Manage_ImageDTO dto:ImageList) {
+				System.out.println("updateNotice: "+dto.toString());
+			}
 			if (ImageList.get(0) != null) {
 				mv.addObject("Image", ImageList.get(0));
 			}
@@ -127,13 +130,12 @@ public class Manege_NoticeController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
 	public ModelAndView updateNotice(HttpSession session, ModelAndView mv, HttpServletRequest request
 		, Manage_NoticeDTO DTO, int[] deleteImages, @RequestParam("uploadImages") MultipartFile file) throws Exception {
-
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
 		if (isManager(mv, session, URL) == 0) {
 			
 			//공지 작성자 정보를 dto에 저장
-			Manage_AccountDTO temp = (Manage_AccountDTO)session.getAttribute("account");
-			DTO.setWriterID(temp.getAccountID());
+			AccountVO temp = (AccountVO)session.getAttribute("account");
+			DTO.setWriterID(temp.getAccount_id());
 			
 			//요청 처리 결과를 파라미터 값으로 넣어준다.(Manage_C_Module)
 			MultipartFile[] files = {file};

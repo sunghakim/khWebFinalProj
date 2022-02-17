@@ -71,7 +71,7 @@ public class Manage_NoticeService extends Manage_S_Module {
 			//업로드시 기존의 이미지는 삭제한다.
 			
 			//이미지 추가
-			if (file[0].getOriginalFilename() != "" || file[0] != null) {
+			if (file[0] != null || file[0].getOriginalFilename() != "") {
 				int ReferencesID = dto.getPostID();
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
 				if (ImageService.insertList(ImageList)) {
@@ -79,18 +79,19 @@ public class Manage_NoticeService extends Manage_S_Module {
 				} else {
 					throw new Exception("공지 수정을 위한 이미지 추가 처리중 문제발생");
 				}
-			}
-			
-			//이미지 삭제
-			if (deleteImages != null) {
-				for (int ImageID : deleteImages) {
-					if (ImageService.deleteOne(ImageID) == 1) {
-						return true;
-					} else {
-						throw new Exception("공지 수정을 위한 이미지 삭제 처리중 문제발생");
+
+				//이미지 삭제
+				if (deleteImages != null) {
+					for (int ImageID : deleteImages) {
+						if (ImageService.deleteOne(ImageID) == 1) {
+							return true;
+						} else {
+							throw new Exception("공지 수정을 위한 이미지 삭제 처리중 문제발생");
+						}
 					}
 				}
 			}
+
 			return true;
 		}
 		throw new Exception("공지 수정 처리중 문제발생");
