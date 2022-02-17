@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class KSW_PurchaseService extends Manage_S_Module {
+public class PurchaseService extends Manage_S_Module {
 	
 	@Autowired
-	KSW_PurchaseDAO dao;
+	PurchaseDAO dao;
 	@Autowired
 	Manage_AccountService AccountService;
 	@Autowired

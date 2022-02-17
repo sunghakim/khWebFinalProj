@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.web.mall.model.AccountVO;
-import com.web.mall.model.Manage_AccountDTO;
 import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_NoticeDTO;
 import com.web.mall.model.Manage_NoticeService;
@@ -89,7 +88,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 	//공지DB에 추가 요청
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.POST)
 	public ModelAndView insertNotice(HttpSession session, ModelAndView mv, HttpServletRequest request
-		, Manage_NoticeDTO DTO, @RequestParam("uploadImages") MultipartFile[] file) throws Exception {
+		, Manage_NoticeDTO DTO, @RequestParam("uploadImages") MultipartFile file) throws Exception {
 
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
 		if (isManager(mv, session, URL) == 0) {
@@ -97,7 +96,8 @@ public class Manege_NoticeController extends Manage_C_Module {
 			DTO.setWriterID(temp.getAccount_id());
 			
 			//요청 처리 결과를 파라미터 값으로 넣어준다.(Manage_C_Module)
-			setResult(mv, Service.insert(DTO, request, file, uploadPath));
+			MultipartFile[] files = {file};
+			setResult(mv, Service.insert(DTO, request, files, uploadPath));
 			
 			//화면 구성을위해 컨트롤러의 메소드를 불러온다.
 			selectNoticeList(session, mv, request);
@@ -114,6 +114,9 @@ public class Manege_NoticeController extends Manage_C_Module {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
+			for (Manage_ImageDTO dto:ImageList) {
+				System.out.println("updateNotice: "+dto.toString());
+			}
 			if (ImageList.get(0) != null) {
 				mv.addObject("Image", ImageList.get(0));
 			}
@@ -125,17 +128,17 @@ public class Manege_NoticeController extends Manage_C_Module {
 	//공지DB에 수정 요청(파일 수정 불가)
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.POST)
 	public ModelAndView updateNotice(HttpSession session, ModelAndView mv, HttpServletRequest request
-		, Manage_NoticeDTO DTO, int[] deleteImages, @RequestParam("uploadImages") MultipartFile[] file) throws Exception {
-
+		, Manage_NoticeDTO DTO, int[] deleteImages, @RequestParam("uploadImages") MultipartFile file) throws Exception {
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
 		if (isManager(mv, session, URL) == 0) {
 			
 			//공지 작성자 정보를 dto에 저장
-			Manage_AccountDTO temp = (Manage_AccountDTO)session.getAttribute("account");
-			DTO.setWriterID(temp.getAccountID());
+			AccountVO temp = (AccountVO)session.getAttribute("account");
+			DTO.setWriterID(temp.getAccount_id());
 			
 			//요청 처리 결과를 파라미터 값으로 넣어준다.(Manage_C_Module)
-			setResult(mv, Service.update(DTO, request, file, uploadPath, deleteImages));
+			MultipartFile[] files = {file};
+			setResult(mv, Service.update(DTO, request, files, uploadPath, deleteImages));
 			
 			//화면 구성을위해 컨트롤러의 메소드를 불러온다.
 			selectNoticeList(session, mv, request);

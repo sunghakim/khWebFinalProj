@@ -140,7 +140,7 @@
 	                        <ul class="list">
 	                        	<li>${List.getReporterID()}</li>
 	                            <li>${List.getReportedAccountID()}</li>
-	                            <li>${List.getContent()}</li>
+	                            <li>${List.getReportReasonContent()}</li>
 	                            <li><fmt:formatDate var="formatRegDate" value="${List.getReportedDate()}" pattern="yy-MM-dd"/>${formatRegDate}</li>
 	                            <li>${List.getResultStr()}</li>						
 	                    	<c:if test="${List.getResult() eq 1}">        

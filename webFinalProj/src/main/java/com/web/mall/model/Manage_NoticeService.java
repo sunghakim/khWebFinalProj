@@ -53,7 +53,6 @@ public class Manage_NoticeService extends Manage_S_Module {
 					
 					//서버에 이미지 저장(이클립스 테스트환경이 아닌 실제 톰캣 경로에 저장된다.)
 					saveImages(ImageList);
-					return true;
 				}
 				throw new Exception("이미지 추가 처리중 문제발생");
 			}
@@ -66,8 +65,12 @@ public class Manage_NoticeService extends Manage_S_Module {
 	public boolean update(Manage_NoticeDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath, int[] deleteImages) throws Exception {
 		if (dao.update(dto) == 1) {
+			//이미지는 최대 1개만 업로드 가능하다
+			//업로드된 이미지가 없으면 이미지수정을 하지 않는다.
+			//업로드시 기존의 이미지는 삭제한다.
+			
 			//이미지 추가
-			if (file[0].getOriginalFilename() != "") {
+			if (file[0] != null || file[0].getOriginalFilename() != "") {
 				int ReferencesID = dto.getPostID();
 				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
 				if (ImageService.insertList(ImageList)) {
@@ -75,18 +78,19 @@ public class Manage_NoticeService extends Manage_S_Module {
 				} else {
 					throw new Exception("공지 수정을 위한 이미지 추가 처리중 문제발생");
 				}
-			}
-			
-			//이미지 삭제
-			if (deleteImages != null) {
-				for (int ImageID : deleteImages) {
-					if (ImageService.deleteOne(ImageID) == 1) {
-						return true;
-					} else {
-						throw new Exception("공지 수정을 위한 이미지 삭제 처리중 문제발생");
+
+				//이미지 삭제
+				if (deleteImages != null) {
+					for (int ImageID : deleteImages) {
+						if (ImageService.deleteOne(ImageID) == 1) {
+							return true;
+						} else {
+							throw new Exception("공지 수정을 위한 이미지 삭제 처리중 문제발생");
+						}
 					}
 				}
 			}
+
 			return true;
 		}
 		throw new Exception("공지 수정 처리중 문제발생");

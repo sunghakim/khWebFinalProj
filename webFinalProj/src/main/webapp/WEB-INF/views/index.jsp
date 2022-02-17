@@ -385,7 +385,7 @@
                                 <p>Segment<br>Title</p>
                                 <div class="img"></div>
                             </article>
-                            <article class="article-after" id="after-1">
+                            <!--article class="article-after" id="after-1">
                                 <p>Segment Title</p>
                                 <div class="gallery-wrap">
                                     <div class="gallery-group">
@@ -432,7 +432,7 @@
                                 </div>
                                 <button class="btns left"><i class="fas fa-chevron-left"></i></button>
                                 <button class="btns right"><i class="fas fa-chevron-right"></i></button>
-                            </article>
+                            </article-->
                         </div>
                     </div>
                 </section>

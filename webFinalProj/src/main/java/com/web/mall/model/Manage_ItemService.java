@@ -47,7 +47,7 @@ public class Manage_ItemService extends Manage_S_Module {
 	}
 	
 	@Transactional(rollbackFor=Exception.class)
-	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile file
+	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath) throws Exception {
 		String searchResult1 = dao.searchItemName(dto);
 		//상품 카테고리가 정상인지 확인
@@ -76,10 +76,9 @@ public class Manage_ItemService extends Manage_S_Module {
 		}
 		
 		//첨부파일이 있는지 확인
-		if (file.getOriginalFilename() != "") {
+		if (file.length != 0) {
 			int ReferencesID = dto.getItemID();
-			MultipartFile files[] = {file};
-			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, files, uploadPath, ReferencesID);
+			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
 			if (ImageService.insertList(ImageList)) {
 				saveImages(ImageList);
 			} else {
@@ -92,22 +91,22 @@ public class Manage_ItemService extends Manage_S_Module {
 	
 	
 	@Transactional(rollbackFor=Exception.class)
-	public boolean update(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile file
+	public boolean update(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath, int[] deleteImages) throws Exception{
 		if (dao.updateItem(dto) == 1) {
 			if (dao.updateItemOption(dto) != 1) {
 				throw new Exception("상품옵션 수정 처리중 문제발생");
 			}
-			if (file.getOriginalFilename() != "") {
+			if (file[0] != null || file[0].getOriginalFilename() != "") {
 				int ReferencesID = dto.getItemID();
-				MultipartFile files[] = {file};
-				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, files, uploadPath, ReferencesID);
+				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
 				if (ImageService.insertList(ImageList)) {
 					saveImages(ImageList);
 				} else {
 					throw new Exception("상품 수정을 위한 이미지 추가 처리중 문제발생");
 				}
 			}
+			
 			if (deleteImages != null) {
 				for (int ImageID : deleteImages) {
 					if (ImageService.deleteOne(ImageID) == 1) {
