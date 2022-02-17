@@ -34,5 +34,5 @@
 	</div>
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/resources/static/js/user/mypage/like.js">
+<script type="text/javascript" src="/resources/static/js/user/mypage/like.js"></script>
 <%@ include file="../common/footer.jsp"%>

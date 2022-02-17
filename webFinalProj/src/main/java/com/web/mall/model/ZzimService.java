@@ -28,4 +28,7 @@ public class ZzimService {
 	public void addZzim(ZzimListVO vo) {
 		dao.insertZzim(vo);
 	}
+	public int getZzimNumberForItem(ZzimListVO vo) {
+		return dao.selectZzimNumberForItem(vo);
+	}
 }

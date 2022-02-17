@@ -14,10 +14,15 @@ import com.web.mall.model.*;
 public class ItemController {
 	@Autowired
 	private ItemService service;
+	@Autowired
+	Manage_ItemCategoryService categoryService;
 	
 	
 	@RequestMapping(value = "/item/list", method = RequestMethod.GET) 
 	public String selectItem(Model model, int item_category_id, int page_num) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		List<ItemDTO> datas = service.getItem(item_category_id, page_num);
 		// 카테고리 번호
 		model.addAttribute("nav", item_category_id);

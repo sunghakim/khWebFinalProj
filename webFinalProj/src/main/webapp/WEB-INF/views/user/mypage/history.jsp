@@ -60,6 +60,7 @@
         </table>
     </div>
     </div>
+    </div>
 
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/mypage/history.js"></script>

@@ -13,7 +13,9 @@ var chart = new Chart(ctx, {
             data: [0, 10, 5, 2]
         }]
     },
-    options: {}
+    options: {
+		responsive: false
+	}
 })
 
 var ctx = document.getElementById('income-chart').getContext('2d');
@@ -29,7 +31,9 @@ var chart = new Chart(ctx, {
             data: [0, 10, 5, 2, 3]
         }]
     },
-    options: {}
+    options: {
+		responsive: false
+	}
 })
 
 /*$('.list').click(() => {

@@ -1,22 +1,17 @@
 package com.web.mall.controller;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator;
 import com.web.mall.model.*;
@@ -26,11 +21,16 @@ public class PostController {
 
 	@Autowired
 	private PostService service;
+	@Autowired
+	Manage_ItemCategoryService categoryService;
 	
 	
 	//선택한 게시글 조회
 	@RequestMapping(value="/post", method=RequestMethod.GET) 
 	public String post(Model model, int post_id) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
 		System.out.println(datas);
@@ -41,13 +41,19 @@ public class PostController {
 	//게시글 추가
 	@RequestMapping(value="/post/add", method=RequestMethod.GET)
 	public String postAdd(Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		model.addAttribute("status", "add");
 		return "user/community/write";// 진희님 경로 user/community/list
 	}
 	
 	//게시글 추가 (제목, 내용, 이미지파일)
 	@RequestMapping(value="/post/add", method=RequestMethod.POST)
-	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
+	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session, Model model) throws Exception{
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		UUID id = UUID.randomUUID();
 		
 		AccountVO nowAcc = (AccountVO)session.getAttribute("account"); //account_id가져오기위해 세션값 가져옴 계정 로그인이 필요한 작업임
@@ -78,14 +84,18 @@ public class PostController {
 	
 	//게시글 신고
 	@RequestMapping(value="/post/report", method=RequestMethod.GET)
-	public String reportPost(){
+	public String reportPost(Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		return "user/community/detail";// 진희님 경로 
 	}
 		
 	//게시글 신고 
 	@RequestMapping(value="/post/report", method=RequestMethod.POST)
-	public String reportPost(int post_id, int report_reason_id, HttpSession session){
-		
+	public String reportPost(int post_id, int report_reason_id, HttpSession session, Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
 		
 		AccountVO nowAcc = (AccountVO)session.getAttribute("account"); //account_id가져오기위해 세션값 가져옴
 	
@@ -106,6 +116,9 @@ public class PostController {
 	//게시글 수정전의 정보 불러오기
 	@RequestMapping(value = "/post/update", method = RequestMethod.GET)
 	public String updatePost(Model model, int post_id) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
 		model.addAttribute("status", "update");
@@ -114,7 +127,10 @@ public class PostController {
 	
 	//게시글 수정 요청
 	@RequestMapping(value = "/post/update", method = RequestMethod.POST)
-	public String updatePost(int post_id, String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
+	public String updatePost(int post_id, String title, String content, MultipartFile fileUpload, HttpSession session, Model model) throws Exception{
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		UUID id = UUID.randomUUID();
 		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정 url
 		File saveFile = new File(path, fileUpload.getOriginalFilename()); //파일 저장
@@ -180,7 +196,10 @@ public class PostController {
 		
 	//게시글 삭제 요청
 	@RequestMapping(value = "/post/delete", method = RequestMethod.POST)
-	public String deletePost(int post_id, HttpSession session) {
+	public String deletePost(int post_id, HttpSession session, Model model) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		PostDTO datas = service.getPost(post_id);
 		
 		System.out.println("파일 삭제 테스트");
@@ -211,7 +230,10 @@ public class PostController {
 		
 	//게시글 좋아요 요청
 	@RequestMapping(value="/post/good", method = RequestMethod.GET)
-	public String goodPost(int post_id) {
+	public String goodPost(int post_id, Model model) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		boolean result = service.addGoodPost(post_id);
 		if(result) {
 			return "redirect:/post";
@@ -221,7 +243,10 @@ public class PostController {
 	
 	//게시글 좋아요 두번 요청(좋아요 다시 누를때)
 	@RequestMapping(value="/post/dislike", method = RequestMethod.GET)
-	public String dislikePost(int post_id) {
+	public String dislikePost(int post_id, Model model) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		boolean result = service.addDislikePost(post_id);
 		if(result) {
 			return "redirect:/post";
@@ -232,6 +257,9 @@ public class PostController {
 	//선택한 게시글의 댓글 조회
 	@RequestMapping(value="/post/comments", method=RequestMethod.GET) 
 	public String comments(Model model, int post_id) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 			List<CommentsDTO> datas = service.getComments(post_id);
 			model.addAttribute("datas", datas);
 			return "user/community/comment";
@@ -239,13 +267,19 @@ public class PostController {
 	
 	//댓글 추가 요청
 	@RequestMapping(value="/post/comments/add", method=RequestMethod.GET)
-	public String commentsAdd(){
+	public String commentsAdd(Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		return "user/community/comment";
 	}
 	
 	//댓글 추가 매개변수 넣기
 	@RequestMapping(value="/post/comments/add", method=RequestMethod.POST)
-	public String commentsAdd(String content, int comment_id, HttpSession session){
+	public String commentsAdd(String content, int comment_id, HttpSession session, Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //현재 로그인한 계정 세션 가져오기
 		
 		 boolean result = service.setComments(content, nowAcc.getAccount_id(), comment_id);
@@ -258,6 +292,9 @@ public class PostController {
 	//댓글 수정전의 정보 불러오기
 	@RequestMapping(value = "/post/comments/update", method = RequestMethod.GET)
 	public String updateComments(Model model, int comment_id) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		CommentsDTO datas = service.getCommentsDetail(comment_id);
 		model.addAttribute("datas", datas);
 		
@@ -266,7 +303,10 @@ public class PostController {
 	
 	//댓글 수정 요청
 	@RequestMapping(value = "/post/comments/update", method = RequestMethod.POST)
-	public String updateComments(int comment_id, String content) {
+	public String updateComments(int comment_id, String content, Model model) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		boolean result = service.updateComments(comment_id,content) ;
 		if(result) {
 			return "redirect:/comments/comment_id=" + comment_id;
@@ -276,7 +316,10 @@ public class PostController {
 			
 	//댓글 삭제 요청
 	@RequestMapping(value = "/post/comments/delete", method = RequestMethod.GET)
-	public String deleteComments(int comment_id) {
+	public String deleteComments(int comment_id, Model model) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		boolean result = service.deleteComments(comment_id);
 		if(result) {
 			return "redirect:/comments/comment_id=" + comment_id;

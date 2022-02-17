@@ -23,4 +23,7 @@ public class ZzimDAO {
 	public void insertZzim(ZzimListVO vo) {
 		this.sess.insert("ZzimMapper.insertZzim", vo);
 	}
+	public Integer selectZzimNumberForItem(ZzimListVO vo) {
+		return this.sess.selectOne("ZzimMapper.selectZzimNumberForItem", vo);
+	}
 }

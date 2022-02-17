@@ -77,7 +77,7 @@ $(document).ready(function(){
 	         contentType: 'application/json',
 	         data: shop,
 	         dataType: "json",
-	         success: function(date) {
+	         success: function(data) {
 	            location.href = "/mypage/BuyItem";
 	         }, error:function(data) {
 	            console.log("왜안돼?????????");

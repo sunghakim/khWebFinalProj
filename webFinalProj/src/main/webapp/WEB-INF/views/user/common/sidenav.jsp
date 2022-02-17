@@ -8,31 +8,31 @@
             <ul class="user-nav">
                 <li id="user-nav-1" class="click-color">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Shop</p>
+                    <p>${navList.get(0).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-2">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Notice</p>
+                    <p>${navList.get(1).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-3">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Outer</p>
+                    <p>${navList.get(2).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-4">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Shirts</p>
+                    <p>${navList.get(3).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-5">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Jeans</p>
+                    <p>${navList.get(4).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-6">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Accessary</p>
+                    <p>${navList.get(5).getItemCategoryName()}</p>
                 </li>
                 <li id="user-nav-7">
                     <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
-                    <p>Community</p>
+                    <p>${navList.get(6).getItemCategoryName()}</p>
                 </li>
             </ul>
             <ul class="admin-nav">
@@ -88,3 +88,4 @@
             </ul>
         </div>
     </nav>
+    </div>

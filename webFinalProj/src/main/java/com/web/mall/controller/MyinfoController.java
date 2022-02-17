@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,17 +113,6 @@ public class MyinfoController extends Manage_S_Module{
 		return "redirect:/mypage/checkCarts";
 	}
 	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
-//	@RequestMapping(value="/BuyItem", method=RequestMethod.GET)
-//	public String buyItem(List<Integer> shop, Model model, HttpSession session) {
-//		//shopping_list_id 를 리스트로 받아와야함
-//		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
-//		for(Integer index: shop) {
-//			list.add(shoppingService.getCartItem(index));
-//		}
-//		
-//		model.addAttribute("shoppingList", list);
-//		return "user/mypage/payment";
-//	}
 	@RequestMapping(value="/BuyItem", method=RequestMethod.POST, produces="application/json; charset=UTF-8")
 	   public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
 	      //shopping_list_id 를 리스트로 받아와야함

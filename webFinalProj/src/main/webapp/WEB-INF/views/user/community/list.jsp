@@ -78,8 +78,7 @@
         <div class="paging">
 
         </div>
-    </div>
-</div>   
+    </div>  
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script>
 	var boardId = "${board_id}";

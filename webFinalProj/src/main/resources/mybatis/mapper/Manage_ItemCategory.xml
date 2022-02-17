@@ -26,6 +26,9 @@
 	<select id="selectAll" parameterType="int" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
 		SELECT * FROM ITEM_CATEGORY
 	</select>
+	<select id="selectNav" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
+		SELECT * FROM ITEM_CATEGORY WHERE NAV_SHOW = 'T' ORDER BY 1
+	</select>
 		
 	<insert id="insert" parameterType="Manage_ItemCategoryDTO">
 		INSERT INTO ITEM_CATEGORY VALUES(ITEM_CATEGORY_SEQ.NEXTVAL, #{ItemCategoryName}, #{NavShow})

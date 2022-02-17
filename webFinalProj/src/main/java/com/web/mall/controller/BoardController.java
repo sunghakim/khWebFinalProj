@@ -17,10 +17,15 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService BoardService;
+	@Autowired
+	Manage_ItemCategoryService categoryService;
 	
 	//메인페이지(인기글 2개, 공지 2개, 최신글 2개 씩 받아옴)
 	@RequestMapping(value = "/board", method = RequestMethod.GET) 
 	public String Home(Model model){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		int page_num = 1;
 		
 		// 카테고리 번호 진희가 추가함
@@ -46,6 +51,9 @@ public class BoardController {
 	//선택한 게시판(일반,공지)의 최신 게시글 조회
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET) 
 	public String selectBoard(Model model, int board_id, int page_num) {
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		List<BoardDTO> datas = BoardService.getBoard(board_id, page_num);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("datas", datas);
@@ -56,6 +64,9 @@ public class BoardController {
 	//일반 유저가 사용하는 게시판의 좋아요 많은 게시글 조회
 	@RequestMapping(value = "/board/goodlist", method = RequestMethod.GET) 
 	public String goodBoard(Model model, int page_num){
+		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		model.addAttribute("navList", category);
+		
 		List<BoardDTO> datas = BoardService.getGoodBoard(page_num);
 		model.addAttribute("datas", datas);
 

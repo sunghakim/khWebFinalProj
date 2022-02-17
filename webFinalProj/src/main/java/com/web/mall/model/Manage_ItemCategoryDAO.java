@@ -36,4 +36,8 @@ public class Manage_ItemCategoryDAO {
 	public int delete(int ID) {
 		return this.session.delete(Mapper + ".delete", ID);
 	}
+	
+	public List<Manage_ItemCategoryDTO> selectNav() {
+		return this.session.selectList("Manage_ItemCategoryMapper.selectNav");
+	}
 }
