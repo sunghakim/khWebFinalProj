@@ -117,12 +117,21 @@
                     </ul>
                 </div>
             </nav>
-                    <section>
-                <div class="article-container">
-                   <div class="btns">
-                  <button type="submit" class="btn regist" id="ok" form="item-submit">등록</button>
-                  <button class="btn cancel" id="no">등록 취소</button>
-               </div>
+			<section>
+            	<div class="article-container">
+                	<div class="btns">
+                	<c:if test="${status eq 'update'}">
+                    	<button type="submit" class="btn regist" id="ok" form="item-submit">등록</button>
+                  		<button class="btn cancel" id="no">등록 취소</button>
+                  	</c:if>
+                  	<c:if test="${status eq 'insert'}">
+                    	<button type="submit" class="btn regist" id="ok" form="item-submit">등록</button>
+                  		<button class="btn cancel" id="no">등록 취소</button>
+                  	</c:if>
+                  	<c:if test="${status eq 'detail'}">
+                    	<button class="btn cancel" id="no">목록으로</button>
+                  	</c:if>
+               		</div>
                		<c:if test="${status eq 'insert'}">
                            <form id="item-submit" action="/Manager/Item/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
                      </c:if>
@@ -141,7 +150,12 @@
 								<input type="hidden" name="deleteImages" value="${Image.getImageIDtoInt()}"/>
 							</c:if>
                             <div class="img-btns">
-                                <button class="btn submit" id="inputShow">이미지 수정</button>
+                            	<c:if test="${status eq 'update'}">
+                    				<button class="btn submit" id="inputShow">이미지 수정</button>
+                  				</c:if>
+                  				<c:if test="${status eq 'insert'}">
+                    				<button class="btn submit" id="inputShow">이미지 추가</button>
+                  				</c:if>
                                 <!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
                             </div>
                         </article>
@@ -211,13 +225,17 @@
                            </c:if>
                         </div>
 							<div class="segment">
-								<div class="headpart">상세 설명</div>
-								<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
+								<span class="headpart">상세 설명</span>
+								<br>
 									<c:if test="${status eq 'detail'}">
-										<div class="bodypart">${Item.getContent()}</div>
+										<span class="bodypart">${Item.getContent()}</span>
 									</c:if>
 									<c:if test="${status eq 'update'}">
+										<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
 										<input type="hidden" name="ReferencesID" value="${Notice.getPostID()}">
+									</c:if>
+									<c:if test="${status eq 'insert'}">
+										<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
 									</c:if>
                                </div>
 									<input type="hidden" name="IDType" value="ITEM">

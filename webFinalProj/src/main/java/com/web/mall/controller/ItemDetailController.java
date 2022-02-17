@@ -63,13 +63,12 @@ public class ItemDetailController extends Manage_S_Module {
 		//item_id 받아와야함.
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
-		System.out.println(itemDto.getItem_id());
 		itemDto = itemService.getItemDetail(itemDto);
 		System.out.println(itemDto);
 		List<ItemOptionDTO> optionList = itemService.getItemOptions(optionDto);
 		System.out.println(optionList);
-		if((Boolean)session.getAttribute("logined") != null && (Boolean)session.getAttribute("logined") == true) {
+		if((Boolean)session.getAttribute("logined") == null || session.getAttribute("logined") == "") {}
+		else {
 			if(session.getAttribute("usertype").equals("web")) {
 				AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 				zzimVo.setAccount_id(nowAcc.getAccount_id());
@@ -85,7 +84,6 @@ public class ItemDetailController extends Manage_S_Module {
 				model.addAttribute("zzim", false);
 			}
 		}
-		else {}
 		
 		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
 		
@@ -100,10 +98,12 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	//장바구니에 담기 버튼 기능
 	@RequestMapping(value="/putCart", method=RequestMethod.GET)
-	public String itemPutCart(ShoppingListVO vo, Model model, HttpSession session) {
+	public String itemPutCart(ShoppingListVO vo, String size, String color, Model model, HttpSession session) {
+		System.out.println("id : " + vo.getItem_id() + ", size : " + size + ", color : " + color + ", amount : " + vo.getAmount());
+		
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
+		//item_id, amount, item_option_id 데이터 들어와야함.
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			vo.setAccount_id(nowAcc.getAccount_id());
