@@ -5,19 +5,45 @@
 
 <mapper namespace="ItemMapper">
 	
-	<!-- 아이템 구매하기 -->
+	<!-- 아이템 리스트 불러오기  (지니)-->
 	<select id="selectItemList" parameterType="item" resultType="item">
       <!-- <처럼 괄호인가 비교연산자인가 고민될때 문자열로 표시 ![CDATE ] 최신순으로 아이템 정렬 
       근데 이미지 여러개있는거중에 어떻게 하나만 가져옴? -->
-        <![CDATA[
+       
+          SELECT * FROM(
+			SELECT ROWNUM RNUM, TB.* FROM(
+			  SELECT IT.ITEM_ID, IT.ITEM_CATEGORY_ID, IT.NAME, IT.CONTENT
+			  , IT.PRICE, IM.IMAGE_ID, IM.FILE_NAME, IM.FILE_URL 
+			  FROM ITEM IT JOIN IMAGE IM ON (IT.ITEM_ID = IM.REFERENCES_ID)
+			  WHERE IM.ID_TYPE = 'ITEM' AND IT.ITEM_CATEGORY_ID = #{item_category_id}
+			   ORDER BY IT.ITEM_ID DESC ) TB
+			)WHERE RNUM BETWEEN ((#{page_num} - 1) * 24 + 1) AND (#{page_num} * 24) 
+	  
+	</select>
+	
+	<!-- 찜수 많은 ITEM_ID 정렬해서 가져오기 -->
+	<select id ="selectZzimHigh" resultType="item">
+		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM ZZIM_LIST GROUP BY ITEM_ID ORDER BY 1) 
+	</select>
+	
+	<!-- 리뷰수 많은 ITEM_ID 정렬해서 가져오기 -->
+	<select id="selectReviewHigh" resultType="item">
+		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM REVIEW GROUP BY ITEM_ID ORDER BY 1) 
+	</select>
+	
+	
+	<select id="selectReviewList" parameterType="item" resultType="item">
+	<![CDATA[
           SELECT * FROM(
 			SELECT ROWNUM RNUM, TB.* FROM(
 			  SELECT IT.ITEM_ID, IT.ITEM_CATEGORY_ID, IT.NAME, IT.CONTENT, IT.PRICE, IM.FILE_NAME, IM.FILE_URL 
 			  FROM ITEM IT JOIN IMAGE IM ON (IT.ITEM_ID = IM.REFERENCES_ID)
 			  WHERE IM.ID_TYPE = 'ITEM' AND IT.ITEM_CATEGORY_ID = #{item_category_id}
-			   ORDER BY IT.ITEM_ID DESC ) TB
-			)WHERE RNUM BETWEEN ((#{page_num} - 1) * 24 + 1) AND (#{page_num} * 24) 
-	    ]]>
+			   ORDER BY DESC ) TB
+			)WHERE RNUM BETWEEN 1 AND 3 
+	]]>
+	
+	
 	</select>
 
 	<!-- 김성하 작업 -->

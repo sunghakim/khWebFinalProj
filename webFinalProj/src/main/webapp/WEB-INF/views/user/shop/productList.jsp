@@ -39,7 +39,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                         ${zzim.get(0).getName()}   <br> ${zzim.get(0).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                         ${zzim.get(1).getName()}   <br> ${zzim.get(1).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                         ${zzim.get(2).getName()}   <br> ${zzim.get(2).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                      ${review.get(0).getName()}   <br> ${review.get(0).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                       ${review.get(1).getName()}   <br> ${review.get(1).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
-                                        상품명<br>가격
+                                        ${review.get(2).getName()}   <br>   ${review.get(2).getPrice()}
                                     </div>
                                 </div>
                             </div>
@@ -115,12 +115,12 @@
     <div id="listContext" style="display: none;">
         
         <div class="productList">
-           <c:forEach var="i" items="${datas}">
+           <c:forEach var="item" items="${datas}">
                <div class="product-item">
-                   <img class="product-img" src="${i.getFile_url()}" alt="${i.getFile_name()}">
+                   <img class="product-img" src="'/resources/upload-img/ITEM/' + ${item.getDownloadPath()}">
                    <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-                   <div class="product-text">${i.getName()}<br><fmt:formatNumber value="${i.getPrice()}" pattern="#,###" /></div>
-                   <input type="text" value="${i.getItem_id()}" hidden/>
+                   <div class="product-text">${item.getName()}<br><fmt:formatNumber value="${item.getPrice()}" pattern="#,###" /></div>
+                   <input type="text" value="${item.getItem_id()}" hidden/>
                </div>         
            </c:forEach>
         </div>
@@ -134,17 +134,5 @@
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
-<script>
-<<<<<<< HEAD
-   var navNum = "${nav}";
-   if(navNum) {
-      $('.user-nav li').removeClass('click-color');
-=======
-	var navNum = "${nav}";
-	if(navNum) {
-		$('.user-nav li').removeClass('click-color');
->>>>>>> refs/remotes/origin/유진희
-        $('#user-nav-' + navNum).addClass('click-color');
-   }
-</script>
+
 <%@ include file="../common/footer.jsp"%>

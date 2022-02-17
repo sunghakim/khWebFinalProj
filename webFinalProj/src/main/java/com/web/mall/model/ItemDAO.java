@@ -17,6 +17,25 @@ public class ItemDAO {
 		return datas;
 	}
 	
+	public List<ItemDTO> selectZzimList(ItemDTO dto) {
+		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectZzimList", dto);
+		return datas;
+	}
+	
+	public List<ItemDTO> selectReviewList(ItemDTO dto) {
+		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectReviewList", dto);
+		return datas;
+	}
+	
+	public List<ItemDTO> selectZzimHigh() {
+		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectZzimHigh");
+		return datas;
+	}
+	
+	public List<ItemDTO> selectReviewHigh() {
+		List<ItemDTO> datas = sqlSession.selectList("ItemMapper.selectReviewHigh");
+		return datas;
+	}
 	
 	//김성하 작업
 	public ItemDTO selectItemDetail(ItemDTO dto) {

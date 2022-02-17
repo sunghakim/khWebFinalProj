@@ -14,7 +14,7 @@
 	  ]]>
 	</select>
 	
-	<!-- 선택한 게시판의 게시글 상세페이지 보여주기  -->
+	<!-- 선택한 게시판의 게시글 상세페이지의 포스트 아이디 보여주기  -->
 	<select id ="selectPost_id" resultType="int" >
 	  <![CDATA[
 	  	SELECT TB.POST_ID FROM(
