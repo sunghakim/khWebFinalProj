@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.AccountVO;
 import com.web.mall.model.Manage_AccountDTO;
+import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_NoticeDTO;
 import com.web.mall.model.Manage_NoticeService;
 
@@ -65,7 +67,10 @@ public class Manege_NoticeController extends Manage_C_Module {
 			mv.addObject("Notice", Service.selectOne(PostID));
 			
 			//해당 공지글에 등록된 이미지 목록 불러오기
-			mv.addObject("ImageList", Service.selectImageList(PostID));
+			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
+			if (ImageList.get(0) != null) {
+				mv.addObject("Image", ImageList.get(0));
+			}
 		}
 		return mv;
 	}
@@ -88,8 +93,8 @@ public class Manege_NoticeController extends Manage_C_Module {
 
 		//로그인여부, 관리자여부, mv에 경로를 넣어준다.(Manage_C_Module)
 		if (isManager(mv, session, URL) == 0) {
-			Manage_AccountDTO temp = (Manage_AccountDTO)session.getAttribute("account");
-			DTO.setWriterID(temp.getAccountID());
+			AccountVO temp = (AccountVO)session.getAttribute("account");
+			DTO.setWriterID(temp.getAccount_id());
 			
 			//요청 처리 결과를 파라미터 값으로 넣어준다.(Manage_C_Module)
 			setResult(mv, Service.insert(DTO, request, file, uploadPath));
@@ -108,7 +113,10 @@ public class Manege_NoticeController extends Manage_C_Module {
 		if (isManager(mv, session, URL, "Detail") == 0) {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
-			mv.addObject("ImageList", Service.selectImageList(PostID));
+			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
+			if (ImageList.get(0) != null) {
+				mv.addObject("Image", ImageList.get(0));
+			}
 		}
 		mv.addObject("status", "update");
 		return mv;

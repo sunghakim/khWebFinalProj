@@ -9,7 +9,7 @@ $(document).ready(function() {
 
 /*$('#ok').click((e) => {
 	let submit = $('#product');
-	//submit.attr('action', '/Manager_test/Item/Insert').attr('method', 'post').attr('enctype', 'multipart/form-data').attr('accept-charset', 'euc-kr').submit();
+	//submit.attr('action', '/Manager/Item/Insert').attr('method', 'post').attr('enctype', 'multipart/form-data').attr('accept-charset', 'euc-kr').submit();
 })*/
 
 $('#inputShow').click(() => {
@@ -54,5 +54,5 @@ inputImage.addEventListener("change", e => {
 
 $('#no').click((e) => {
 	e.preventDefault();
-	$(location).attr('href', '/Manager_test/Item');
+	$(location).attr('href', '/Manager/Item');
 })

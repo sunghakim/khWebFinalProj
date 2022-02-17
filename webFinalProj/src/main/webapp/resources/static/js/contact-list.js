@@ -1,5 +1,5 @@
 $('.detail').click(() => {
-    $(location).attr('href', '/Manager_test/Question/Detail');
+    $(location).attr('href', '/Manager/Question/Detail');
 })
 
 $(document).ready(function () {

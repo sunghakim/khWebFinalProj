@@ -16,7 +16,11 @@ public class Manage_StatisticsDAO {
 	public int selectTotalCount(int Type) {
 		switch(Type) {
 		case(1)://30일 안의 판매갯수순위 체크
-			return this.session.selectOne(Mapper + ".selectTotalDailySoldCount");
+			if (this.session.selectOne(Mapper + ".selectTotalDailySoldCount") != null) {
+				return this.session.selectOne(Mapper + ".selectTotalDailySoldCount");
+			} else {
+				return 0;
+			}
 		case(2)://12개월 안의 판매갯수순위 체크
 			return this.session.selectOne(Mapper + ".selectTotalMonthlySoldCount");
 		case(3)://30일 안의 매출순위 체크

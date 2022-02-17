@@ -7,9 +7,6 @@
 <title>메인 페이지</title>
 </head>
 <body>
-	<header>
-		<jsp:include page="/WEB-INF/views/Manager_test/module/top-navigation.jsp" flush="false"/>
-	</header>
 	<table border="1" style="border_collapse: collapse;">
 		<thead>
 			<tr>

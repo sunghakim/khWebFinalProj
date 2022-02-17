@@ -1,10 +1,10 @@
 $('.back').click(() => {
-    $(location).attr('href', '/Manager_test/Question');
+    $(location).attr('href', '/Manager/Question');
 })
 
 $('.cancel').click(() => {
 	e.preventDefault();
-    $(location).attr('href', '/Manager_test/Question');
+    $(location).attr('href', '/Manager/Question');
 })
 
 $(document).ready(function () {

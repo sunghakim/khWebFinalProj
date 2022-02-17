@@ -118,44 +118,25 @@
             </nav>
             <section>
                 <div class="article-container">
-	                <c:if test="${status eq 'insert'}">
-						<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-					</c:if>
-					<c:if test="${status eq 'update'}">
+                	<c:if test="${status eq 'update'}">
 						<form action="${pageType}/Update" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 						<input type="hidden" name="PostID" value="${Notice.getPostID()}" required>
 					</c:if>
-                    <div class="btns">
+	                <c:if test="${status eq 'insert'}">
+						<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+					<div class="btns">
                         <button type="submit" class="btn regist">등록</button>
                         <button class="btn cancel">등록 취소</button>
                     </div>
+                    </c:if>
                     <div class="article-wrap">
-                      <article class="img-group">
-                       <%-- <c:if test="${status eq 'status'}"> --%>
-		                       <c:choose>
-		                       		<c:when test="${status eq 'status'}">
-		                            	<img class="img" id="img"></img>
-		                            </c:when>
-		                            
-		                            <c:otherwise>
-		                            	<c:choose>
-		                            		<c:when test="${imgList ne null }">
-		                            			<!-- 수정시 이미지 저장 위치 파악 필요 -->
-		                            		</c:when>
-		                            		
-		                            		<c:otherwise>
-		                            			<img class="img" id="img"></img>
-		                            		</c:otherwise>
-		                            	</c:choose>
-		                            </c:otherwise>
-		                       </c:choose>
-                       <%-- </c:if> --%>
-                            <div class="img-btns">
-                      		 <input style="display: none;" type="file" name="file" id="file" class="file">
-                            <div class="img-btns">
-                                <button type="submit" class="btn submit" id="inputShow">이미지 등록</button>
-                                <button class="btn remove" id="inputDelete">이미지 삭제</button>
-                            </div>
+						<article class="img-group">
+							<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
+							<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
+							<div class="img-btns">
+								<button type="submit" class="btn submit" id="inputShow">이미지 등록</button>
+								<button class="btn remove" id="inputDelete">이미지 삭제</button>
+							</div>
                         </article>
                         <article class="notice-content">
                             <div class="title">
@@ -171,7 +152,7 @@
 							</c:if>
 								<input type="hidden" name="IDType" value="NOTICE">
                         </article>
-                      </form>
+					</form>
                     </div>
                 </div>
             </section>

@@ -41,9 +41,8 @@ public class Manage_NoticeService extends Manage_S_Module {
 	public boolean insert(Manage_NoticeDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath) throws Exception {
 		if (dao.insert(dto) == 1) {
-			
 			//첨부파일이 있는지 확인
-			if (file[0].getOriginalFilename() != "") {
+			if (file.length != 0) {
 				int ReferencesID = dto.getPostID();
 				
 				//전달받은 정보로 DB에 저장할 DTO목록 생성
