@@ -31,7 +31,7 @@ public class BoardController {
 		
 		List<BoardDTO> recent = BoardService.getMain(1, page_num);
 		model.addAttribute("recent", recent);
-		/* 콘솔로 테스트 값 출력해봄
+		/* 콘솔로 테스트 값 출력해봄 왜 커밋 안됨?
 		System.out.println(good);
 		System.out.println(notice);
 		System.out.println(recent);
