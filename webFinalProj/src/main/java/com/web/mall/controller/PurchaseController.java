@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.web.mall.model.KSW_PurchaseService;
+import com.web.mall.model.PurchaseService;
 import com.web.mall.model.ShoppingListVO;
 
 @Controller
 public class PurchaseController extends Manage_C_Module {
 	
 	@Autowired
-	KSW_PurchaseService Service;
+	PurchaseService Service;
 	
 	//페이지 링크
 	private final String URL = "/user/mypage/payment";
