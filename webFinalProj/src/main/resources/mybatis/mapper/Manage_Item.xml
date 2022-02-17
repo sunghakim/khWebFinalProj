@@ -57,7 +57,7 @@
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 	
-	<select id="selectMainPageItemList" resultType="ItemDTO">
+	<select id="selectMainPageItemList" resultType="item">
 		SELECT * 
 		FROM (
 			SELECT ROWNUM AS RNUM, ITEM_ID, NAME, CONTENT, PRICE, FILE_NAME, FILE_URL
