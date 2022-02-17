@@ -128,3 +128,15 @@ button {
     display: flex;
     justify-content: flex-start;
 }
+
+[id*='nav-'] {
+	min-width: 200px;
+}
+
+ul {
+	padding-left: 0;
+}
+
+p {
+	margin-bottom: 0;
+}

@@ -6,14 +6,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/community/write.css">
     <title>후기 작성</title>
 </head>
 <body>
+<%@ include file="../common/topnav.jsp"%>
+<%@ include file="../common/sidenav.jsp"%>
+<div>
 	<c:if test="${status eq 'add'}">
     	<form action="/post/add" method="post" enctype="multipart/form-data">
     </c:if>
@@ -34,6 +35,6 @@
             <button class="point-btn" type="submit">작성완료</button>
         </div>
     </form>
-    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-</body>
-</html>
+</div>
+<script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+<%@ include file="../common/footer.jsp"%>

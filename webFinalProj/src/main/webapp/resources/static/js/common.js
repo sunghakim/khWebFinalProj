@@ -503,6 +503,21 @@ for (let i = 1; i <= $('.user-nav li').length; i++) {
     $('#user-nav-' + i).click(() => {
         $('.user-nav li').removeClass('click-color');
         $('#user-nav-' + i).addClass('click-color');
+        
+        // 진희가 추가함
+        switch(i) {
+			case 2:
+				$(location).attr('href', '/board/list?board_id=0&page_num=1');
+				break;
+			case 3: case 4: case 5: case 6:
+		        $(location).attr('href', '/item/list?item_category_id=' + i + "&page_num=1");
+				break;
+			case 7:
+				$(location).attr('href', '/board');
+				break;	
+			default:
+				$(location).attr('href', '/');			
+		}
     })
 }
 

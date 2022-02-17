@@ -23,6 +23,9 @@ public class BoardController {
 	public String Home(Model model){
 		int page_num = 1;
 		
+		// 카테고리 번호 진희가 추가함
+		model.addAttribute("nav", "7");
+		
 		List<BoardDTO> good = BoardService.getMainGood(page_num);
 		model.addAttribute("good", good);
 		
@@ -44,6 +47,7 @@ public class BoardController {
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET) 
 	public String selectBoard(Model model, int board_id, int page_num) {
 		List<BoardDTO> datas = BoardService.getBoard(board_id, page_num);
+		model.addAttribute("board_id", board_id);
 		model.addAttribute("datas", datas);
 		return "user/community/list";//servlet의 viewResolver가 가져감 ->"/WEB-INF/views/jinitest" + board + .jsp
 		

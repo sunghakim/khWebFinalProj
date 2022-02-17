@@ -4,14 +4,15 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/shop/review.css">
     <title>후기</title>
 </head>
 <body>
+<%@ include file="../common/topnav.jsp"%>
+<%@ include file="../common/sidenav.jsp"%>
+<div>
     <div class="reviewHeader">
         <div>
             <label class="title">구매 후기</label>
@@ -34,10 +35,7 @@
                     </div>
                     <div class="review-content">
                         <p>
-                            백 오십자를 작성해ㅑㅇ하는데 저번에 무슨 글씨 썻더라.. 하나도 몰그ㅔㅆ어 집에 가고 싶어요 아저씨 우는 손님이 처음인가요?
-                            달리몀ㄴ 뭘 잊는거더라 아무튼 이제 90자 썼는데 이거 어떡하죠?
-                            리뷰를 사람들이 어떻게 적을지 감이 안잡히네요.. 하...
-                            이거 내일까지 아니
+                            리뷰~
                         </p>
                     </div>
                 </div>
@@ -117,8 +115,7 @@
         </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/resources/static/js/user/shop/review.js"></script>
-</body>
-</html>
+</div>
+<script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/resources/static/js/user/shop/review.js"></script>
+<%@ include file="../common/footer.jsp"%>

@@ -82,3 +82,15 @@ button:hover {
     background-color: rgb(247, 45, 22);
     color: white;
 }
+
+[id*='nav-'] {
+	min-width: 200px;
+}
+
+ul {
+	padding-left: 0;
+}
+
+p {
+	margin-bottom: 0;
+}

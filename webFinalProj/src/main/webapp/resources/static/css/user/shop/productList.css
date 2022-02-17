@@ -1,8 +1,16 @@
 @charset "UTF-8";
 .body {
-	display: flex;
-	flex-direction: colum;
-	width: 100%
+	width: 100%;
+	padding: 10px 20px 20px 20px;
+	padding-right: 0;
+	border-radius: 10px 0 0 0;
+	background-color: #f2f3ee;
+}
+
+.color-body {
+	padding-top: 10px;
+	border-radius: 10px 0 0 0;
+	background-color: #ffffff;
 }
 
 .listMenu {
@@ -66,7 +74,7 @@
 .like-section, .review-section {
     display: flex;
     flex-direction: row;
-    height: 500px;
+    height: 480px;
 }
 
 .best-item {
@@ -158,4 +166,16 @@
 .product-text {
     text-align: center;
     margin: 4px;
+}
+
+[id*='nav-'] {
+	min-width: 200px;
+}
+
+ul {
+	padding-left: 0;
+}
+
+p {
+	margin-bottom: 0;
 }

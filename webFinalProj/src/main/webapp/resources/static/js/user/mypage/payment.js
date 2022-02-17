@@ -29,5 +29,8 @@ $(document).ready(function(){
         $("#sale").text(0);
         $("#delBtn").remove();
     });
-
+    
+    $("a[href='#']:eq(0)").on("click", function() {
+		history.back();
+	});
 });
