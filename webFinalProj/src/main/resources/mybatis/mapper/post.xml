@@ -61,6 +61,20 @@
 		DELETE FROM IMAGE WHERE REFERENCES_ID = #{post_id}
 	</delete>
 	
+	<delete id="deleteCommentsList" parameterType="PostDTO">
+		DELETE FROM COMMENTS WHERE POST_ID = #{post_id}
+	</delete>
+	
+	<delete id="deleteGood" parameterType="PostDTO">
+		DELETE FROM GOOD WHERE POST_ID = #{post_id}
+	</delete>
+	
+	<delete id="deleteReport" parameterType="PostDTO">
+		DELETE FROM REPORT WHERE REPORTED_POST_ID = #{post_id}
+	</delete>
+	
+	
+	
 	<!-- 신고 문의 -->
   	<insert id="insertReport" parameterType="report"> 
     	INSERT INTO REPORT(REPORT_ID,REPORT_REASON_ID, REPORTER_ID, REPORTED_ACCOUNT_ID, REPORTED_POST_ID, REPORTED_DATE, CONTENT, RESULT) 

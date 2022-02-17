@@ -20,7 +20,7 @@
             <li class="button here">BEST</li>
         </ul>
     </div>
-	<div class="color-body">
+   <div class="color-body">
     <div id="best" style="display: none;">
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -31,7 +31,7 @@
                 <div class="carousel-item active" data-bs-interval="2000">
                     <div class="flex-colum">
                         <div class="best-title">
-                            <label>LIKE  <i class="fa-solid fa-heart"></i></label>
+                            <label>ZZIM  <i class="fa-solid fa-heart"></i></label>
                         </div>
                         <div class="like-section">
                             <div class="img-frame">
@@ -115,14 +115,14 @@
     <div id="listContext" style="display: none;">
         
         <div class="productList">
-        	<c:forEach var="i" items="${datas}">
-	            <div class="product-item">
-	                <img class="product-img" src="${i.getFile_url()}" alt="${i.getFile_name()}">
-	                <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
-	                <div class="product-text">${i.getName()}<br><fmt:formatNumber value="${i.getPrice()}" pattern="#,###" /></div>
-	                <input type="text" value="${i.getItem_id()}" hidden/>
-	            </div>   		
-        	</c:forEach>
+           <c:forEach var="i" items="${datas}">
+               <div class="product-item">
+                   <img class="product-img" src="${i.getFile_url()}" alt="${i.getFile_name()}">
+                   <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
+                   <div class="product-text">${i.getName()}<br><fmt:formatNumber value="${i.getPrice()}" pattern="#,###" /></div>
+                   <input type="text" value="${i.getItem_id()}" hidden/>
+               </div>         
+           </c:forEach>
         </div>
         <div>
             <ul>
@@ -134,11 +134,11 @@
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
-<<script>
-	var navNum = "${nav}";
-	if(navNum) {
-		$('.user-nav li').removeClass('click-color');
+<script>
+   var navNum = "${nav}";
+   if(navNum) {
+      $('.user-nav li').removeClass('click-color');
         $('#user-nav-' + navNum).addClass('click-color');
-	}
+   }
 </script>
 <%@ include file="../common/footer.jsp"%>

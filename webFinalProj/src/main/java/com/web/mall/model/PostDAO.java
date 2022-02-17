@@ -40,6 +40,18 @@ public class PostDAO {
 	}
 
 	//게시글 삭제하기
+	public int deleteCommentsList(int post_id) {
+		return sqlSession.delete("PostMapper.deleteCommentsList", post_id);
+	}
+	//게시글 삭제하기
+	public int deleteGood(int post_id) {
+		return sqlSession.delete("PostMapper.deleteGood", post_id);
+	}
+	//게시글 삭제하기
+	public int deleteReport(int post_id) {
+		return sqlSession.delete("PostMapper.deleteReport", post_id);
+	}
+	//게시글 삭제하기
 	public int deleteImage(int post_id) {
 		return sqlSession.delete("PostMapper.deleteImage", post_id);
 	}

@@ -15,7 +15,6 @@
 <%@ include file="../common/topnav.jsp"%>
 <%@ include file="../common/sidenav.jsp"%>
 <div class="body">
-	<form action="/post" method="get">
     <div class="detailBody">
         <div id="detail" class="detail">
             <div class="detailHeader">
@@ -33,13 +32,17 @@
                 <div class="img-box">
                     <img src="/resources/static/img/sample.png" alt="">
                 </div>
-                <div id="content" name="content" value="">
+                <div id="content">
       				${datas.getContent()}
                 </div>
             </div>
             <div class="buttons">
                 <button id="mod" type="button" onclick="location.href='/post/update?post_id=' + ${datas.getPost_id()} 
                 ">수정</button>
+                <form action="/post/delete" method="post">
+                	<input type="hidden" name="post_id" value="${datas.getPost_id()}">
+                	<button type="submit">삭제</button>
+                </form>
                 <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">신고</button>
                 <button id="list" type="button"onclick="location.href='/board/list?board_id=' + ${datas.getBoard_id()}+'&page_num=1'">목록</button>
             </div>
@@ -52,17 +55,18 @@
         <hr>
         <div id="comments"></div>
     </div>
-	</form>
+	
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div id="modal" class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <label class="modal-title">신고하기</label>
             <form action="/post/report" method="post" >
+        	
 	            <div class="modal-report">
 	                <label class="report-label"><span class="point">신고 이유</span>는 무엇인가요?</label>
 	                <select name="report_reason_id" id="report-why">
-	                    <option value="1" selected>부적절한 게시글</option>
+	                    <option value="1">부적절한 게시글</option>
 	                    <option value="2">욕설</option>
 	                </select>
 	            </div>

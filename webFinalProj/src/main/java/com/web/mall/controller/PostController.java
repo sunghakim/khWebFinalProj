@@ -50,9 +50,7 @@ public class PostController {
 	public String postAdd(String title, String content, MultipartFile fileUpload, HttpSession session) throws Exception{
 		UUID id = UUID.randomUUID();
 		
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴 계정 로그인이 필요한 작업임
-		
-		
+		AccountVO nowAcc = (AccountVO)session.getAttribute("account"); //account_id가져오기위해 세션값 가져옴 계정 로그인이 필요한 작업임
 		
 		String path = session.getServletContext().getRealPath("/resources/images"); //이미지 경로 지정 url
 		
@@ -68,9 +66,9 @@ public class PostController {
 		}
 		
 		fileUpload.transferTo(saveFile);
-		
-		boolean result = service.setPost(title, content, "ha1015", id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임
-		
+		System.out.println("게시글 저장 들어감");
+		boolean result = service.setPost(title, content, nowAcc.getAccount_id(), id.toString() + ext , "/resources/images"); //뒤에는 파일이름 파일url임
+		System.out.println("게시글 저장 완료");
 
 		if(result) {
 		 	return "redirect:/board/list?board_id=1&page_num=1"; 
@@ -88,8 +86,12 @@ public class PostController {
 	@RequestMapping(value="/post/report", method=RequestMethod.POST)
 	public String reportPost(int post_id, int report_reason_id, HttpSession session){
 		
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //account_id가져오기위해 세션값 가져옴
+		
+		AccountVO nowAcc = (AccountVO)session.getAttribute("account"); //account_id가져오기위해 세션값 가져옴
 	
+		System.out.println(post_id);
+		System.out.println(nowAcc.getAccount_id());
+		
 		PostDTO datas = service.getPost(post_id);
 		
 		boolean result = service.setReport(report_reason_id, nowAcc.getAccount_id(),datas.getWriter_id(), post_id); 
@@ -157,15 +159,54 @@ public class PostController {
 		
 		return "user/community/write";//진희님 경로 "user/community/write"
 	}
+	
+	/*
+	 * public static void main(String[] args){
+    	
+		File file = new File("C:/123.txt");
+        
+    	if( file.exists() ){
+    		if(file.delete()){
+    			System.out.println("파일삭제 성공");
+    		}else{
+    			System.out.println("파일삭제 실패");
+    		}
+    	}else{
+    		System.out.println("파일이 존재하지 않습니다.");
+    	}
+        	
+	}
+	 */
 		
 	//게시글 삭제 요청
-	@RequestMapping(value = "/post/delete", method = RequestMethod.GET)
-	public String deletePost(int post_id) {
+	@RequestMapping(value = "/post/delete", method = RequestMethod.POST)
+	public String deletePost(int post_id, HttpSession session) {
+		PostDTO datas = service.getPost(post_id);
+		
+		System.out.println("파일 삭제 테스트");
+		if(datas.getFile_name()!=null) {
+			System.out.println("삭제할 파일 명 있음");
+			if(!datas.getFile_name().isEmpty()) {
+				System.out.println("삭제할 파일 실제로 존재함 -> " + datas.getFile_name());
+				String absPath = session.getServletContext().getRealPath("/resources/images");
+				System.out.println(absPath);
+				System.out.println(session.getServletContext());
+				System.out.println(session.getServletContext().getRealPath("/resources/images"));
+				System.out.println(session.getServletContext().getRealPath(""));
+				
+				File file = new File( absPath, datas.getFile_name());
+				if(file.exists() && file.delete()) {
+					System.out.println("파일삭제 성공");
+				} else {
+					System.out.println("파일삭제 실패");
+				}
+			}
+		}
 		boolean result = service.deletePost(post_id);
 		if(result) {
-			return "redirect:/post/post_id=" + post_id;
+			return "redirect:/board/list?board_id=" + datas.getBoard_id() + "&page_num=1";
 		}
-		return "user/community/list";
+		return "redirect:/post?post_id=" + datas.getPost_id();
 	}
 		
 	//게시글 좋아요 요청

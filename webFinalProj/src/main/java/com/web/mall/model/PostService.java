@@ -74,8 +74,13 @@ public class PostService {
 	
 	//게시글 삭제하기
 	public boolean deletePost(int post_id) {
-		int result = dao.deletePost(post_id);
+		
 		int res = dao.deleteImage(post_id);
+		int res2 = dao.deleteCommentsList(post_id);
+		int res3 = dao.deleteGood(post_id);
+		int res4 = dao.deleteReport(post_id);
+		
+		int result = dao.deletePost(post_id);
 		if(result == 1) {
 			return true;
 		}
