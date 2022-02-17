@@ -1,8 +1,7 @@
 @charset "UTF-8";
-body {
+.body {
     display: flex;
     justify-content: center;
-    padding: 4vw;
 }
 
 .writeHeader {

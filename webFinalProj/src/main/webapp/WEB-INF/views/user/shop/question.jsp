@@ -12,7 +12,6 @@
     <title>상품문의</title>
 </head>
 <body>
-<div class="body">
     <div class="questionBody">
         <div class="div-box">
             <div>
@@ -20,7 +19,7 @@
                     <label class="title">상품 문의</label>
                 </div>
                 <div>
-                    <button type="button">문의하기</button>
+                    <button id="button" type="button">문의하기</button>
                 </div>
             </div>
             <hr>
@@ -44,9 +43,7 @@
             </table>    
         </div>
     </div>
-    </div>
 
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/resources/static/js/user/mypage/question.js"></script>
 </body>
 </html>

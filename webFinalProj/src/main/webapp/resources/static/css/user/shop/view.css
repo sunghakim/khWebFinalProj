@@ -12,6 +12,7 @@
 
 .detail {
     width: 100%;
+    flex: auto;
     padding: 10px 40px 20px 40px;
     border-radius: 10px 0 0 0;
     background-color: white;
@@ -36,7 +37,7 @@
     color: rgb(231, 76, 60);
 }
 
-.here {
+.detail-tab.here {
     color: rgb(231, 76, 60);
 }
 

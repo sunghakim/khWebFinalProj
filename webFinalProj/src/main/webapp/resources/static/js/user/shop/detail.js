@@ -19,7 +19,7 @@ $(document).ready(function(){
         } else if($(".here").text() == "상세보기") {
             $("#buy").hide();
             $("#container").load("/itemDetail/content?item_id=" + itemID);
-        } else if($(".here").text() == "후기") {
+        } else if($(".here").text().includes("후기")) {
             $("#buy").hide();
             $("#container").load("/itemDetail/review?item_id=" + itemID);
         } else if($(".here").text() == "문의하기") {

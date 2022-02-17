@@ -14,7 +14,7 @@
 <title>후기</title>
 </head>
 <body>
-<div>
+<div class="review-body">
     <div class="reviewHeader">
         <div>
             <label class="title">구매 후기</label>
