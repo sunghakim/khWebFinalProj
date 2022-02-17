@@ -152,10 +152,10 @@
                                 <div class="cols">${Question.getQuestionContent()}</div>
                             </div>
                             <div class="detail-box admin">
-                            		<p class="box-title">답변내용</p>
-                               	 	<div class="cols"></div>
+                           		<p class="box-title">답변내용</p>
+								<div class="cols"></div>
 	                            <c:if test="${Question.getResult() eq 0}">
-	                            	<textarea class="answer" name="AnswerContent" value="${Question.getAnswerContent()}" required></textarea>
+	                            	<textarea class="answer" name="AnswerContent" required></textarea>
 								</c:if>
 								<c:if test="${Question.getResult() eq 1}">
 									<textarea class="answer" value="${Question.getAnswerContent()}" readonly></textarea>

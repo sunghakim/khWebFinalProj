@@ -212,11 +212,11 @@
                         </div>
 							<div class="segment">
 								<div class="headpart">상세 설명</div>
+								<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
 									<c:if test="${status eq 'detail'}">
 										<div class="bodypart">${Item.getContent()}</div>
 									</c:if>
 									<c:if test="${status eq 'update'}">
-										<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
 										<input type="hidden" name="ReferencesID" value="${Notice.getPostID()}">
 									</c:if>
                                </div>

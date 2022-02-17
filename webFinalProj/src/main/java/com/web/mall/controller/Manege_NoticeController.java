@@ -67,7 +67,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 			
 			//해당 공지글에 등록된 이미지 목록 불러오기
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
-			if (ImageList.get(0) != null) {
+			if (ImageList.size() != 0) {
 				mv.addObject("Image", ImageList.get(0));
 			}
 		}
@@ -114,10 +114,7 @@ public class Manege_NoticeController extends Manage_C_Module {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
-			for (Manage_ImageDTO dto:ImageList) {
-				System.out.println("updateNotice: "+dto.toString());
-			}
-			if (ImageList.get(0) != null) {
+			if (ImageList.size() != 0) {
 				mv.addObject("Image", ImageList.get(0));
 			}
 		}

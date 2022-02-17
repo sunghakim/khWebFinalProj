@@ -69,7 +69,7 @@ public class ItemDetailController extends Manage_S_Module {
 		System.out.println(itemDto);
 		List<ItemOptionDTO> optionList = itemService.getItemOptions(optionDto);
 		System.out.println(optionList);
-		if((Boolean)session.getAttribute("logined")) {
+		if((Boolean)session.getAttribute("logined") != null && (Boolean)session.getAttribute("logined") == true) {
 			if(session.getAttribute("usertype").equals("web")) {
 				AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 				zzimVo.setAccount_id(nowAcc.getAccount_id());

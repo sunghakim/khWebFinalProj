@@ -60,9 +60,9 @@
 	<select id="selectMainPageItemList" resultType="item">
 		SELECT * 
 		FROM (
-			SELECT ROWNUM AS RNUM, ITEM_ID, NAME, CONTENT, PRICE, FILE_NAME, FILE_URL
+			SELECT ROWNUM AS RNUM, ITEM_ID, NAME, CONTENT, PRICE, IMAGE_ID, FILE_NAME, FILE_URL
 			FROM (
-				SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.FILE_NAME, Y.FILE_URL
+				SELECT X.ITEM_ID, X.NAME, X.CONTENT, X.PRICE, Y.IMAGE_ID, Y.FILE_NAME, Y.FILE_URL
 				FROM ITEM X 
 				LEFT OUTER JOIN IMAGE Y ON Y.REFERENCES_ID = X.ITEM_ID
 				ORDER BY X.ITEM_ID DESC
@@ -71,12 +71,16 @@
 		WHERE RNUM <![CDATA[>=]]> 1 AND RNUM <![CDATA[<=]]> 4
 	</select>
 	
-	<select id="searchItemName" resultType="String" resultMap="Manage_ItemDTOMap">
-		SELECT NAME FROM ITEM WHERE NAME = #{Name}
+	<select id="searchItemName" resultType="String">
+		SELECT ITEM_ID FROM ITEM WHERE NAME = #{Name}
 	</select>
 	
-	<select id="searchItemOptionID" resultType="Integer" resultMap="Manage_ItemDTOMap">
-		SELECT ITEM_OPTION_ID FROM ITEM_OPTION WHERE ITEM_OPTION_ID = #{ItemOptionID}
+	<select id="searchItemID" resultType="int">
+		SELECT ITEM_ID FROM ITEM WHERE NAME = #{Name}
+	</select>
+	
+	<select id="searchItemOptionID" resultType="Integer">
+		SELECT ITEM_OPTION_ID FROM ITEM_OPTION WHERE ITEM_SIZE = #{ItemSize} AND COLOR = #{Color}
 	</select>
 		
 	<insert id="insertItem" useGeneratedKeys="true" keyColumn="ITEM_ID" keyProperty="ItemID" parameterType="Manage_ItemDTO">

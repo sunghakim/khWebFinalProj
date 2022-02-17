@@ -125,13 +125,13 @@
                         <div class="article-group">
                             <article class="left-chart">
                                 <div class="chart-box">
-                                    <canvas id="product-chart" width="100px"></canvas>
+                                    <canvas id="product-chart"></canvas>
                                 </div>
                                 <div class="chart-title">상품 통계 그래프</div>
                             </article>
                             <article class="right-chart">
                                 <div class="chart-box">
-                                    <canvas id="income-chart" width="100px"></canvas>
+                                    <canvas id="income-chart"></canvas>
                                 </div>
                                 <div class="chart-title">수입 그래프</div>
                             </article>

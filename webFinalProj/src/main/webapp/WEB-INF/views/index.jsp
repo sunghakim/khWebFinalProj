@@ -369,22 +369,20 @@
                 <section>
                     <div class="article-container">
                         <div class="article-wrap">
-                            <article class="article-before" id="before-1">
-                                <p>Segment<br>Title</p>
-                                <div class="img"></div>
-                            </article>
-                            <article class="article-before" id="before-2">
-                                <p>Segment<br>Title</p>
-                                <div class="img"></div>
-                            </article>
-                            <article class="article-before" id="before-3">
-                                <p>Segment<br>Title</p>
-                                <div class="img"></div>
-                            </article>
-                            <article class="article-before" id="before-4">
-                                <p>Segment<br>Title</p>
-                                <div class="img"></div>
-                            </article>
+                        	<c:forEach var="List" items="${ItemList}" varStatus="status">
+								<article class="article-before" id="before-${status.count}">
+							        <a href="/itemDetail/main?item_id=${List.getItem_id()}">
+								        <p class="head-text">${List.getName()}</p>
+								        <img class="img" src="${List.getDownloadPath()}">
+							        </a>
+							    </article>
+							</c:forEach>
+							<c:forEach var="i" begin="${5 - ItemConut}" end="${1 + ItemConut}" step="1" varStatus="status">
+								<article class="article-before" id="before-${i}">
+	                                <p>아직 상품이 없습니다.</p>
+	                                <img class="img" >
+	                            </article>
+							</c:forEach>
                             <!--article class="article-after" id="after-1">
                                 <p>Segment Title</p>
                                 <div class="gallery-wrap">

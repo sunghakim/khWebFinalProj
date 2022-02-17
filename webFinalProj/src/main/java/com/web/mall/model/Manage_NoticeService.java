@@ -53,8 +53,9 @@ public class Manage_NoticeService extends Manage_S_Module {
 					
 					//서버에 이미지 저장(이클립스 테스트환경이 아닌 실제 톰캣 경로에 저장된다.)
 					saveImages(ImageList);
+				} else {
+					throw new Exception("이미지 추가 처리중 문제발생");
 				}
-				throw new Exception("이미지 추가 처리중 문제발생");
 			}
 			return true;
 		}

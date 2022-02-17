@@ -41,7 +41,6 @@ public class Manage_RefundController extends Manage_C_Module {
 	@RequestMapping(value = URL + "/Update", method = RequestMethod.GET)
 	public ModelAndView updateRefund(HttpSession session, ModelAndView mv, HttpServletRequest request, Manage_SoldHistoryDTO dto) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			System.out.println(dto.toString());
 			setResult(mv, Service.update(dto));
 			selectRefundList(session, mv, request);
 		}

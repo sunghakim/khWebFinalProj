@@ -138,13 +138,11 @@
 								<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
 								<input type="hidden" name="deleteImages" value="${Image.getImageIDtoInt()}"/>
 							</c:if>
-							<c:if test="${status eq 'update'}">
-								<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
-								<div class="img-btns">
-									<button type="submit" class="btn submit" id="inputShow">이미지 수정</button>
-									<!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
-								</div>
-							</c:if>
+							<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
+							<div class="img-btns">
+								<button type="submit" class="btn submit" id="inputShow">이미지 수정</button>
+								<!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
+							</div>
                         </article>
                         <article class="notice-content">
                             <div class="title">

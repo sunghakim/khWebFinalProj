@@ -25,7 +25,7 @@ public class Manage_ItemDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
-	public List<Manage_ItemDTO> selectMainPageItemList() {
+	public List<ItemDTO> selectMainPageItemList() {
 		return this.session.selectList(Mapper + ".selectMainPageItemList");
 	}
 
@@ -40,13 +40,19 @@ public class Manage_ItemDAO {
 	public String searchItemName(Manage_ItemDTO dto) {
 		return this.session.selectOne(Mapper + ".searchItemName", dto);
 	}
+	
+	public int searchItemID(Manage_ItemDTO dto) {
+		return this.session.selectOne(Mapper + ".searchItemID", dto);
+	}
 
 	public Integer searchItemOptionID(Manage_ItemDTO dto) {
 		return this.session.selectOne(Mapper + ".searchItemOptionID", dto);
 	}
 	
 	public int insertItem(Manage_ItemDTO dto) {
-		return this.session.insert(Mapper + ".insertItem", dto);
+		System.out.println("DAO: insertItem: dto: "+dto.toString());
+		int i = this.session.insert(Mapper + ".insertItem", dto);
+		return i;
 	}
 	
 	public int insertItemOption(Manage_ItemDTO dto) {
