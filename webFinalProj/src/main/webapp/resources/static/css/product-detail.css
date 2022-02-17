@@ -102,11 +102,12 @@ textarea {
 }
 
 .headpart {
-	width: 50px;
+	width: 100px;
 }
 
 .bodypart {
-	width: 50px;
+	display: inline-block;
+	width: 500px;
 	font-weight: normal;
 	font-style: normal;
 	font-size: 16px;

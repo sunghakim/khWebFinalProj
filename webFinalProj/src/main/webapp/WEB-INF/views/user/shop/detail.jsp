@@ -36,7 +36,7 @@
             </div>
             <div class="item-content">
                 <div>
-                    
+                
                 </div>
                 <hr>
             </div>
