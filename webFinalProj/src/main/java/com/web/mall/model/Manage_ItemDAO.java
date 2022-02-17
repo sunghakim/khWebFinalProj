@@ -40,13 +40,19 @@ public class Manage_ItemDAO {
 	public String searchItemName(Manage_ItemDTO dto) {
 		return this.session.selectOne(Mapper + ".searchItemName", dto);
 	}
+	
+	public int searchItemID(Manage_ItemDTO dto) {
+		return this.session.selectOne(Mapper + ".searchItemID", dto);
+	}
 
 	public Integer searchItemOptionID(Manage_ItemDTO dto) {
 		return this.session.selectOne(Mapper + ".searchItemOptionID", dto);
 	}
 	
 	public int insertItem(Manage_ItemDTO dto) {
-		return this.session.insert(Mapper + ".insertItem", dto);
+		System.out.println("DAO: insertItem: dto: "+dto.toString());
+		int i = this.session.insert(Mapper + ".insertItem", dto);
+		return i;
 	}
 	
 	public int insertItemOption(Manage_ItemDTO dto) {

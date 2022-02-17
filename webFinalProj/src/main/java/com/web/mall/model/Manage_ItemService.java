@@ -49,18 +49,19 @@ public class Manage_ItemService extends Manage_S_Module {
 	@Transactional(rollbackFor=Exception.class)
 	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
 			, String uploadPath) throws Exception {
-		String searchResult1 = dao.searchItemName(dto);
 		//상품 카테고리가 정상인지 확인
 		if (dto.getItemCategoryID() == 0) {
 			throw new Exception("잘못된 상품 카테고리 추가 처리중 문제발생");
 		}
 		
 		//상품 이름이 이미 존재하는지 확인
-		if (searchResult1 == null) {
+		if (dao.searchItemName(dto) == null) {
 			if (dao.insertItem(dto) == 1) {
 			} else {
 				throw new Exception("상품 추가 처리중 문제발생");
 			}
+		} else {
+			dto.setItemID(dao.searchItemID(dto));
 		}
 		
 		//상품 옵션이 이미 있는지 확인
@@ -76,13 +77,16 @@ public class Manage_ItemService extends Manage_S_Module {
 		}
 		
 		//첨부파일이 있는지 확인
-		if (file.length != 0) {
-			int ReferencesID = dto.getItemID();
-			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
-			if (ImageService.insertList(ImageList)) {
-				saveImages(ImageList);
-			} else {
-				throw new Exception("이미지 추가 처리중 문제발생");
+		if (file.length == 1) {
+			if (file[0].getName() == null) {
+				System.out.println(file.length);
+				int ReferencesID = dto.getItemID();
+				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+				if (ImageService.insertList(ImageList)) {
+					saveImages(ImageList);
+				} else {
+					throw new Exception("이미지 추가 처리중 문제발생");
+				}
 			}
 		}
 		return true;

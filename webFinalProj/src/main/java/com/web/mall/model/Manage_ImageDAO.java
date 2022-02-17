@@ -26,7 +26,7 @@ public class Manage_ImageDAO {
 		//이미지 저장갯수(Count)를 반환
 		int count = 0;
 		for (Manage_ImageDTO dto : List) {
-			this.session.insert(Mapper + ".insert", dto);//맵핑에러
+			this.session.insert(Mapper + ".insert", dto);
 			count++;
 		}
 		return count;
