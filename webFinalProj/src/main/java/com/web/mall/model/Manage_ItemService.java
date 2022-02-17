@@ -47,9 +47,14 @@ public class Manage_ItemService extends Manage_S_Module {
 	}
 	
 	@Transactional(rollbackFor=Exception.class)
-	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
+	public boolean insert(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile file
 			, String uploadPath) throws Exception {
 		String searchResult1 = dao.searchItemName(dto);
+		//상품 카테고리가 정상인지 확인
+		if (dto.getItemCategoryID() == 0) {
+			throw new Exception("잘못된 상품 카테고리 추가 처리중 문제발생");
+		}
+		
 		//상품 이름이 이미 존재하는지 확인
 		if (searchResult1 == null) {
 			if (dao.insertItem(dto) == 1) {
@@ -71,9 +76,10 @@ public class Manage_ItemService extends Manage_S_Module {
 		}
 		
 		//첨부파일이 있는지 확인
-		if (file[0].getOriginalFilename() != "") {
+		if (file.getOriginalFilename() != "") {
 			int ReferencesID = dto.getItemID();
-			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+			MultipartFile files[] = {file};
+			List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, files, uploadPath, ReferencesID);
 			if (ImageService.insertList(ImageList)) {
 				saveImages(ImageList);
 			} else {
@@ -86,15 +92,16 @@ public class Manage_ItemService extends Manage_S_Module {
 	
 	
 	@Transactional(rollbackFor=Exception.class)
-	public boolean update(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile[] file
+	public boolean update(Manage_ItemDTO dto, HttpServletRequest request, MultipartFile file
 			, String uploadPath, int[] deleteImages) throws Exception{
 		if (dao.updateItem(dto) == 1) {
 			if (dao.updateItemOption(dto) != 1) {
 				throw new Exception("상품옵션 수정 처리중 문제발생");
 			}
-			if (file[0].getOriginalFilename() != "") {
+			if (file.getOriginalFilename() != "") {
 				int ReferencesID = dto.getItemID();
-				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, file, uploadPath, ReferencesID);
+				MultipartFile files[] = {file};
+				List<Manage_ImageDTO> ImageList = BuildImageDTOList(request, files, uploadPath, ReferencesID);
 				if (ImageService.insertList(ImageList)) {
 					saveImages(ImageList);
 				} else {

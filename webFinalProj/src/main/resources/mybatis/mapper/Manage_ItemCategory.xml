@@ -10,7 +10,7 @@
 	</resultMap>
 	
 	<select id="selectTotalCount" resultType="int">
-		SELECT COUNT(ITEM_CATEGORY_ID) FROM ITEM_CATEGORY WHERE A.ITEM_CATEGORY_ID != 0
+		SELECT COUNT(ITEM_CATEGORY_ID) FROM ITEM_CATEGORY
 	</select>
 	
 	<select id="selectList" parameterType="int" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
@@ -18,14 +18,13 @@
 		FROM (
 			SELECT ROWNUM AS RNUM, A.*
 			FROM ITEM_CATEGORY A
-			WHERE A.ITEM_CATEGORY_ID != 0
 		) B
 		WHERE RNUM <![CDATA[>=]]> ((#{Page}*10)-9) 
 		AND RNUM <![CDATA[<=]]> (#{Page}*10)
 	</select>
 	
 	<select id="selectAll" parameterType="int" resultType="Manage_ItemCategoryDTO" resultMap="Manage_ItemCategoryDTOMap">
-		SELECT * FROM ITEM_CATEGORY WHERE ITEM_CATEGORY_ID != 0
+		SELECT * FROM ITEM_CATEGORY
 	</select>
 		
 	<insert id="insert" parameterType="Manage_ItemCategoryDTO">

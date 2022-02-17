@@ -118,7 +118,7 @@
             <section>
                 <div class="article-container">
                 <div class="btns">
-                        <button class="btn back">쿠폰 목록</button>
+					<button class="btn back">쿠폰 목록</button>
                 </div>
                     <div class="article-wrap">
                         <ul class="title">
