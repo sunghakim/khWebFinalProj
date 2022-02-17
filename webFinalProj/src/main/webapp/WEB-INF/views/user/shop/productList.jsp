@@ -6,20 +6,21 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/shop/productList.css">
     <title>Document</title>
 </head>
-<body class="body">
+<body>
+<%@ include file="../common/topnav.jsp"%>
+<%@ include file="../common/sidenav.jsp"%>
+<div class="body">
     <div class="menuLine">
         <ul id="listMenu" class="listMenu">
             <li class="button here">BEST</li>
         </ul>
     </div>
-
+	<div class="color-body">
     <div id="best" style="display: none;">
         <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
             <div class="carousel-indicators">
@@ -128,8 +129,16 @@
                 <li class="page">페이징 어떻게 되려나</li>
             </ul>
         </div>
+        </div>
     </div>
-    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
-</body>
-</html>
+</div>
+<script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
+<<script>
+	var navNum = "${nav}";
+	if(navNum) {
+		$('.user-nav li').removeClass('click-color');
+        $('#user-nav-' + navNum).addClass('click-color');
+	}
+</script>
+<%@ include file="../common/footer.jsp"%>

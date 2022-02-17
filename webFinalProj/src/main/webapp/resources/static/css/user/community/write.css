@@ -1,7 +1,4 @@
 @charset "UTF-8";
-body {
-    padding: 4vh 6vw;
-}
 
 .writeHeader {
     display: flex;
@@ -93,4 +90,16 @@ body {
 
 .point-btn:hover {
     background-color: rgb(211, 56, 40);
+}
+
+[id*='nav-'] {
+	min-width: 200px;
+}
+
+ul {
+	padding-left: 0;
+}
+
+p {
+	margin-bottom: 0;
 }

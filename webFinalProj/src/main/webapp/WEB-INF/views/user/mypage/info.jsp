@@ -5,14 +5,14 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+    <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/mypage/info.css">
     <title>내정보</title>
 </head>
-<body  class="info">
+<body>
+<%@ include file="../common/topnav.jsp"%>
+<div class="info">
     <div>
     <div class="infoHeader">
         <a href="#"><i id="backPage" class="fa-solid fa-angles-left"></i></a>
@@ -25,14 +25,14 @@
 				<c:when test="${account.getSocial_account_id() eq 'false'}">
 					<tr>
 		                <th>아이디</th>
-		                <td colspan="3">${account.account_id} </td>
+		                <td colspan="3">${account.getAccount_id()} </td>
 		                <input id="account_id" name="account_id" type="text" value="${account.account_id}" style="display: none;" hidden/>
 		            </tr>
 				</c:when>
 				<c:otherwise>
 					<tr>
 		                <th>아이디</th>
-		                <td colspan="3">${account.social_account_id} </td>
+		                <td colspan="3">${account.getSocial_account_id()} </td>
 		                <input id="social_account_id" name="social_account_id" type="text" value="${account.social_account_id}" style="display: none;" hidden/>
 		            </tr>
 				</c:otherwise>
@@ -40,7 +40,7 @@
             <tr>
                 <th>닉네임</th>
                 <td colspan="2">
-                    <label id="nick">${account.nickname}</label>
+                    <label id="nick">${account.getName()}</label>
                     <input id="name" name="name" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -53,7 +53,7 @@
 					<tr>
 		                <th>비밀번호</th>
 		                <td colspan="3">
-		                    <input id="password" name="password" type="text" value="${account.password}" hidden/>
+		                    <input id="password" name="password" type="text" value="${account.getPassword()}" hidden/>
 		                    <button id="bootstrap-update-pwd" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">변경하기</button></td>
 		            </tr>
 				</c:when>
@@ -63,7 +63,7 @@
             <tr>
                 <th>전화번호</th>
                 <td colspan="2">
-                    <label id="phone-label">${account.phone}</label>
+                    <label id="phone-label">${account.getPhone()}</label>
                     <input id="phone" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -74,7 +74,7 @@
             <tr>
                 <th>이메일</th>
                 <td colspan="2">
-                    <label id="email-text">${account.email}</label>
+                    <label id="email-text">${account.getEmail()}</label>
                     <input id="email" name="phone" type="text" value="" style="display: none;"/>
                 </td>
                 <td>
@@ -87,14 +87,14 @@
 				<th>우편번호</th>
 				<td colspan="2">
 					<input type="hidden" id="confmKey" name="confmKey" value=""  >
-					<input type="text" id="zipNo" name="zipNo" value="${account.address_no}" readonly style="width:100px" disabled>
+					<input type="text" id="zipNo" name="zipNo" value="${account.getAddress_no()}" readonly style="width:100px" disabled>
 					<button type="button" onclick="goPopup();"> 주소검색</button>
 				</td>
 			</tr>
 			<tr>
 				<th>도로명주소</th>
 				<td colspan="2">
-                    <input type="text" id="roadFullAddr" name="address" style="width:100%" value="${account.address}" disabled>
+                    <input type="text" id="roadFullAddr" name="address" style="width:100%" value="${account.getAddress()}" disabled>
                 </td>
 			</tr>
         </table>
@@ -140,8 +140,7 @@
             </div>
           </div>
     </div>
-
-    <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="/resources/static/js/user/mypage/info.js"></script>
-</body>
-</html>
+</div>
+<script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/resources/static/js/user/mypage/info.js"></script>
+<%@ include file="../common/footer.jsp"%>

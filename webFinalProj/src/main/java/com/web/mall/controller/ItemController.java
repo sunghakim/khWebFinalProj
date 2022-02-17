@@ -22,6 +22,8 @@ public class ItemController {
 	@RequestMapping(value = "/list", method = RequestMethod.GET) 
 	public String selectItem(Model model, int item_category_id) {
 		List<ItemDTO> datas = service.getItem(item_category_id);
+		// 카테고리 번호
+		model.addAttribute("nav", item_category_id);
 		model.addAttribute("datas", datas);
 		return "/user/shop/productList"; 
 	}  

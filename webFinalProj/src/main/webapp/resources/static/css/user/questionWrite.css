@@ -106,3 +106,15 @@
 .point-btn:hover {
     background-color: rgb(211, 56, 40);
 }
+
+[id*='nav-'] {
+	min-width: 200px;
+}
+
+ul {
+	padding-left: 0;
+}
+
+p {
+	margin-bottom: 0;
+}

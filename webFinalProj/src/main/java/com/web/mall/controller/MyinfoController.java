@@ -7,9 +7,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,12 +23,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.web.mall.model.AccountVO;
 import com.web.mall.model.CouponVO;
 import com.web.mall.model.GiveCouponVO;
+import com.web.mall.model.ItemDTO;
 import com.web.mall.model.ItemOptionDTO;
 import com.web.mall.model.ItemService;
 import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_ImageService;
 import com.web.mall.model.Manage_S_Module;
-import com.web.mall.model.ItemDTO;
 import com.web.mall.model.MyinfoService;
 import com.web.mall.model.QuestionService;
 import com.web.mall.model.QuestionVO;
@@ -109,14 +114,34 @@ public class MyinfoController extends Manage_S_Module{
 		return "redirect:/mypage/checkCarts";
 	}
 	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
-	@RequestMapping(value="/BuyItem", method=RequestMethod.GET)
-	public String buyItem(List<Integer> shop, Model model, HttpSession session) {
+//	@RequestMapping(value="/BuyItem", method=RequestMethod.GET)
+//	public String buyItem(List<Integer> shop, Model model, HttpSession session) {
+//		//shopping_list_id 를 리스트로 받아와야함
+//		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
+//		for(Integer index: shop) {
+//			list.add(shoppingService.getCartItem(index));
+//		}
+//		
+//		model.addAttribute("shoppingList", list);
+//		return "user/mypage/payment";
+//	}
+	@RequestMapping(value="/BuyItem", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
 		//shopping_list_id 를 리스트로 받아와야함
 		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
-		for(Integer index: shop) {
-			list.add(shoppingService.getCartItem(index));
-		}
-		
+		try {		 
+            JSONParser jsonParser = new JSONParser();
+            JSONObject jsonObject = (JSONObject)jsonParser.parse(shop);
+            JSONArray shopList = (JSONArray)jsonObject.get("name");
+ 
+            for(int i=0; i<shopList.size(); i++){
+            	String index = shopList.get(i).toString();
+            	list.add(shoppingService.getCartItem(Integer.parseInt(index)));
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
 		model.addAttribute("shoppingList", list);
 		return "user/mypage/payment";
 	}
