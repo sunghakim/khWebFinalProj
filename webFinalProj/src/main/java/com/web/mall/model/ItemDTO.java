@@ -6,6 +6,7 @@ public class ItemDTO {
 	private String name;
 	private String content;
 	private int price;
+	private int image_id;//승원 작업
 	private String file_name;
 	private String file_url;
 	private int page_num;
@@ -40,7 +41,12 @@ public class ItemDTO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+	public int getImage_id() {
+		return image_id;
+	}
+	public void setImage_id(int image_id) {
+		this.image_id = image_id;
+	}
 	public String getFile_name() {
 		return file_name;
 	}
@@ -53,7 +59,12 @@ public class ItemDTO {
 	public void setFile_url(String file_url) {
 		this.file_url = file_url;
 	}
-	
+	public String getFileNameExtension() {
+		return file_name.substring(file_name.lastIndexOf(".") + 1);
+	}
+	public String getDownloadPath() {
+		return file_url + "/" + image_id + "." + getFileNameExtension();
+	}
 	public int getPage_num() {
 		return page_num;
 	}
@@ -63,8 +74,7 @@ public class ItemDTO {
 	@Override
 	public String toString() {
 		return "ItemDTO [item_id=" + item_id + ", item_category_id=" + item_category_id + ", name=" + name
-				+ ", content=" + content + ", price=" + price + ", file_name=" + file_name + ", file_url=" + file_url
-				+ ", page_num=" + page_num + "]";
+				+ ", content=" + content + ", price=" + price + ", image_id=" + image_id + ", file_name=" + file_name
+				+ ", file_url=" + file_url + ", page_num=" + page_num + "]";
 	}
-		
 }

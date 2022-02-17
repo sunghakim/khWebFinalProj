@@ -25,7 +25,7 @@ public class Manage_ItemDAO {
 		return this.session.selectList(Mapper + ".selectList", Page);
 	}
 
-	public List<Manage_ItemDTO> selectMainPageItemList() {
+	public List<ItemDTO> selectMainPageItemList() {
 		return this.session.selectList(Mapper + ".selectMainPageItemList");
 	}
 

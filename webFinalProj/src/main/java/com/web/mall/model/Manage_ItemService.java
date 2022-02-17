@@ -38,7 +38,7 @@ public class Manage_ItemService extends Manage_S_Module {
 		return dao.selectList(Page);
 	}
 	
-	public List<Manage_ItemDTO> selectMainPageItemList() {
+	public List<ItemDTO> selectMainPageItemList() {
 		return dao.selectMainPageItemList();
 	}
 	

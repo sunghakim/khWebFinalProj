@@ -114,9 +114,6 @@ public class Manege_NoticeController extends Manage_C_Module {
 			
 			mv.addObject("Notice", Service.selectOne(PostID));
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(PostID);
-			for (Manage_ImageDTO dto:ImageList) {
-				System.out.println("updateNotice: "+dto.toString());
-			}
 			if (ImageList.get(0) != null) {
 				mv.addObject("Image", ImageList.get(0));
 			}
