@@ -57,6 +57,7 @@ public class Manage_ItemController extends Manage_C_Module {
 		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Item", Service.selectOne(DTO));
 			mv.addObject("ImageList", Service.selectImageList(DTO.getItemID()));
+			mv.addObject("status", "detail");
 		}
 		return mv;
 	}

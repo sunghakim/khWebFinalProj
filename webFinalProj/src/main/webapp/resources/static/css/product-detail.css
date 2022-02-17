@@ -1,11 +1,11 @@
-/* .article-container {
+.article-container {
     position: relative;
-} */
+}
 
 .btns {
-    /* position: absolute; */
-    margin-top: -80px;
-    margin-left: 900px;
+    position: absolute;
+    margin-top: -50px;
+    right: 20px;
 }
 
 .btn {
@@ -99,4 +99,15 @@ textarea {
     width: 55%; height: 308px;
     outline: none;
     resize: none;
+}
+
+.headpart {
+	width: 50px;
+}
+
+.bodypart {
+	width: 50px;
+	font-weight: normal;
+	font-style: normal;
+	font-size: 16px;
 }

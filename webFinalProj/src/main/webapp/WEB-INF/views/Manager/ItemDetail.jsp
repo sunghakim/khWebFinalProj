@@ -119,7 +119,10 @@
             </nav>
                         <section>
                 <div class="article-container">
-             
+             		<div class="btns">
+						<button type="submit" class="btn regist" id="ok">등록</button>
+						<button class="btn cancel" id="no">등록 취소</button>
+					</div>
                     <div class="article-wrap">
                         <article class="img-group">
                        <%-- <c:if test="${status eq 'status'}"> --%>
@@ -154,97 +157,86 @@
 									<input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
 							</c:if>
                             <%-- <form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8"> --%>
+                            
                         </article>
                        		<input style="display: none;" type="file" name="file" id="file" class="file">
 	                        <article class="product-content">
 	                            <div class="title">
-	                                <span>이름</span>
-	                                <input type="text" name="Name" value="${Item.getName()}" required>
+	                                <span class="headpart">이름</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getName()}</span>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+	                                	<input type="text" name="Name" value="${Item.getName()}" required>
+	                                </c:if>
 	                            </div>
 	                            <div class="price">
-	                                <span>가격</span>
-	                                <input type="number" name="Price" value="${Item.getPrice()}" required>
+	                                <span class="headpart">가격</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getPrice()}</span>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+	                                	<input type="number" name="Price" value="${Item.getPrice()}" required>
+	                                </c:if>
 	                            </div>
 	                            <div class="size">
-	                                <span>사이즈</span>
-	                                <c:choose>
-	                                	<c:when test="${Item.getItemSize() eq 'S'}">
-		                                	<input checked="checked" type="radio" name="ItemSize" value="S" class="size-radio" id="size-s"><label for="size-s">S</label>
-		                                	<input type="radio" name="ItemSize" value="M" class="size-radio" id="size-m"><label for="size-m">M</label>
-		                                	<input type="radio" name="ItemSize" value="L" class="size-radio" id="size-l"><label for="size-l">L</label>
-		                            	</c:when>
-			                            <c:when test="${Item.getItemSize() eq 'M'}">
-			                                <input type="radio" name="ItemSize" value="S" class="size-radio" id="size-s"><label for="size-s">S</label>
-			                                <input checked="checked" type="radio" name="ItemSize" value="M" class="size-radio" id="size-m"><label for="size-m">M</label>
-			                                <input type="radio" name="ItemSize" value="L" class="size-radio" id="size-l"><label for="size-l">L</label>
-			                            </c:when>
-			                            <c:when test="${Item.getItemSize() eq 'L'}">
-			                                <input type="radio" name="ItemSize" value="S" class="size-radio" id="size-s"><label for="size-s">S</label>
-			                                <input type="radio" name="ItemSize" value="M" class="size-radio" id="size-m"><label for="size-m">M</label>
-			                                <input checked="checked" type="radio" name="ItemSize" value="L" class="size-radio" id="size-l"><label for="size-l">L</label>
-			                            </c:when>
-			                            <c:otherwise>
-			                            	<input type="radio" name="ItemSize" value="S" class="size-radio" id="size-s"><label for="size-s">S</label>
-			                                <input type="radio" name="ItemSize" value="M" class="size-radio" id="size-m"><label for="size-m">M</label>
-			                                <input type="radio" name="ItemSize" value="L" class="size-radio" id="size-l"><label for="size-l">L</label>
-			                            </c:otherwise>
-	                                </c:choose>
+	                                <span class="headpart">사이즈</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getItemSize()}</span>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+                                		<input type="text" name="ItemSize" value="${Item.getItemSize()}" required>
+                               		</c:if>
 	                            </div>
 	                            <div class="color">
-	                                <span>색깔</span>
-	     							<c:choose>
-	                                	<c:when test="${Item.getColor() eq 'red'}">
-		                                	<input checked="checked" type="radio" name="Color" value="red" class="color-radio" id="color-red"><label for="color-red">빨</label>
-		                                	<input type="radio" name="Color" value="orange" class="color-radio" id="color-or"><label for="color-or">주</label>
-		                                	<input type="radio" name="Color" value="yellow" class="color-radio" id="color-ye"><label for="color-ye">노</label>
-		                            	</c:when>
-			                            <c:when test="${Item.getColor() eq 'orange'}">
-			                                <input type="radio" name="Color" value="red" class="color-radio" id="color-red"><label for="color-red">빨</label>
-		                                	<input checked="checked" type="radio" name="Color" value="orange" class="color-radio" id="color-or"><label for="color-or">주</label>
-		                                	<input type="radio" name="Color" value="yellow" class="color-radio" id="color-ye"><label for="color-ye">노</label>
-			                            </c:when>
-			                            <c:when test="${Item.getColor() eq 'yellow'}">
-			                                <input type="radio" name="Color" value="red" class="color-radio" id="color-red"><label for="color-red">빨</label>
-		                                	<input type="radio" name="Color" value="orange" class="color-radio" id="color-or"><label for="color-or">주</label>
-		                                	<input checked="checked" type="radio" name="Color" value="yellow" class="color-radio" id="color-ye"><label for="color-ye">노</label>
-			                            </c:when>
-			                            <c:otherwise>
-			                            	<input type="radio" name="Color" value="red" class="color-radio" id="color-red"><label for="color-red">빨</label>
-		                                	<input type="radio" name="Color" value="orange" class="color-radio" id="color-or"><label for="color-or">주</label>
-		                                	<input type="radio" name="Color" value="yellow" class="color-radio" id="color-ye"><label for="color-ye">노</label>
-			                            	</c:otherwise>
-	                                </c:choose>
+	                                <span class="headpart">색깔</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getColor()}</span>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+	                                	<input type="text" name="Color" value="${Item.getColor()}" required>
+                                	</c:if>
 	                            </div>
 	                            <div class="amount">
-	                                <span>수량</span>
-	                                <input name="Amount" type="number" value="${Item.getAmount()}" required>
+	                                <span class="headpart">수량</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getAmount()}</span>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+	                                	<input name="Amount" type="number" value="${Item.getAmount()}" required>
+                                	</c:if>
 	                            </div>
 	                            <div class="category">
-									<span>카테고리</span>
-									<select id="CategoryList" name="ItemCategoryID" required>
-										<c:forEach var="List" items="${ItemCategoryList}">
-											<c:if test="${List.getItemCategoryName() eq Item.getItemCategoryName()}">
-												<option value="${List.getItemCategoryID()}" selected>${List.getItemCategoryName()}</option>
-											</c:if>
-											<c:if test="${List.getItemCategoryName() ne Item.getItemCategoryName()}">
-												<option value="${List.getItemCategoryID()}">${List.getItemCategoryName()}</option>
-											</c:if>
-										</c:forEach>
-									</select>
+									<span class="headpart">카테고리</span>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<span class="bodypart">${Item.getItemCategoryName()}</span>
+	                                </c:if>
+									<c:if test="${status ne 'detail'}">
+										<select id="CategoryList" name="ItemCategoryID" required>
+											<c:forEach var="List" items="${ItemCategoryList}">
+												<c:if test="${List.getItemCategoryName() eq Item.getItemCategoryName()}">
+													<option value="${List.getItemCategoryID()}" selected>${List.getItemCategoryName()}</option>
+												</c:if>
+												<c:if test="${List.getItemCategoryName() ne Item.getItemCategoryName()}">
+													<option value="${List.getItemCategoryID()}">${List.getItemCategoryName()}</option>
+												</c:if>
+											</c:forEach>
+										</select>
+									</c:if>
 								</div>
 	                            <div class="segment">
-	                                <div>상세 설명</div>
-	                                <textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
+	                                <div class="headpart">상세 설명</div>
+	                                <c:if test="${status eq 'detail'}">
+	                                	<div class="bodypart">${Item.getContent()}</div>
+	                                </c:if>
+	                                <c:if test="${status ne 'detail'}">
+	                                	<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
+	                                </c:if>
 	                            </div>
 	                        </article>
-                       
+                   		</form>
                     </div>
                 </div>
-	                        <div class="btns">
-		                        <button type="submit" class="btn regist" id="ok">등록</button>
-		                        <button class="btn cancel" id="no">등록 취소</button>
-                    		</div>
-                    		</form>
             </section>
         </div>
     </div>
