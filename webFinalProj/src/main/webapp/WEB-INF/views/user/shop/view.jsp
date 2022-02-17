@@ -20,20 +20,29 @@
         <div class="detail-tabs">
             <button class="detail-tab here" disabled>구매하기</button>
             <button class="detail-tab">상세보기</button>
-            <button class="detail-tab">후기<span class="review-num"></span></button>
+            <button class="detail-tab">후기<span class="review-num">${reviewCount}</span></button>
             <button class="detail-tab">문의하기</button>
         </div>
 
         <div id="buy" class="buy">
             <div class="item-view">
                 <div class="img-box">
-                    <img src="${itemData.getFile_url()}" alt="">
+                    <img src="${itemImageList.get(0).getDownloadPath()}" alt="">
                 </div>
                 <div class="item-div">
                     <div class="item-name">${itemData.getName()}</div>
                     <div id="like-line">
-                        <label id="like-num">?</label>
-                        <label id="like-state">하트모양</label>
+                    	<label id="like-num">${zzimCount}</label>
+                        <label id="like-state">
+                        <c:choose>
+						    <c:when test="${zzim}"> <!-- 찜한거면 하트 채워짐 -->
+						    	<i class="fa-solid fa-heart"></i>
+						    </c:when>
+						    <c:otherwise> <!-- 찜한거 아니면 빈하트 -->
+						        <i class="fa-light fa-heart"></i>
+						    </c:otherwise>
+						</c:choose>
+                        </label>
                     </div>
                 </div>
                 <label class="item-price"><fmt:formatNumber value="${itemData.getPrice()}" pattern="#,###" /></label>

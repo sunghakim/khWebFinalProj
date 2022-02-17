@@ -4,13 +4,13 @@
     $(".star").on("click", function() {
         let count = $(this).index() + 1;
         
-        if($("#eval").val() == 1){
-            $(this).text("☆");
+       if($("#eval").val() == 1){
+            $(this).html("<i class='fa-regular fa-star'></i>");
             count = 0;
         } else {
-            $(this).prevAll().text("★");
-            $(this).text("★");
-            $(this).nextAll().text("☆");
+            $(this).prevAll().html("<i class='fa-solid fa-star'></i>");
+            $(this).html("<i class='fa-solid fa-star'></i>");
+            $(this).nextAll().html("<i class='fa-regular fa-star'></i>");
         }
         $("#eval").val(count);
     });

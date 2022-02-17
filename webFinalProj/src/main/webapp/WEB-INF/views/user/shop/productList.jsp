@@ -9,7 +9,7 @@
     <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/shop/productList.css">
-    <title>Document</title>
+    <title></title>
 </head>
 <body>
 <%@ include file="../common/topnav.jsp"%>
@@ -135,9 +135,15 @@
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
 <script>
+<<<<<<< HEAD
    var navNum = "${nav}";
    if(navNum) {
       $('.user-nav li').removeClass('click-color');
+=======
+	var navNum = "${nav}";
+	if(navNum) {
+		$('.user-nav li').removeClass('click-color');
+>>>>>>> refs/remotes/origin/유진희
         $('#user-nav-' + navNum).addClass('click-color');
    }
 </script>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,7 +18,7 @@
     <div class="reviewHeader">
         <div>
             <label class="title">구매 후기</label>
-            <label class="header-text">총 <span class="point">3</span> 개의 리뷰가 있습니다.</label>
+            <label class="header-text">총 <span class="point">${reviewCount}</span> 개의 리뷰가 있습니다.</label>
         </div>
         <div>
             <button id="write-btn" type="button">후기 작성</button>
@@ -24,86 +26,44 @@
     </div>
     <hr>
     <div class="reviewList">
-        <div class="review">
-            <div class="text-box">
-                <div class="review-area">
-                    <div class="eval-date">
-                        <label class="eval">★★★★★</label>
-                        -
-                        <label class="date">2022.02.14</label>
-                        <label class="write-type">작성</label>
-                    </div>
-                    <div class="review-content">
-                        <p>
-                            리뷰~
-                        </p>
-                    </div>
-                </div>
-                <div id="mod-del" class="review-button">
-                    <button class="mod" type="button">수정</button>
-                    <button class="del" type="button">삭제</button>
-                </div>
-                <div id="rtn-udt" class="review-button" style="display: none;">
-                    <button class="rtn" type="button">취소</button>
-                    <button class="udt" type="button">확인</button>
-                </div>
-            </div>
-            <div class="img-box">
-                <img class="review-img" src="/resources/static/img/sample.png" alt="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            </div>
-        </div>
-        <hr>
-
-        <div class="review">
-            <div class="text-box">
-                <div class="review-area">
-                    <div class="eval-date">
-                        <label class="eval">★★★☆☆</label>
-                        -
-                        <label class="date">2022.02.13</label>
-                        <label class="write-type">작성</label>
-                    </div>
-                    <div class="review-content">
-                        <p>어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구
-                            어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구
-                            어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구
-                            어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구어쩌구 저쩌구</p>
-                    </div>
-                </div>
-            </div>
-            <div class="img-box">
-                <img class="review-img" src="/resources/static/img/sample.png" alt=""  data-bs-toggle="modal" data-bs-target="#exampleModal">
-            </div>
-        </div>
-        <hr>
-
-        <div class="review">
-            <div class="text-box">
-                <div class="review-area">
-                    <div class="eval-date">
-                        <label class="eval">★★★★★</label>
-                        -
-                        <label class="date">2022.02.12</label>
-                        <label class="write-type">작성</label>
-                    </div>
-                    <div class="review-content">
-                        <p>어쩌구 저쩌구</p>
-                    </div>
-                </div>
-                <div id="mod-del" class="review-button">
-                    <button class="mod" type="button">수정</button>
-                    <button class="del" type="button">삭제</button>
-                </div>
-                <div id="rtn-udt" class="review-button" style="display: none;">
-                    <button class="rtn" type="button">취소</button>
-                    <button class="udt" type="button">확인</button>
-                </div>
-            </div>
-            <div class="img-box">
-                <img class="review-img" src="/resources/static/img/sample.png" alt="" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            </div>
-        </div>
-        <hr>
+	    <c:forEach var="review" items="${reviewList}" varStatus="status">
+	        <div class="review">
+	            <div class="text-box">
+	                <div class="review-area">
+	                    <div class="eval-date">
+	                        <label class="eval">
+	                        	<c:forEach var="star" begin="1" end="${review.getScore()}" step="1">
+	                        		<i class="fa-solid fa-star"></i>
+	                        	</c:forEach>
+	                        	<c:forEach var="notStar" begin="${5-review.getScore()}" end="0" step="-1">
+	                        		<i class="fa-light fa-star"></i>
+	                        	</c:forEach>
+	                       	</label>
+	                        -
+	                        <label class="date">${review.getPost_date()}</label>
+	                        <label class="write-type">작성</label>
+	                    </div>
+	                    <div class="review-content">
+	                        <p>${review.getContent()}</p>
+	                    </div>
+	                </div>
+	                <c:if test="${sessionScope.account.getAccount_id() eq review.writer_id}">
+		                <div id="mod-del" class="review-button">
+		                    <button class="mod" type="button">수정</button>
+		                    <button class="del" type="button">삭제</button>
+		                </div>
+		                <div id="rtn-udt" class="review-button" style="display: none;">
+		                    <button class="rtn" type="button">취소</button>
+		                    <button class="udt" type="button">확인</button>
+		                </div>
+	                </c:if>
+	            </div>
+	            <div class="img-box">
+	                <img class="review-img" src="${reviewImageList[status.index].getFileURL()}" alt="" data-bs-toggle="modal" data-bs-target="#exampleModal">
+	            </div>
+	        </div>
+	        <hr>
+		</c:forEach>
     </div>
 
     <!-- Modal -->

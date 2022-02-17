@@ -125,27 +125,26 @@ public class MyinfoController extends Manage_S_Module{
 //		model.addAttribute("shoppingList", list);
 //		return "user/mypage/payment";
 //	}
-	@RequestMapping(value="/BuyItem", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
-	public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
-		//shopping_list_id 를 리스트로 받아와야함
-		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
-		System.out.println("controller");
-		try {		 
-            JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject)jsonParser.parse(shop);
-            JSONArray shopList = (JSONArray)jsonObject.get("name");
- 
-            for(int i=0; i<shopList.size(); i++){
-            	String index = shopList.get(i).toString();
-            	list.add(shoppingService.getCartItem(Integer.parseInt(index)));
-            }
-        } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-		model.addAttribute("shoppingList", list);
-		return "user/mypage/payment";
-	}
+	@RequestMapping(value="/BuyItem", method=RequestMethod.POST, produces="application/json; charset=UTF-8")
+	   public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
+	      //shopping_list_id 를 리스트로 받아와야함
+	      List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
+	      System.out.println("controller");
+	      System.out.println(shop);
+	      try {       
+	            JSONParser jsonParser = new JSONParser();
+	            JSONArray jsonArray = (JSONArray)jsonParser.parse(shop);
+	            for(int i=0; i<jsonArray.size(); i++){
+	               String index = jsonArray.get(i).toString();
+	               list.add(shoppingService.getCartItem(Integer.parseInt(index)));
+	            }
+	        } catch (ParseException e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	        }
+	      model.addAttribute("shoppingList", list);
+	      return "user/mypage/payment";
+	   }
 	
 	
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)

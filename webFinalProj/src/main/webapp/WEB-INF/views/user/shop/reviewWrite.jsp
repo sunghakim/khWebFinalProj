@@ -16,11 +16,11 @@
     <div class="writeHeader">
         <label class="title">평가</label>
         <ul class="stars">
-            <li class="star">☆</li>
-            <li class="star">☆</li>
-            <li class="star">☆</li>
-            <li class="star">☆</li>
-            <li class="star">☆</li>
+            <li class="star"><i class="fa-regular fa-star"></i></li>
+            <li class="star"><i class="fa-regular fa-star"></i></li>
+            <li class="star"><i class="fa-regular fa-star"></i></li>
+            <li class="star"><i class="fa-regular fa-star"></i></li>
+            <li class="star"><i class="fa-regular fa-star"></i></li>
         </ul>
         <input id="eval" type="text" value="0" required hidden/>
     </div>
