@@ -192,7 +192,6 @@
                         <div class="login-text text">
                             <div class="login-form" id="login-chkPwd-form">비밀번호는 20자 이하로 작성해주세요.</div>
                             <div class="login-alert" id="login-chkPwd-null">비밀번호를 입력해주세요.</div>
-                            <div class="login-alert" id="login-chkPwd-wrong">잘못된 비밀번호입니다. 다시 입력하세요.</div>
                         </div>
                     </div>
                     <div class="login-btns">

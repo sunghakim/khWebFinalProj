@@ -275,7 +275,7 @@ $('#login-name').focusout(() => {
     if(inputName == '') {
         $('#login-name-null').show();
     } else {
-        $('#login-name-null').show();
+        $('#login-name-null').hide();
     }
 })
 
