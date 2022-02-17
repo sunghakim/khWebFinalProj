@@ -55,7 +55,7 @@ public class ItemDetailController extends Manage_S_Module {
 	
 	//구매하기 페이지
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public String itemDetailMain(ItemDTO itemDto, ItemOptionDTO optionDto, ZzimListVO zzimVo, Model model, HttpSession session) {
+	public String itemDetailMain(ItemDTO itemDto, ItemOptionDTO optionDto, ZzimListVO zzimVo, ReviewVO reviewVo, Model model, HttpSession session) {
 		//item_id 받아와야함.
 		System.out.println(itemDto.getItem_id());
 		itemDto = itemService.getItemDetail(itemDto);
@@ -80,10 +80,14 @@ public class ItemDetailController extends Manage_S_Module {
 		}
 		else {}
 		
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		
 		model.addAttribute("itemData", itemDto);
 		model.addAttribute("optionList", optionList);
 		List<Manage_ImageDTO> itemImageList = selectImageList(itemDto.getItem_id(), "ITEM");
 		model.addAttribute("itemImageList", itemImageList);
+		model.addAttribute("zzimCount", zzimService.getZzimNumberForItem(zzimVo));
+		model.addAttribute("reviewCount", reviews.size());
 		
 		return "user/shop/view";
 	}
@@ -111,8 +115,11 @@ public class ItemDetailController extends Manage_S_Module {
 	
 	//구매하기 버튼 누를 시 동작(구매페이지로 이동)
 	@RequestMapping(value="/buyItem", method=RequestMethod.GET)
-	public String itemBuy(ShoppingListVO vo, Model model, HttpSession session) {
+	public String itemBuy(ShoppingListVO vo, ReviewVO reviewVo, Model model, HttpSession session) {
 		//item_id, amount, item_option_id 데이터 들어와야함.
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		if(session.getAttribute("logined") == null) {
 			model.addAttribute("isError", true);
 			model.addAttribute("error_msg", "로그인되어있지 않습니다. 로그인 해주세요.");
@@ -142,12 +149,15 @@ public class ItemDetailController extends Manage_S_Module {
 	
 	//상세보기 페이지
 	@RequestMapping(value="/content", method=RequestMethod.GET)
-	public String itemDetailContent(ItemDTO itemDto, Model model) {
+	public String itemDetailContent(ItemDTO itemDto, ReviewVO reviewVo, Model model) {
 		//item_id 받아와야함.
 		itemDto = itemService.getItemDetail(itemDto);
 		model.addAttribute("itemData", itemDto);
 		List<Manage_ImageDTO> itemImageList = selectImageList(itemDto.getItem_id(), "ITEM");
 		model.addAttribute("itemImageList", itemImageList);
+		
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		model.addAttribute("reviewCount", reviews.size());
 		
 		return "user/shop/detail";
 	}
@@ -159,6 +169,8 @@ public class ItemDetailController extends Manage_S_Module {
 		model.addAttribute("reviewList", reviewList);
 		List<Manage_ImageDTO> reviewImageList = selectImageList(review.getReview_id(), "REVIEW");
 		model.addAttribute("reviewImageList", reviewImageList);
+		
+		model.addAttribute("reviewCount", reviewList.size());
 		
 		return "user/shop/review";
 	}
@@ -175,6 +187,9 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	@RequestMapping(value="/reviewUpdate", method=RequestMethod.POST)
 	public String itemReviewUpdatePOST(ReviewVO vo, Model model, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
+		List<ReviewVO> reviews = reviewService.getReviews(vo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		if(reviewService.updateReview(vo)) {
 			if (file[0].getOriginalFilename() != "") { //파일 있음.
 				int ReferencesID = vo.getReview_id();
@@ -210,6 +225,9 @@ public class ItemDetailController extends Manage_S_Module {
 	@RequestMapping(value="/reviewDelete", method=RequestMethod.GET)
 	public String itemReviewDelete(ReviewVO vo, Model model) {
 		//review_id 받아와야함
+		List<ReviewVO> reviews = reviewService.getReviews(vo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		if(reviewService.deleteReview(vo)) {
 			return "redirect:/itemDetail/review";
 		}
@@ -221,7 +239,7 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	//후기작성버튼 누를 시 동작(후기작성페이지)
 	@RequestMapping(value="/reviewWrite", method=RequestMethod.GET)
-	public String itemReviewWriteGET(SoldHistoryVO shistoryVo, SoldDetailVO sdetailVo, Model model, HttpSession session) {
+	public String itemReviewWriteGET(SoldHistoryVO shistoryVo, SoldDetailVO sdetailVo, ReviewVO reviewVo, Model model, HttpSession session) {
 		//로그인여부 확인 -> 아니면 error 날리고 위치 이동(로그인페이지)
 		//상품 구매한 사람인지 확인 -> 아니면 error 날리고 다시 리뷰페이지로 위치 이동
 		//item_id 받아와야함.
@@ -242,6 +260,8 @@ public class ItemDetailController extends Manage_S_Module {
 			if(!reviewService.checkAlreadyBuy(shistoryVo, sdetailVo)) { // ----> 제대로 작동하는지 확인해봐야한다.
 				model.addAttribute("isError", true);
 				model.addAttribute("error_msg", "상품을 구매하지 않았습니다. 리뷰를 작성할 수 없습니다.");
+				List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+				model.addAttribute("reviewCount", reviews.size());
 				return "user/shop/review";
 			}
 			else {
@@ -253,6 +273,9 @@ public class ItemDetailController extends Manage_S_Module {
 	//후기작성완료 버튼 누를 시 동작
 	@RequestMapping(value="/reviewWrite", method=RequestMethod.POST)
 	public String itemReviewWritePOST(ReviewVO vo, Model model, HttpSession session, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
+		List<ReviewVO> reviews = reviewService.getReviews(vo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			vo.setWriter_id(nowAcc.getAccount_id());
@@ -296,8 +319,11 @@ public class ItemDetailController extends Manage_S_Module {
 	
 	//문의하기 페이지(8개?10개?보여주고 페이징처리)
 	@RequestMapping(value="/checkQuestionList", method=RequestMethod.GET)
-	public String seeQuestionList(int page, QuestionVO question, HttpSession session, Model model) {
+	public String seeQuestionList(int page, QuestionVO question, ReviewVO reviewVo, HttpSession session, Model model) {
 		//item_id 받아와야함, page 번호 가져와야함.(기본은 1로 줄것)
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		List<QuestionVO> questionList = questionService.getItemQuestions(question);
 		List<QuestionVO> thisPageQuestions = new ArrayList<QuestionVO>();
 		
@@ -327,7 +353,11 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	//작성완료 버튼 누를 시 동작
 	@RequestMapping(value="/addQuestion", method=RequestMethod.POST)
-	public String addQuestion(QuestionVO questionVo, Model model, HttpSession session, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
+	public String addQuestion(QuestionVO questionVo, ReviewVO reviewVo, Model model, HttpSession session, HttpServletRequest request, @RequestParam("uploadImages") MultipartFile[] file, String uploadPath) throws Exception {
+		//item_id, content, score 필요
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		model.addAttribute("reviewCount", reviews.size());
+		
 		if(session.getAttribute("usertype").equals("web")) {
 			AccountVO nowAcc = (AccountVO)session.getAttribute("account");
 			questionVo.setWriter_id(nowAcc.getAccount_id());
@@ -370,12 +400,16 @@ public class ItemDetailController extends Manage_S_Module {
 	}
 	//문의하기 페이지에서 상세보기
 	@RequestMapping(value="/checkQuestion", method=RequestMethod.GET)
-	public String seeQuestion(QuestionVO vo, Model model) {
-		//question_id 필요함.
+	public String seeQuestion(QuestionVO vo, ReviewVO reviewVo, Model model) {
+		//question_id 필요함.		
 		QuestionVO question = questionService.getOneQuestion(vo);
 		model.addAttribute("question", question);
 		List<Manage_ImageDTO> questionImageList = selectImageList(vo.getQuestion_id(), "QUESTION");
 		model.addAttribute("questionImageList", questionImageList);
+		
+		reviewVo.setItem_id(question.getItem_id());
+		List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
+		model.addAttribute("reviewCount", reviews.size());
 		
 		return "user/shop/questionPost"; //문의상세페이지
 	}

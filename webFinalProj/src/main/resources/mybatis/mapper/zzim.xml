@@ -9,6 +9,9 @@
 	<select id="selectZzim" parameterType="zzim" resultType="zzim">
     SELECT * FROM ZZIM_LIST WHERE ACCOUNT_ID = #{account_id} AND ITEM_ID = #{item_id}
 	</select>
+	<select id="selectZzimNumberForItem" parameterType="zzim" resultType="int">
+    SELECT COUNT(*) FROM ZZIM_LIST WHERE ITEM_ID = #{item_id}
+	</select>
 	<delete id="deleteZzimItem" parameterType="zzim">
     DELETE FROM ZZIM_LIST WHERE ZZIM_LIST_ID = #{zzim_list_id}
 	</delete>

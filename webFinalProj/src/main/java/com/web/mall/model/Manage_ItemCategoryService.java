@@ -51,4 +51,8 @@ public class Manage_ItemCategoryService extends Manage_S_Module {
 			throw new Exception("상품 카테고리 삭제 처리중 문제발생");
 		}
 	}
+	
+	public List<Manage_ItemCategoryDTO> selectNav() {
+		return dao.selectNav();
+	}
 }

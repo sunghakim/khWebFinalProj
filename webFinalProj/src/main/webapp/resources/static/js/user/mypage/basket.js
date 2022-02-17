@@ -70,11 +70,12 @@ $(document).ready(function(){
         console.log(shop);
         
         $.ajax({
-			type: "get",
+			type: "POST",
 			async: false,
 			url: "/mypage/BuyItem",
 			contentType: 'application/json',
-			jsonData : shop,
+			data: shop,
+            dataType: "json",
 			success: function(date) {
 				console.log("성공했다인마");
 			}, error:function(data) {

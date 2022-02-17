@@ -189,7 +189,10 @@ public class AccountController {
 					return "redirect:" + referer;
 				}
 				else {
-					accountVo.setNickname(accountVo.getAccount_id());
+					if(accountVo.getNickname() == null || accountVo.getNickname() == "") {
+						accountVo.setNickname(accountVo.getAccount_id());
+					}
+					else {}
 					accountVo.setAddress_no(zipNo);
 					if(service.join(accountVo)) {
 						return "redirect:" + referer;

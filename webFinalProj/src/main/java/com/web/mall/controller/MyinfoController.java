@@ -114,29 +114,17 @@ public class MyinfoController extends Manage_S_Module{
 		return "redirect:/mypage/checkCarts";
 	}
 	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
-//	@RequestMapping(value="/BuyItem", method=RequestMethod.GET)
-//	public String buyItem(List<Integer> shop, Model model, HttpSession session) {
-//		//shopping_list_id 를 리스트로 받아와야함
-//		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
-//		for(Integer index: shop) {
-//			list.add(shoppingService.getCartItem(index));
-//		}
-//		
-//		model.addAttribute("shoppingList", list);
-//		return "user/mypage/payment";
-//	}
-	@RequestMapping(value="/BuyItem", method=RequestMethod.GET, produces="application/json; charset=UTF-8")
+	@RequestMapping(value="/BuyItem", method=RequestMethod.POST, produces="application/json; charset=UTF-8")
 	public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
 		//shopping_list_id 를 리스트로 받아와야함
 		List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
 		System.out.println("controller");
+		System.out.println(shop);
 		try {		 
             JSONParser jsonParser = new JSONParser();
-            JSONObject jsonObject = (JSONObject)jsonParser.parse(shop);
-            JSONArray shopList = (JSONArray)jsonObject.get("name");
- 
-            for(int i=0; i<shopList.size(); i++){
-            	String index = shopList.get(i).toString();
+            JSONArray jsonArray = (JSONArray)jsonParser.parse(shop);
+            for(int i=0; i<jsonArray.size(); i++){
+            	String index = jsonArray.get(i).toString();
             	list.add(shoppingService.getCartItem(Integer.parseInt(index)));
             }
         } catch (ParseException e) {
