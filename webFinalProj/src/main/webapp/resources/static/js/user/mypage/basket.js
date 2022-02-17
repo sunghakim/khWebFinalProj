@@ -65,21 +65,23 @@ $(document).ready(function(){
 		
 		let shopItemsID = new Object();
 		shopItemsID.name = list;
-		
+		console.log(shopItemsID);
 		let shop = JSON.stringify(list);
+        console.log(list);
         console.log(shop);
         
         $.ajax({
-			type: "get",
-			async: false,
-			url: "/mypage/BuyItem",
-			contentType: 'application/json',
-			jsonData : shop,
-			success: function(date) {
-				console.log("성공했다인마");
-			}, error:function(data) {
-				console.log("왜안돼?????????");
-			}
+			type: "POST",
+	         async: false,
+	         url: "/mypage/BuyItem",
+	         contentType: 'application/json',
+	         data: shop,
+	         dataType: "json",
+	         success: function(date) {
+	            location.href = "/mypage/BuyItem";
+	         }, error:function(data) {
+	            console.log("왜안돼?????????");
+	         }
 		});
 	});
 });

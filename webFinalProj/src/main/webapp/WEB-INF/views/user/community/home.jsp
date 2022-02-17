@@ -18,20 +18,19 @@
 	<div>
         <div class="cmmu-hot">
             <div class="div-box">
+               	<div style="justify-content: flex-end; margin-bottom: 10px;">
+                       <button type="button" onclick="location.href='/post/add'">글쓰기</button>
+                </div>
                 <div>
                     <div>
                         <label class="title">인기글</label>
-                    </div>
-                   
+                    </div>                   
                     <div>
-                        <button type="button" onclick="location.href='/post/add'">글쓰기</button>
+                        <label id="more" style="margin-rigth: 20px;" onclick="location.href='/board/goodlist?page_num=1'">더보기<i class="fa-solid fa-angle-right"></i></label>
                     </div>
                     
                 </div>
             
-                <div>
-                        <label id="more" onclick="location.href='/board/goodlist?page_num=1'">더보기<i class="fa-solid fa-angle-right"></i></label>
-                </div>
                 <table>
                     <thead>
                         <tr>

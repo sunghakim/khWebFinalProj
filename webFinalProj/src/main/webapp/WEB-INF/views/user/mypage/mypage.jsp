@@ -35,22 +35,6 @@
 	    </div>
     </div>
     <script>
-<<<<<<< HEAD
-    	var sessionUserType = '${sessionScope.usertype}';
-    	var accountUserType = '${sessionScope.account.getSocial_account_id()}';
-	    if(sessionUserType == "web"){
-			if(accountUserType == 2) {
-	    		$("#non-user").show();
-	    		$("#user").hide();
-	    	} else {    		
-	    		$("#user").show();
-	        	$("#non-user").hide();
-	    	}
-	    } else if(sessionUserType == "social") {
-	    	$("#user").show();
-        	$("#non-user").hide();
-	    }
-=======
        var sessionUserType = '${sessionScope.usertype}';
        var accountUserType = '${sessionScope.account.getSocial_account_id()}';
        if(sessionUserType == "web"){
@@ -65,6 +49,5 @@
           $("#user").show();
            $("#non-user").hide();
        }
->>>>>>> refs/remotes/origin/김성하
     </script>
 <%@ include file="../common/footer.jsp"%>

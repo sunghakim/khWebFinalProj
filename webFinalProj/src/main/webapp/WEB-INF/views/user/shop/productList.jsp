@@ -9,7 +9,7 @@
     <%@ include file="../common/header.jsp"%>
 
     <link type="text/css" rel="stylesheet" href="/resources/static/css/user/shop/productList.css">
-    <title>Document</title>
+    <title></title>
 </head>
 <body>
 <%@ include file="../common/topnav.jsp"%>
@@ -31,7 +31,7 @@
                 <div class="carousel-item active" data-bs-interval="2000">
                     <div class="flex-colum">
                         <div class="best-title">
-                            <label>LIKE  <i class="fa-solid fa-heart"></i></label>
+                            <label>ZZIM  <i class="fa-solid fa-heart"></i></label>
                         </div>
                         <div class="like-section">
                             <div class="img-frame">
@@ -134,7 +134,7 @@
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
-<<script>
+<script>
 	var navNum = "${nav}";
 	if(navNum) {
 		$('.user-nav li').removeClass('click-color');
