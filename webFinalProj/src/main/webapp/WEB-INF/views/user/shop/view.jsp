@@ -14,13 +14,13 @@
 <body>
 <%@ include file="../common/topnav.jsp"%>
 <%@ include file="../common/sidenav.jsp"%>
-<div>
+<div class="body">
 	<input id="item_id" value="${itemData.getItem_id()}" hidden/>
     <div class="detail">
         <div class="detail-tabs">
             <button class="detail-tab here" disabled>구매하기</button>
             <button class="detail-tab">상세보기</button>
-            <button class="detail-tab">후기<span class="review-num">${reviewCount}</span></button>
+            <button class="detail-tab">후기<span class="review-num">(${reviewCount})</span></button>
             <button class="detail-tab">문의하기</button>
         </div>
 
@@ -69,7 +69,8 @@
                 </div>
                 <hr>
                 <div class="item-box">
-                    
+                	<form id="put" action="/itemDetail/putCart" method="get">
+                    </form>
                 </div>
                 <hr>
                 <div class="total-price">

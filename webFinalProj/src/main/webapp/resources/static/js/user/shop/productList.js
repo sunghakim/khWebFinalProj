@@ -19,6 +19,6 @@ $(document).ready(function(){
 
 	$(".product-item").on("click", function() {
 		let item_id = $(this).find("input").val();
-		$(".article-wrap").load("/itemDetail/?item_id=" + item_id);
+		location.href = "/itemDetail/main?item_id=" + item_id;
 	});
 });

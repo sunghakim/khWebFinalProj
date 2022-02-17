@@ -117,7 +117,7 @@
         <div class="productList">
            <c:forEach var="i" items="${datas}">
                <div class="product-item">
-                   <img class="product-img" src="${i.getFile_url()}" alt="${i.getFile_name()}">
+                   <img class="product-img" src="${i.getFile_url()}.${i.getFile_name()}" alt="${i.getFile_name()}">
                    <div class="product-btn"><i class="fa-solid fa-heart"></i></div>
                    <div class="product-text">${i.getName()}<br><fmt:formatNumber value="${i.getPrice()}" pattern="#,###" /></div>
                    <input type="text" value="${i.getItem_id()}" hidden/>
@@ -135,16 +135,10 @@
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="/resources/static/js/user/shop/productList.js"></script>
 <script>
-<<<<<<< HEAD
-   var navNum = "${nav}";
-   if(navNum) {
-      $('.user-nav li').removeClass('click-color');
-=======
 	var navNum = "${nav}";
 	if(navNum) {
 		$('.user-nav li').removeClass('click-color');
->>>>>>> refs/remotes/origin/유진희
         $('#user-nav-' + navNum).addClass('click-color');
-   }
+	}
 </script>
 <%@ include file="../common/footer.jsp"%>
