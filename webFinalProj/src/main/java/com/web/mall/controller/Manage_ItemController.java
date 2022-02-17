@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.web.mall.model.ItemDTO;
 import com.web.mall.model.Manage_ImageDTO;
 import com.web.mall.model.Manage_ItemCategoryDTO;
 import com.web.mall.model.Manage_ItemCategoryService;
@@ -58,7 +59,7 @@ public class Manage_ItemController extends Manage_C_Module {
 		if (isManager(mv, session, URL, "Detail") == 0) {
 			mv.addObject("Item", Service.selectOne(DTO));
 			List<Manage_ImageDTO> ImageList = Service.selectImageList(DTO.getItemID());
-			if (ImageList.get(0) != null) {
+			if (ImageList.size() != 0) {
 				mv.addObject("Image", ImageList.get(0));
 			}
 			mv.addObject("status", "detail");
@@ -68,11 +69,11 @@ public class Manage_ItemController extends Manage_C_Module {
 	
 	//상품 추가 페이지 접근
 	@RequestMapping(value = URL + "/Insert", method = RequestMethod.GET)
-	public ModelAndView insertItem(HttpSession session, ModelAndView mv) {
+	public ModelAndView insertItem(HttpSession session, ModelAndView mv, Manage_ItemDTO DTO) {
 		isManager(mv, session, URL, "Detail");
 		
 		List<Manage_ItemCategoryDTO> List = ItemCategoryService.selectAll();
-		if (List.get(0) == null) {
+		if (List.size() == 0) {
 			Manage_ItemCategoryDTO dto = new Manage_ItemCategoryDTO();
 			dto.setItemCategoryID(0);
 			dto.setItemCategoryName("카테고리 없음");
@@ -80,7 +81,12 @@ public class Manage_ItemController extends Manage_C_Module {
 			List.set(0, dto);
 		}
 		mv.addObject("ItemCategoryList", List);
-
+		
+		List<Manage_ImageDTO> ImageList = Service.selectImageList(DTO.getItemID());
+		if (ImageList.size() != 0) {
+			mv.addObject("Image", ImageList.get(0));
+		}
+		
 		mv.addObject("status", "insert");
 		return mv;
 	}
@@ -90,7 +96,8 @@ public class Manage_ItemController extends Manage_C_Module {
 	public ModelAndView insertItem(HttpSession session, ModelAndView mv, HttpServletRequest request
 			, Manage_ItemDTO dto, @RequestParam("uploadImages") MultipartFile file) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.insert(dto, request, file, uploadPath));
+			MultipartFile[] files = {file};
+			setResult(mv, Service.insert(dto, request, files, uploadPath));
 			selectItemList(session, mv, request);
 		}
 		return mv;
@@ -104,7 +111,7 @@ public class Manage_ItemController extends Manage_C_Module {
 		}
 		
 		List<Manage_ItemCategoryDTO> List = ItemCategoryService.selectAll();
-		if (List.get(0) == null) {
+		if (List.size() == 0) {
 			Manage_ItemCategoryDTO dto = new Manage_ItemCategoryDTO();
 			dto.setItemCategoryID(0);
 			dto.setItemCategoryName("카테고리 없음");
@@ -114,7 +121,7 @@ public class Manage_ItemController extends Manage_C_Module {
 		mv.addObject("ItemCategoryList", List);
 		
 		List<Manage_ImageDTO> ImageList = Service.selectImageList(DTO.getItemID());
-		if (ImageList.get(0) != null) {
+		if (ImageList.size() != 0) {
 			mv.addObject("Image", ImageList.get(0));
 		}
 		mv.addObject("status", "update");
@@ -126,7 +133,8 @@ public class Manage_ItemController extends Manage_C_Module {
 	public ModelAndView updateItem(HttpSession session, ModelAndView mv, HttpServletRequest request
 			, Manage_ItemDTO DTO, int[] deleteImages, @RequestParam("uploadImages") MultipartFile file) throws Exception {
 		if (isManager(mv, session, URL) == 0) {
-			setResult(mv, Service.update(DTO, request, file, uploadPath, deleteImages));
+			MultipartFile[] files = {file};
+			setResult(mv, Service.update(DTO, request, files, uploadPath, deleteImages));
 			selectItemList(session, mv, request);
 		}
 		return mv;

@@ -142,7 +142,7 @@
 	                                <a href="${pageType}/Detail?ItemID=${List.getItemID()}&ItemOptionID=${List.getItemOptionID()}&ItemCategoryID=${List.getItemCategoryID()}" class="detail">&nbsp;상세보기&nbsp;</a>
 	                            </li>
 	                            <li>
-	                            <a href="${pageType}/Update?ItemID=${List.getItemID()}&ItemOptionID=${List.getItemOptionID()}&ItemCategoryID=${List.getItemCategoryID()}" class="modify">&nbsp;수정&nbsp;</a>
+	                            	<a href="${pageType}/Update?ItemID=${List.getItemID()}&ItemOptionID=${List.getItemOptionID()}&ItemCategoryID=${List.getItemCategoryID()}" class="modify">&nbsp;수정&nbsp;</a>
 	                            </li>
 	                        </ul>
 	                    </c:forEach>

@@ -118,13 +118,13 @@
             </nav>
             <section>
                 <div class="article-container">
+	                <c:if test="${status eq 'insert'}">
+						<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                    </c:if>
                 	<c:if test="${status eq 'update'}">
 						<form action="${pageType}/Update" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
 						<input type="hidden" name="PostID" value="${Notice.getPostID()}" required>
 					</c:if>
-	                <c:if test="${status eq 'insert'}">
-						<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-                    </c:if>
                     <div class="article-wrap">
 						<article class="img-group">
 							<div class="btns">
@@ -138,11 +138,13 @@
 								<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
 								<input type="hidden" name="deleteImages" value="${Image.getImageIDtoInt()}"/>
 							</c:if>
-							<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
-							<div class="img-btns">
-								<button type="submit" class="btn submit" id="inputShow">이미지 수정</button>
-								<!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
-							</div>
+							<c:if test="${status eq 'update'}">
+								<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
+								<div class="img-btns">
+									<button type="submit" class="btn submit" id="inputShow">이미지 수정</button>
+									<!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
+								</div>
+							</c:if>
                         </article>
                         <article class="notice-content">
                             <div class="title">

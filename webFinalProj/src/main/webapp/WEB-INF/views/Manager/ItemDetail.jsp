@@ -26,7 +26,7 @@
                     <h2 class="logo">logo</h2>
                     <div class="ul-wrap">
                     <ul class="header-ul" id="logout-ul">
-                        	 <li id="logout">관리자 로그아웃</li>
+                            <li id="logout">관리자 로그아웃</li>
                     </ul>
                     </div>
                 </div>
@@ -117,124 +117,112 @@
                     </ul>
                 </div>
             </nav>
-                        <section>
+                    <section>
                 <div class="article-container">
-             		<div class="btns">
-						<button type="submit" class="btn regist" id="ok">등록</button>
-						<button class="btn cancel" id="no">등록 취소</button>
-					</div>
+                   <div class="btns">
+                  <button type="submit" class="btn regist" id="ok" form="item-submit">등록</button>
+                  <button class="btn cancel" id="no">등록 취소</button>
+               </div>
+               		<c:if test="${status eq 'insert'}">
+                           <form id="item-submit" action="/Manager/Item/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                     </c:if>
+                     <c:if test="${status eq 'update'}">
+                           <form id="item-submit" action="/Manager/Item/Update" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
+                           <input type="hidden" name="ItemID" value="${Item.getItemID()}" required>
+                           <input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
+                     </c:if>
                     <div class="article-wrap">
                         <article class="img-group">
-                       <%-- <c:if test="${status eq 'status'}"> --%>
-		                       <c:choose>
-		                       		<c:when test="${status eq 'status'}">
-		                            	<img class="img" id="img"></img>
-		                            </c:when>
-		                            
-		                            <c:otherwise>
-		                            	<c:choose>
-		                            		<c:when test="${imgList ne null }">
-		                            			<!-- 수정시 이미지 저장 위치 파악 필요 -->
-		                            		</c:when>
-		                            		
-		                            		<c:otherwise>
-		                            			<img class="img" id="img"></img>
-		                            		</c:otherwise>
-		                            	</c:choose>
-		                            </c:otherwise>
-		                       </c:choose>
-                       <%-- </c:if> --%>
+                     		<c:if test="${Image eq null}">
+								<img class="img" id="img"></img>
+							</c:if>
+							<c:if test="${Image ne null}">
+								<img class="img" id="img" src="${Image.getDownloadPath()}"></img>
+								<input type="hidden" name="deleteImages" value="${Image.getImageIDtoInt()}"/>
+							</c:if>
                             <div class="img-btns">
-                                <button class="btn submit" id="inputShow">이미지 등록</button>
-                                <button class="btn remove" id="inputDelete">이미지 삭제</button>
+                                <button class="btn submit" id="inputShow">이미지 수정</button>
+                                <!--button class="btn remove" id="inputDelete">이미지 삭제</button-->
                             </div>
-                            <c:if test="${status eq 'insert'}">
-									<form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-							</c:if>
-							<c:if test="${status eq 'update'}">
-									<form action="${pageType}/Update" method="post" enctype="multipart/form-data" accept-charset="UTF-8">
-									<input type="hidden" name="ItemID" value="${Item.getItemID()}" required>
-									<input type="hidden" name="ItemOptionID" value="${Item.getItemOptionID()}" required>
-							</c:if>
-                            <%-- <form action="${pageType}/Insert" method="post" enctype="multipart/form-data" accept-charset="UTF-8"> --%>
-                            
                         </article>
-                       		<input style="display: none;" type="file" name="file" id="file" class="file">
-	                        <article class="product-content">
-	                            <div class="title">
-	                                <span class="headpart">이름</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getName()}</span>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-	                                	<input type="text" name="Name" value="${Item.getName()}" required>
-	                                </c:if>
-	                            </div>
-	                            <div class="price">
-	                                <span class="headpart">가격</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getPrice()}</span>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-	                                	<input type="number" name="Price" value="${Item.getPrice()}" required>
-	                                </c:if>
-	                            </div>
-	                            <div class="size">
-	                                <span class="headpart">사이즈</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getItemSize()}</span>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-                                		<input type="text" name="ItemSize" value="${Item.getItemSize()}" required>
-                               		</c:if>
-	                            </div>
-	                            <div class="color">
-	                                <span class="headpart">색깔</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getColor()}</span>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-	                                	<input type="text" name="Color" value="${Item.getColor()}" required>
-                                	</c:if>
-	                            </div>
-	                            <div class="amount">
-	                                <span class="headpart">수량</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getAmount()}</span>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-	                                	<input name="Amount" type="number" value="${Item.getAmount()}" required>
-                                	</c:if>
-	                            </div>
-	                            <div class="category">
-									<span class="headpart">카테고리</span>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<span class="bodypart">${Item.getItemCategoryName()}</span>
-	                                </c:if>
+							<input style="display: none;" type="file" name="uploadImages" id="file" class="file" accept=".bmp, .gif, .jpg, .jpeg, .png" >
+								<article class="product-content">
+									<div class="title">
+										<span class="headpart">이름</span>
+										<c:if test="${status eq 'detail'}">
+											<span class="bodypart">${Item.getName()}</span>
+										</c:if>
+										<c:if test="${status ne 'detail'}">
+											<input type="text" name="Name" value="${Item.getName()}" required>
+										</c:if>
+									</div>
+								<div class="price">
+									<span class="headpart">가격</span>
+									<c:if test="${status eq 'detail'}">
+										<span class="bodypart">${Item.getPrice()}</span>
+									</c:if>
 									<c:if test="${status ne 'detail'}">
-										<select id="CategoryList" name="ItemCategoryID" required>
-											<c:forEach var="List" items="${ItemCategoryList}">
-												<c:if test="${List.getItemCategoryName() eq Item.getItemCategoryName()}">
-													<option value="${List.getItemCategoryID()}" selected>${List.getItemCategoryName()}</option>
-												</c:if>
-												<c:if test="${List.getItemCategoryName() ne Item.getItemCategoryName()}">
-													<option value="${List.getItemCategoryID()}">${List.getItemCategoryName()}</option>
-												</c:if>
-											</c:forEach>
-										</select>
+										<input type="number" name="Price" value="${Item.getPrice()}" required>
 									</c:if>
 								</div>
-	                            <div class="segment">
-	                                <div class="headpart">상세 설명</div>
-	                                <c:if test="${status eq 'detail'}">
-	                                	<div class="bodypart">${Item.getContent()}</div>
-	                                </c:if>
-	                                <c:if test="${status ne 'detail'}">
-	                                	<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
-	                                </c:if>
-	                            </div>
-	                        </article>
-                   		</form>
+                               <div class="size">
+                                   <span class="headpart">사이즈</span>
+                                   <c:if test="${status eq 'detail'}">
+                                      <span class="bodypart">${Item.getItemSize()}</span>
+                                   </c:if>
+                                   <c:if test="${status ne 'detail'}">
+                                      <input type="text" name="ItemSize" value="${Item.getItemSize()}" required>
+                                     </c:if>
+                               </div>
+                               <div class="color">
+                                   <span class="headpart">색깔</span>
+                                   <c:if test="${status eq 'detail'}">
+                                      <span class="bodypart">${Item.getColor()}</span>
+                                   </c:if>
+                                   <c:if test="${status ne 'detail'}">
+                                      <input type="text" name="Color" value="${Item.getColor()}" required>
+                                   </c:if>
+                               </div>
+                               <div class="amount">
+                                   <span class="headpart">수량</span>
+                                   <c:if test="${status eq 'detail'}">
+                                      <span class="bodypart">${Item.getAmount()}</span>
+                                   </c:if>
+                                   <c:if test="${status ne 'detail'}">
+                                      <input name="Amount" type="number" value="${Item.getAmount()}" required>
+                                   </c:if>
+                               </div>
+                               <div class="category">
+                           <span class="headpart">카테고리</span>
+                                   <c:if test="${status eq 'detail'}">
+                                      <span class="bodypart">${Item.getItemCategoryName()}</span>
+                                   </c:if>
+                           <c:if test="${status ne 'detail'}">
+                              <select id="CategoryList" name="ItemCategoryID" required>
+                                 <c:forEach var="List" items="${ItemCategoryList}">
+                                    <c:if test="${List.getItemCategoryName() eq Item.getItemCategoryName()}">
+                                       <option value="${List.getItemCategoryID()}" selected>${List.getItemCategoryName()}</option>
+                                    </c:if>
+                                    <c:if test="${List.getItemCategoryName() ne Item.getItemCategoryName()}">
+                                       <option value="${List.getItemCategoryID()}">${List.getItemCategoryName()}</option>
+                                    </c:if>
+                                 </c:forEach>
+                              </select>
+                           </c:if>
+                        </div>
+							<div class="segment">
+								<div class="headpart">상세 설명</div>
+									<c:if test="${status eq 'detail'}">
+										<div class="bodypart">${Item.getContent()}</div>
+									</c:if>
+									<c:if test="${status eq 'update'}">
+										<textarea rows="10" name="Content" required>${Item.getContent()}</textarea>
+										<input type="hidden" name="ReferencesID" value="${Notice.getPostID()}">
+									</c:if>
+                               </div>
+									<input type="hidden" name="IDType" value="ITEM">
+                           </article>
+                         </form>
                     </div>
                 </div>
             </section>
