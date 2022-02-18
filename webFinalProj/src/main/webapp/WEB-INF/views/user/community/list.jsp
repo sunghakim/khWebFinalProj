@@ -87,9 +87,9 @@
     </div>  
     <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>
 <script>
-	var boardId = "${board_id}";
+	var board = "${board_id}";
 	
-	if(boardId == 0){
+	if(board == 0){
 		$('.click-color').removeClass('click-color');
         $('#user-nav-2').addClass('click-color');
         

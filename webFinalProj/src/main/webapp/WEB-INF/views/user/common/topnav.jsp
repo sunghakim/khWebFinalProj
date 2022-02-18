@@ -5,7 +5,7 @@
 <!-- 회원가입 모달 -->
         <div class="join-modal modal-back" id="join-modal">
             <div style="display: block;" class="join-modal modal-front">
-                <p class="title">J O I N</p>
+                <p class="title">4 $</p>
                 <form id="form" name="form" method="post" action="/join">
                     <div class="radio-box">
                         <input type="radio" value="0" class="size-radio" id="admin" name="user_type"><label

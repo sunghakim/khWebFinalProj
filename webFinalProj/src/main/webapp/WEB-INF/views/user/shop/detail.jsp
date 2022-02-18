@@ -29,12 +29,10 @@
                 <label class="item-price"><fmt:formatNumber value="${itemData.getPrice()}" pattern="#,###" /></label>
             </div>
             <div class="item-content">
-                <div></div>
+                <div>${itemData.getContent()}</div>
                 <hr>
             </div>
         </div>
-
-        <div id="container"></div>
     </div>
 </div>
 <script type="text/javascript" src="/resources/static/js/jquery-3.6.0.min.js"></script>

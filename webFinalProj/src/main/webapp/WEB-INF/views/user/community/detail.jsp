@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt"  prefix="fmt"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%> 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,8 +38,7 @@
                 </div>
             </div>
             <div class="buttons">
-                <button id="mod" type="button" onclick="location.href='/post/update?post_id=' + ${datas.getPost_id()} 
-                ">수정</button>
+                <button id="mod" type="button" onclick="location.href='/post/update?post_id=' + ${datas.getPost_id()}">수정</button>
                 <form action="/post/delete" method="post">
                 	<input type="hidden" name="post_id" value="${datas.getPost_id()}">
                 	<button type="submit">삭제</button>
@@ -49,7 +49,7 @@
         </div>
     
         <div class="comments">
-            <label>댓글 (n)</label>
+            <label>댓글</label>
             <label id="cmt-unfold">댓글 펼치기</label>
         </div>
         <hr>

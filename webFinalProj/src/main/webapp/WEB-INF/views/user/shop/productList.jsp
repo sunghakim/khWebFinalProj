@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -39,7 +40,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+								 	<c:if test="${fn:length(zzim) != 0}">
                                          ${zzim.get(0).getName()}   <br> ${zzim.get(0).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -48,7 +51,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+                                    <c:if test="${fn:length(zzim) > 1}">
                                          ${zzim.get(1).getName()}   <br> ${zzim.get(1).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -57,7 +62,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+                                    <c:if test="${fn:length(zzim) > 2}">
                                          ${zzim.get(2).getName()}   <br> ${zzim.get(2).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +82,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-solid fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+                                    <c:if test="${fn:length(review) != 0}">
                                       ${review.get(0).getName()}   <br> ${review.get(0).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +93,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+                                    <c:if test="${fn:length(review) > 1}">
                                        ${review.get(1).getName()}   <br> ${review.get(1).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +104,9 @@
                                     <img class="best-img" src="/resources/static/img/sample.png" alt="...">
                                     <div class="best-btn"><i class="fa-regular fa-heart fa-xl"></i></div>
                                     <div class="best-text">
+                                    <c:if test="${fn:length(review) > 2}">
                                         ${review.get(2).getName()}   <br>   ${review.get(2).getPrice()}
+                                    </c:if>
                                     </div>
                                 </div>
                             </div>
