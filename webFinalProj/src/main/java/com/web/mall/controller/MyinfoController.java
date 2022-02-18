@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.web.mall.model.AccountVO;
@@ -113,12 +114,14 @@ public class MyinfoController extends Manage_S_Module{
 		return "redirect:/mypage/checkCarts";
 	}
 	//장바구니 구매버튼 누를 시 동작(구매페이지로 이동)
-	@RequestMapping(value="/BuyItem", method=RequestMethod.POST, produces="application/json; charset=UTF-8")
-	   public String buyItem(Model model, HttpSession session, @RequestBody String shop) {
+	List<ShoppingListVO> list;
+	@ResponseBody
+	@RequestMapping(value="/BuyItem", method= RequestMethod.POST, produces="application/json; charset=UTF-8")
+	   public String buyItem(Model model, HttpSession session,@RequestBody String shop) {
 	      //shopping_list_id 를 리스트로 받아와야함
-	      List<ShoppingListVO> list = new ArrayList<ShoppingListVO>();
-	      System.out.println("controller");
-	      System.out.println(shop);
+			list = new ArrayList<ShoppingListVO>();
+			System.out.println("controller");
+			System.out.println("JSON반복문 끝");
 	      try {       
 	            JSONParser jsonParser = new JSONParser();
 	            JSONArray jsonArray = (JSONArray)jsonParser.parse(shop);
@@ -126,6 +129,7 @@ public class MyinfoController extends Manage_S_Module{
 	               String index = jsonArray.get(i).toString();
 	               list.add(shoppingService.getCartItem(Integer.parseInt(index)));
 	            }
+	    	  
 	        } catch (ParseException e) {
 	            // TODO Auto-generated catch block
 	            e.printStackTrace();
@@ -133,7 +137,12 @@ public class MyinfoController extends Manage_S_Module{
 	      model.addAttribute("shoppingList", list);
 	      return "user/mypage/payment";
 	   }
-	
+
+	@RequestMapping(value="/BuyItem", method= RequestMethod.GET)
+	   public String buyItem(Model model, HttpSession session) {
+	      model.addAttribute("shoppingList", list);
+	      return "user/mypage/payment";
+	   }
 	
 	@RequestMapping(value="/checkZzim", method=RequestMethod.GET)
 	public String seeZzimList(ZzimListVO zzim, ItemDTO item, HttpSession session, Model model) {

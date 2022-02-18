@@ -29,8 +29,9 @@
                 <div class="img-box">
                     <img src="${itemImageList.get(0).getDownloadPath()}" alt="">
                 </div>
+                <div class="item-name">${itemData.getName()}</div>
                 <div class="item-div">
-                    <div class="item-name">${itemData.getName()}</div>
+                <label class="item-price"><fmt:formatNumber value="${itemData.getPrice()}" pattern="#,###" /></label>
                     <div id="like-line">
                     	<label id="like-num">${zzimCount}</label>
                         <label id="like-state">
@@ -39,13 +40,12 @@
 						    	<i class="fa-solid fa-heart"></i>
 						    </c:when>
 						    <c:otherwise> <!-- 찜한거 아니면 빈하트 -->
-						        <i class="fa-light fa-heart"></i>
+						        <i class="fa-regular fa-heart"></i>
 						    </c:otherwise>
 						</c:choose>
                         </label>
                     </div>
                 </div>
-                <label class="item-price"><fmt:formatNumber value="${itemData.getPrice()}" pattern="#,###" /></label>
             </div>
             <div class="item-opt">
                 <div>

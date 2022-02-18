@@ -66,6 +66,7 @@ public class BoardController {
 	public String goodBoard(Model model, int page_num){
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
+		model.addAttribute("board_id", "1");
 		
 		List<BoardDTO> datas = BoardService.getGoodBoard(page_num);
 		model.addAttribute("datas", datas);

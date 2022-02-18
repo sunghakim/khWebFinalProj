@@ -3,8 +3,10 @@ $(document).ready(function(){
     let modContent;
 
     $("#cmt-unfold").on("click", function() {
+		let postId = $("[name=post_id]").val();
         if($("#cmt-unfold").text() == "댓글 펼치기"){
             $("#detail").hide();
+            $("#comments").load("/post/comments?post_id=" + postId);
             $("#comments").show();
             $(this).text("댓글 접기");
         } else {

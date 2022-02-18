@@ -74,9 +74,9 @@ $(document).ready(function(){
 			type: "POST",
 	         async: false,
 	         url: "/mypage/BuyItem",
-	         contentType: 'application/json',
 	         data: shop,
-	         dataType: "json",
+	         contentType: 'application/json',
+	         dataType: "text",
 	         success: function(data) {
 	            location.href = "/mypage/BuyItem";
 	         }, error:function(data) {
