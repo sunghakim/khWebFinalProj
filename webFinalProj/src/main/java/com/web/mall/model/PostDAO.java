@@ -90,7 +90,7 @@ public class PostDAO {
 
 	//댓글 삭제하기
 	public int deleteComments(int comment_id) {
-		return sqlSession.update("PostMapper.deleteComments", comment_id);
+		return sqlSession.delete("PostMapper.deleteComments", comment_id);
 	}
 
 	//신고 하기

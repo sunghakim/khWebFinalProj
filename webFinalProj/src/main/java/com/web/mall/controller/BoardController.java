@@ -53,7 +53,7 @@ public class BoardController {
 	public String selectBoard(Model model, int board_id, int page_num) {
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
+		model.addAttribute("list", "list");
 		List<BoardDTO> datas = BoardService.getBoard(board_id, page_num);
 		model.addAttribute("board_id", board_id);
 		model.addAttribute("datas", datas);
@@ -66,7 +66,8 @@ public class BoardController {
 	public String goodBoard(Model model, int page_num){
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
+		model.addAttribute("board_id", 1);
+		model.addAttribute("good", "good");
 		List<BoardDTO> datas = BoardService.getGoodBoard(page_num);
 		model.addAttribute("datas", datas);
 

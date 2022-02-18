@@ -94,24 +94,24 @@
 	</update>
 	
 	<!-- 댓글 조회 -->
-	<select id="selectComments" parameterType="CommentsDTO" resultType="CommentsDTO">
-		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT 
-		FROM COMMENTS
-		ORDER BY COMMENT_ID DESC
-		WHERE POST_ID = #{post_id}
+	<select id="selectComments" parameterType="int" resultType="CommentsDTO">
+		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING, CONTENT 
+			FROM COMMENTS
+			WHERE POST_ID = #{post_id}
+			ORDER BY COMMENT_ID DESC
 	</select>
 	
 	<!-- 댓글 하나만 조회 -->
-	<select id="selectCommentsDetail" parameterType="CommentsDTO" resultType="CommentsDTO">
-		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT 
-		FROM COMMENTS
-		ORDER BY COMMENT_ID DESC
-		WHERE Comments_id = #{comment_id}
+	<select id="selectCommentsDetail" parameterType="int" resultType="CommentsDTO">
+		SELECT COMMENT_ID, POST_ID, WRITER_ID, POSTING, CONTENT 
+			FROM COMMENTS
+			WHERE COMMENT_ID = #{comment_id}
+			ORDER BY COMMENT_ID DESC
 	</select>
 	
 	<!-- 댓글 추가 -->
 	<insert id="insertComments" parameterType="CommentsDTO">
-    	INSERT INTO COMMENT(COMMENT_ID, POST_ID, WRITER_ID, POSTING_DATE, CONTENT) 
+    	INSERT INTO COMMENTS(COMMENT_ID, POST_ID, WRITER_ID, POSTING, CONTENT) 
     	VALUES(COMMENT_SEQ.NEXTVAL, #{post_id}, #{writer_id}, SYSDATE, #{content})
   	</insert>
   	
@@ -129,8 +129,8 @@
   	</update>
   
   	<!-- 댓글 삭제 -->
-  	<delete id="deleteComments" parameterType="CommentsDTO">
-		DELETE FROM COMMENT WHERE COMMENT_ID = #{comment_id}
+  	<delete id="deleteComments" parameterType="int">
+		DELETE FROM COMMENTS WHERE COMMENT_ID = #{comment_id}
 	</delete>
 	
   	

@@ -34,6 +34,7 @@ public class PostController {
 		PostDTO datas = service.getPost(post_id);
 		model.addAttribute("datas", datas);
 		System.out.println(datas);
+		System.out.println(datas.getFile_name());
 		//viewResolver가 가져감 ->/WEB-INF/views/ + post + .jsp
 		return "user/community/detail";
 	}
@@ -257,12 +258,17 @@ public class PostController {
 	//선택한 게시글의 댓글 조회
 	@RequestMapping(value="/post/comments", method=RequestMethod.GET) 
 	public String comments(Model model, int post_id) {
+		System.out.println("1");
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
+		System.out.println("2");
 		model.addAttribute("navList", category);
-		
-			List<CommentsDTO> datas = service.getComments(post_id);
-			model.addAttribute("datas", datas);
-			return "user/community/comment";
+		System.out.println("3");
+		System.out.println(post_id);
+		List<CommentsDTO> datas = service.getComments(post_id);
+		System.out.println("4");
+		model.addAttribute("datas", datas);
+		System.out.println("5");
+		return "user/community/comment";
 	}
 	
 	//댓글 추가 요청
@@ -280,7 +286,7 @@ public class PostController {
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
 		
-		AccountVO nowAcc = (AccountVO)session.getAttribute("AccountVO"); //현재 로그인한 계정 세션 가져오기
+		AccountVO nowAcc = (AccountVO)session.getAttribute("account"); //현재 로그인한 계정 세션 가져오기
 		
 		 boolean result = service.setComments(content, nowAcc.getAccount_id(), comment_id);
 		 if(result) {
@@ -309,7 +315,7 @@ public class PostController {
 		
 		boolean result = service.updateComments(comment_id,content) ;
 		if(result) {
-			return "redirect:/comments/comment_id=" + comment_id;
+			return "redirect:/comments?comment_id=" + comment_id;
 		}
 		return "user/community/comment";
 	}
@@ -319,10 +325,9 @@ public class PostController {
 	public String deleteComments(int comment_id, Model model) {
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		model.addAttribute("navList", category);
-		
 		boolean result = service.deleteComments(comment_id);
 		if(result) {
-			return "redirect:/comments/comment_id=" + comment_id;
+			return "redirect:/comments?comment_id=" + comment_id;
 		}
 		return "user/community/comment";
 	}

@@ -23,12 +23,12 @@
 	
 	<!-- 찜수 많은 ITEM_ID 정렬해서 가져오기 -->
 	<select id ="selectZzimHigh" resultType="item">
-		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM ZZIM_LIST GROUP BY ITEM_ID ORDER BY 1) 
+		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM ZZIM_LIST GROUP BY ITEM_ID ORDER BY 1 DESC) 
 	</select>
 	
 	<!-- 리뷰수 많은 ITEM_ID 정렬해서 가져오기 -->
 	<select id="selectReviewHigh" resultType="item">
-		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM REVIEW GROUP BY ITEM_ID ORDER BY 1) 
+		SELECT ITEM_ID FROM (SELECT COUNT(*), ITEM_ID FROM REVIEW GROUP BY ITEM_ID ORDER BY 1 DESC) 
 	</select>
 	
 	

@@ -6,7 +6,7 @@ public class CommentsDTO {
 	private int comment_id;
 	private int post_id;
 	private String writer_id;
-	private Date posting_date;
+	private Date posting;
 	private String content;
 	
 	public int getComment_id() {
@@ -27,11 +27,12 @@ public class CommentsDTO {
 	public void setWriter_id(String writer_id) {
 		this.writer_id = writer_id;
 	}
-	public Date getPosting_date() {
-		return posting_date;
+	
+	public Date getPosting() {
+		return posting;
 	}
-	public void setPosting_date(Date posting_date) {
-		this.posting_date = posting_date;
+	public void setPosting(Date posting) {
+		this.posting = posting;
 	}
 	public String getContent() {
 		return content;

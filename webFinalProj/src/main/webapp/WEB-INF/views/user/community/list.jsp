@@ -18,7 +18,13 @@
 		<div class="list common">
             <div>
                 <div>
-                    <label class="title">인기글</label>
+                	<c:if test="${list eq 'list'}">
+                    	<label class="title">최신글</label>
+                    </c:if>
+                    
+               		<c:if test="${good eq 'good'}">
+                    	<label class="title">인기글</label>
+                    </c:if>
                 </div>
                 <div>
                     <button type="button" onclick="location.href='/post/add'">글쓰기</button>
@@ -34,23 +40,23 @@
                     </tr>
                 </thead>
                 <tbody>
-					<tr class="noti">
-                   		<td>공지</td>
-                   		<td colspan="3">제목</td>
+                <c:forEach var="datas" items="${datas}">
+               		<tr class="post" onclick="location.href='/post?post_id='+ ${datas.getPost_id()}">
+                   		<td>${datas.getPost_id()}</td>
+                   		<td>${datas.getTitle()}</td>
+                   		<td>${datas.getWriter_id()}</td>
+                   		<td>${datas.getGood_number()}</td>
                		</tr>
-               		<tr class="post">
-                   		<td>번호</td>
-                   		<td>제목</td>
-                   		<td>작성자</td>
-                   		<td>좋아요</td>
-               		</tr>
+               	</c:forEach>
            		</tbody>
            		</table>    
    			</div>
    			<div class="list notice" style="display:none;">
        		<div>
            		<div>
-               		<label class="title">공지</label>
+               		
+                    	<label class="title">공지</label>
+                    
            		</div>
        		</div>
        		<hr>

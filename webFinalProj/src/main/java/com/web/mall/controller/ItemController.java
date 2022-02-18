@@ -23,6 +23,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/list", method = RequestMethod.GET) 
 	public String selectItem(Model model, int item_category_id, int page_num) {
 		System.out.println("1");
+		System.out.println(item_category_id);
 		List<Manage_ItemCategoryDTO> category = categoryService.selectNav();
 		System.out.println("2");
 		model.addAttribute("navList", category);

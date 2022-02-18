@@ -49,6 +49,7 @@ public class ItemService {
 		li.add(data.get(1));
 		li.add(data.get(2));
 		
+		
 		List<ItemDTO> ld = new ArrayList<ItemDTO>();
 		
 		for(int i=0;i<li.size();i++) {

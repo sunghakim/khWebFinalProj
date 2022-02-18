@@ -30,7 +30,7 @@
             </div>
             <div class="detailContent">
                 <div class="img-box">
-                    <img src="/resources/static/img/sample.png" alt="">
+                    <img src="'${datas.getFile_url()} + ${datas.getFile_name()}'">
                 </div>
                 <div id="content">
       				${datas.getContent()}

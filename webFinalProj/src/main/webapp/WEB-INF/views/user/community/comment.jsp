@@ -18,7 +18,7 @@
     <div class="commentBody">
     	<form action="post/comments/add" method="post">
 	        <div id="cmt-write" class="cmt-write">
-	            <textarea name="content" id="" placeholder="내용을 입력해주세요"></textarea>
+	            <textarea name="content" id="" placeholder="내용을 입력해주세요" value="${datas.getContent()}"></textarea>
 	            <button id="newSubmit" type="submit">등록</button>
 	        </div>
         </form>
@@ -30,8 +30,13 @@
 	            <div class="cmt-box">
 	                <div id="cmt">${datas.getContent()}</div>
 	                <div class="default-btn">
-	                    <button class="cmt-mod" class="button" type="button">수정</button>
-	                    <button class="cmt-del" class="button" type="button">삭제</button>
+	                	<form action="/post/comments/update" method="post">
+	                    	<button class="cmt-mod" class="button" type="submit">수정</button>
+	                    </form>
+	                    <form action="/post/comments/delete" method="post">
+	                    	<input type="hidden" name="post_id" value="${datas.getPost_id()}">
+	                    	<button class="cmt-del" class="button" type="submit">삭제</button>
+	                    </form>
 	                </div>
 	                <div class="mod-btn" style="display: none;">
 	                    <button class="rtn" class="button" type="button">취소</button>
