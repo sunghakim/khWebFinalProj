@@ -25,39 +25,46 @@ public class ItemService {
 		ItemDTO dto = new ItemDTO();
 		List<ItemDTO> data = dao.selectZzimHigh(); //찜 많은 아이템아이디순으로 가져오기
 		List<ItemDTO> li = new ArrayList<ItemDTO>();
-		
-		li.add(data.get(0));
-		li.add(data.get(1));
-		li.add(data.get(2));
-		
-		List<ItemDTO> ld = new ArrayList<ItemDTO>();
-		
-		for(int i=0;i<li.size();i++) {
-			ItemDTO ha = dao.selectItemDetail(li.get(i));
-			ld.add(ha);
+		if(li.size() > 2) {
+			li.add(data.get(0));
+			li.add(data.get(1));
+			li.add(data.get(2));
+			
+			List<ItemDTO> ld = new ArrayList<ItemDTO>();
+			
+			for(int i=0;i<li.size();i++) {
+				ItemDTO ha = dao.selectItemDetail(li.get(i));
+				ld.add(ha);
+			}
+
+			return ld;
+		}
+		else {
+			return null;
 		}
 		
-		return ld;
 	}
 	//리뷰 높은순으로 데이터 3개 가져오기
 	public List<ItemDTO> getReviewItem(int item_category_id) {
 		ItemDTO dto = new ItemDTO();
 		List<ItemDTO> data = dao.selectReviewHigh(); //찜 많은 아이템아이디순으로 가져오기
 		List<ItemDTO> li = new ArrayList<ItemDTO>();
-		
-		li.add(data.get(0));
-		li.add(data.get(1));
-		li.add(data.get(2));
-		
-		
-		List<ItemDTO> ld = new ArrayList<ItemDTO>();
-		
-		for(int i=0;i<li.size();i++) {
-			ItemDTO ha = dao.selectItemDetail(li.get(i));
-			ld.add(ha);
+		if(li.size() > 2) {
+			li.add(data.get(0));
+			li.add(data.get(1));
+			li.add(data.get(2));
+			
+			List<ItemDTO> ld = new ArrayList<ItemDTO>();
+			
+			for(int i=0;i<li.size();i++) {
+				ItemDTO ha = dao.selectItemDetail(li.get(i));
+				ld.add(ha);
+			}
+			return ld;
 		}
-		
-		return ld;
+		else {
+			return null;
+		}
 	}
 	
 	//김성하 작업
@@ -72,5 +79,8 @@ public class ItemService {
 	}
 	public ItemOptionDTO getItemOption(ItemOptionDTO vo) {
 		return dao.selectItemOption(vo);
+	}
+	public ItemOptionDTO getOneItemOption(ItemOptionSpecVO vo) {
+		return dao.selectOneItemOption(vo);
 	}
 }

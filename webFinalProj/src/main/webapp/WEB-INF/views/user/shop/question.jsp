@@ -19,7 +19,7 @@
                     <label class="title">상품 문의</label>
                 </div>
                 <div>
-                    <button id="button" type="button">문의하기</button>
+                    <button id="button" type="button" onclick="location.href='/itemDetail/addQuestion?item_id=' + ${item_id}">문의하기</button>
                 </div>
             </div>
             <hr>

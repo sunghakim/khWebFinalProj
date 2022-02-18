@@ -8,7 +8,7 @@
 	<insert id="insertShoppingList" parameterType="shoppingList">
 		INSERT INTO SHOPPING_LIST VALUES(SHOPPING_LIST_SEQ.NEXTVAL, #{account_id}, #{item_id}, #{amount}, #{item_option_id})
 	</insert>
-	<select id="selectOneShopingList" parameterType="shoppingList" resultType="shoppingList">
+	<select id="selectOneShoppingList" parameterType="shoppingList" resultType="shoppingList">
 	    SELECT * FROM SHOPPING_LIST WHERE ACCOUNT_ID = #{account_id} AND ITEM_ID = #{item_id} AND ITEM_OPTION_ID = #{item_option_id} AND AMOUNT = #{amount}
 	</select>
   	<select id="selectShoppingLists" parameterType="shoppingList" resultType="shoppingList">

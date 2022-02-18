@@ -21,7 +21,7 @@
             <label class="header-text">총 <span class="point">${reviewCount}</span> 개의 리뷰가 있습니다.</label>
         </div>
         <div>
-            <button id="write-btn" type="button">후기 작성</button>
+            <button id="write-btn" type="button" onclick="location.href='/itemDetail/reviewWrite?item_id=' + ${item_id}">후기 작성</button>
         </div>
     </div>
     <hr>

@@ -13,7 +13,7 @@
 <%@ include file="../common/topnav.jsp"%>
 <%@ include file="../common/sidenav.jsp"%>
 <div class="body">
-<form>
+<form action="/itemDetail/reviewWrite" method="post">
     <div class="writeHeader">
         <label class="title">평가</label>
         <ul class="stars">
@@ -33,7 +33,7 @@
     </div>
     <div class="writeFooter">
         <button class="common-btn" type="button">취소</button>
-        <button class="point-btn" type="button">작성완료</button>
+        <button class="point-btn" type="submit">작성완료</button>
     </div>
 </form>
 </div>

@@ -59,4 +59,7 @@
  	<select id="selectItemOption" parameterType="itemOption" resultType="itemOption">
     SELECT * FROM ITEM_OPTION WHERE ITEM_OPTION_ID = #{item_option_id}
 	</select>
+	<select id="selectOneItemOption" parameterType="itemOptionSpec" resultType="itemOption">
+    SELECT * FROM ITEM_OPTION WHERE ITEM_SIZE = #{size} AND COLOR = #{color} AND ITEM_ID = #{item_id}
+	</select>
 </mapper>
