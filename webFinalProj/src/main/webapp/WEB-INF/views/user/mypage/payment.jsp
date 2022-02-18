@@ -25,15 +25,19 @@
 	                <div class="list-table">
 	                    <table>
 	                        <tr>
+	                        <% int index = 0; %>
+	                        <c:forEach var="shop_item" items="${shop}">
 	                            <td>
-	                                <label class="name">상품명</label>
+	                                <label class="name">${itemList.get(index).getName()}</label>
 	                                -
-	                                <label class="option">옵션</label>
-	                                <label><span  class="num">2</span>개</label>
+	                                <label class="option">${shop_item.item_option_id}</label>
+	                                <label><span  class="num">${shop_item.amount}</span>개</label>
 	                            </td>
 	                            <td>
-	                                <label><span  class="price">44,444</span>원</label>
+	                                <label><span  class="price">${itemList.get(index).getPrice() * shop_item.amount}</span>원</label>
 	                            </td>
+	                            <% index++; %>
+	                        </c:forEach>
 	                        </tr>
 	                    </table>
 	                </div>

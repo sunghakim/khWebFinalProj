@@ -373,7 +373,7 @@
 								<article class="article-before" id="before-${status.count}">
 							        <a href="/itemDetail/main?item_id=${List.getItem_id()}">
 								        <p class="head-text">${List.getName()}</p>
-								        <img class="img" src="${List.getDownloadPath()}">
+								        <img class="img" src="#">
 							        </a>
 							    </article>
 							</c:forEach>

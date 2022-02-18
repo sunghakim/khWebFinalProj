@@ -159,6 +159,14 @@ public class ItemDetailController extends Manage_S_Module {
 			if(shoppingService.addShoppingList(vo)) {
 				List<ShoppingListVO> shop = shoppingService.getPaymentShoppingList(vo);
 				model.addAttribute("shoppingList", shop);
+				List<ItemDTO> items = new ArrayList<ItemDTO>();
+				for(ShoppingListVO sample: shop) {
+					ItemDTO ex = new ItemDTO();
+					ex.setItem_id(sample.getItem_id());
+					ItemDTO data = itemService.getItem(ex);
+					items.add(data);
+				}
+				model.addAttribute("itemList", items);
 			}
 			else {
 				model.addAttribute("isError", true);
@@ -298,17 +306,17 @@ public class ItemDetailController extends Manage_S_Module {
 				SocialAccountVO nowAcc = (SocialAccountVO)session.getAttribute("account");
 				shistoryVo.setAccount_id(nowAcc.getSocial_account_id());
 			}
-			if(!reviewService.checkAlreadyBuy(shistoryVo, sdetailVo)) { // ----> 제대로 작동하는지 확인해봐야한다.
+			/*if(!reviewService.checkAlreadyBuy(shistoryVo, sdetailVo)) { // ----> 제대로 작동하는지 확인해봐야한다.
 				model.addAttribute("isError", true);
 				model.addAttribute("error_msg", "상품을 구매하지 않았습니다. 리뷰를 작성할 수 없습니다.");
 				List<ReviewVO> reviews = reviewService.getReviews(reviewVo);
 				model.addAttribute("reviewCount", reviews.size());
 				return "redirect:/itemDetail/review?item_id=" + sdetailVo.getItem_id();
 			}
-			else {
+			else {*/
 				model.addAttribute("item_id", sdetailVo.getItem_id());
 				return "user/shop/reviewWrite";
-			}
+			//}
 		}
 	}
 	//후기작성완료 버튼 누를 시 동작
