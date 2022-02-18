@@ -280,7 +280,7 @@
                     </div>
                 </div>
             </header>
-            <div class="content">
+            <~!--div class="content">
                 <nav>
                     <div class="nav-wrap">
                         <ul class="user-nav">
@@ -312,7 +312,7 @@
                                 <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
                                 <p>${navList.get(6).getItemCategoryName()}</p>
                             </li>
-                        </ul>
+                        </ul-->
                         <ul class="admin-nav">
                             <li id="admin-nav-1" class="click-color">
                                 <div class="icon">&nbsp;&nbsp;<i class="fas fa-chevron-circle-right"></i>&nbsp;</div>
@@ -373,7 +373,7 @@
 								<article class="article-before" id="before-${status.count}">
 							        <a href="/itemDetail/main?item_id=${List.getItem_id()}">
 								        <p class="head-text">${List.getName()}</p>
-								        <img class="img" src="${List.getDownloadPath()}">
+								        <img class="img" src="#">
 							        </a>
 							    </article>
 							</c:forEach>
